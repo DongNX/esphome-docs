@@ -2,7 +2,7 @@ Digo Improv via BLE
 ==============
 
 .. seo::
-    :description: Instructions for setting up Improv via BLE in ESPHome.
+    :description: Instructions for setting up Improv via BLE in ESPHome with Digo additional setting.
     :image: improv-social.png
 
 This component was customized by DigoTech. Basically, this component still base on esp32 ``esp32_improv`` component.
