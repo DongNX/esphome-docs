@@ -5,3 +5,4 @@ Devices
     :glob:
 
     *
+    digo/*

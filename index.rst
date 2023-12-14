@@ -920,6 +920,19 @@ Cookbook
     EHMTX a matrix status/text display, cookbook/ehmtx, ehmtx.jpg
     Share data directly between ESPHome nodes, cookbook/http_request_sensor, connection.svg, dark-invert
 
+Digo Products
+-------------
+
+.. imgtable::
+
+    Water Heater, devices/digo/water_heater, digo.svg, dark-invert
+    Water Purifier, devices/digo/water_heater, digo.svg, dark-invert
+    Celling Fan, devices/digo/water_heater, digo.svg, dark-invert
+    Smart Plug, devices/digo/water_heater, digo.svg, dark-invert
+    Smart Switch, devices/digo/water_heater, digo.svg, dark-invert
+    Speaker Monitor, devices/digo/water_heater, digo.svg, dark-invert
+    Freezer, devices/digo/water_heater, digo.svg, dark-invert
+
 Do you have other awesome automations or cool setups? Please feel free to add them to the
 documentation for others to copy. See :doc:`Contributing </guides/contributing>`.
 
