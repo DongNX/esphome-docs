@@ -271,6 +271,10 @@ Command ID: ``0xC9``
    * - Z + 2 ... G
      - Tenant_id bytes
    * - G + 1
+     - Device_owner length
+   * - G + 2 ... I
+     - Device_owner bytes
+   * - I + 1
      - Checksum - A simple sum checksum keeping only the LSB
 
 DIGO RPC command: Set Token settings
