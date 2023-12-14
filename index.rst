@@ -873,6 +873,7 @@ Miscellaneous Components
     DFPlayer, components/dfplayer, dfplayer.svg, dark-invert
     Captive Portal, components/captive_portal, wifi-strength-alert-outline.svg, dark-invert
     Improv via BLE, components/esp32_improv, improv.svg, dark-invert
+    Digo Improv via BLE, components/esp32_digo_improv, improv.svg, dark-invert
     Improv via Serial, components/improv_serial, improv.svg, dark-invert
     Debug Component, components/debug, bug-report.svg, dark-invert
     TM1651 Battery Display, components/tm1651, tm1651_battery_display.jpg
