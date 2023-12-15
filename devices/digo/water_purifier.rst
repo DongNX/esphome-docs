@@ -1,12 +1,12 @@
-Digo Water Heater
-=================
+Digo Water Purifier
+===================
 
 .. seo::
-    :description: Instructions for setting up a Digo Water Heater.
+    :description: Instructions for setting up a Digo Water Purifier.
     :image: water_heater.jpg
 
-The ``digo_water_heater`` overview introduction. `DongNX` would like to write somethings here ...
-Use this component to integrate Digo Water Heater into ESPHome / Home Assistant ecosystem.
+The ``digo_water_purifier`` overview introduction. `DongNX` would like to write somethings here ...
+Use this component to integrate Digo Water Purifier into ESPHome / Home Assistant ecosystem.
 
 .. figure:: images/water_heater.jpg
     :align: center
@@ -14,7 +14,7 @@ Use this component to integrate Digo Water Heater into ESPHome / Home Assistant 
 
     Water heater front and back view. Image by `DIGO <https://digotech.net/solution>`__.
 
-The ``digo_water_heater`` hardware introduction. Touch, Relay, Led7seg, ntc, ...
+The ``digo_water_purifier`` hardware introduction. Touch, Relay, Led7seg, ntc, ...
 
 .. figure:: images/water_heater.jpg
     :align: center

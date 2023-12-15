@@ -1,5 +1,5 @@
 Digo Improv via BLE
-==============
+===================
 
 .. seo::
     :description: Instructions for setting up Improv via BLE in ESPHome with Digo additional setting.
@@ -241,7 +241,7 @@ Command ID: ``0xC8``
      - Checksum - A simple sum checksum keeping only the LSB
 
 DIGO RPC command: Set Device settings
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Command ID: ``0xC9``
 
 .. list-table:: 
@@ -278,7 +278,7 @@ Command ID: ``0xC9``
      - Checksum - A simple sum checksum keeping only the LSB
 
 DIGO RPC command: Set Token settings
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Command ID: ``0xCA``
 
 .. list-table:: 
