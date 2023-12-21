@@ -605,7 +605,8 @@ Switch Components
     Modbus Switch, components/switch/modbus_controller, modbus.png
     BLE Client Switch, components/switch/ble_client, bluetooth.svg, dark-invert
     Nextion Switch, components/switch/nextion, nextion.jpg
-
+    Digo Switch, components/switch/digo, digo.svg
+    
 Button Components
 -----------------
 
@@ -667,6 +668,7 @@ Display Components
     TM1637, components/display/tm1637, tm1637.jpg
     TM1638, components/display/tm1638, tm1638.jpg
     Waveshare E-Paper, components/display/waveshare_epaper, waveshare_epaper.jpg
+    Digo 7 Segment, components/display/digo, digo.svg
 
 Touchscreen Components
 ----------------------
