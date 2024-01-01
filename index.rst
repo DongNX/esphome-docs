@@ -893,6 +893,7 @@ Miscellaneous Components
     WireGuard, components/wireguard, wireguard_custom_logo.svg
     Demo, components/demo, description.svg, dark-invert
     Copy, components/copy, content-copy.svg, dark-invert
+    Digo Control BLE, components/esp32_digo_ble, digo.svg, dark-invert
 
 Additional Custom Components
 ----------------------------

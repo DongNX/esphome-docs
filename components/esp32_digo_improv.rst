@@ -8,10 +8,10 @@ Digo Improv via BLE
 This component was customized by DigoTech. Basically, this component still base on ``esp32_improv`` component.
 Some additional RPC commands were added to make device could setup to connect to DigoTech cloud.
 
-The ``esp32_improv`` component in ESPHome implements the open `Improv standard <https://www.improv-wifi.com/>`__
+The ``esp32_digo_improv`` component in ESPHome implements the open `Improv standard <https://www.improv-wifi.com/>`__
 for configuring Wi-Fi on an ESP32 device by using Bluetooth Low Energy (BLE) to receive the credentials.
 
-The ``esp32_improv`` component will automatically set up the :doc:`BLE Server <esp32_ble>`.
+The ``esp32_digo_improv`` component will automatically set up the :doc:`BLE Server <esp32_ble>`.
 
 .. warning::
 
