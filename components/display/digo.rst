@@ -47,17 +47,57 @@ Rendering Lambda
 .. code-block:: yaml
 
     display:
-      - platform: tm1621
+      - platform: digo_led7seg
         # ...
       lambda: |-
         lambda: |-
-            it.setNumber((uint8_t)temperature);
+          it.setNumber((uint8_t)temperature);
 
 
 Replace any number you want to display into ``temperature`` variable on above example.
 
+Example code
+^^^^^^^^^^^^
+
+For example, if you want to read temperatrue value from ADC sensor and display, please refer below example code:
+
+.. code-block:: yaml
+
+    sensor:
+    # Declare board temperature sensor
+    - platform: ntc
+        sensor: board_temperature_sensor
+        calibration:
+        b_constant: 3950
+        reference_temperature: 25°C
+        reference_resistance: 10kOhm
+        name: Board Temperature
+
+    # Configuration for board temperature sensor
+    - platform: resistance
+        internal: true
+        id: board_temperature_sensor
+        sensor: board_temperature_resistance_sensor
+        configuration: DOWNSTREAM
+        resistor: 33kOhm
+        name: Board Temperature Resistance Sensor
+    - platform: adc
+        id: board_temperature_resistance_sensor
+        pin: A5
+        update_interval: 30s
+
+    display:
+    - platform: digo_led7seg
+        hc595_latch_pin: 26
+        hc595_clock_pin: 27
+        hc595_data_pin: 25
+        digit_1_ctrl_pin: 18
+        digit_2_ctrl_pin: 19
+        lambda: |-
+          it.setNumber((uint8_t)id(water_temperature).get_state());
 
 See Also
 --------
 
 - :doc:`index`
+- :doc:`../../devices/digo/water_heater`

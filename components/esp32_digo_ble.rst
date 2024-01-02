@@ -62,12 +62,12 @@ Configuration variables:
 GATT Services
 -------------
 
-Service UUID: ``00467768-6228-2272-4663-277478266000``
+Service UUID: ``F61E3BE9-2826-A81B-970A-4D4DECFABBAE``
     
 Characteristic: RPC Command
 ***************************
 
-Characteristic UUID: ``00467768-6228-2272-4663-277478266001``
+Characteristic UUID: ``6490FAFE-0734-732C-8705-91B653A081FC``
 
 This characteristic is where the client can write data to control component through the RPC service.
 
