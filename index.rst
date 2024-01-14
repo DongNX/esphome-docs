@@ -605,7 +605,8 @@ Switch Components
     Modbus Switch, components/switch/modbus_controller, modbus.png
     BLE Client Switch, components/switch/ble_client, bluetooth.svg, dark-invert
     Nextion Switch, components/switch/nextion, nextion.jpg
-
+    Digo Switch, components/switch/digo, digo.svg
+    
 Button Components
 -----------------
 
@@ -667,6 +668,7 @@ Display Components
     TM1637, components/display/tm1637, tm1637.jpg
     TM1638, components/display/tm1638, tm1638.jpg
     Waveshare E-Paper, components/display/waveshare_epaper, waveshare_epaper.jpg
+    Digo 7 Segment, components/display/digo, digo.svg
 
 Touchscreen Components
 ----------------------
@@ -891,6 +893,7 @@ Miscellaneous Components
     WireGuard, components/wireguard, wireguard_custom_logo.svg
     Demo, components/demo, description.svg, dark-invert
     Copy, components/copy, content-copy.svg, dark-invert
+    Digo Control BLE, components/esp32_digo_ble, digo.svg, dark-invert
 
 Additional Custom Components
 ----------------------------
@@ -925,13 +928,13 @@ Digo Products
 
 .. imgtable::
 
-    Water Heater, devices/digo/water_heater, digo.svg, dark-invert
-    Water Purifier, devices/digo/water_heater, digo.svg, dark-invert
-    Celling Fan, devices/digo/water_heater, digo.svg, dark-invert
-    Smart Plug, devices/digo/water_heater, digo.svg, dark-invert
-    Smart Switch, devices/digo/water_heater, digo.svg, dark-invert
-    Speaker Monitor, devices/digo/water_heater, digo.svg, dark-invert
-    Freezer, devices/digo/water_heater, digo.svg, dark-invert
+    Water Heater, devices/digo/water_heater, water_heater.jpg, dark-invert
+    Water Purifier, devices/digo/water_purifier, digo.svg, dark-invert
+    Celling Fan, devices/digo/celling_fan, digo.svg, dark-invert
+    Smart Plug, devices/digo/smart_plug, digo.svg, dark-invert
+    Smart Switch, devices/digo/smart_plug, digo.svg, dark-invert
+    Speaker Monitor, devices/digo/speaker_monitor, digo.svg, dark-invert
+    Freezer, devices/digo/freezer, digo.svg, dark-invert
 
 Do you have other awesome automations or cool setups? Please feel free to add them to the
 documentation for others to copy. See :doc:`Contributing </guides/contributing>`.
