@@ -18,8 +18,6 @@ The ``esp32_digo_ble`` component need set up the :doc:`BLE Server <esp32_ble>`.
     configuration. Memory-intensive components such as :doc:`/components/voice_assistant` and other
     audio components are most likely to cause issues.
 
-    **Currently, we only support control switch component. Other component will be supported soon.**
-
 .. code-block:: yaml
 
     # Example configuration entry
@@ -38,26 +36,14 @@ The ``esp32_digo_ble`` component need set up the :doc:`BLE Server <esp32_ble>`.
         - logger.log: "Wifi disconnect then enable BLE."
         - ble.enable:
 
-    # Declare switch components
-    switch:
-      - platform: gpio
-        pin: 25
-        id: relay1
-      - platform: gpio
-        pin: 26
-        id: relay2
-
     # Add Digo BLE to control switch component via BLE.
     digo_ble:
-      switch_id: 
-        - relay1
-        - relay2
 
 
 Configuration variables:
 ------------------------
 
-- **switch_id** (*Optional*, list): List of switch to control.
+None
 
 GATT Services
 -------------
@@ -69,21 +55,11 @@ Characteristic: RPC Command
 
 Characteristic UUID: ``6490FAFE-0734-732C-8705-91B653A081FC``
 
-This characteristic is where the client can write data to control component through the RPC service.
+This characteristic is where the client can write data to control component through the RPC service. Developer feed json data directly into payload.
 
-.. list-table:: 
-   :widths: auto
-   :header-rows: 1
+Example:
+``
+{"ts":682820481,"tc":"abcdefghiklmn","values":{"switch_1":true,"cur_cur":1242,"cur_vol":220,"cur_pwr":23}}
+``
 
-   * - Byte
-     - Description
-   * - 1
-     - Switch index
-   * - 2
-     - Switch value
 
-Example: Set Switch index 0 to 1:
-``00 01``
-
-Example: Set Switch index 1 to 0:
-``01 00``
