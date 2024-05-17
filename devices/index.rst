@@ -4,5 +4,4 @@ Devices
 .. toctree::
     :glob:
 
-    *
     digo/*

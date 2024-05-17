@@ -926,12 +926,10 @@ Digo Products
 .. imgtable::
 
     Water Heater, devices/digo/water_heater, digo.svg, dark-invert
-    Water Purifier, devices/digo/water_heater, digo.svg, dark-invert
-    Celling Fan, devices/digo/water_heater, digo.svg, dark-invert
-    Smart Plug, devices/digo/water_heater, digo.svg, dark-invert
-    Smart Switch, devices/digo/water_heater, digo.svg, dark-invert
-    Speaker Monitor, devices/digo/water_heater, digo.svg, dark-invert
-    Freezer, devices/digo/water_heater, digo.svg, dark-invert
+    Celling Fan, devices/digo/celling_fan, digo.svg, dark-invert
+    Smart Plug, devices/digo/smart_plug, digo.svg, dark-invert
+    Smart Switch, devices/digo/smart_switch, digo.svg, dark-invert
+    More..., devices/index, digo.svg, dark-invert
 
 Do you have other awesome automations or cool setups? Please feel free to add them to the
 documentation for others to copy. See :doc:`Contributing </guides/contributing>`.

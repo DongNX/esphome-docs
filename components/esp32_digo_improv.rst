@@ -1,9 +1,12 @@
-Improv via BLE
+Digo Improv via BLE
 ==============
 
 .. seo::
-    :description: Instructions for setting up Improv via BLE in ESPHome.
+    :description: Instructions for setting up Improv via BLE in ESPHome with Digo additional setting.
     :image: improv-social.png
+
+This component was customized by DigoTech. Basically, this component still base on ``esp32_improv`` component.
+Some additional RPC commands were added to make device could setup to connect to DigoTech cloud.
 
 The ``esp32_improv`` component in ESPHome implements the open `Improv standard <https://www.improv-wifi.com/>`__
 for configuring Wi-Fi on an ESP32 device by using Bluetooth Low Energy (BLE) to receive the credentials.
@@ -157,7 +160,7 @@ Note: if the combined payload is over 20 bytes, it will require multiple BLE pac
      - Checksum - A simple sum checksum keeping only the LSB
 
 RPC Command: Send Wi-Fi settings
-
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Submit Wi-Fi credentials to the Improv Service to attempt to connect to.
 
 Requires the Improv service to be authorized.
@@ -189,7 +192,7 @@ Example: SSID = MyWirelessAP, Password = mysecurepassword
 ``01 1E 0C {MyWirelessAP} 10 {mysecurepassword} CS``
 
 RPC Command: Identify
-
+^^^^^^^^^^^^^^^^^^^^^
 What a device actually does when an identify command is received is up to that specific device, but the user should be able to visually or audibly identify the device.
 
 Command ID: ``0x02``
@@ -201,7 +204,7 @@ Should only be sent if the capability characteristic indicates that identify is 
 Payload: ``02 00 CS``
 
 DIGO RPC command: Set Host settings
-
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Command ID: ``0xC8``
 
 .. list-table:: 
@@ -238,7 +241,7 @@ Command ID: ``0xC8``
      - Checksum - A simple sum checksum keeping only the LSB
 
 DIGO RPC command: Set Device settings
-
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Command ID: ``0xC9``
 
 .. list-table:: 
@@ -268,10 +271,14 @@ Command ID: ``0xC9``
    * - Z + 2 ... G
      - Tenant_id bytes
    * - G + 1
+     - Device_owner length
+   * - G + 2 ... I
+     - Device_owner bytes
+   * - I + 1
      - Checksum - A simple sum checksum keeping only the LSB
 
 DIGO RPC command: Set Token settings
-
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Command ID: ``0xCA``
 
 .. list-table:: 
