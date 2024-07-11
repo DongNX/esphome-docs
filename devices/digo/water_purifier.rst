@@ -1,21 +1,21 @@
-Digo Smart Plug
-================
+Digo Water Purifier
+===================
 
 .. seo::
-    :description: Instructions for setting up a Digo Smart Plug.
+    :description: Instructions for setting up a Digo Water Purifier.
     :image: digo.svg
 
-The ``digo_smart_plug`` overview introduction. 
+The ``digo_water_purifier`` overview introduction. 
 `........ Coming soon .........`
-Use this component to integrate Digo Smart Plug into ESPHome / Home Assistant ecosystem.
+Use this component to integrate Digo Water Purifier into ESPHome / Home Assistant ecosystem.
 
 .. figure:: images/coming_soon.png
     :align: center
     :width: 100.0%
 
-    Smart Plug front and back view. Image by `DIGO <https://digotech.net/solution>`__.
+    Water Purifier front and back view. Image by `DIGO <https://digotech.net/solution>`__.
 
-The ``digo_smart_plug`` hardware introduction. Touch, Relay, Led7seg, ntc, ...
+The ``digo_water_purifier`` hardware introduction. Touch, Relay, Led7seg, ntc, ...
 
 .. figure:: images/coming_soon.png
     :align: center
@@ -38,7 +38,11 @@ Before using this components make sure:
 
     # Example configuration entry
     esphome:
-    name: smartplug
+    name: waterpurifier
+
+    # Need to include dogo custom components
+    <<: !include digo_components.yaml
+
 
     # Comming soon
 

@@ -1,21 +1,21 @@
-Digo Smart Plug
+Digo Speaker Monitor
 ================
 
 .. seo::
-    :description: Instructions for setting up a Digo Smart Plug.
+    :description: Instructions for setting up a Digo Speaker Monitor.
     :image: digo.svg
 
-The ``digo_smart_plug`` overview introduction. 
+The ``digo_speaker_monitor`` overview introduction. 
 `........ Coming soon .........`
-Use this component to integrate Digo Smart Plug into ESPHome / Home Assistant ecosystem.
+Use this component to integrate Digo Speaker Monitor into ESPHome / Home Assistant ecosystem.
 
 .. figure:: images/coming_soon.png
     :align: center
     :width: 100.0%
 
-    Smart Plug front and back view. Image by `DIGO <https://digotech.net/solution>`__.
+    Speaker Monitor front and back view. Image by `DIGO <https://digotech.net/solution>`__.
 
-The ``digo_smart_plug`` hardware introduction. Touch, Relay, Led7seg, ntc, ...
+The ``digo_speaker_monitor`` hardware introduction. Touch, Relay, Led7seg, ntc, ...
 
 .. figure:: images/coming_soon.png
     :align: center
@@ -38,7 +38,11 @@ Before using this components make sure:
 
     # Example configuration entry
     esphome:
-    name: smartplug
+    name: speakermonitor
+
+    # Need to include dogo custom components
+    <<: !include digo_components.yaml
+
 
     # Comming soon
 

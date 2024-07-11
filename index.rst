@@ -16,108 +16,108 @@ ESPHome is a system to control your microcontrollers by simple yet powerful conf
 
 .. image:: /images/hero.png
 
-.. raw:: html
+.. .. raw:: html
 
-    <div class="guide-container">
-        <div class="guide-card">
-            <h3 class="guide-card-title">Getting started</h3>
-            <ul>
-                <li>
-                    <a class="reference" href="/guides/getting_started_hassio.html">
-                        from Home Assistant
-                    </a>
-                </li>
-                <li>
-                    <a class="reference" href="/guides/getting_started_command_line.html">
-                        using the command line
-                    </a>
-                </li>
-                <li>
-                    <a class="reference" href="/projects/">
-                        install ready-made project
-                    </a>
-                </li>
-                <li>
-                    <a class="reference" href="/guides/migrate_sonoff_tasmota.html">
-                        by migrating from Tasmota
-                    </a>
-                </li>
-            </ul>
-            <div class="example highlight">
-                <pre>
-                    <span class="nt">esphome</span><span class="p">:</span>
-                    <span class="w">&nbsp;&nbsp;</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awesome</span>
-                    <span class="nt">esp32</span><span class="p">:</span>
-                    <span class="w">&nbsp;&nbsp;</span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodemcu-32s</span>
-                </pre>
-            </div>
-        </div>
-        <div class="guide-card">
-            <h3 class="guide-card-title">Next steps</h3>
-            <ul>
-                <li>
-                    <a class="reference" href="/guides/faq.html">
-                        FAQ and Tips
-                    </a>
-                </li>
-                <li>
-                    <a class="reference" href="/guides/automations.html">
-                        Automations
-                    </a>
-                </li>
-                <li>
-                    <a class="reference" href="/guides/diy.html">
-                        DIY Examples
-                    </a>
-                </li>
-                <li>
-                    <a class="reference" href="/guides/configuration-types.html">
-                        Configuration types
-                    </a>
-                </li>
-                <li>
-                    <a class="reference" href="/guides/creators.html">
-                        Sharing ESPHome devices
-                    </a>
-                </li>
-                <li>
-                    <a class="reference" href="/guides/made_for_esphome.html">
-                        Made for ESPHome program
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="guide-card">
-            <h3 class="guide-card-title">Keeping up</h3>
-            <ul>
-                <li>
-                    <a class="reference" href="https://discord.gg/KhAMKrd" target="_blank">
-                        Discord
-                    </a>
-                </li>
-                <li>
-                    <a class="reference" href="https://community.home-assistant.io/c/esphome/" target="_blank">
-                        Forums
-                    </a>
-                </li>
-                <li>
-                    <a class="reference" href="/changelog/index.html">
-                        Changelog
-                    </a>
-                </li>
-                <li>
-                    <a class="reference" href="/guides/supporters.html">
-                        Supporters
-                    </a>
-                </li>
-                <li>
-                    <a class="reference" href="/guides/contributing.html">
-                        Contributing
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+..     <div class="guide-container">
+..         <div class="guide-card">
+..             <h3 class="guide-card-title">Getting started</h3>
+..             <ul>
+..                 <li>
+..                     <a class="reference" href="/guides/getting_started_hassio.html">
+..                         from Home Assistant
+..                     </a>
+..                 </li>
+..                 <li>
+..                     <a class="reference" href="/guides/getting_started_command_line.html">
+..                         using the command line
+..                     </a>
+..                 </li>
+..                 <li>
+..                     <a class="reference" href="/projects/">
+..                         install ready-made project
+..                     </a>
+..                 </li>
+..                 <li>
+..                     <a class="reference" href="/guides/migrate_sonoff_tasmota.html">
+..                         by migrating from Tasmota
+..                     </a>
+..                 </li>
+..             </ul>
+..             <div class="example highlight">
+..                 <pre>
+..                     <span class="nt">esphome</span><span class="p">:</span>
+..                     <span class="w">&nbsp;&nbsp;</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awesome</span>
+..                     <span class="nt">esp32</span><span class="p">:</span>
+..                     <span class="w">&nbsp;&nbsp;</span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodemcu-32s</span>
+..                 </pre>
+..             </div>
+..         </div>
+..         <div class="guide-card">
+..             <h3 class="guide-card-title">Next steps</h3>
+..             <ul>
+..                 <li>
+..                     <a class="reference" href="/guides/faq.html">
+..                         FAQ and Tips
+..                     </a>
+..                 </li>
+..                 <li>
+..                     <a class="reference" href="/guides/automations.html">
+..                         Automations
+..                     </a>
+..                 </li>
+..                 <li>
+..                     <a class="reference" href="/guides/diy.html">
+..                         DIY Examples
+..                     </a>
+..                 </li>
+..                 <li>
+..                     <a class="reference" href="/guides/configuration-types.html">
+..                         Configuration types
+..                     </a>
+..                 </li>
+..                 <li>
+..                     <a class="reference" href="/guides/creators.html">
+..                         Sharing ESPHome devices
+..                     </a>
+..                 </li>
+..                 <li>
+..                     <a class="reference" href="/guides/made_for_esphome.html">
+..                         Made for ESPHome program
+..                     </a>
+..                 </li>
+..             </ul>
+..         </div>
+..         <div class="guide-card">
+..             <h3 class="guide-card-title">Keeping up</h3>
+..             <ul>
+..                 <li>
+..                     <a class="reference" href="https://discord.gg/KhAMKrd" target="_blank">
+..                         Discord
+..                     </a>
+..                 </li>
+..                 <li>
+..                     <a class="reference" href="https://community.home-assistant.io/c/esphome/" target="_blank">
+..                         Forums
+..                     </a>
+..                 </li>
+..                 <li>
+..                     <a class="reference" href="/changelog/index.html">
+..                         Changelog
+..                     </a>
+..                 </li>
+..                 <li>
+..                     <a class="reference" href="/guides/supporters.html">
+..                         Supporters
+..                     </a>
+..                 </li>
+..                 <li>
+..                     <a class="reference" href="/guides/contributing.html">
+..                         Contributing
+..                     </a>
+..                 </li>
+..             </ul>
+..         </div>
+..     </div>
 
 .. _devices:
 
@@ -605,7 +605,8 @@ Switch Components
     Modbus Switch, components/switch/modbus_controller, modbus.png
     BLE Client Switch, components/switch/ble_client, bluetooth.svg, dark-invert
     Nextion Switch, components/switch/nextion, nextion.jpg
-
+    Digo Switch, components/switch/digo, digo.svg
+    
 Button Components
 -----------------
 
@@ -667,6 +668,7 @@ Display Components
     TM1637, components/display/tm1637, tm1637.jpg
     TM1638, components/display/tm1638, tm1638.jpg
     Waveshare E-Paper, components/display/waveshare_epaper, waveshare_epaper.jpg
+    Digo 7 Segment, components/display/digo, digo.svg
 
 Touchscreen Components
 ----------------------
@@ -891,6 +893,7 @@ Miscellaneous Components
     WireGuard, components/wireguard, wireguard_custom_logo.svg
     Demo, components/demo, description.svg, dark-invert
     Copy, components/copy, content-copy.svg, dark-invert
+    Digo Control BLE, components/esp32_digo_ble, digo.svg
 
 Additional Custom Components
 ----------------------------
@@ -925,11 +928,13 @@ Digo Products
 
 .. imgtable::
 
-    Water Heater, devices/digo/water_heater, digo.svg, dark-invert
-    Celling Fan, devices/digo/celling_fan, digo.svg, dark-invert
-    Smart Plug, devices/digo/smart_plug, digo.svg, dark-invert
-    Smart Switch, devices/digo/smart_switch, digo.svg, dark-invert
-    More..., devices/index, digo.svg, dark-invert
+    Water Heater, devices/digo/water_heater, water_heater.jpg
+    Water Purifier, devices/digo/water_purifier, digo.svg
+    Celling Fan, devices/digo/celling_fan, digo.svg
+    Smart Plug, devices/digo/smart_plug, digo.svg
+    Smart Switch, devices/digo/smart_plug, digo.svg
+    Speaker Monitor, devices/digo/speaker_monitor, digo.svg
+    Freezer, devices/digo/freezer, digo.svg
 
 Do you have other awesome automations or cool setups? Please feel free to add them to the
 documentation for others to copy. See :doc:`Contributing </guides/contributing>`.
