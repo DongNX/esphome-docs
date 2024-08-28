@@ -1,0 +1,359 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Mopeka Standard Check bluetooth-based sensors in ESPHome.">
+<meta name="keywords" content="Mopeka, Mopeka Standard Check, Mopeka Std Check, BLE, Bluetooth">
+<meta itemprop="name" content="Mopeka Standard Check BLE Sensor">
+<meta itemprop="description" content="Instructions for setting up Mopeka Standard Check bluetooth-based sensors in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/mopeka_std_check.jpg">
+<meta name="twitter:title" content="Mopeka Standard Check BLE Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/mopeka_std_check.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Mopeka Standard Check bluetooth-based sensors in ESPHome.">
+<meta property="og:title" content="Mopeka Standard Check BLE Sensor">
+<meta property="og:image" content="https://esphome.io/_images/mopeka_std_check.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Mopeka Standard Check bluetooth-based sensors in ESPHome.">
+
+    <title>Mopeka Standard Check BLE Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/mopeka_std_check.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="MPL3115A2 Barometric Pressure/Altitude/Temperature Sensor" href="mpl3115a2.html" />
+    <link rel="prev" title="Mopeka Pro Check BLE Sensor" href="mopeka_pro_check.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Mopeka Standard Check BLE Sensor</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#tank-types">Tank Types</a></li>
+<li><a class="reference internal" href="#setting-up-devices">Setting Up Devices</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>Mopeka Standard Check BLE Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="mopeka-standard-check-ble-sensor">
+<h1>Mopeka Standard Check BLE Sensor<a class="headerlink" href="#mopeka-standard-check-ble-sensor" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">mopeka_std_check</span></code> sensor platform lets you track the output of Mopeka
+Standard Check LP Bluetooth Low Energy devices using the
+<a class="reference internal" href="../esp32_ble_tracker.html"><span class="doc">ESP32 Bluetooth Low Energy Tracker Hub</span></a>. This component will track the tank level,
+distance, temperature, and battery percentage of a Mopeka Standard Check LP BLE
+device every time the sensor sends out a BLE broadcast.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This sensor component only supports the Mopeka Standard Check devices.
+See <a class="reference internal" href="mopeka_pro_check.html"><span class="doc">Mopeka Pro Check BLE Sensor</span></a> for Mopeka Pro Check sensors support.</p>
+</div>
+<figure class="align-center" id="id1">
+<img alt="../../_images/mopeka_std_check.jpg" src="../../_images/mopeka_std_check.jpg" />
+<figcaption>
+<p><span class="caption-text">Mopeka Std Check LP over BLE.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Example using 11kg 100% propane tank.</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mopeka_std_check</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D3:75:F2:DC:16:91</span>
+<span class="w">    </span><span class="nt">tank_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Europe_11kg</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Propane</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">temp&quot;</span>
+<span class="w">    </span><span class="nt">level</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Propane</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">level&quot;</span>
+<span class="w">    </span><span class="nt">distance</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Propane</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">distance&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Propane</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">battery</span><span class="nv"> </span><span class="s">level&quot;</span>
+
+<span class="w">  </span><span class="c1"># Custom example - user defined empty / full points and 80% butane and 20% propane.</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mopeka_std_check</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D3:75:F2:DC:16:91</span>
+<span class="w">    </span><span class="nt">tank_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CUSTOM</span>
+<span class="w">    </span><span class="nt">custom_distance_full</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">40cm</span>
+<span class="w">    </span><span class="nt">custom_distance_empty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32mm</span>
+<span class="w">    </span><span class="nt">propane_butane_mix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20%</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Propane</span><span class="nv"> </span><span class="s">c</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">temp&quot;</span>
+<span class="w">    </span><span class="nt">level</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Propane</span><span class="nv"> </span><span class="s">c</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">level&quot;</span>
+<span class="w">    </span><span class="nt">distance</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Propane</span><span class="nv"> </span><span class="s">c</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">distance&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Propane</span><span class="nv"> </span><span class="s">c</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">battery</span><span class="nv"> </span><span class="s">level&quot;</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>mac_address</strong> (<strong>Required</strong>, MAC Address): The MAC address of the Mopeka
+device.</p></li>
+<li><p><strong>tank_type</strong> (<strong>Required</strong>): The tank type the sensor is measuring. See below.</p></li>
+<li><p><strong>custom_distance_full</strong> (<em>Optional</em>): distance sensor will read when it should be
+considered full (100%).  This is only used when tank_type = CUSTOM</p></li>
+<li><p><strong>custom_distance_empty</strong> (<em>Optional</em>): distance sensor will read when it should be
+considered empty (0%).  This is only used when tank_type = CUSTOM</p></li>
+<li><p><strong>propane_butane_mix</strong> (<em>Optional</em>): Mixture of propane and butane.</p>
+<ul>
+<li><p>100% - (<em>default</em>) 100% Propane</p></li>
+<li><p>80% - 80% Propane and 20% Butane</p></li>
+<li><p>20% - 20% Propane and 80% Butane</p></li>
+<li><p>0% - 100% Butane</p></li>
+</ul>
+</li>
+<li><p><strong>level</strong> (<em>Optional</em>): The percentage of full for the tank sensor</p>
+<ul>
+<li><p>All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>distance</strong> (<em>Optional</em>): The raw distance/depth of the liquid for the sensor in mm.</p>
+<ul>
+<li><p>All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>temperature</strong> (<em>Optional</em>): The information for the temperature sensor.
+This temperature is on the sensor and is not calibrated to ambient temperature.</p>
+<ul>
+<li><p>All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>battery_level</strong> (<em>Optional</em>): The information for the battery percentage
+sensor.  Sensor uses a standard CR2032 battery.</p>
+<ul>
+<li><p>All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="tank-types">
+<h2>Tank Types<a class="headerlink" href="#tank-types" title="Permalink to this heading">¶</a></h2>
+<p>Currently supported Tank types are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NORTH_AMERICA_20LB_VERTICAL</span></code> - 20 LB vertical tank</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NORTH_AMERICA_30LB_VERTICAL</span></code> - 30 LB vertical tank</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NORTH_AMERICA_40LB_VERTICAL</span></code> - 40 LB vertical tank</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EUROPE_6KG</span></code> - 6kg vertical tank</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EUROPE_11KG</span></code> - 11kg vertical tank</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EUROPE_14KG</span></code> - 14kg vertical tank</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CUSTOM</span></code> - Allows you to define your own full and empty points</p></li>
+</ul>
+</section>
+<section id="setting-up-devices">
+<h2>Setting Up Devices<a class="headerlink" href="#setting-up-devices" title="Permalink to this heading">¶</a></h2>
+<p>To set up Mopeka Standard Check devices you first need to find their MAC Address so that
+ESPHome can identify them. So first, create a simple configuration with the <code class="docutils literal notranslate"><span class="pre">esp32_ble_tracker</span></code>
+and the <code class="docutils literal notranslate"><span class="pre">mopeka_ble</span></code> component like so:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+
+<span class="nt">mopeka_ble</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>After uploading, the ESP32 will immediately try to scan for BLE devices. For Mopeka Standard devices you must press and hold the green sync button for it to be identified.
+Or alternativly set the configuration flag <code class="docutils literal notranslate"><span class="pre">show_sensors_without_sync:</span> <span class="pre">true</span></code> to see all devices.
+For all sensors found the <code class="docutils literal notranslate"><span class="pre">mopeka_ble</span></code> component will print a message like this one:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">[</span><span class="nv">20</span><span class="p p-Indicator">:</span><span class="nv">43</span><span class="p p-Indicator">:</span><span class="nv">26</span><span class="p p-Indicator">][</span><span class="nv">I</span><span class="p p-Indicator">][</span><span class="nv">mopeka_ble</span><span class="p p-Indicator">:</span><span class="nv">056</span><span class="p p-Indicator">]</span><span class="nt">: MOPEKA STD (CC2540) SENSOR FOUND</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D3:75:F2:DC:16:91</span>
+</pre></div>
+</div>
+<p>Then just copy the address (<code class="docutils literal notranslate"><span class="pre">D3:75:F2:DC:16:91</span></code>) into a new
+<code class="docutils literal notranslate"><span class="pre">sensor.mopeka_std_check</span></code> platform entry like in the configuration example at the top.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The ESPHome Mopeka Standard Check BLE component listens passively to packets the Mopeka device sends by itself.
+ESPHome therefore has no impact on the battery life of the device.</p>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../esp32_ble_tracker.html"><span class="doc">ESP32 Bluetooth Low Energy Tracker Hub</span></a></p></li>
+<li><p><a class="reference internal" href="index.html"><span class="doc">Sensor Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/mopeka__std__check_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/mopeka_std_check.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

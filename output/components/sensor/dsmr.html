@@ -1,0 +1,744 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up DSMR Meter component in ESPHome.">
+<meta itemprop="name" content="DSMR Component">
+<meta itemprop="description" content="Instructions for setting up DSMR Meter component in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/dsmr.png">
+<meta name="twitter:title" content="DSMR Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/dsmr.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up DSMR Meter component in ESPHome.">
+<meta property="og:title" content="DSMR Component">
+<meta property="og:image" content="https://esphome.io/_images/dsmr.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up DSMR Meter component in ESPHome.">
+
+    <title>DSMR Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/dsmr.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Duty Cycle Sensor" href="duty_cycle.html" />
+    <link rel="prev" title="DPS310 Atmospheric Pressure Sensor" href="dps310.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">DSMR Component</a><ul>
+<li><a class="reference internal" href="#component-hub">Component/Hub</a></li>
+<li><a class="reference internal" href="#sensor">Sensor</a></li>
+<li><a class="reference internal" href="#text-sensor">Text Sensor</a></li>
+<li><a class="reference internal" href="#older-dsmr-meters-support">Older DSMR meters support</a></li>
+<li><a class="reference internal" href="#p1-data-request-pin">P1 Data Request pin</a></li>
+<li><a class="reference internal" href="#improving-reader-results">Improving reader results</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>DSMR Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="dsmr-component">
+<h1>DSMR Component<a class="headerlink" href="#dsmr-component" title="Permalink to this heading">¶</a></h1>
+<section id="component-hub">
+<h2>Component/Hub<a class="headerlink" href="#component-hub" title="Permalink to this heading">¶</a></h2>
+<p>The DSMR component connects to Dutch Smart Meters which comply to DSMR (Dutch Smart Meter
+Requirements), also known as ‘Slimme meter’ or ‘P1 port’.</p>
+<p>This component supports plain non encrypted telegrams and also encrypted as used in Luxembourg.
+In case your equipment has encryption you must get a 32 character long encryption key from your energy company.</p>
+<p>This component is passive, it does not transmit any data to your equipment, the equipment always transmits
+data which this component decodes and updates the configured sensors at the pace the data is received.</p>
+<ul class="simple">
+<li><p>For official information about DSMR refer to: <a class="reference external" href="https://www.netbeheernederland.nl/dossiers/slimme-meter-15">DSMR Document</a></p></li>
+<li><p>For official information about the P1 port refer to: <a class="reference external" href="https://www.netbeheernederland.nl/_upload/Files/Slimme_meter_15_a727fce1f1.pdf">P1 Companion Standard</a></p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">dsmr</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">decryption_key</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">decryption_key</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dsmr</span>
+<span class="w">    </span><span class="nt">energy_delivered_tariff1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Energy Consumed Tariff 1</span>
+
+<span class="nt">text_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dsmr</span>
+<span class="w">    </span><span class="nt">identification</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DSMR</span><span class="nv"> </span><span class="s">Identification&quot;</span>
+<span class="w">    </span><span class="nt">p1_version</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DSMR</span><span class="nv"> </span><span class="s">Version&quot;</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>decryption_key</strong> (<em>Optional</em>, string, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>, 32 characters, case insensitive): The key to decrypt the
+telegrams. Used in Lux only.</p></li>
+<li><p><strong>gas_mbus_id</strong> (<em>Optional</em>, int): The id of the gas meter. Defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>crc_check</strong> (<em>Optional</em>, boolean): Specifies if the CRC check must be done. This is required to be set to false for
+older DSMR versions as they do not provide a CRC. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><strong>max_telegram_length</strong> (<em>Optional</em>, integer): The size of the buffer used for reading DSMR telegrams. Increase
+if you are reading from a smart meter that sends large telegrams. Defaults to <code class="docutils literal notranslate"><span class="pre">1500</span></code>.</p></li>
+<li><p><strong>uart_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the UART hub.</p></li>
+<li><p><strong>request_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The pin that can be used for controlling
+the P1 port’s Data Request pin. Defaults to not using a Data Request pin.
+See <a class="reference internal" href="#sensor-dsmr-request-pin"><span class="std std-ref">Using the P1 Data Request pin</span></a>.</p></li>
+<li><p><strong>request_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The minimum time between two telegram readings.
+Defaults to <code class="docutils literal notranslate"><span class="pre">0ms</span></code>, meaning that the pace at which the smart meter sends its data determines the update frequency.
+This works best in combination with a <code class="docutils literal notranslate"><span class="pre">request_pin</span></code>, but this option will work without one too.</p></li>
+<li><p><strong>receive_timeout</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The timeout on incoming data while reading a telegram.
+When no new data arrive within the given timeout, the device will consider the current telegram a loss and
+starts looking for the header of the next telegram. Defaults to <code class="docutils literal notranslate"><span class="pre">200ms</span></code>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the DSMR if you have multiple components.</p></li>
+</ul>
+</section>
+<section id="sensor">
+<h2>Sensor<a class="headerlink" href="#sensor" title="Permalink to this heading">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not all sensors are available on all devices.</p>
+</div>
+<p>Country specific sensors are listed last.</p>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>energy_delivered_tariff1</strong> (<em>Optional</em>): Energy Consumed Tariff 1.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the energy_delivered_tariff1 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>energy_delivered_tariff2</strong> (<em>Optional</em>): Energy Consumed Tariff 2.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the energy_delivered_tariff2 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>energy_returned_tariff1</strong> (<em>Optional</em>): Energy Produced Tariff 1.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the energy_returned_tariff1 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>energy_returned_tariff2</strong> (<em>Optional</em>): Energy Produced Tariff 2.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the energy_returned_tariff2 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>power_delivered</strong> (<em>Optional</em>): Power Consumed.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the power_delivered sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>power_returned</strong> (<em>Optional</em>): Power Produced.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the power_returned sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>electricity_failures</strong> (<em>Optional</em>): Electricity Failures.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the electricity_failures sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>electricity_long_failures</strong> (<em>Optional</em>): Long Electricity Failures.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the electricity_long_failures sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>electricity_sags_l1</strong> (<em>Optional</em>): Number of voltage sags in phase L1.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the electricity_sags_l1 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>electricity_sags_l2</strong> (<em>Optional</em>): Number of voltage sags in phase L2.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the electricity_sags_l2 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>electricity_sags_l3</strong> (<em>Optional</em>): Number of voltage sags in phase L3.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the electricity_sags_l3 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>electricity_swells_l1</strong> (<em>Optional</em>): Number of voltage swells in phase L1.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the electricity_swells_l1 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>electricity_swells_l2</strong> (<em>Optional</em>): Number of voltage swells in phase L2.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the electricity_swells_l2 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>electricity_swells_l3</strong> (<em>Optional</em>): Number of voltage swells in phase L3.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the electricity_swells_l3 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>voltage_l1</strong> (<em>Optional</em>): Voltage Phase 1.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the voltage_l1 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>voltage_l2</strong> (<em>Optional</em>): Voltage Phase 2.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the voltage_l2 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>voltage_l3</strong> (<em>Optional</em>): Voltage Phase 3.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the voltage_l3 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>current_l1</strong> (<em>Optional</em>): Current Phase 1.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the current_l1 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>current_l2</strong> (<em>Optional</em>): Current Phase 2.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the current_l2 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>current_l3</strong> (<em>Optional</em>): Current Phase 3.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the current_l3 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>power_delivered_l1</strong> (<em>Optional</em>): Power Consumed Phase 1.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the power_delivered_l1 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>power_delivered_l2</strong> (<em>Optional</em>): Power Consumed Phase 2.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the power_delivered_l2 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>power_delivered_l3</strong> (<em>Optional</em>): Power Consumed Phase 3.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the power_delivered_l3 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>power_returned_l1</strong> (<em>Optional</em>): Power Produced Phase 1.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the power_returned_l1 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>power_returned_l2</strong> (<em>Optional</em>): Power Produced Phase 2.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the power_returned_l2 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>power_returned_l3</strong> (<em>Optional</em>): Power Produced Phase 3.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the power_returned_l3 sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>gas_delivered</strong> (<em>Optional</em>): Gas Consumed.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the gas_delivered sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+<p>Belgium</p>
+<ul class="simple">
+<li><p><strong>gas_delivered_be</strong> (<em>Optional</em>): Gas Consumed Belgium.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the gas_delivered_be sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>active_energy_import_current_average_demand</strong> (<em>Optional</em>): Current Average Quarterly Demand for Peak Tarrif Belgium.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the active_energy_import_current_average_demand sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>active_energy_import_maximum_demand_running_month</strong> (<em>Optional</em>): Current Month’s Maximum Quarterly Demand for Peak Tarrif Belgium.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the active_energy_import_maximum_demand_running_month sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>active_energy_import_maximum_demand_last_13_months</strong> (<em>Optional</em>): 13 Month Maximum Quarterly Demand for Peak Tarrif Belgium.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the active_energy_import_maximum_demand_last_13_months sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+<p>Luxembourg</p>
+<ul class="simple">
+<li><p><strong>energy_delivered_lux</strong> (<em>Optional</em>): Energy Consumed Luxembourg</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the energy_delivered_lux sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>energy_returned_lux</strong> (<em>Optional</em>): Energy Produced Luxembourg</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the energy_returned_lux sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="text-sensor">
+<h2>Text Sensor<a class="headerlink" href="#text-sensor" title="Permalink to this heading">¶</a></h2>
+<p>Configuration variables:</p>
+<ul>
+<li><p><strong>identification</strong> (<em>Optional</em>): DSMR Identification</p>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the identification text sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>p1_version</strong> (<em>Optional</em>): DSMR Version</p>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the p1_version text sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>timestamp</strong> (<em>Optional</em>): Timestamp</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the timestamp sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>electricity_tariff</strong> (<em>Optional</em>): The current tariff. According to the specs value
+‘0001’ means ‘normal tariff’ and value ‘0002’ means ‘low tariff’. Your meter may report differently.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the electricity_tariff sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>electricity_failure_log</strong> (<em>Optional</em>): Electricity Failure Log</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the electricity_failure_log sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>message_short</strong> (<em>Optional</em>): Message Short</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the message_short sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>message_long</strong> (<em>Optional</em>): Message Long</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the message_long sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>gas_equipment_id</strong> (<em>Optional</em>): Gas Equipment ID.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the gas_equipment_id sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>water_equipment_id</strong> (<em>Optional</em>): Water Equipment ID</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the water_equipment_id sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>sub_equipment_id</strong> (<em>Optional</em>): Sub Equipment ID</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the sub_equipment_id sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>gas_delivered_text</strong> (<em>Optional</em>): A text sensor which unformatted gas data. You need to
+apply a custom parsing of this value depending on your meter format.</p>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the p1_version text sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+<p>Belgium</p>
+<ul class="simple">
+<li><p><strong>p1_version_be</strong> (<em>Optional</em>): DSMR Version Belgium</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the p1_version_be text sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="older-dsmr-meters-support">
+<h2>Older DSMR meters support<a class="headerlink" href="#older-dsmr-meters-support" title="Permalink to this heading">¶</a></h2>
+<p>Version 2.2 is supported with the following configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Custom uart settings for DSMR v2.2</span>
+<span class="nt">uart</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9600</span>
+<span class="w">  </span><span class="nt">data_bits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
+<span class="w">  </span><span class="nt">parity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NONE</span>
+<span class="w">  </span><span class="nt">stop_bits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+
+<span class="nt">dsmr</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">crc_check</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dsmr</span>
+<span class="w">    </span><span class="nt">energy_delivered_tariff1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dsmr_energy_delivered_tariff1</span>
+<span class="w">    </span><span class="nt">energy_delivered_lux</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dsmr_energy_delivered_tarifflux</span>
+
+<span class="nt">text_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dsmr</span>
+<span class="w">    </span><span class="nt">identification</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dsmr_identification&quot;</span>
+<span class="w">    </span><span class="nt">p1_version</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dsmr_p1_version&quot;</span>
+<span class="w">    </span><span class="nt">gas_delivered_text</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;gas</span><span class="nv"> </span><span class="s">delivered</span><span class="nv"> </span><span class="s">raw&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="p1-data-request-pin">
+<span id="sensor-dsmr-request-pin"></span><h2>P1 Data Request pin<a class="headerlink" href="#p1-data-request-pin" title="Permalink to this heading">¶</a></h2>
+<p>From the P1 companion guide: The P1 port is activated (start sending data) by setting “Data Request” line high
+(to +5V). While receiving data, the requesting OSM must keep the “Data Request” line activated (set to +5V).
+To stop receiving data OSM needs to drop “Data Request” line (set it to “high impedance” mode). Data transfer
+will stop immediately in such case.</p>
+<p><strong>Advantages when using a request pin:</strong></p>
+<ul class="simple">
+<li><p>After reading a telegram, the dsmr component will stop the data transfer until the telegram has been
+fully processed. This separates retrieving and processing data and can thus be seen as a form of
+hardware flow control.</p></li>
+<li><p>The interval at which sensor readings must be updated can be controlled cleanly by only starting a data
+transfer when needed. This configuration option <code class="docutils literal notranslate"><span class="pre">request_interval</span></code> can be used to define this interval.</p></li>
+</ul>
+<p><strong>Required hardware support</strong></p>
+<p>Many DSMR reader circuits link the +5V pin of the P1 port directly to its Data Request pin. Doing this will
+make the smart meter send telegrams at a pace as defined by the smart meter firmware. For example many
+DSMR v5 meters will send a telegram every second.
+<em>Circuits that use this type of wiring cannot make use of the</em> <code class="docutils literal notranslate"><span class="pre">request_pin</span></code> <em>option.</em></p>
+<p>However, when a circuit is used that allows switching the Data Request pin between +5V and high impedance
+mode from a GPIO, then this GPIO can be configured as the <code class="docutils literal notranslate"><span class="pre">request_pin</span></code>.</p>
+<p>Best results have been achieved by using an optocoupler circuit to handle the switching. Direct GPIO output
+or a transistor-based circuit are not feasible options. Here’s an example circuit design:</p>
+<figure class="align-default">
+<img alt="../../_images/dsmr-request-pin-circuit-example.png" src="../../_images/dsmr-request-pin-circuit-example.png" />
+</figure>
+<p>When using a type of MCU that provides 5V on the GPIO outputs instead of 3.3V, then use a 330 Ohm
+resistor instead of the 200 Ohm resistor.</p>
+</section>
+<section id="improving-reader-results">
+<span id="sensor-dsmr-improving-reader-results"></span><h2>Improving reader results<a class="headerlink" href="#improving-reader-results" title="Permalink to this heading">¶</a></h2>
+<p>When telegrams are sometimes missed or when you get a lot of CRC errors, then you might have to do some
+changes to get better reader results.</p>
+<p>It is recommended to set the <code class="docutils literal notranslate"><span class="pre">rx_buffer_size</span></code> option of the UART bus to at least the maximum telegram size,
+which defaults to 1500 bytes. The default UART read buffer is quite small an can easily overflow, causing
+bytes of data getting lost.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration</span>
+<span class="nt">uart</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D7</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">115200</span>
+<span class="w">  </span><span class="nt">rx_buffer_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1700</span>
+
+<span class="nt">dsmr</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">max_telegram_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1700</span>
+</pre></div>
+</div>
+<p>It’s best when a hardware UART is used for reading the P1 data. Whether or not hardware UART is used can
+be checked in the config dump that you get when connecting to the API logger. Example logging output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[02:38:37][C][uart.arduino_esp8266:095]: UART Bus:
+[02:38:37][C][uart.arduino_esp8266:097]:   RX Pin: GPIO13
+[02:38:37][C][uart.arduino_esp8266:099]:   RX Buffer Size: 1500
+[02:38:37][C][uart.arduino_esp8266:101]:   Baud Rate: 115200 baud
+[02:38:37][C][uart.arduino_esp8266:102]:   Data Bits: 8
+[02:38:37][C][uart.arduino_esp8266:103]:   Parity: NONE
+[02:38:37][C][uart.arduino_esp8266:104]:   Stop bits: 1
+[02:38:37][C][uart.arduino_esp8266:106]:   Using hardware serial interface.
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+</pre></div>
+</div>
+<p>When using an ESP8266, then GPIO13 (e.g. pin D7 on a D1 Mini) can be used for hardware RX. However, to
+actually make it work, serial logging must be disabled to keep the hardware UART available for D7.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration for ESP8266</span>
+<span class="nt">logger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span>
+
+<span class="nt">uart</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO13</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">115200</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/api/dsmr_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/dsmr.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

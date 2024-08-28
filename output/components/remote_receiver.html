@@ -1,0 +1,741 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up remote receiver binary sensors for infrared and RF codes.">
+<meta name="keywords" content="RF, infrared">
+<meta itemprop="name" content="Remote Receiver">
+<meta itemprop="description" content="Instructions for setting up remote receiver binary sensors for infrared and RF codes.">
+<meta itemprop="image" content="https://esphome.io/_images/remote.png">
+<meta name="twitter:title" content="Remote Receiver">
+<meta name="twitter:image:src" content="https://esphome.io/_images/remote.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up remote receiver binary sensors for infrared and RF codes.">
+<meta property="og:title" content="Remote Receiver">
+<meta property="og:image" content="https://esphome.io/_images/remote.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up remote receiver binary sensors for infrared and RF codes.">
+
+    <title>Remote Receiver &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/remote_receiver.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Remote Transmitter" href="remote_transmitter.html" />
+    <link rel="prev" title="Pylontech Battery" href="pylontech.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Remote Receiver</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#automations">Automations:</a></li>
+<li><a class="reference internal" href="#binary-sensor">Binary Sensor</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>Remote Receiver</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="remote-receiver">
+<h1>Remote Receiver<a class="headerlink" href="#remote-receiver" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">remote_receiver</span></code> component lets you receive and decode any remote signal, these can
+for example be infrared remotes or 433MHz signals.</p>
+<p>The component is split up into two parts: the remote receiver hub which
+handles setting the pin and some other settings, and individual
+<a class="reference internal" href="#remote-receiver-binary-sensor"><span class="std std-ref">remote receiver binary sensors</span></a>
+which will trigger when they hear their own configured signal.</p>
+<p><strong>See</strong> <a class="reference internal" href="remote_transmitter.html#remote-setting-up-infrared"><span class="std std-ref">Setting up Infrared Devices</span></a> <strong>and</strong> <a class="reference internal" href="remote_transmitter.html#remote-setting-up-rf"><span class="std std-ref">Setting Up RF Devices</span></a> <strong>for set up guides.</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">remote_receiver</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">dump</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><strong>pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The pin to receive the remote signal on.</p></li>
+<li><p><strong>dump</strong> (<em>Optional</em>, list): Decode and dump these remote codes in the logs (at log.level=DEBUG).
+Set to <code class="docutils literal notranslate"><span class="pre">all</span></code> to dump all available codecs:</p>
+<ul class="simple">
+<li><p><strong>abbwelcome</strong>: Decode and dump ABB-Welcome codes. Messages are sent via copper wires. See <a class="reference internal" href="remote_transmitter.html#remote-transmitter-transmit-abbwelcome"><span class="std std-ref">remote_transmitter.transmit_abbwelcome Action</span></a></p></li>
+<li><p><strong>aeha</strong>: Decode and dump AEHA infrared codes.</p></li>
+<li><p><strong>byronsx</strong>: Decode and dump Byron SX doorbell RF codes.</p></li>
+<li><p><strong>canalsat</strong>: Decode and dump CanalSat infrared codes.</p></li>
+<li><p><strong>canalsatld</strong>: Decode and dump CanalSatLD infrared codes.</p></li>
+<li><p><strong>coolix</strong>: Decode and dump Coolix infrared codes.</p></li>
+<li><p><strong>dish</strong>: Decode and dump Dish infrared codes.</p></li>
+<li><p><strong>dooya</strong>: Decode and dump Dooya RF codes.</p></li>
+<li><p><strong>drayton</strong>: Decode and dump Drayton Digistat RF codes.</p></li>
+<li><p><strong>jvc</strong>: Decode and dump JVC infrared codes.</p></li>
+<li><p><strong>keeloq</strong>: Decode and dump KeeLoq RF codes.</p></li>
+<li><p><strong>haier</strong>: Decode and dump Haier infrared codes.</p></li>
+<li><p><strong>lg</strong>: Decode and dump LG infrared codes.</p></li>
+<li><p><strong>magiquest</strong>: Decode and dump MagiQuest wand infrared codes.</p></li>
+<li><p><strong>midea</strong>: Decode and dump Midea infrared codes.</p></li>
+<li><p><strong>nec</strong>: Decode and dump NEC infrared codes.</p></li>
+<li><p><strong>nexa</strong>: Decode and dump Nexa (RF) codes.</p></li>
+<li><p><strong>panasonic</strong>: Decode and dump Panasonic infrared codes.</p></li>
+<li><p><strong>pioneer</strong>: Decode and dump Pioneer infrared codes.</p></li>
+<li><p><strong>pronto</strong>: Print remote code in Pronto form. Useful for using arbitrary protocols.</p></li>
+<li><p><strong>raw</strong>: Print all remote codes in their raw form. Also useful for using arbitrary protocols.</p></li>
+<li><p><strong>rc5</strong>: Decode and dump RC5 IR codes.</p></li>
+<li><p><strong>rc6</strong>: Decode and dump RC6 IR codes.</p></li>
+<li><p><strong>rc_switch</strong>: Decode and dump RCSwitch RF codes.</p></li>
+<li><p><strong>roomba</strong>: Decode and dump Roomba infrared codes.</p></li>
+<li><p><strong>samsung</strong>: Decode and dump Samsung infrared codes.</p></li>
+<li><p><strong>samsung36</strong>: Decode and dump Samsung36 infrared codes.</p></li>
+<li><p><strong>sony</strong>: Decode and dump Sony infrared codes.</p></li>
+<li><p><strong>toshiba_ac</strong>: Decode and dump Toshiba AC infrared codes.</p></li>
+</ul>
+</li>
+<li><p><strong>tolerance</strong> (<em>Optional</em>, int, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a> or mapping): The percentage or time that the remote signal lengths can
+deviate in the decoding process.  Defaults to <code class="docutils literal notranslate"><span class="pre">25%</span></code>.</p>
+<ul class="simple">
+<li><p><strong>type</strong> (<strong>Required</strong>, enum): Set the type of the tolerance. Can be <code class="docutils literal notranslate"><span class="pre">percentage</span></code> or <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p></li>
+<li><p><strong>value</strong> (<strong>Required</strong>, int or <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The percentage or time value. Allowed values are in range <code class="docutils literal notranslate"><span class="pre">0</span></code> to
+<code class="docutils literal notranslate"><span class="pre">100%</span></code> or <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">4294967295us</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>buffer_size</strong> (<em>Optional</em>, int): The size of the internal buffer for storing the remote codes. Defaults to <code class="docutils literal notranslate"><span class="pre">10kB</span></code>
+on the ESP32 and <code class="docutils literal notranslate"><span class="pre">1kB</span></code> on the ESP8266.</p></li>
+<li><p><strong>rmt_channel</strong> (<em>Optional</em>, int): The RMT channel to use. Only on <strong>esp32</strong>.
+The following ESP32 variants have these channels available:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ESP32 Variant</p></th>
+<th class="head"><p>Channels</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ESP32</p></td>
+<td><p>0, 1, 2, 3, 4, 5, 6, 7</p></td>
+</tr>
+<tr class="row-odd"><td><p>ESP32-S2</p></td>
+<td><p>0, 1, 2, 3</p></td>
+</tr>
+<tr class="row-even"><td><p>ESP32-S3</p></td>
+<td><p>4, 5, 6, 7</p></td>
+</tr>
+<tr class="row-odd"><td><p>ESP32-C3</p></td>
+<td><p>2, 3</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p><strong>memory_blocks</strong> (<em>Optional</em>, int): The number of RMT memory blocks used. Only used on ESP32 platform. The maximum
+number of blocks shared by all receivers and transmitters depends on the ESP32 variant. Defaults to <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p></li>
+<li><p><strong>filter</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Filter any pulses that are shorter than this. Useful for removing
+glitches from noisy signals. Allowed values are in range <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">4294967295us</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">50us</span></code>.</p></li>
+<li><p><strong>idle</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The amount of time that a signal should remain stable (i.e. not
+change) for it to be considered complete. Allowed values are in range <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">4294967295us</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">10ms</span></code>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation. Use this if you have
+multiple remote receivers.</p></li>
+<li><p><strong>clock_divider</strong> (<em>Optional</em>, int): The clock divider used by the RMT peripheral. A clock divider of <code class="docutils literal notranslate"><span class="pre">80</span></code> leads to
+a resolution of 1 µs per tick, <code class="docutils literal notranslate"><span class="pre">160</span></code> leads to 2 µs. Allowed values are in range <code class="docutils literal notranslate"><span class="pre">1</span></code> to <code class="docutils literal notranslate"><span class="pre">255</span></code>. Only used on ESP32
+platform. Defaults to <code class="docutils literal notranslate"><span class="pre">80</span></code>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The dumped <strong>raw</strong> code is sequence of pulse widths (durations in microseconds), positive for on-pulses (mark)
+and negative for off-pulses (space). Usually you can to copy this directly to the configuration or automation to be used later.</p>
+</div>
+</section>
+<section id="automations">
+<h2>Automations:<a class="headerlink" href="#automations" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>on_abbwelcome</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+ABB-Welcome code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/classesphome_1_1remote__base_1_1_a_b_b_welcome_data.html">remote_base::ABBWelcomeData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_aeha</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+AEHA remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/classesphome_1_1remote__base_1_1_a_e_h_a_data.html">remote_base::AEHAData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_byronsx</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Byron SX doorbell RF code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_byron_s_x_data.html">remote_base::ByronSXData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_canalsat</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+CanalSat remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_canal_sat_data.html">remote_base::CanalSatData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_canalsatld</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+CanalSatLD remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_canal_sat_l_d_data.html">remote_base::CanalSatLDData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_coolix</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Coolix remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/classesphome_1_1remote__base_1_1_coolix_data.html">remote_base::CoolixData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_dish</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+dish network remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_dish_data.html">remote_base::DishData</a>
+is passed to the automation for use in lambdas.
+Beware that Dish remotes use a different carrier frequency (57.6kHz) that many receiver hardware don’t decode.</p></li>
+<li><p><strong>on_dooya</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Dooya RF remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_dooya_data.html">remote_base::DooyaData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_drayton</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Drayton Digistat RF code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_drayton_data.html">remote_base::DraytonData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_jvc</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+JVC remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_j_v_c_data.html">remote_base::JVCData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_keeloq</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+KeeLoq RF code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_keeloq_data.html">remote_base::KeeloqData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_haier</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Haier remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/classesphome_1_1remote__base_1_1_haier_data.html">remote_base::HaierData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_lg</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+LG remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_l_g_data.html">remote_base::LGData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_magiquest</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+MagiQuest wand remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/classesphome_1_1remote__base_1_1_magi_quest_data.html">remote_base::MagiQuestData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_midea</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Midea remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/classesphome_1_1remote__base_1_1_midea_data.html">remote_base::MideaData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_nec</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+NEC remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_n_e_c_data.html">remote_base::NECData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_nexa</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Nexa RF code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/classesphome_1_1remote__base_1_1_nexa_data.html">remote_base::NexaData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_panasonic</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Panasonic remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_panasonic_data.html">remote_base::PanasonicData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_pioneer</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+pioneer remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_pioneer_data.html">remote_base::PioneerData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_pronto</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Pronto remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <code class="docutils literal notranslate"><span class="pre">std::string</span></code>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_raw</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+raw remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <code class="docutils literal notranslate"><span class="pre">std::vector&lt;int&gt;</span></code>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_rc5</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+RC5 remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_r_c5_data.html">remote_base::RC5Data</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_rc6</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+RC6 remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_r_c6_data.html">remote_base::RC6Data</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_rc_switch</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+RCSwitch RF code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_r_c_switch_data.html">remote_base::RCSwitchData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_roomba</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Roomba remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_roomba_data.html">remote_base::RoombaData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_samsung</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Samsung remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_samsung_data.html">remote_base::SamsungData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_samsung36</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Samsung36 remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_samsung36_data.html">remote_base::Samsung36Data</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_sony</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Sony remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_sony_data.html">remote_base::SonyData</a>
+is passed to the automation for use in lambdas.</p></li>
+<li><p><strong>on_toshiba_ac</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when a
+Toshiba AC remote code has been decoded. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <a class="reference external" href="/api/structesphome_1_1remote__base_1_1_toshiba_ac_data.html">remote_base::ToshibaAcData</a>
+is passed to the automation for use in lambdas.</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example automation for decoded signals</span>
+<span class="nt">remote_receiver</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">on_samsung</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">or</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">(x.data</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">0xE0E0E01F);&#39;</span><span class="w">  </span><span class="c1"># VOL+ newer type</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">(x.data</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">0xE0E0E01F0);&#39;</span><span class="w"> </span><span class="c1"># VOL+ older type</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+</section>
+<section id="binary-sensor">
+<span id="remote-receiver-binary-sensor"></span><h2>Binary Sensor<a class="headerlink" href="#binary-sensor" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">remote_receiver</span></code> binary sensor lets you track when a button on a remote control is pressed.</p>
+<p>Each time the pre-defined signal is received, the binary sensor will briefly go ON and
+then immediately OFF.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">remote_receiver</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Panasonic</span><span class="nv"> </span><span class="s">Remote</span><span class="nv"> </span><span class="s">Input&quot;</span>
+<span class="w">    </span><span class="nt">panasonic</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x4004</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x100BCBD</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the binary sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p>All other options from <a class="reference internal" href="binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+</ul>
+<p>Remote code selection (exactly one of these has to be included):</p>
+<ul class="simple">
+<li><p><strong>abbwelcome</strong>: Trigger on a decoded ABB-Welcome code with the given data.</p>
+<ul>
+<li><p><strong>source_address</strong> (<strong>Required</strong>, int): The source address to trigger on, see <a class="reference internal" href="remote_transmitter.html#remote-transmitter-transmit-abbwelcome"><span class="std std-ref">remote_transmitter.transmit_abbwelcome Action</span></a>
+for more info.</p></li>
+<li><p><strong>destination_address</strong> (<strong>Required</strong>, int): The destination address to trigger on, see
+<a class="reference internal" href="remote_transmitter.html#remote-transmitter-transmit-abbwelcome"><span class="std std-ref">remote_transmitter.transmit_abbwelcome Action</span></a> for more info.</p></li>
+<li><p><strong>three_byte_address</strong> (<strong>Optional</strong>, boolean): The length of the source and destination address. <code class="docutils literal notranslate"><span class="pre">false</span></code> means two bytes
+and <code class="docutils literal notranslate"><span class="pre">true</span></code> means three bytes. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>retransmission</strong> (<strong>Optional</strong>, boolean): <code class="docutils literal notranslate"><span class="pre">true</span></code> if the message was re-transmitted. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>message_type</strong> (<strong>Required</strong>, int): The message type to trigger on, see <a class="reference internal" href="remote_transmitter.html#remote-transmitter-transmit-abbwelcome"><span class="std std-ref">remote_transmitter.transmit_abbwelcome Action</span></a>
+for more info.</p></li>
+<li><p><strong>message_id</strong> (<strong>Optional</strong>, int): The random message ID to trigger on, see dumper output for more info. Defaults to any ID.</p></li>
+<li><p><strong>data</strong> (<strong>Optional</strong>, 0-7 bytes list): The code to listen for. Usually you only need to copy this directly from the
+dumper output. Defaults to <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>aeha</strong>: Trigger on a decoded AEHA remote code with the given data.</p>
+<ul>
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>data</strong> (<strong>Required</strong>, 3-35 bytes list): The code to listen for, see <a class="reference internal" href="remote_transmitter.html#remote-transmitter-transmit-aeha"><span class="std std-ref">remote_transmitter.transmit_aeha Action</span></a>
+for more info. Usually you only need to copy this directly from the dumper output.</p></li>
+</ul>
+</li>
+<li><p><strong>byronsx</strong>: Trigger on a decoded Byron SX Doorbell RF remote code with the given data.</p>
+<ul>
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The 8-bit ID code to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>command</strong> (<strong>Optional</strong>, int): The 4-bit command to listen for. If omitted, will match on any command.</p></li>
+</ul>
+</li>
+<li><p><strong>canalsat</strong>: Trigger on a decoded CanalSat remote code with the given data.</p>
+<ul>
+<li><p><strong>device</strong> (<strong>Required</strong>, int): The device to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>address</strong> (<em>Optional</em>, int): The address (or subdevice) to trigger on, see dumper output for more info. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The command to listen for.</p></li>
+</ul>
+</li>
+<li><p><strong>canalsatld</strong>: Trigger on a decoded CanalSatLD remote code with the given data.</p>
+<ul>
+<li><p><strong>device</strong> (<strong>Required</strong>, int): The device to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>address</strong> (<em>Optional</em>, int): The address (or subdevice) to trigger on, see dumper output for more info. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The command to listen for.</p></li>
+</ul>
+</li>
+<li><p><strong>coolix</strong>: Trigger on a decoded Coolix remote code with the given data. It is possible to directly specify a 24-bit code,
+it will be checked for a match to at least one of the two received packets. The main configuration scheme is below.</p>
+<ul>
+<li><p><strong>first</strong> (<strong>Required</strong>, uint32_t): The first 24-bit Coolix code to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>second</strong> (<em>Optional</em>, uint32_t): The second 24-bit Coolix code to trigger on, see dumper output for more info.
+If not set, trigger on on only single non-strict packet, specified by the <code class="docutils literal notranslate"><span class="pre">first</span></code> parameter.</p></li>
+</ul>
+</li>
+<li><p><strong>dish</strong>: Trigger on a decoded Dish Network remote code with the given data.
+Beware that Dish remotes use a different carrier frequency (57.6kHz) that many receiver hardware don’t decode.</p>
+<ul>
+<li><p><strong>address</strong> (<em>Optional</em>, int): The number of the receiver to target, between 1 and 16 inclusive. Defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The Dish command to listen for, between 0 and 63 inclusive.</p></li>
+</ul>
+</li>
+<li><p><strong>dooya</strong>: Trigger on a decoded Dooya RF remote code with the given data.</p>
+<ul>
+<li><p><strong>id</strong> (<strong>Required</strong>, int): The 24-bit ID code to trigger on.</p></li>
+<li><p><strong>channel</strong> (<strong>Required</strong>, int): The 8-bit channel to listen for.</p></li>
+<li><p><strong>button</strong> (<strong>Required</strong>, int): The 4-bit button to listen for.</p></li>
+<li><p><strong>check</strong> (<strong>Required</strong>, int): The 4-bit check to listen for. Includes an indication that a button is being held down.</p></li>
+</ul>
+</li>
+<li><p><strong>drayton</strong>: Trigger on a decoded Drayton Digistat RF remote code with the given data.</p>
+<ul>
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The 16-bit ID code to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>channel</strong> (<strong>Required</strong>, int): The 7-bit switch/channel to listen for.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The 5-bit command to listen for.</p></li>
+</ul>
+</li>
+<li><p><strong>jvc</strong>: Trigger on a decoded JVC remote code with the given data.</p>
+<ul>
+<li><p><strong>data</strong> (<strong>Required</strong>, int): The JVC code to trigger on, see dumper output for more info.</p></li>
+</ul>
+</li>
+<li><p><strong>keeloq</strong>: Trigger on a decoded KeeLoq RF remote code with the given data.</p>
+<ul>
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The 32-bit ID code to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The 8-bit switch/command to listen for. If omitted, will match on any command/button.</p></li>
+</ul>
+</li>
+<li><p><strong>haier</strong>: Trigger on a Haier remote code with the given code.</p>
+<ul>
+<li><p><strong>code</strong> (<strong>Required</strong>, 13-bytes list): The code to listen for, see <a class="reference internal" href="remote_transmitter.html#remote-transmitter-transmit-haier"><span class="std std-ref">remote_transmitter.transmit_haier Action</span></a>
+for more info. Usually you only need to copy this directly from the dumper output.</p></li>
+</ul>
+</li>
+<li><p><strong>lg</strong>: Trigger on a decoded LG remote code with the given data.</p>
+<ul>
+<li><p><strong>data</strong> (<strong>Required</strong>, int): The LG code to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>nbits</strong> (<em>Optional</em>, int): The number of bits of the remote code. Defaults to <code class="docutils literal notranslate"><span class="pre">28</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>magiquest</strong>: Trigger on a decoded MagiQuest wand remote code with the given wand ID.</p>
+<ul>
+<li><p><strong>wand_id</strong> (<strong>Required</strong>, int): The MagiQuest wand ID to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>magnitude</strong> (<em>Optional</em>, int): The magnitude of swishes and swirls of the wand.  If omitted, will match on any activation of the wand.</p></li>
+</ul>
+</li>
+<li><p><strong>midea</strong>: Trigger on a Midea remote code with the given code.</p>
+<ul>
+<li><p><strong>code</strong> (<strong>Required</strong>, 5-bytes list): The code to listen for, see <a class="reference internal" href="remote_transmitter.html#remote-transmitter-transmit-midea"><span class="std std-ref">remote_transmitter.transmit_midea Action</span></a>
+for more info. Usually you only need to copy first 5 bytes directly from the dumper output.</p></li>
+</ul>
+</li>
+<li><p><strong>nec</strong>: Trigger on a decoded NEC remote code with the given data.</p>
+<ul>
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The NEC command to listen for.</p></li>
+</ul>
+</li>
+<li><p><strong>nexa</strong>: Trigger on a decoded Nexa RF code with the given data.</p>
+<ul>
+<li><p><strong>device</strong> (<strong>Required</strong>, int): The Nexa device code to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>group</strong> (<strong>Required</strong>, int): The Nexa group code to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>state</strong> (<strong>Required</strong>, int): The Nexa state code to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>channel</strong> (<strong>Required</strong>, int): The Nexa channel code to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>level</strong> (<strong>Required</strong>, int): The Nexa level code to trigger on, see dumper output for more info.</p></li>
+</ul>
+</li>
+<li><p><strong>panasonic</strong>: Trigger on a decoded Panasonic remote code with the given data.</p>
+<ul>
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The command.</p></li>
+</ul>
+</li>
+<li><p><strong>pioneer</strong>: Trigger on a decoded Pioneer remote code with the given data.</p>
+<ul>
+<li><p><strong>rc_code_1</strong> (<strong>Required</strong>, int): The remote control code to trigger on, see dumper output for more details.</p></li>
+</ul>
+</li>
+<li><p><strong>pronto</strong>: Trigger on a Pronto remote code with the given code.</p>
+<ul>
+<li><p><strong>data</strong> (<strong>Required</strong>, string): The code to listen for, see <a class="reference internal" href="remote_transmitter.html#remote-transmitter-transmit-raw"><span class="std std-ref">remote_transmitter.transmit_raw Action</span></a>
+for more info. Usually you only need to copy this directly from the dumper output.</p></li>
+<li><p><strong>delta</strong> (<strong>Optional</strong>, integer): This parameter allows you to manually specify the allowed difference
+between what Pronto code is specified, and what IR signal has been sent by the remote control.</p></li>
+</ul>
+</li>
+<li><p><strong>raw</strong>: Trigger on a raw remote code with the given code.</p>
+<ul>
+<li><p><strong>code</strong> (<strong>Required</strong>, list): The code to listen for, see <a class="reference internal" href="remote_transmitter.html#remote-transmitter-transmit-raw"><span class="std std-ref">remote_transmitter.transmit_raw Action</span></a>
+for more info. Usually you only need to copy this directly from the dumper output.</p></li>
+</ul>
+</li>
+<li><p><strong>rc5</strong>: Trigger on a decoded RC5 remote code with the given data.</p>
+<ul>
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The RC5 command to listen for.</p></li>
+</ul>
+</li>
+<li><p><strong>rc6</strong>: Trigger on a decoded RC6 remote code with the given data.</p>
+<ul>
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The RC6 command to listen for.</p></li>
+</ul>
+</li>
+<li><p><strong>rc_switch_raw</strong>: Trigger on a decoded RC Switch raw remote code with the given data.</p>
+<ul>
+<li><p><strong>code</strong> (<strong>Required</strong>, string): The remote code to listen for, copy this from the dumper output. To ignore a bit
+in the received data, use <code class="docutils literal notranslate"><span class="pre">x</span></code> at that place in the <strong>code</strong>.</p></li>
+<li><p><strong>protocol</strong> (<em>Optional</em>): The RC Switch protocol to use, see <a class="reference internal" href="remote_transmitter.html#remote-transmitter-rc-switch-protocol"><span class="std std-ref">RC Switch Protocol</span></a> for more info.</p></li>
+</ul>
+</li>
+<li><p><strong>rc_switch_type_a</strong>: Trigger on a decoded RC Switch Type A remote code with the given data.</p>
+<ul>
+<li><p><strong>group</strong> (<strong>Required</strong>, string): The group, binary string.</p></li>
+<li><p><strong>device</strong> (<strong>Required</strong>, string): The device in the group, binary string.</p></li>
+<li><p><strong>state</strong> (<strong>Required</strong>, boolean): The on/off state to trigger on.</p></li>
+<li><p><strong>protocol</strong> (<em>Optional</em>): The RC Switch protocol to use, see <a class="reference internal" href="remote_transmitter.html#remote-transmitter-rc-switch-protocol"><span class="std std-ref">RC Switch Protocol</span></a> for more info.</p></li>
+</ul>
+</li>
+<li><p><strong>rc_switch_type_b</strong>: Trigger on a decoded RC Switch Type B remote code with the given data.</p>
+<ul>
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address, int from 1 to 4.</p></li>
+<li><p><strong>channel</strong> (<strong>Required</strong>, int): The channel, int from 1 to 4.</p></li>
+<li><p><strong>state</strong> (<strong>Required</strong>, boolean): The on/off state to trigger on.</p></li>
+<li><p><strong>protocol</strong> (<em>Optional</em>): The RC Switch protocol to use, see <a class="reference internal" href="remote_transmitter.html#remote-transmitter-rc-switch-protocol"><span class="std std-ref">RC Switch Protocol</span></a> for more info.</p></li>
+</ul>
+</li>
+<li><p><strong>rc_switch_type_c</strong>: Trigger on a decoded RC Switch Type C remote code with the given data.</p>
+<ul>
+<li><p><strong>family</strong> (<strong>Required</strong>, string): The family. Range is <code class="docutils literal notranslate"><span class="pre">a</span></code> to <code class="docutils literal notranslate"><span class="pre">p</span></code>.</p></li>
+<li><p><strong>group</strong> (<strong>Required</strong>, int): The group. Range is 1 to 4.</p></li>
+<li><p><strong>device</strong> (<strong>Required</strong>, int): The device. Range is 1 to 4.</p></li>
+<li><p><strong>state</strong> (<strong>Required</strong>, boolean): The on/off state to trigger on.</p></li>
+<li><p><strong>protocol</strong> (<em>Optional</em>): The RC Switch protocol to use, see <a class="reference internal" href="remote_transmitter.html#remote-transmitter-rc-switch-protocol"><span class="std std-ref">RC Switch Protocol</span></a> for more info.</p></li>
+</ul>
+</li>
+<li><p><strong>rc_switch_type_d</strong>: Trigger on a decoded RC Switch Type D remote code with the given data.</p>
+<ul>
+<li><p><strong>group</strong> (<strong>Required</strong>, int): The group. Range is 1 to 4.</p></li>
+<li><p><strong>device</strong> (<strong>Required</strong>, int): The device. Range is 1 to 3.</p></li>
+<li><p><strong>state</strong> (<strong>Required</strong>, boolean): The on/off state to trigger on.</p></li>
+<li><p><strong>protocol</strong> (<em>Optional</em>): The RC Switch protocol to use, see <a class="reference internal" href="remote_transmitter.html#remote-transmitter-rc-switch-protocol"><span class="std std-ref">RC Switch Protocol</span></a> for more info.</p></li>
+</ul>
+</li>
+<li><p><strong>roomba</strong>: Trigger on a decoded Roomba remote code with the given data.</p>
+<ul>
+<li><p><strong>data</strong> (<strong>Required</strong>, int): The Roomba code to trigger on, see dumper output for more info.</p></li>
+</ul>
+</li>
+<li><p><strong>samsung</strong>: Trigger on a decoded Samsung remote code with the given data.</p>
+<ul>
+<li><p><strong>data</strong> (<strong>Required</strong>, int): The data to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>nbits</strong> (<em>Optional</em>, int): The number of bits of the remote code. Defaults to <code class="docutils literal notranslate"><span class="pre">32</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>samsung36</strong>: Trigger on a decoded Samsung36 remote code with the given data.</p>
+<ul>
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The command.</p></li>
+</ul>
+</li>
+<li><p><strong>sony</strong>: Trigger on a decoded Sony remote code with the given data.</p>
+<ul>
+<li><p><strong>data</strong> (<strong>Required</strong>, int): The Sony code to trigger on, see dumper output for more info.</p></li>
+<li><p><strong>nbits</strong> (<em>Optional</em>, int): The number of bits of the remote code. Defaults to <code class="docutils literal notranslate"><span class="pre">12</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>toshiba_ac</strong>: Trigger on a decoded Toshiba AC remote code with the given data.</p>
+<ul>
+<li><p><strong>rc_code_1</strong> (<strong>Required</strong>, int): The remote control code to trigger on, see dumper output for more details.</p></li>
+<li><p><strong>rc_code_2</strong> (<em>Optional</em>, int): The second part of the remote control code to trigger on, see dumper output for more details.</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <strong>CanalSat</strong> and <strong>CanalSatLD</strong> protocols use a higher carrier frequency (56khz) and are very similar.
+Depending on the hardware used they may interfere with each other when enabled simultaneously.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>NEC codes</strong>: In version 2021.12, the order of transferring bits was corrected from MSB to LSB in accordance with the NEC standard.
+Therefore, if the configuration file has come from an earlier version of ESPhome, it is necessary to reverse the order of the address
+and command bits when moving to 2021.12 or above. For example, address: 0x84ED, command: 0x13EC becomes 0xB721 and 0x37C8 respectively.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To capture the codes more effectively with directly connected receiver like tsop38238 you can try to use <code class="docutils literal notranslate"><span class="pre">INPUT_PULLUP</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">remote_receiver</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">pullup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">dump</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the Sonoff RF Bridge, you can bypass the EFM8BB1 microcontroller handling RF signals with
+<a class="reference external" href="https://github.com/xoseperez/espurna/wiki/Hardware-Itead-Sonoff-RF-Bridge---Direct-Hack">this hack</a>
+created by the GitHub user wildwiz. Then use this configuration for the remote receiver/transmitter hubs:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">remote_receiver</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">  </span><span class="nt">dump</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all</span>
+
+<span class="nt">remote_transmitter</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">  </span><span class="nt">carrier_duty_percent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Components</span></a></p></li>
+<li><p><a class="reference internal" href="remote_transmitter.html"><span class="doc">Remote Transmitter</span></a></p></li>
+<li><p><a class="reference internal" href="rf_bridge.html"><span class="doc">RF Bridge Component</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/sui77/rc-switch">RCSwitch</a> by <a class="reference external" href="https://github.com/sui77">Suat Özgür</a></p></li>
+<li><p><a class="reference external" href="https://github.com/markszabo/IRremoteESP8266/">IRRemoteESP8266</a> by <a class="reference external" href="https://github.com/markszabo">Mark Szabo-Simon</a></p></li>
+<li><p><a class="reference external" href="/api/remote__receiver_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/remote_receiver.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

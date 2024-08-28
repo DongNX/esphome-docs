@@ -1,0 +1,444 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up HTTP Requests in ESPHome">
+<meta name="keywords" content="http, request">
+<meta itemprop="name" content="HTTP Request">
+<meta itemprop="description" content="Instructions for setting up HTTP Requests in ESPHome">
+<meta itemprop="image" content="https://esphome.io/_images/connection.png">
+<meta name="twitter:title" content="HTTP Request">
+<meta name="twitter:image:src" content="https://esphome.io/_images/connection.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up HTTP Requests in ESPHome">
+<meta property="og:title" content="HTTP Request">
+<meta property="og:image" content="https://esphome.io/_images/connection.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up HTTP Requests in ESPHome">
+
+    <title>HTTP Request &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/http_request.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="I²C Bus" href="i2c.html" />
+    <link rel="prev" title="Grove TB6612FNG Motor Drive" href="grove_tb6612fng.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">HTTP Request</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#esp8266-disable-ssl-support"><code class="docutils literal notranslate"><span class="pre">esp8266_disable_ssl_support</span></code></a></li>
+<li><a class="reference internal" href="#http-request-actions">HTTP Request Actions</a><ul>
+<li><a class="reference internal" href="#http-request-get-action"><code class="docutils literal notranslate"><span class="pre">http_request.get</span></code> Action</a></li>
+<li><a class="reference internal" href="#http-request-post-action"><code class="docutils literal notranslate"><span class="pre">http_request.post</span></code> Action</a></li>
+<li><a class="reference internal" href="#http-request-send-action"><code class="docutils literal notranslate"><span class="pre">http_request.send</span></code> Action</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#on-response-trigger"><code class="docutils literal notranslate"><span class="pre">on_response</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#templatable-values">Templatable values</a></li>
+<li><a class="reference internal" href="#post-body-in-json-format-syntax-1">POST Body in JSON format (syntax 1)</a></li>
+<li><a class="reference internal" href="#post-body-in-json-format-syntax-2">POST Body in JSON format (syntax 2)</a></li>
+<li><a class="reference internal" href="#get-values-from-a-json-body-response">GET values from a JSON body response</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>HTTP Request</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="http-request">
+<h1>HTTP Request<a class="headerlink" href="#http-request" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">http_request</span></code> component lets you make HTTP/HTTPS requests. First, you need to setup a component:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">http_request</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">useragent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome/device</span>
+<span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>useragent</strong> (<em>Optional</em>, string): User-Agent header for requests. Defaults to <code class="docutils literal notranslate"><span class="pre">ESPHome</span></code>.</p></li>
+<li><p><strong>timeout</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Timeout for request. Defaults to <code class="docutils literal notranslate"><span class="pre">5s</span></code>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>follow_redirects</strong> (<em>Optional</em>, boolean): Enable following HTTP redirects. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><strong>redirect_limit</strong> (<em>Optional</em>, integer): Maximum amount of redirects to follow when enabled. Defaults to <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p></li>
+</ul>
+<p>ESP8266 Options:</p>
+<ul class="simple">
+<li><p><strong>esp8266_disable_ssl_support</strong> (<em>Optional</em>, boolean): Whether to include SSL support on ESP8266s.
+Defaults to <code class="docutils literal notranslate"><span class="pre">no</span></code>. See <a class="reference internal" href="#esphome-esp8266-disable-ssl-support"><span class="std std-ref">esp8266_disable_ssl_support</span></a> for more info</p></li>
+</ul>
+</section>
+<section id="esp8266-disable-ssl-support">
+<span id="esphome-esp8266-disable-ssl-support"></span><h2><code class="docutils literal notranslate"><span class="pre">esp8266_disable_ssl_support</span></code><a class="headerlink" href="#esp8266-disable-ssl-support" title="Permalink to this heading">¶</a></h2>
+<p>This options allows you to disable inclusion of SSL libraries. This is required on a flash
+constrained devices (512k or 1M) which does not have enough space to support
+SSL and OTA concurrently. The flashing will fail with the following error
+<code class="docutils literal notranslate"><span class="pre">Error:</span> <span class="pre">ESP</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">have</span> <span class="pre">enough</span> <span class="pre">space</span> <span class="pre">to</span> <span class="pre">store</span> <span class="pre">OTA</span> <span class="pre">file</span></code>.</p>
+</section>
+<section id="http-request-actions">
+<h2>HTTP Request Actions<a class="headerlink" href="#http-request-actions" title="Permalink to this heading">¶</a></h2>
+<p>Component support a number of <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">actions</span></a> that can be used to send requests.</p>
+<section id="http-request-get-action">
+<span id="id1"></span><h3><code class="docutils literal notranslate"><span class="pre">http_request.get</span></code> Action<a class="headerlink" href="#http-request-get-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a GET request.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http_request.get</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://esphome.io</span>
+<span class="w">      </span><span class="nt">headers</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Content-Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">application/json</span>
+<span class="w">      </span><span class="nt">verify_ssl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">on_response</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Response</span><span class="nv"> </span><span class="s">status:</span><span class="nv"> </span><span class="s">%d,</span><span class="nv"> </span><span class="s">Duration:</span><span class="nv"> </span><span class="s">%u</span><span class="nv"> </span><span class="s">ms&#39;</span>
+<span class="w">              </span><span class="nt">args</span><span class="p">:</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status_code</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">duration_ms</span>
+<span class="w">  </span><span class="c1"># Short form</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http_request.get</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://esphome.io</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>url</strong> (<strong>Required</strong>, string, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): URL to send request.</p></li>
+<li><p><strong>headers</strong> (<em>Optional</em>, mapping): Map of HTTP headers. Values are <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>.</p></li>
+<li><p><strong>verify_ssl</strong> (<em>Optional</em>, boolean): Verify the SSL certificate of the endpoint. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><strong>on_response</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when the request is finished.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently ESPHome <strong>can’t verify the SSL certificate</strong> of the endpoint.
+Set <code class="docutils literal notranslate"><span class="pre">verify_ssl:</span> <span class="pre">false</span></code> to make HTTPS request.</p>
+</div>
+</section>
+<section id="http-request-post-action">
+<span id="id2"></span><h3><code class="docutils literal notranslate"><span class="pre">http_request.post</span></code> Action<a class="headerlink" href="#http-request-post-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a POST request.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http_request.post</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://esphome.io</span>
+<span class="w">      </span><span class="nt">headers</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Content-Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">application/json</span>
+<span class="w">      </span><span class="nt">json</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span>
+<span class="w">      </span><span class="nt">verify_ssl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="c1"># Short form</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http_request.post</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://esphome.io</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>body</strong> (<em>Optional</em>, string, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): A HTTP body string to send with request.</p></li>
+<li><p><strong>json</strong> (<em>Optional</em>, mapping): A HTTP body in JSON format. Values are <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>. See <a class="reference internal" href="#http-request-examples"><span class="std std-ref">Examples</span></a>.</p></li>
+<li><p>All other options from <a class="reference internal" href="#http-request-get-action"><span class="std std-ref">http_request.get Action</span></a>.</p></li>
+</ul>
+</section>
+<section id="http-request-send-action">
+<span id="id3"></span><h3><code class="docutils literal notranslate"><span class="pre">http_request.send</span></code> Action<a class="headerlink" href="#http-request-send-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a request.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http_request.send</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PUT</span>
+<span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://esphome.io</span>
+<span class="w">      </span><span class="nt">headers</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Content-Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">application/json</span>
+<span class="w">      </span><span class="nt">body</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Some</span><span class="nv"> </span><span class="s">data&quot;</span>
+<span class="w">      </span><span class="nt">verify_ssl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>method</strong> (<strong>Required</strong>, string): HTTP method to use (<code class="docutils literal notranslate"><span class="pre">GET</span></code>, <code class="docutils literal notranslate"><span class="pre">POST</span></code>, <code class="docutils literal notranslate"><span class="pre">PUT</span></code>, <code class="docutils literal notranslate"><span class="pre">DELETE</span></code>, <code class="docutils literal notranslate"><span class="pre">PATCH</span></code>).</p></li>
+<li><p>All other options from <a class="reference internal" href="#http-request-post-action"><span class="std std-ref">http_request.post Action</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="on-response-trigger">
+<span id="http-request-on-response"></span><h2><code class="docutils literal notranslate"><span class="pre">on_response</span></code> Trigger<a class="headerlink" href="#on-response-trigger" title="Permalink to this heading">¶</a></h2>
+<p>This automation will be triggered when the HTTP request is finished and will supply these parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">status_code</span></code> as <code class="docutils literal notranslate"><span class="pre">int</span></code> - http response code</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">duration_ms</span></code> as <code class="docutils literal notranslate"><span class="pre">uint32</span></code> - time taken to complete the request</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">on_...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">then</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http_request.get</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://esphome.io</span>
+<span class="w">        </span><span class="nt">verify_ssl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">on_response</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Response</span><span class="nv"> </span><span class="s">status:</span><span class="nv"> </span><span class="s">%d,</span><span class="nv"> </span><span class="s">Duration:</span><span class="nv"> </span><span class="s">%u</span><span class="nv"> </span><span class="s">ms&quot;</span>
+<span class="w">                </span><span class="nt">args</span><span class="p">:</span>
+<span class="w">                  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status_code</span>
+<span class="w">                  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">duration_ms</span>
+</pre></div>
+</div>
+</section>
+<section id="examples">
+<span id="http-request-examples"></span><h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<section id="templatable-values">
+<h3>Templatable values<a class="headerlink" href="#templatable-values" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http_request.post</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">return ((std::string) &quot;https://esphome.io?state=&quot; + id(my_sensor).state).c_str();</span>
+<span class="w">      </span><span class="nt">headers</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">X-Custom-Header</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">return ((std::string) &quot;Value-&quot; + id(my_sensor).state).c_str();</span>
+<span class="w">      </span><span class="nt">body</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">return id(my_sensor).state;</span>
+</pre></div>
+</div>
+</section>
+<section id="post-body-in-json-format-syntax-1">
+<h3>POST Body in JSON format (syntax 1)<a class="headerlink" href="#post-body-in-json-format-syntax-1" title="Permalink to this heading">¶</a></h3>
+<p><strong>Note:</strong> all values of the map should be a strings.
+It’s impossible to send <code class="docutils literal notranslate"><span class="pre">boolean</span></code> or <code class="docutils literal notranslate"><span class="pre">numbers</span></code> with this syntax.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http_request.post</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://esphome.io</span>
+<span class="w">      </span><span class="nt">verify_ssl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">json</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">return id(my_sensor).state;</span>
+<span class="w">        </span><span class="nt">greeting</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hello</span><span class="nv"> </span><span class="s">World&quot;</span>
+
+<span class="w">    </span><span class="c1"># Will send:</span>
+<span class="w">    </span><span class="c1"># {&quot;key&quot;: &quot;42.0&quot;, &quot;greeting&quot;: &quot;Hello World&quot;}</span>
+</pre></div>
+</div>
+</section>
+<section id="post-body-in-json-format-syntax-2">
+<h3>POST Body in JSON format (syntax 2)<a class="headerlink" href="#post-body-in-json-format-syntax-2" title="Permalink to this heading">¶</a></h3>
+<p><strong>Note:</strong> use this syntax to send <code class="docutils literal notranslate"><span class="pre">boolean</span></code> or <code class="docutils literal notranslate"><span class="pre">numbers</span></code> in JSON.</p>
+<p>The JSON message will be constructed using the <a class="reference external" href="https://github.com/bblanchon/ArduinoJson">ArduinoJson</a> library.
+In the <code class="docutils literal notranslate"><span class="pre">json</span></code> option you have access to a <code class="docutils literal notranslate"><span class="pre">root</span></code> object which will represents the base object
+of the JSON message. You can assign values to keys by using the <code class="docutils literal notranslate"><span class="pre">root[&quot;KEY_NAME&quot;]</span> <span class="pre">=</span> <span class="pre">VALUE;</span></code> syntax
+as seen below.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http_request.post</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://esphome.io</span>
+<span class="w">      </span><span class="nt">verify_ssl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">json</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">root[&quot;key&quot;] = id(my_sensor).state;</span>
+<span class="w">        </span><span class="no">root[&quot;greeting&quot;] = &quot;Hello World&quot;;</span>
+
+<span class="w">    </span><span class="c1"># Will send:</span>
+<span class="w">    </span><span class="c1"># {&quot;key&quot;: 42.0, &quot;greeting&quot;: &quot;Hello World&quot;}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-values-from-a-json-body-response">
+<h3>GET values from a JSON body response<a class="headerlink" href="#get-values-from-a-json-body-response" title="Permalink to this heading">¶</a></h3>
+<p>Assuming that the server returns a response in a JSON object over HTTP similar to this:
+<code class="docutils literal notranslate"><span class="pre">{&quot;status&quot;:&quot;play&quot;,&quot;vol&quot;:&quot;42&quot;,&quot;mute&quot;:&quot;0&quot;}</span></code></p>
+<p>If you want to retrieve the value for the <code class="docutils literal notranslate"><span class="pre">vol</span></code> key and assign it to a template <code class="docutils literal notranslate"><span class="pre">sensor</span></code> or <code class="docutils literal notranslate"><span class="pre">number</span></code> component (with <code class="docutils literal notranslate"><span class="pre">id</span></code> set to <code class="docutils literal notranslate"><span class="pre">player_volume</span></code>):</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http_request.get</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://esphome.io</span>
+<span class="w">    </span><span class="nt">on_response</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">            </span><span class="no">json::parse_json(id(http_request_data).get_string(), [](JsonObject root) {</span>
+<span class="w">                </span><span class="no">id(player_volume).publish_state(root[&quot;vol&quot;]);</span>
+<span class="w">            </span><span class="no">});</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> don’t forget to set the <code class="docutils literal notranslate"><span class="pre">id</span></code> for the main <code class="docutils literal notranslate"><span class="pre">http_request</span></code> component, to <code class="docutils literal notranslate"><span class="pre">http_request_data</span></code>.</p>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Components</span></a></p></li>
+<li><p><a class="reference external" href="/api/http__request_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/http_request.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,620 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up real time clock sources in ESPHome like network based time.">
+<meta name="keywords" content="GPS, NTP, RTC, SNTP">
+<meta itemprop="name" content="Time Component">
+<meta itemprop="description" content="Instructions for setting up real time clock sources in ESPHome like network based time.">
+<meta itemprop="image" content="https://esphome.io/_images/clock-outline.png">
+<meta name="twitter:title" content="Time Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/clock-outline.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up real time clock sources in ESPHome like network based time.">
+<meta property="og:title" content="Time Component">
+<meta property="og:image" content="https://esphome.io/_images/clock-outline.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up real time clock sources in ESPHome like network based time.">
+
+    <title>Time Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/time/index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="DS1307 Time Source" href="ds1307.html" />
+    <link rel="prev" title="I²S Audio Speaker" href="../speaker/i2s_audio.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Time Component</a><ul>
+<li><a class="reference internal" href="#base-time-configuration">Base Time Configuration</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#time-has-time-condition"><code class="docutils literal notranslate"><span class="pre">time.has_time</span></code> Condition</a></li>
+<li><a class="reference internal" href="#on-time-trigger"><code class="docutils literal notranslate"><span class="pre">on_time</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-time-sync-trigger"><code class="docutils literal notranslate"><span class="pre">on_time_sync</span></code> Trigger</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#use-in-lambdas">Use In Lambdas</a><ul>
+<li><a class="reference internal" href="#strftime">strftime</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li>Time Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="time-component">
+<h1>Time Component<a class="headerlink" href="#time-component" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">time</span></code> component allows you to set up real time clock time sources for ESPHome.
+You can then get the current time in <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>.</p>
+<section id="base-time-configuration">
+<span id="base-time-config"></span><h2>Base Time Configuration<a class="headerlink" href="#base-time-configuration" title="Permalink to this heading">¶</a></h2>
+<p>All time configuration schemas inherit these options.</p>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Specify the ID of the time for use in lambdas.</p></li>
+<li><p><strong>timezone</strong> (<em>Optional</em>, string): Manually tell ESPHome what time zone to use with <a class="reference external" href="https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html">this format</a>
+(warning: the format is quite complicated, see <a class="reference external" href="https://github.com/nayarsystems/posix_tz_db/blob/master/zones.csv">examples</a>)
+or the simpler <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">TZ database name</a> in the form
+<code class="code docutils literal notranslate"><span class="pre">&lt;Region&gt;/&lt;City&gt;</span></code>. ESPHome tries to automatically infer the time zone string based on the time zone of the computer
+that is running ESPHome, but this might not always be accurate.</p></li>
+<li><p><strong>on_time</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): Automation to run at specific intervals using
+a cron-like syntax. See <a class="reference internal" href="#time-on-time"><span class="std std-ref">on_time Trigger</span></a>.</p></li>
+<li><p><strong>on_time_sync</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): Automation to run when the time source
+could be (re-)synchronized.. See <a class="reference internal" href="#time-on-time-sync"><span class="std std-ref">on_time_sync Trigger</span></a>.</p></li>
+</ul>
+</section>
+<section id="time-has-time-condition">
+<span id="id1"></span><h3><code class="docutils literal notranslate"><span class="pre">time.has_time</span></code> Condition<a class="headerlink" href="#time-has-time-condition" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../../guides/automations.html#config-condition"><span class="std std-ref">Condition</span></a> checks if time has been set and is valid.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">time.has_time</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Time has been set and is valid!</span>
+
+<span class="c1"># Example lambda</span>
+<span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">    </span><span class="no">if (id(my_time).now().is_valid()) {</span>
+<span class="w">      </span><span class="no">//do something here</span>
+<span class="w">    </span><span class="no">}</span>
+</pre></div>
+</div>
+</section>
+<section id="on-time-trigger">
+<span id="time-on-time"></span><h3><code class="docutils literal notranslate"><span class="pre">on_time</span></code> Trigger<a class="headerlink" href="#on-time-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This powerful automation can be used to run automations at specific intervals at
+specific times of day. The syntax is a subset of the <a class="reference external" href="https://crontab.guru/">crontab</a> syntax.</p>
+<p>There are two ways to specify time intervals: Either with using the <code class="docutils literal notranslate"><span class="pre">seconds:</span></code>, <code class="docutils literal notranslate"><span class="pre">minutes:</span></code>, …
+keys as seen below or using a cron alike expression like <code class="docutils literal notranslate"><span class="pre">*</span> <span class="pre">/5</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span></code>.</p>
+<p>Be aware normal cron implementations does not know about seconds like this esphome implementation, therefore you got 6 fields (seconds,minutes,hours,dayofmonth,month,dayofweek).</p>
+<p>Basically, the automation engine looks at your configured time schedule every second and
+evaluates if the automation should run.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">time</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sntp</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_time</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># Every 5 minutes</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">minutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/5</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch</span>
+
+<span class="w">      </span><span class="c1"># Every morning on weekdays</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">minutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">        </span><span class="nt">hours</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
+<span class="w">        </span><span class="nt">days_of_week</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MON-FRI</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_light</span>
+
+<span class="w">      </span><span class="c1"># Cron syntax, trigger every 5 minutes</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;00</span><span class="nv"> </span><span class="s">/5</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*&#39;</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>seconds</strong> (<em>Optional</em>, string): Specify for which seconds of the minute the automation will trigger.
+Defaults to <code class="docutils literal notranslate"><span class="pre">*</span></code> (all seconds). Range is from 0 to 59.</p></li>
+<li><p><strong>minutes</strong> (<em>Optional</em>, string): Specify for which minutes of the hour the automation will trigger.
+Defaults to <code class="docutils literal notranslate"><span class="pre">*</span></code> (all minutes). Range is from 0 to 59.</p></li>
+<li><p><strong>hours</strong> (<em>Optional</em>, string): Specify for which hours of the day the automation will trigger.
+Defaults to <code class="docutils literal notranslate"><span class="pre">*</span></code> (all hours). Range is from 0 to 23.</p></li>
+<li><p><strong>days_of_month</strong> (<em>Optional</em>, string): Specify for which days of the month the automation will trigger.
+Defaults to <code class="docutils literal notranslate"><span class="pre">*</span></code> (all days). Range is from 1 to 31.</p></li>
+<li><p><strong>months</strong> (<em>Optional</em>, string): Specify for which months of the year to trigger.
+Defaults to <code class="docutils literal notranslate"><span class="pre">*</span></code> (all months). The month names JAN to DEC are automatically substituted.
+Range is from 1 (January) to 12 (December).</p></li>
+<li><p><strong>days_of_week</strong> (<em>Optional</em>, string): Specify for which days of the week to trigger.
+Defaults to <code class="docutils literal notranslate"><span class="pre">*</span></code> (all days). The names SUN to SAT are automatically substituted.
+Range is from 1 (Sunday) to 7 (Saturday).</p></li>
+<li><p><strong>cron</strong> (<em>Optional</em>, string): Alternatively, you can specify a whole cron expression like
+<code class="docutils literal notranslate"><span class="pre">*</span> <span class="pre">/5</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span></code>. Please note that years and some special characters like <code class="docutils literal notranslate"><span class="pre">L</span></code>, <code class="docutils literal notranslate"><span class="pre">#</span></code> are currently not supported. Also, the day of week field is interpreted like the <strong>days_of_week</strong> variable (range from 1 (Sunday) to 7 (Saturday)) and not like other cron implementations would do it (range from 0 (Sunday) to 7 (Sunday)).</p></li>
+<li><p>See <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p></li>
+</ul>
+<p>In the <code class="docutils literal notranslate"><span class="pre">seconds:</span></code>, <code class="docutils literal notranslate"><span class="pre">minutes:</span></code>, … fields you can use the following operators:</p>
+<ul>
+<li><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+<p>An integer like <code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">30</span></code> will make the automation only trigger if the current
+second is <strong>exactly</strong> 0 or 30, respectively.</p>
+</li>
+<li><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0,30,45</span>
+</pre></div>
+</div>
+<p>You can combine multiple expressions with the <code class="docutils literal notranslate"><span class="pre">,</span></code> operator. This operator makes it so that
+if either one of the expressions separated by a comma holds true, the automation will trigger.
+For example <code class="docutils literal notranslate"><span class="pre">0,30,45</span></code> will trigger if the current second is either <code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">30</span></code> or <code class="docutils literal notranslate"><span class="pre">45</span></code>.</p>
+</li>
+<li><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">days_of_week</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2-6</span>
+<span class="c1"># same as</span>
+<span class="nt">days_of_week</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MON-FRI</span>
+<span class="c1"># same as</span>
+<span class="nt">days_of_week</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2,3,4,5,6</span>
+<span class="c1"># same as</span>
+<span class="nt">days_of_week</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MON,TUE,WED,THU,FRI</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">-</span></code> (hyphen) operator can be used to create a range of values and is shorthand for listing all
+values with the <code class="docutils literal notranslate"><span class="pre">,</span></code> operator.</p>
+</li>
+<li><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># every 5 minutes</span>
+<span class="nt">seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="nt">minutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/5</span>
+
+<span class="c1"># every timestamp where the minute is 5,15,25,...</span>
+<span class="nt">seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="nt">minutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5/10</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">/</span></code> operator can be used to create a step value. For example <code class="docutils literal notranslate"><span class="pre">/5</span></code> for <code class="docutils literal notranslate"><span class="pre">minutes:</span></code> makes an
+automation trigger only when the minute of the hour is 0, or 5, 10, 15, … The value in front of the
+<code class="docutils literal notranslate"><span class="pre">/</span></code> specifies the offset with which the step is applied.</p>
+</li>
+<li><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Every minute</span>
+<span class="nt">seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="nt">minutes</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;*&#39;</span>
+</pre></div>
+</div>
+<p>Lastly, the <code class="docutils literal notranslate"><span class="pre">*</span></code> operator matches every number. In the example above, <code class="docutils literal notranslate"><span class="pre">*</span></code> could for example be substituted
+with  <code class="docutils literal notranslate"><span class="pre">0-59</span></code>.</p>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please note the following automation would trigger for each second in the minutes 0,5,10,15 and not
+once per 5 minutes as the seconds variable is not set:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">time</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sntp</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_time</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">minutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/5</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="on-time-sync-trigger">
+<span id="time-on-time-sync"></span><h3><code class="docutils literal notranslate"><span class="pre">on_time_sync</span></code> Trigger<a class="headerlink" href="#on-time-sync-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This automation is triggered after a time source successfully retrieves the current time.
+See the <a class="reference internal" href="ds1307.html#ds1307-config-example"><span class="std std-ref">DS1307 configuration example</span></a> for a scenario
+where a network time synchronization from a home assistant server trigger a write
+to an external hardware real time clock chip.</p>
+<blockquote>
+<div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_time_sync</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Synchronized</span><span class="nv"> </span><span class="s">system</span><span class="nv"> </span><span class="s">clock&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Components should trigger <code class="docutils literal notranslate"><span class="pre">on_time_sync</span></code> when they update the system clock. However, not all real time components
+behave exactly the same. Components could e.g. decide to trigger only when a significant time change has been
+observed, others could trigger whenever their time sync mechanism runs - even if that didn’t effectively change
+the system time. Some (such as SNTP) could even trigger when another real time component is responsible for the
+change in time.</p>
+</div>
+</section>
+</section>
+<section id="use-in-lambdas">
+<h2>Use In Lambdas<a class="headerlink" href="#use-in-lambdas" title="Permalink to this heading">¶</a></h2>
+<p>To get the current local time with the time zone applied
+in <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>, just call the <code class="docutils literal notranslate"><span class="pre">.now()</span></code> method like so:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">sntp_time</span><span class="p">).</span><span class="n">now</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Alternatively, you can use <code class="docutils literal notranslate"><span class="pre">.utcnow()</span></code> to get the current UTC time.</p>
+<p>The returned object can either be used directly to get the current minute, hour, … as numbers or a string can be
+created based on a given format. If you want to get the current time attributes, you have these fields</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>Name</strong></p></td>
+<td><p><strong>Meaning</strong></p></td>
+<td><p><strong>Range (inclusive)</strong></p></td>
+<td><p><strong>Example</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.second</span></code></p></td>
+<td><p>Seconds after the minute</p></td>
+<td><p>[0-60] (generally [0-59],
+extra range is to accommodate leap
+seconds.)</p></td>
+<td><p>42</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.minute</span></code></p></td>
+<td><p>Minutes after the hour</p></td>
+<td><p>[0-59]</p></td>
+<td><p>31</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.hour</span></code></p></td>
+<td><p>Hours since midnight</p></td>
+<td><p>[0-23]</p></td>
+<td><p>16</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.day_of_week</span></code></p></td>
+<td><p>Day of the week, sunday=1</p></td>
+<td><p>[1-7]</p></td>
+<td><p>7 (saturday)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.day_of_month</span></code></p></td>
+<td><p>Day of the month</p></td>
+<td><p>[1-31]</p></td>
+<td><p>18</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.day_of_year</span></code></p></td>
+<td><p>Day of the year</p></td>
+<td><p>[1-366]</p></td>
+<td><p>231</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.month</span></code></p></td>
+<td><p>Month, january=1</p></td>
+<td><p>[1-12]</p></td>
+<td><p>8 (august)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.year</span></code></p></td>
+<td><p>Year since 0 A.C.</p></td>
+<td><p>[1970-∞[</p></td>
+<td><p>2018</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.is_dst</span></code></p></td>
+<td><p>Is daylight savings time</p></td>
+<td><p>false, true</p></td>
+<td><p>true</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.timestamp</span></code></p></td>
+<td><p>Unix epoch time (seconds since UTC
+Midnight January 1, 1970)</p></td>
+<td><p>[-2147483648 - 2147483647] (negative
+values for time past January 19th 2038)</p></td>
+<td><p>1534606002</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.is_valid()</span></code></p></td>
+<td><p>Basic check if the time is valid
+(i.e. not January 1st 1970)</p></td>
+<td><p>false, true</p></td>
+<td><p>true</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before the ESP has connected to the internet and can get the current time the date will be January 1st 1970. So
+make sure to check if <code class="docutils literal notranslate"><span class="pre">.is_valid()</span></code> evaluates to <code class="docutils literal notranslate"><span class="pre">true</span></code> before triggering any action.</p>
+</div>
+<section id="strftime">
+<span id="id2"></span><h3>strftime<a class="headerlink" href="#strftime" title="Permalink to this heading">¶</a></h3>
+<p>The second way to use the time object is to directly transform it into a string like <code class="docutils literal notranslate"><span class="pre">2018-08-16</span> <span class="pre">16:31</span></code>.
+This is directly done using C’s <a class="reference external" href="http://www.cplusplus.com/reference/ctime/strftime/">strftime</a> function which
+allows for a lot of flexibility.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp"># For example, in a display object</span>
+<span class="n">it</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">font</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;%Y-%m-%d %H:%M&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">time</span><span class="p">).</span><span class="n">now</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>The strftime will parse the format string (here <code class="docutils literal notranslate"><span class="pre">&quot;%Y-%m-%d</span> <span class="pre">%H:%M&quot;</span></code>) and match anything beginning with
+a percent sign <code class="docutils literal notranslate"><span class="pre">%</span></code> and a letter corresponding to one of the below formatting options and replace it
+with the current time representation of that format option.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>Directive</strong></p></td>
+<td><p><strong>Meaning</strong></p></td>
+<td><p><strong>Example</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%a</span></code></p></td>
+<td><p>Abbreviated <strong>weekday</strong> name</p></td>
+<td><p>Sat</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%A</span></code></p></td>
+<td><p>Full <strong>weekday</strong> name</p></td>
+<td><p>Saturday</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%w</span></code></p></td>
+<td><p><strong>Weekday</strong> as decimal number, where 0 is Sunday and 6
+is Saturday</p></td>
+<td><p>6</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%d</span></code></p></td>
+<td><p><strong>Day of month</strong> as zero-padded decimal number</p></td>
+<td><p>01, 02, …, 31</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%b</span></code></p></td>
+<td><p>Abbreviated <strong>month</strong> name</p></td>
+<td><p>Aug</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%B</span></code></p></td>
+<td><p>Full <strong>month</strong> name</p></td>
+<td><p>August</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%m</span></code></p></td>
+<td><p><strong>Month</strong> as zero-padded decimal number</p></td>
+<td><p>01, 02, …, 12</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%y</span></code></p></td>
+<td><p><strong>Year</strong> without century as a zero-padded decimal number</p></td>
+<td><p>00, 01, …, 99</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%Y</span></code></p></td>
+<td><p><strong>Year</strong> with century as a decimal number</p></td>
+<td><p>2018</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%H</span></code></p></td>
+<td><p><strong>Hour</strong> (24-hour clock) as a zero-padded decimal number</p></td>
+<td><p>00, 01, …, 23</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%I</span></code></p></td>
+<td><p><strong>Hour</strong> (12-hour clock) as a zero-padded decimal number</p></td>
+<td><p>00, 01, …, 12</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%p</span></code></p></td>
+<td><p><strong>AM or PM</strong> designation</p></td>
+<td><p>AM, PM</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%M</span></code></p></td>
+<td><p><strong>Minute</strong> as a zero-padded decimal number</p></td>
+<td><p>00, 01, …, 59</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%S</span></code></p></td>
+<td><p><strong>Second</strong> as a zero-padded decimal number</p></td>
+<td><p>00, 01, …, 59</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%j</span></code></p></td>
+<td><p><strong>Day of year</strong> as a zero-padded decimal number</p></td>
+<td><p>001, 002, …, 366</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%U</span></code></p></td>
+<td><p><strong>Week number of year</strong> (Sunday as the first day of the week)
+as a zero-padded decimal number. All days in a new year
+preceding the first Sunday are considered to be in week 0.</p></td>
+<td><p>00, 01, …, 53</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%W</span></code></p></td>
+<td><p><strong>Week number of year</strong> (Monday as the first day of the week)
+as a zero-padded decimal number. All days in a new year
+preceding the first Monday are considered to be in week 0.</p></td>
+<td><p>00, 01, …, 53</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%c</span></code></p></td>
+<td><p><strong>Date and time</strong> representation</p></td>
+<td><p>Sat Aug 18 16:31:42 2018</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%x</span></code></p></td>
+<td><p><strong>Date</strong> representation</p></td>
+<td><p>08/18/18</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">%X</span></code></p></td>
+<td><p><strong>Time</strong> representation</p></td>
+<td><p>16:31:42</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">%%</span></code></p></td>
+<td><p>A literal <code class="docutils literal notranslate"><span class="pre">%</span></code> character</p></td>
+<td><p>%</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/api/real__time__clock_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/time/index.rst">Edit this page on GitHub</a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ds1307.html">DS1307 Time Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gps.html">GPS Time Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homeassistant.html">Home Assistant Time Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pcf85063.html">PCF85063 Time Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pcf8563.html">PCF8563 Time Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sntp.html">SNTP Time Source</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

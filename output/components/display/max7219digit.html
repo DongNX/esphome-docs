@@ -1,0 +1,417 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up MAX7219 Digit displays.">
+<meta itemprop="name" content="MAX7219 Digit Display">
+<meta itemprop="description" content="Instructions for setting up MAX7219 Digit displays.">
+<meta itemprop="image" content="https://esphome.io/_images/max7219digit.jpg">
+<meta name="twitter:title" content="MAX7219 Digit Display">
+<meta name="twitter:image:src" content="https://esphome.io/_images/max7219digit.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up MAX7219 Digit displays.">
+<meta property="og:title" content="MAX7219 Digit Display">
+<meta property="og:image" content="https://esphome.io/_images/max7219digit.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up MAX7219 Digit displays.">
+
+    <title>MAX7219 Digit Display &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/display/max7219digit.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Nextion TFT LCD Display" href="nextion.html" />
+    <link rel="prev" title="MAX7219 7-Segment Display" href="max7219.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">MAX7219 Digit Display</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#rendering-lambda">Rendering Lambda</a><ul>
+<li><a class="reference internal" href="#scrolling">Scrolling</a></li>
+<li><a class="reference internal" href="#screen-inversion">Screen inversion</a></li>
+<li><a class="reference internal" href="#screen-intensity">Screen intensity</a></li>
+<li><a class="reference internal" href="#screen-on-off">Screen ON/OFF</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Display Component</a> ➔</li>
+      <li>MAX7219 Digit Display</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="max7219-digit-display">
+<h1>MAX7219 Digit Display<a class="headerlink" href="#max7219-digit-display" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">max7219</span></code> display platform allows you to use MAX7219 digit with ESPHome. Please note that this component
+is <em>only</em> for the digit “matrix” display, for the 7 segment display see <a class="reference internal" href="max7219.html"><span class="doc">MAX7219 7-Segment Display</span></a>.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/max7219digit.png"><img alt="../../_images/max7219digit.png" src="../../_images/max7219digit.png" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">MAX7219 Digit Display.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>As the communication with the MAX7219 Digit is done using SPI for this component, you need
+to have an <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI bus</span></a> in your configuration with both the <strong>mosi_pin</strong> set (miso_pin is not required).
+Connect VCC to 3.3V (the manufacturer recommends 4+ V, but 3.3V seems to work fine), DIN to your <code class="docutils literal notranslate"><span class="pre">mosi_pin</span></code> and
+CS to your set <code class="docutils literal notranslate"><span class="pre">cs_pin</span></code> and finally GND to GND.</p>
+<p>You can even daisy-chain multiple MAX7219s by connecting the DOUT of the previous chip in the chain to the
+next DIN. With more than ~3 chips the 3.3V will probably not be enough, so then you will have to potentially
+use a logic level converter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">spi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">clk_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D0</span>
+<span class="w">  </span><span class="nt">mosi_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D1</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max7219digit</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D2</span>
+<span class="w">    </span><span class="nt">num_chips</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">intensity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.print(0, 0, id(digit_font), &quot;HELLO!&quot;);</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><strong>cs_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The pin you have the CS line hooked up to.</p></li>
+<li><p><strong>num_chips</strong> (<em>Optional</em>, int): The number of chips you wish to use for daisy chaining. Defaults to
+<code class="docutils literal notranslate"><span class="pre">4</span></code>.</p></li>
+<li><p><strong>rotate_chip</strong> (<em>Optional</em>): Rotates every 8x8 chip. Valid values are <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">90</span></code>, <code class="docutils literal notranslate"><span class="pre">180</span></code> and <code class="docutils literal notranslate"><span class="pre">270</span></code>.
+Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p><strong>scroll_enable</strong> (<em>Optional</em>, boolean): Turn scroll mode on when content does not fit. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><strong>scroll_mode</strong> (<em>Optional</em>): Set the scroll mode. One of <code class="docutils literal notranslate"><span class="pre">CONTINUOUS</span></code> or <code class="docutils literal notranslate"><span class="pre">STOP</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">CONTINUOUS</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CONTINUOUS</span></code>: Always scrolls and the text repeats continuously, you might need to add some
+separation at the end.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">STOP</span></code>: When text is over it waits the <code class="docutils literal notranslate"><span class="pre">scroll_dwell</span></code> time and scroll is set back to the start.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>scroll_speed</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Set scroll speed. Defaults to <code class="docutils literal notranslate"><span class="pre">250ms</span></code></p></li>
+<li><p><strong>scroll_delay</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Set delay time before scroll starts. Defaults to <code class="docutils literal notranslate"><span class="pre">1s</span></code>.</p></li>
+<li><p><strong>scroll_dwell</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Sets the wait time at the end of the scroll before starting
+over. This is only used in mode <code class="docutils literal notranslate"><span class="pre">STOP</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">1s</span></code>.</p></li>
+<li><p><strong>reverse_enable</strong> (<em>Optional</em>, boolean): For some displays the order of the displays is reversed (“DCBA”). This option will reverse the display to (“ABCD”) again. Defaults to  <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>intensity</strong> (<em>Optional</em>, int): The intensity with which the MAX7219 should drive the outputs. Range is
+from <code class="docutils literal notranslate"><span class="pre">0</span></code>, least intense to <code class="docutils literal notranslate"><span class="pre">15</span></code> the brightest. Defaults to <code class="docutils literal notranslate"><span class="pre">15</span></code>.</p></li>
+<li><p><strong>lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>): The lambda to use for rendering the content on the
+MAX7219. See <a class="reference internal" href="#display-max7219digit-lambda"><span class="std std-ref">Rendering Lambda</span></a> for more information.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to re-draw the screen. Defaults to <code class="docutils literal notranslate"><span class="pre">1s</span></code>.</p></li>
+<li><p><strong>spi_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI Component</span></a> if you want
+to use multiple SPI buses.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>num_chip_lines</strong> (<em>Optional</em>, int): Number of lines if you want to use the displays in Multiline Mode. Defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code> Example: <a class="reference external" href="https://github.com/esphome/esphome/pull/1622#issue-836179156">https://github.com/esphome/esphome/pull/1622#issue-836179156</a></p></li>
+<li><p><strong>chip_lines_style</strong> (<em>Optional</em>): How are the lines in Multiline Mode connected? Possible values are <code class="docutils literal notranslate"><span class="pre">zigzag</span></code> and <code class="docutils literal notranslate"><span class="pre">snake</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">snake</span></code></p></li>
+<li><p><strong>flip_x</strong> (<em>Optional</em>, boolean): Flip the horizontal axis on the screen. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+</ul>
+</section>
+<section id="rendering-lambda">
+<span id="display-max7219digit-lambda"></span><h2>Rendering Lambda<a class="headerlink" href="#rendering-lambda" title="Permalink to this heading">¶</a></h2>
+<p>The MAX7219 digit is based on the fully fledged <a class="reference internal" href="index.html#display-engine"><span class="std std-ref">Display Rendering Engine</span></a>, as it has a concept of individual pixels 8 X 8
+per max7219 chip. In the lambda you’re passed a variable called <code class="docutils literal notranslate"><span class="pre">it</span></code> as with all other displays. Some “Special”
+commands have been added to the basic display set.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max7219digit</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D8</span>
+<span class="w">    </span><span class="nt">num_chips</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.strftime(0, 0, id(digit_font), &quot;%H:%M&quot;, id(hass_time).now());</span>
+<span class="w">      </span><span class="no">it.image(24, 0, id(my_image));</span>
+<span class="w">      </span><span class="no">it.line(1, 7, 21, 7);</span>
+<span class="nt">font</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;pixelmix.ttf&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">digit_font</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+
+<span class="nt">time</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">homeassistant</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hass_time</span>
+
+<span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;smile.png&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_image</span>
+</pre></div>
+</div>
+<p>This is roughly the code used to display the MAX7219 pictured in the image.</p>
+<section id="scrolling">
+<h3>Scrolling<a class="headerlink" href="#scrolling" title="Permalink to this heading">¶</a></h3>
+<p>By default the MAX7219Digit display has scroll enabled. The parameters can be set in the YAML file.
+They can also be changed in the Lambda by adding the following command:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">it</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="o">&lt;</span><span class="n">on</span><span class="o">/</span><span class="n">off</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="n">mode</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="n">speed</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="n">delay</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="n">dwell</span><span class="o">&gt;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>on/off</strong> -&gt; switch scrolling on or off, use true or false</p></li>
+<li><p><strong>mode</strong> -&gt; max7219digit::CONTINUOUS for continuous scrolling, max7219digit::STOP = Stop at end and reset</p></li>
+<li><p><strong>speed</strong> -&gt; Set speed of scrolling (ms for every step of one dot)</p></li>
+<li><p><strong>delay</strong> -&gt; pause time at start of scrolling</p></li>
+<li><p><strong>dwell</strong> -&gt; pause at end of scrolling (only in mode 1)</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max7219digit</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no"># ...</span>
+<span class="w">      </span><span class="no">it.scroll(true, max7219digit::CONTINUOUS, 100, 5000, 1500);</span>
+<span class="w">      </span><span class="no">// OR</span>
+<span class="w">      </span><span class="no">it.scroll(true, max7219digit::CONTINUOUS);</span>
+<span class="w">      </span><span class="no">// OR</span>
+<span class="w">      </span><span class="no">it.scroll(true);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The screen does not scroll if the text fits within the screen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">printdigit(&quot;...&quot;)</span></code> and <code class="docutils literal notranslate"><span class="pre">printdigitf(&quot;...&quot;)</span></code> the alternative way of displaying text does not scroll</p></li>
+</ul>
+</section>
+<section id="screen-inversion">
+<h3>Screen inversion<a class="headerlink" href="#screen-inversion" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max7219digit</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.invert_on_off(true);</span>
+<span class="w">      </span><span class="no">// Print Hello at position 0 (left)</span>
+<span class="w">      </span><span class="no">it.print(0,0, id(digit_font), &quot;Hello!&quot;);</span>
+</pre></div>
+</div>
+<p>The function <code class="docutils literal notranslate"><span class="pre">it.invert_on_off(true);</span></code> will invert the display. So background pixels are on and texts pixels are
+off. <code class="docutils literal notranslate"><span class="pre">it.invert_on_off(false);</span></code> sets the display back to normal. In case no argument is used: <code class="docutils literal notranslate"><span class="pre">it.invert_on_off();</span></code>
+the inversion will toggle from on to off or visa versa. This will happen every time the display is updated.
+So a blinking effect is created. The background pixels are only set at the next update, the pixels drawn in
+the various function like print, line, etc. are directly influenced by the invert command.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max7219digit</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.invert_on_off(true);</span>
+<span class="w">      </span><span class="no">// Print Hello at position 0 (left)</span>
+<span class="w">      </span><span class="no">it.print(0,0, id(digit_font), &quot;Hello!&quot;);</span>
+<span class="w">      </span><span class="no">it.line(0, 0, 31, 7, COLOR_OFF);</span>
+</pre></div>
+</div>
+<p>This code will only affect the line drawn on the screen. The line will wipe the pixels from top left to right bottom.
+The background is not affected.</p>
+</section>
+<section id="screen-intensity">
+<h3>Screen intensity<a class="headerlink" href="#screen-intensity" title="Permalink to this heading">¶</a></h3>
+<p>The intensity of the screen can be set “dynamically” within the lambda code with the following command: it.intensity(<code class="docutils literal notranslate"><span class="pre">0</span></code> .. <code class="docutils literal notranslate"><span class="pre">15</span></code>).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max7219digit</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.intensity(10);</span>
+</pre></div>
+</div>
+</section>
+<section id="screen-on-off">
+<h3>Screen ON/OFF<a class="headerlink" href="#screen-on-off" title="Permalink to this heading">¶</a></h3>
+<p>The display can be switched on and off “dynamically” within the lambda code with the following command: it.turn_on_off(true or false).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max7219digit</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.turn_on_off(true);</span>
+</pre></div>
+</div>
+<p>For a quick display some additional commands are embedded in the code with a related 8 pixel font. Three methods
+(<code class="docutils literal notranslate"><span class="pre">printdigit</span></code>, <code class="docutils literal notranslate"><span class="pre">printdigitf</span></code> and <code class="docutils literal notranslate"><span class="pre">strftimedigit</span></code>) can be used for displaying characters. Each 8 X 8 grid is used to
+display a single character. So not very space efficient. The format of the command is: <code class="docutils literal notranslate"><span class="pre">it.printdigit(&quot;1234&quot;);</span></code> or
+<code class="docutils literal notranslate"><span class="pre">it.printdigitf(&quot;%s&quot;,&quot;1234&quot;)</span></code>;</p>
+<p>Please see <a class="reference internal" href="index.html#display-printf"><span class="std std-ref">Formatted Text</span></a> for a quick introduction into the <code class="docutils literal notranslate"><span class="pre">printf</span></code> formatting rules and
+<a class="reference internal" href="index.html#display-strftime"><span class="std std-ref">Displaying Time</span></a> for an introduction into the <code class="docutils literal notranslate"><span class="pre">strftime</span></code> time formatting.</p>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Display Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/max7219_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/nickgammon/MAX7219">MAX7219 Library</a> by <a class="reference external" href="https://github.com/nickgammon">Nick Gammon</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/display/max7219digit.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

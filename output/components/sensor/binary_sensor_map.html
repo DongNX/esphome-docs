@@ -1,0 +1,363 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a Binary Sensor Map">
+<meta itemprop="name" content="Binary Sensor Map">
+<meta itemprop="description" content="Instructions for setting up a Binary Sensor Map">
+<meta itemprop="image" content="https://esphome.io/_images/binary_sensor_map.jpg">
+<meta name="twitter:title" content="Binary Sensor Map">
+<meta name="twitter:image:src" content="https://esphome.io/_images/binary_sensor_map.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a Binary Sensor Map">
+<meta property="og:title" content="Binary Sensor Map">
+<meta property="og:image" content="https://esphome.io/_images/binary_sensor_map.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a Binary Sensor Map">
+
+    <title>Binary Sensor Map &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/binary_sensor_map.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="BL0939 Power Sensor" href="bl0939.html" />
+    <link rel="prev" title="BH1750 Ambient Light Sensor" href="bh1750.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Binary Sensor Map</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>Binary Sensor Map</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="binary-sensor-map">
+<h1>Binary Sensor Map<a class="headerlink" href="#binary-sensor-map" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">binary_sensor_map</span></code> sensor platform allows you to map multiple <a class="reference internal" href="../binary_sensor/index.html"><span class="doc">binary sensor</span></a>
+to an individual value. Depending on the state of each binary sensor, its associated configured parameters, and this sensor’s mapping type,
+the <code class="docutils literal notranslate"><span class="pre">binary_sensor_map</span></code> publishes a single numerical value.</p>
+<p>Use this sensor to combine one or more binary sensors’ <code class="docutils literal notranslate"><span class="pre">ON</span></code> or <code class="docutils literal notranslate"><span class="pre">OFF</span></code> states into a numerical value. Some possible use cases include
+touch devices and determining Bayesian probabilities for an event.</p>
+<p>This platform supports three measurement types: <code class="docutils literal notranslate"><span class="pre">BAYESIAN</span></code>, <code class="docutils literal notranslate"><span class="pre">GROUP</span></code>, and <code class="docutils literal notranslate"><span class="pre">SUM</span></code>.
+You need to specify your desired mapping with the <code class="docutils literal notranslate"><span class="pre">type:</span></code> configuration value.</p>
+<p>When using the <code class="docutils literal notranslate"><span class="pre">BAYESIAN</span></code> type, add your binary sensors as <code class="docutils literal notranslate"><span class="pre">observations</span></code> to the binary sensor map.
+If you use the <code class="docutils literal notranslate"><span class="pre">GROUP</span></code> or <code class="docutils literal notranslate"><span class="pre">SUM</span></code> type, add your binary sensors as <code class="docutils literal notranslate"><span class="pre">channels</span></code>.
+The maximum amount of observations/channels supported is 64.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BAYESIAN</span></code> This type replicates Home Assistant’s <a class="reference external" href="https://www.home-assistant.io/integrations/bayesian/">Bayesian sensor</a>. Based on the observation states, this sensor returns the Bayesian probability of a particular event occurring. The configured <code class="docutils literal notranslate"><span class="pre">prior:</span></code> probability is the likelihood that the Bayesian event is true, ignoring all external influences. Every observation has its own <code class="docutils literal notranslate"><span class="pre">prob_given_true</span></code> and <code class="docutils literal notranslate"><span class="pre">prob_given_false</span></code> parameters. The <code class="docutils literal notranslate"><span class="pre">prob_given_true:</span></code> value is the probability that the observation’s binary sensor is <code class="docutils literal notranslate"><span class="pre">ON</span></code> when the Bayesian event is <code class="docutils literal notranslate"><span class="pre">true</span></code>. The <code class="docutils literal notranslate"><span class="pre">prob_given_false:</span></code> value is the probability that the observation’s binary sensor is <code class="docutils literal notranslate"><span class="pre">ON</span></code> when the Bayesian event is <code class="docutils literal notranslate"><span class="pre">false</span></code>. Use an <a class="reference internal" href="../binary_sensor/analog_threshold.html"><span class="doc">Analog Threshold Binary Sensor</span></a> to convert this sensor’s probability to a binary <code class="docutils literal notranslate"><span class="pre">ON</span></code> or <code class="docutils literal notranslate"><span class="pre">OFF</span></code> by setting an appropriate threshold.</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor_map</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bayesian_prob</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Bayesian</span><span class="nv"> </span><span class="s">Event</span><span class="nv"> </span><span class="s">Probability&#39;</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bayesian</span>
+<span class="w">    </span><span class="nt">prior</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.4</span>
+<span class="w">    </span><span class="nt">observations</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">binary_sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor_0</span>
+<span class="w">        </span><span class="nt">prob_given_true</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
+<span class="w">        </span><span class="nt">prob_given_false</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">binary_sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor_1</span>
+<span class="w">        </span><span class="nt">prob_given_true</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.6</span>
+<span class="w">        </span><span class="nt">prob_given_false</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># If the Bayesian probability is greater than 0.6,</span>
+<span class="w">  </span><span class="c1"># then predict the event is occuring</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">analog_threshold</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bayesian</span><span class="nv"> </span><span class="s">Event</span><span class="nv"> </span><span class="s">Predicted</span><span class="nv"> </span><span class="s">State&quot;</span>
+<span class="w">    </span><span class="nt">sensor_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bayesian_prob</span>
+<span class="w">    </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.6</span>
+<span class="w">  </span><span class="c1"># ...</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GROUP</span></code> Each channel has its own <code class="docutils literal notranslate"><span class="pre">value</span></code>. The sensor publishes the average value of all active
+binary sensors or <code class="docutils literal notranslate"><span class="pre">NAN</span></code> if no sensors are active.</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor_map</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group_0</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Group</span><span class="nv"> </span><span class="s">Map</span><span class="nv"> </span><span class="s">0&#39;</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GROUP</span>
+<span class="w">    </span><span class="nt">channels</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">binary_sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">touchkey0</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">binary_sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">touchkey1</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">binary_sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">touchkey2</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">binary_sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">touchkey3</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+
+<span class="c1"># Example binary sensors using MPR121 component</span>
+<span class="nt">mpr121</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mpr121_first</span>
+<span class="w">  </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x5A</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mpr121</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">touchkey0</span>
+<span class="w">  </span><span class="c1"># ...</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SUM</span></code> Each channel has its own <code class="docutils literal notranslate"><span class="pre">value</span></code>. The sensor publishes the sum of all the active
+binary sensors values or <code class="docutils literal notranslate"><span class="pre">0</span></code> if no sensors are active.</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor_map</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group_0</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Group</span><span class="nv"> </span><span class="s">Map</span><span class="nv"> </span><span class="s">0&#39;</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sum</span>
+<span class="w">    </span><span class="nt">channels</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">binary_sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bit0</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">binary_sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bit1</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">binary_sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bit2</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">binary_sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bit3</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bit0</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bit1</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bit2</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bit3</span>
+<span class="w">  </span><span class="c1"># ...</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the sensor.</p></li>
+<li><p><strong>type</strong> (<strong>Required</strong>, string): The sensor type. Should be one of: <code class="docutils literal notranslate"><span class="pre">BAYESIAN</span></code>, <code class="docutils literal notranslate"><span class="pre">GROUP</span></code>, or <code class="docutils literal notranslate"><span class="pre">SUM</span></code>.</p></li>
+<li><p><strong>channels</strong> (<strong>Required for GROUP or SUM types</strong>): A list of channels that are mapped to certain values.</p>
+<ul>
+<li><p><strong>binary_sensor</strong> (<strong>Required</strong>): The id of the <a class="reference internal" href="../binary_sensor/index.html"><span class="doc">binary sensor</span></a>
+to add as a channel for this sensor.</p></li>
+<li><p><strong>value</strong> (<strong>Required</strong>): The value this channel should report when its binary sensor is active.</p></li>
+</ul>
+</li>
+<li><p><strong>prior</strong> (<strong>Required for BAYESIAN type</strong>, float between 0 and 1): The prior probability of the event.</p></li>
+<li><p><strong>observations</strong> (<strong>Required for BAYESIAN type</strong>): A list of observations that influence the Bayesian probability of the event.</p>
+<ul>
+<li><p><strong>binary_sensor</strong> (<strong>Required</strong>): The id of the <a class="reference internal" href="../binary_sensor/index.html"><span class="doc">binary sensor</span></a>
+to add as an observation.</p></li>
+<li><p><strong>prob_given_true</strong> (<strong>Required</strong>, float between 0 and 1): Assuming the event is true, the probability this observation is on.</p></li>
+<li><p><strong>prob_given_false</strong> (<strong>Required</strong>, float between 0 and 1): Assuming the event is false, the probability this observation is on.</p></li>
+</ul>
+</li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../binary_sensor/mpr121.html"><span class="doc">MPR121 Capacitive Touch Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="../binary_sensor/analog_threshold.html"><span class="doc">Analog Threshold Binary Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference external" href="/api/binary__sensor__map_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://www.home-assistant.io/integrations/bayesian/">Bayesian sensor in Home Assistant</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/binary_sensor_map.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

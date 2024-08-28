@@ -1,0 +1,197 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a kalman_combinator sensor">
+<meta itemprop="name" content="Kalman filter-based sensor fusion">
+<meta itemprop="description" content="Instructions for setting up a kalman_combinator sensor">
+<meta name="twitter:title" content="Kalman filter-based sensor fusion">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a kalman_combinator sensor">
+<meta property="og:title" content="Kalman filter-based sensor fusion">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a kalman_combinator sensor">
+
+    <title>Kalman filter-based sensor fusion &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/kalman_combinator.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="M5Stack KMeterISO I2C K-Type probe temperature sensor" href="kmeteriso.html" />
+    <link rel="prev" title="Internal Temperature Sensor" href="internal_temperature.html" />
+  <link rel="stylesheet" href="../../_static/custom.css?hash=ab494674" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Kalman filter-based sensor fusion</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  
+  <ul class="breadcrumbs">
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>Kalman filter-based sensor fusion</li>
+  </ul>
+  
+
+
+          <div class="body" role="main">
+            
+  <section id="kalman-filter-based-sensor-fusion">
+<h1>Kalman filter-based sensor fusion<a class="headerlink" href="#kalman-filter-based-sensor-fusion" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">kalman_combinator</span></code> sensor platform allows you to filter one or several
+sensors into one with a reduced error. If using a single sensor as data source,
+it acts like a <a class="reference internal" href="index.html#sensor-filter-exponential-moving-average"><span class="std std-ref">exponential_moving_average</span></a> filter. With
+multiple sensors, it combines their values based on their respective standard
+deviation.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">unit_of_measurement</span></code>, <code class="docutils literal notranslate"><span class="pre">device_class</span></code>, <code class="docutils literal notranslate"><span class="pre">entity_category</span></code>, <code class="docutils literal notranslate"><span class="pre">icon</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">accuracy_decimals</span></code> properties are by default inherited from the first sensor.
+<code class="docutils literal notranslate"><span class="pre">state_class</span></code> is explicitly not inherited, because <code class="docutils literal notranslate"><span class="pre">total_increasing</span></code> states
+could still decrease when multiple sensors are used.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kalman_combinator</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature&quot;</span>
+<span class="w">    </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">°C</span>
+<span class="w">    </span><span class="nt">process_std_dev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
+<span class="w">    </span><span class="nt">sources</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature_sensor_1</span>
+<span class="w">        </span><span class="nt">error</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature_sensor_2</span>
+<span class="w">        </span><span class="nt">error</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">return 0.5 + std::abs(x - 25) * 0.023</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>process_std_dev</strong> (<strong>Required</strong>, float): The standard deviation of the
+measurement’s change per second (e.g. <code class="docutils literal notranslate"><span class="pre">1/3600</span> <span class="pre">=</span> <span class="pre">0.000277</span></code> if the
+temperature usually changes at most by one Kelvin per hour). A low value here
+will place high importance on the current state and be slow to respond to
+changes in the measured samples. A high value will update faster, but also be
+more noisy.</p></li>
+<li><p><strong>std_dev</strong> (<em>Optional</em>, <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>): A sensor
+that publishes the current standard deviation of the state with each update.</p></li>
+<li><p><strong>sources</strong> (<strong>Required</strong>, list): A list of sensors to use as source. Each
+source must have either <strong>error</strong> or <strong>error_function</strong> set. These work like
+the <strong>process_std_dev</strong> parameter, with low values marking accurate data.</p>
+<ul>
+<li><p><strong>source</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a> of a <a class="reference internal" href="index.html"><span class="doc">Sensor Component</span></a>): The
+sensor that is used as sample source</p></li>
+<li><p><strong>error</strong> (<strong>Required</strong>, float, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The standard deviation of the
+sensor’s measurements. If implemented as a template, the measurement is in
+parameter <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+</ul>
+</li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference external" href="/api/kalman__combinator_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/kalman_combinator.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been release since you last visited this page: 2023.11.6 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2023.11.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2023.11");
+    } else if (old !== "2023.11") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2023.11");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

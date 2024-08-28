@@ -1,0 +1,737 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up ATM90E32 energy metering sensors">
+<meta name="keywords" content="ATM90E32, CircuitSetup, Split Single Phase Real Time Whole House Energy Meter, Expandable 6 Channel ESP32 Energy Meter Main Board">
+<meta itemprop="name" content="ATM90E32 Power Sensor">
+<meta itemprop="description" content="Instructions for setting up ATM90E32 energy metering sensors">
+<meta itemprop="image" content="https://esphome.io/_images/atm90e32.jpg">
+<meta name="twitter:title" content="ATM90E32 Power Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/atm90e32.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up ATM90E32 energy metering sensors">
+<meta property="og:title" content="ATM90E32 Power Sensor">
+<meta property="og:image" content="https://esphome.io/_images/atm90e32.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up ATM90E32 energy metering sensors">
+
+    <title>ATM90E32 Power Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/atm90e32.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="b-parasite" href="b_parasite.html" />
+    <link rel="prev" title="ATM90E26 Power Sensor" href="atm90e26.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ATM90E32 Power Sensor</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#calibration">Calibration</a><ul>
+<li><a class="reference internal" href="#voltage">Voltage</a></li>
+<li><a class="reference internal" href="#current">Current</a></li>
+<li><a class="reference internal" href="#active-energy">Active Energy</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#additional-examples">Additional Examples</a></li>
+<li><a class="reference internal" href="#harmonic-power">Harmonic Power</a></li>
+<li><a class="reference internal" href="#phase-angle">Phase Angle</a></li>
+<li><a class="reference internal" href="#peak-current">Peak Current</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>ATM90E32 Power Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="atm90e32-power-sensor">
+<h1>ATM90E32 Power Sensor<a class="headerlink" href="#atm90e32-power-sensor" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">atm90e32</span></code> sensor platform allows you to use your ATM90E32 voltage/current and power sensors
+(<a class="reference external" href="http://ww1.microchip.com/downloads/en/devicedoc/Atmel-46003-SE-M90E32AS-Datasheet.pdf">datasheet</a>) with
+ESPHome. This sensor is commonly found in CircuitSetup 2 and 6 channel energy meters and the <a class="reference external" href="https://www.gelidus.ca/">Gelidus Research</a> 2 channel power meter.</p>
+<p>Communication with the device is done via an <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI bus</span></a>, so you need to have an <code class="docutils literal notranslate"><span class="pre">spi:</span></code> entry in your configuration
+with both <code class="docutils literal notranslate"><span class="pre">mosi_pin</span></code> and <code class="docutils literal notranslate"><span class="pre">miso_pin</span></code> set.</p>
+<p>The ATM90E32 IC can measure up to three AC voltages although typically only one
+voltage measurement would be used for the mains electricity phase of a
+household. Three current measurements are read via CT clamps.</p>
+<p>The <a class="reference external" href="https://circuitsetup.us/index.php/product/split-single-phase-real-time-whole-house-energy-meter-v1-2/">CircuitSetup Split Single Phase Energy Meter</a> can read 2 current channels and 1 (expandable to 2) voltage channel.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/atm90e32-cs-2chan-full.jpg"><img alt="../../_images/atm90e32-cs-2chan-full.jpg" src="../../_images/atm90e32-cs-2chan-full.jpg" style="width: 50.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">CircuitSetup Split Single Phase Real Time Whole House Energy Meter.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The <a class="reference external" href="https://circuitsetup.us/index.php/product/expandable-6-channel-esp32-energy-meter/">CircuitSetup 6-Channel Energy Monitor</a> can read 6 current channels and 2 voltage channels at a time, this board has two ATM90E32 ICs and requires two sensors to be configured in ESPHome.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/atm90e32-cs-6chan-full.jpg"><img alt="../../_images/atm90e32-cs-6chan-full.jpg" src="../../_images/atm90e32-cs-6chan-full.jpg" style="width: 50.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">CircuitSetup Expandable 6 Channel ESP32 Energy Meter Main Board.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>cs_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The pin CS is connected to. For the 6 channel meter main board, this will always be 5 and 4. For the add-on boards a jumper can be selected for each CS pin, but default to 0 and 16.</p></li>
+<li><p><strong>line_frequency</strong> (<strong>Required</strong>, string): The AC line frequency of the supply voltage. One of <code class="docutils literal notranslate"><span class="pre">50Hz</span></code>, <code class="docutils literal notranslate"><span class="pre">60Hz</span></code>.</p></li>
+<li><p><strong>phase_a</strong> (<em>Optional</em>): The configuration options for the 1st phase.</p>
+<ul>
+<li><p><strong>voltage</strong> (<em>Optional</em>): Use the voltage value of this phase in V (RMS).
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>current</strong> (<em>Optional</em>): Use the current value of this phase in amperes. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>power</strong> (<em>Optional</em>): Use the power value on this phase in watts. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>reactive_power</strong> (<em>Optional</em>): Use the reactive power value on this phase. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>power_factor</strong> (<em>Optional</em>): Use the power factor value on this phase. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>phase_angle</strong> (<em>Optional</em>): Use the phase angle value on this phase in degrees. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>peak_current</strong> (<em>Optional</em>): Use the peak current value on this phase in amperes. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>harmonic_power</strong> (<em>Optional</em>): Use the harmonic power value on this phase. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>gain_voltage</strong> (<em>Optional</em>, int): Voltage gain to scale the low voltage AC power pack to household mains feed.
+Defaults to <code class="docutils literal notranslate"><span class="pre">7305</span></code>.</p></li>
+<li><p><strong>gain_ct</strong> (<em>Optional</em>, int): CT clamp calibration for this phase.
+Defaults to <code class="docutils literal notranslate"><span class="pre">27961</span></code>.</p></li>
+<li><p><strong>forward_active_energy</strong> (<em>Optional</em>): Use the forward active energy value on this phase in watt-hours.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>reverse_active_energy</strong> (<em>Optional</em>): Use the reverse active energy value on this phase in watt-hours.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>phase_b</strong> (<em>Optional</em>): The configuration options for the 2nd phase. Same options as 1st phase.</p></li>
+<li><p><strong>phase_c</strong> (<em>Optional</em>): The configuration options for the 3rd phase. Same options as 1st phase.</p></li>
+<li><p><strong>frequency</strong> (<em>Optional</em>): Use the frequenycy value calculated by the meter. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>peak_current_signed</strong> (<em>Optional</em>, boolean): Control the peak current output as signed or absolute. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>chip_temperature</strong> (<em>Optional</em>): Use the chip temperature value. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>gain_pga</strong> (<em>Optional</em>, string): The gain for the CT clamp, <code class="docutils literal notranslate"><span class="pre">2X</span></code> for 100A, <code class="docutils literal notranslate"><span class="pre">4X</span></code> for 100A - 200A. One of <code class="docutils literal notranslate"><span class="pre">1X</span></code>, <code class="docutils literal notranslate"><span class="pre">2X</span></code>, <code class="docutils literal notranslate"><span class="pre">4X</span></code>.
+Defaults to <code class="docutils literal notranslate"><span class="pre">2X</span></code> which is suitable for the popular SCT-013-000 clamp.</p></li>
+<li><p><strong>current_phases</strong> (<em>Optional</em>): The number of phases the meter has, <code class="docutils literal notranslate"><span class="pre">2</span></code> or, <code class="docutils literal notranslate"><span class="pre">3</span></code>
+The 6 Channel Expandable Energy Meter should be set to <code class="docutils literal notranslate"><span class="pre">3</span></code>, and the Split Single Phase meter should be set to <code class="docutils literal notranslate"><span class="pre">2</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to check the sensor. Defaults to <code class="docutils literal notranslate"><span class="pre">60s</span></code>.</p></li>
+<li><p><strong>spi_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI Component</span></a> if you want
+to use multiple SPI buses.</p></li>
+</ul>
+</section>
+<section id="calibration">
+<h2>Calibration<a class="headerlink" href="#calibration" title="Permalink to this heading">¶</a></h2>
+<p>This sensor needs calibration to show correct values. The default gain configuration is set to use the <a class="reference external" href="https://amzn.to/2E0KVvo">SCT-013-000</a>
+current transformers, and the <a class="reference external" href="https://amzn.to/2XcWJjI">Jameco Reliapro 9v AC transformer</a>.
+A load which uses a known amount of current can be used to calibrate. For for a more accurate calibration use a
+<a class="reference external" href="https://amzn.to/2TXT7jx">Kill-A-Watt</a> meter or similar, mains voltages can fluctuate depending on grid load.</p>
+<section id="voltage">
+<h3>Voltage<a class="headerlink" href="#voltage" title="Permalink to this heading">¶</a></h3>
+<p>Use the expected mains voltage for your region 110V/230V or plug in the Kill-A-Watt and select voltage. See what
+value the ATM90E32 sensor reports for voltage. To adjust the sensor use the calculation:</p>
+<p><code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">gain_voltage</span> <span class="pre">=</span> <span class="pre">(your</span> <span class="pre">voltage</span> <span class="pre">reading</span> <span class="pre">/</span> <span class="pre">ESPHome</span> <span class="pre">voltage</span> <span class="pre">reading)</span> <span class="pre">*</span> <span class="pre">existing</span> <span class="pre">gain_voltage</span> <span class="pre">value</span></code></p>
+<p>Update <strong>gain_voltage</strong> for all phases in your ESPHome yaml, recompile and upload. Repeat as necessary.</p>
+<dl class="simple">
+<dt>Here are common voltage calibrations for the <strong>Split Single Energy Meter</strong>:</dt><dd><dl class="simple">
+<dt>For meter &lt;= v1.3:</dt><dd><ul class="simple">
+<li><p>42080 - 9v AC Transformer - Jameco 112336</p></li>
+<li><p>32428 - 12v AC Transformer - Jameco 167151</p></li>
+</ul>
+</dd>
+<dt>For meter &gt; v1.4:</dt><dd><ul class="simple">
+<li><p>37106 - 9v AC Transformer - Jameco 157041</p></li>
+<li><p>38302 - 9v AC Transformer - Jameco 112336</p></li>
+<li><p>29462 - 12v AC Transformer - Jameco 167151</p></li>
+</ul>
+</dd>
+<dt>For Meters &gt;= v1.4 rev.3</dt><dd><ul class="simple">
+<li><p>3920 - 9v AC Transformer - Jameco 157041</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>Here are common voltage calibrations for the <strong>Expandable 6 Channel Energy Meter</strong>:</dt><dd><dl class="simple">
+<dt>For meter &lt;= v1.2:</dt><dd><ul class="simple">
+<li><p>42080 - 9v AC Transformer - Jameco 112336</p></li>
+<li><p>32428 - 12v AC Transformer - Jameco 167151</p></li>
+</ul>
+</dd>
+<dt>For meter &gt; v1.3:</dt><dd><ul class="simple">
+<li><p>7305 - 9v AC Transformer - Jameco 157041</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="current">
+<h3>Current<a class="headerlink" href="#current" title="Permalink to this heading">¶</a></h3>
+<p>Switch on the current load and see what value the ATM90E32 sensor reports for
+current on the selected phase. Using the known or measured current adjust the
+sensor using calculation:</p>
+<p><code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">gain_ct</span> <span class="pre">=</span> <span class="pre">(your</span> <span class="pre">current</span> <span class="pre">reading</span> <span class="pre">/</span> <span class="pre">ESPHome</span> <span class="pre">current</span> <span class="pre">reading)</span> <span class="pre">*</span> <span class="pre">existing</span> <span class="pre">gain_ct</span> <span class="pre">value</span></code></p>
+<p>Update <strong>gain_ct</strong> for the phase in your ESPHome yaml, recompile and upload. Repeat as necessary.</p>
+<p>It is possible that the two identical CT current sensors will have different
+<strong>gain_ct</strong> numbers due to variances in manufacturing, although it will be
+small. The current calibration can be done once and used on all sensors or
+repeated for each one.</p>
+<dl class="simple">
+<dt>Here are common current calibration values for the <strong>Split Single Phase Energy Meter</strong> when <strong>gain_pga</strong> is set to <code class="docutils literal notranslate"><span class="pre">4X</span></code>:</dt><dd><ul class="simple">
+<li><p>200A/100mA SCT-024: 12597</p></li>
+</ul>
+</dd>
+<dt>Here are common current calibration values for the <strong>Split Single Phase Energy Meter</strong> when <strong>gain_pga</strong> is set to <code class="docutils literal notranslate"><span class="pre">2X</span></code>:</dt><dd><ul class="simple">
+<li><p>20A/25mA SCT-006: 10170</p></li>
+<li><p>100A/50mA SCT-013-000: 25498</p></li>
+<li><p>120A/40mA SCT-016: 39473</p></li>
+<li><p>Magnalab 100A: 46539</p></li>
+</ul>
+</dd>
+<dt>Here are common current calibrations for the <strong>Expandable 6 Channel Energy Meter</strong> when <strong>gain_pga</strong> is set to <code class="docutils literal notranslate"><span class="pre">1X</span></code>:</dt><dd><ul class="simple">
+<li><p>20A/25mA SCT-006: 11131</p></li>
+<li><p>30A/1V SCT-013-030: 8650</p></li>
+<li><p>50A/1V SCT-013-050: 15420</p></li>
+<li><p>80A/26.6mA SCT-010: 41996 (note this will saturate at 2^16/10^3 amps)</p></li>
+<li><p>100A/50ma SCT-013-000: 27961</p></li>
+<li><p>120A/40mA: SCT-016: 41880</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="active-energy">
+<h3>Active Energy<a class="headerlink" href="#active-energy" title="Permalink to this heading">¶</a></h3>
+<p>The ATM90E32 chip has a high-precision built-in ability to count the amount of consumed energy on a per-phase basis.
+For each phase both the Forward and Reverse active energy is counted in watt-hours.
+Forward Active Energy is used to count consumed energy, whereas Reverse Active Energy is used to count exported energy
+(e.g. with solar pv installations).
+The counters are reset every time a given active energy value is read from the ATM90E32 chip.</p>
+<p>Current implementation targets users who retrieve the energy values with a regular interval and store them in
+a time-series-database, e.g. InfluxDB.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="c1">#IC1 Main</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">atm90e32</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">phase_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">forward_active_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} ct1 FAWattHours</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct1FAWattHours</span>
+<span class="w">        </span><span class="nt">state_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name}/ct1/forward_active_energy</span>
+<span class="w">      </span><span class="nt">reverse_active_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} ct1 RAWattHours</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct1RAWattHours</span>
+<span class="w">        </span><span class="nt">state_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name}/ct1/reverse_active_energy</span>
+</pre></div>
+</div>
+<p>If the power, power_factor, reactive_power, forward_active_energy, or reverse_active_energy configuraion variables
+are used, care must be taken to ensure that the line ATM90E32’s voltage is from is the same phase as the current
+transformer is installed on.  This is significant in split-phase or multi phase installations.  On a house with 240
+split-phase wiring (very common in the US), one simple test is to reverse the orentation of the current transformer
+on a line. If the power factor doesn’t change sign, it is likely that the voltage fed to the ATM90E32 is from the other
+phase.</p>
+<p>The CircuitSetup Expandable 6 channel board can easilly handle this situation by cutting the jumpers JP12/13 to
+allow a seperate VA2 to be input on the J3 pads. Make sure that current taps connected to CT 1-3 are on the phase
+from which VA is fed (the barrel jack) and the taps connected to CT3-6 are on the phase from which VA2 is fed. See
+the CicuitSetup repo for more details on this.</p>
+<p>If a mulit board stack is being used, remember to cut JP12/13 on all boards and to feed VA2 to each board. VA is
+fed to all boards through the stacking headers. Another detail is that each voltage transformer needs to have the
+same polarity; getting this backwards will be just like having it on the wrong phase.</p>
+<p>Note that the current measurement is the RMS value so is always positive. They only way to determine directon is to
+look at the power factor. If there are only largly resistive loads and no power sources, (PF almost 1), it is simpler
+to just create a template sensor that computes power from Irms*Vrms and ignore all these details. On the other
+hand, one might be surprised how reactive some loads are and the CirciuitSetup designs are able to
+handle these situations well.</p>
+</section>
+</section>
+<section id="additional-examples">
+<h2>Additional Examples<a class="headerlink" href="#additional-examples" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry for split single phase meter</span>
+<span class="nt">spi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">clk_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">miso_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">mosi_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">atm90e32</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">phase_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Line</span><span class="nv"> </span><span class="s">Voltage</span><span class="nv"> </span><span class="s">A&quot;</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">CT1</span><span class="nv"> </span><span class="s">Current&quot;</span>
+<span class="w">      </span><span class="nt">power</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">CT1&quot;</span>
+<span class="w">      </span><span class="nt">reactive_power</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Reactive</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">CT1&quot;</span>
+<span class="w">      </span><span class="nt">power_factor</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">Factor</span><span class="nv"> </span><span class="s">CT1&quot;</span>
+<span class="w">      </span><span class="nt">gain_voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3920</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">39473</span>
+<span class="w">    </span><span class="nt">phase_c</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">CT2</span><span class="nv"> </span><span class="s">Current&quot;</span>
+<span class="w">      </span><span class="nt">power</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">CT2&quot;</span>
+<span class="w">      </span><span class="nt">reactive_power</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Reactive</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">CT2&quot;</span>
+<span class="w">      </span><span class="nt">power_factor</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">Factor</span><span class="nv"> </span><span class="s">CT2&quot;</span>
+<span class="w">      </span><span class="nt">gain_voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3920</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">39473</span>
+<span class="w">    </span><span class="nt">frequency</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Line</span><span class="nv"> </span><span class="s">Frequency&quot;</span>
+<span class="w">    </span><span class="nt">chip_temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Chip</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">line_frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50Hz</span>
+<span class="w">    </span><span class="nt">current_phases</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">gain_pga</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2X</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example CircuitSetup 6-channel entry</span>
+<span class="nt">spi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">clk_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">18</span>
+<span class="w">  </span><span class="nt">miso_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">19</span>
+<span class="w">  </span><span class="nt">mosi_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">23</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">atm90e32</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">phase_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Line</span><span class="nv"> </span><span class="s">Voltage</span><span class="nv"> </span><span class="s">A&quot;</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">CT1</span><span class="nv"> </span><span class="s">Current&quot;</span>
+<span class="w">      </span><span class="nt">power</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">CT1&quot;</span>
+<span class="w">      </span><span class="nt">gain_voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7305</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12577</span>
+<span class="w">    </span><span class="nt">phase_b</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">CT2</span><span class="nv"> </span><span class="s">Current&quot;</span>
+<span class="w">      </span><span class="nt">power</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">CT2&quot;</span>
+<span class="w">      </span><span class="nt">gain_voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7305</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12577</span>
+<span class="w">    </span><span class="nt">phase_c</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">CT3</span><span class="nv"> </span><span class="s">Current&quot;</span>
+<span class="w">      </span><span class="nt">power</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">CT3&quot;</span>
+<span class="w">      </span><span class="nt">gain_voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7305</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12577</span>
+<span class="w">    </span><span class="nt">frequency</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Line</span><span class="nv"> </span><span class="s">Frequency&quot;</span>
+<span class="w">    </span><span class="nt">line_frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50Hz</span>
+<span class="w">    </span><span class="nt">current_phases</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">gain_pga</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1X</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">atm90e32</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">phase_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">CT4</span><span class="nv"> </span><span class="s">Current&quot;</span>
+<span class="w">      </span><span class="nt">power</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">CT4&quot;</span>
+<span class="w">      </span><span class="nt">gain_voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7305</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12577</span>
+<span class="w">    </span><span class="nt">phase_b</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">CT5</span><span class="nv"> </span><span class="s">Current&quot;</span>
+<span class="w">      </span><span class="nt">power</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">CT5&quot;</span>
+<span class="w">      </span><span class="nt">gain_voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7305</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12577</span>
+<span class="w">    </span><span class="nt">phase_c</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">CT6</span><span class="nv"> </span><span class="s">Current&quot;</span>
+<span class="w">      </span><span class="nt">power</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;EMON</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">CT6&quot;</span>
+<span class="w">      </span><span class="nt">gain_voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7305</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12577</span>
+<span class="w">    </span><span class="nt">line_frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50Hz</span>
+<span class="w">    </span><span class="nt">current_phases</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">gain_pga</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1X</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example CircuitSetup 6-channel without jumpers jp9-jp11 joined or &lt; meter v1.4</span>
+<span class="c1"># power is calculated in a template</span>
+
+<span class="nt">substitutions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">disp_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6C</span>
+<span class="w">  </span><span class="nt">update_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">  </span><span class="nt">current_cal</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;27961&#39;</span>
+
+<span class="nt">spi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">clk_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">18</span>
+<span class="w">  </span><span class="nt">miso_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">19</span>
+<span class="w">  </span><span class="nt">mosi_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">23</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">atm90e32</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">phase_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} Volts A</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ic1Volts</span>
+<span class="w">        </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT1 Amps</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct1Amps</span>
+<span class="w">      </span><span class="nt">gain_voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7305</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${current_cal}</span>
+<span class="w">    </span><span class="nt">phase_b</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT2 Amps</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct2Amps</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${current_cal}</span>
+<span class="w">    </span><span class="nt">phase_c</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT3 Amps</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct3Amps</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${current_cal}</span>
+<span class="w">    </span><span class="nt">frequency</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} Freq A</span>
+<span class="w">    </span><span class="nt">line_frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60Hz</span>
+<span class="w">    </span><span class="nt">current_phases</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">gain_pga</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1X</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${update_time}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">atm90e32</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">phase_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} Volts B</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ic2Volts</span>
+<span class="w">        </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT4 Amps</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct4Amps</span>
+<span class="w">      </span><span class="nt">gain_voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7305</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${current_cal}</span>
+<span class="w">    </span><span class="nt">phase_b</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT5 Amps</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct5Amps</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${current_cal}</span>
+<span class="w">    </span><span class="nt">phase_c</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT6 Amps</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct6Amps</span>
+<span class="w">      </span><span class="nt">gain_ct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${current_cal}</span>
+<span class="w">    </span><span class="nt">frequency</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} Freq B</span>
+<span class="w">    </span><span class="nt">line_frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60Hz</span>
+<span class="w">    </span><span class="nt">current_phases</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">gain_pga</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1X</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${update_time}</span>
+
+<span class="c1">#Watts per channel</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT1 Watts</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct1Watts</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return id(ct1Amps).state * id(ic1Volts).state;</span>
+<span class="w">    </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">W</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mdi:flash-circle&quot;</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${update_time}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT2 Watts</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct2Watts</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return id(ct2Amps).state * id(ic1Volts).state;</span>
+<span class="w">    </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">W</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mdi:flash-circle&quot;</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${update_time}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT3 Watts</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct3Watts</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return id(ct3Amps).state * id(ic1Volts).state;</span>
+<span class="w">    </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">W</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mdi:flash-circle&quot;</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${update_time}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT4 Watts</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct4Watts</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return id(ct4Amps).state * id(ic2Volts).state;</span>
+<span class="w">    </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">W</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mdi:flash-circle&quot;</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${update_time}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT5 Watts</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct5Watts</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return id(ct5Amps).state * id(ic2Volts).state;</span>
+<span class="w">    </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">W</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mdi:flash-circle&quot;</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${update_time}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT6 Watts</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ct6Watts</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return id(ct6Amps).state * id(ic2Volts).state;</span>
+<span class="w">    </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">W</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mdi:flash-circle&quot;</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${update_time}</span>
+<span class="c1">#Total Amps</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} Total Amps</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">totalAmps</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return id(ct1Amps).state + id(ct2Amps).state + id(ct3Amps).state + id(ct4Amps).state + id(ct5Amps).state + id(ct6Amps).state ;</span>
+<span class="w">    </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mdi:flash&quot;</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${update_time}</span>
+<span class="c1">#Total Watts</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} Total Watts</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">totalWatts</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return id(totalAmps).state * id(ic1Volts).state;</span>
+<span class="w">    </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">W</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mdi:flash-circle&quot;</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${update_time}</span>
+<span class="c1">#kWh</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">total_daily_energy</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} Total kWh</span>
+<span class="w">    </span><span class="nt">power_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">totalWatts</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">multiply</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
+<span class="w">    </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kWh</span>
+</pre></div>
+</div>
+</section>
+<section id="harmonic-power">
+<h2>Harmonic Power<a class="headerlink" href="#harmonic-power" title="Permalink to this heading">¶</a></h2>
+<p>Harmonic power in AC systems refers to deviations from the ideal sinusoidal waveform, caused by multiples of the
+fundamental frequency. It results from non-linear loads and can lead to issues like voltage distortion, equipment
+overheating, and misoperation of protective devices. The ATM90E32 can output advanced harmonic power measurements
+providing important analysis data for monitoring power anomalies on the bus.</p>
+<p><strong>Harmonic Power Example:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">atm90e32</span>
+<span class="w">    </span><span class="nt">phase_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">harmonic_power</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT1 Harmonic Power</span>
+</pre></div>
+</div>
+</section>
+<section id="phase-angle">
+<h2>Phase Angle<a class="headerlink" href="#phase-angle" title="Permalink to this heading">¶</a></h2>
+<p>Phase angle in AC systems represents the angular displacement of a sinusoidal waveform from a reference point.
+It’s a measure of timing difference between voltage and current. Phase angle is crucial for power factor assessment
+and efficient power transfer. This advanced measurement function is available with an ATM90E32.</p>
+<p><strong>Phase Angle Example:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">atm90e32</span>
+<span class="w">    </span><span class="nt">phase_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">phase_angle</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} L1 Phase Angle</span>
+</pre></div>
+</div>
+</section>
+<section id="peak-current">
+<h2>Peak Current<a class="headerlink" href="#peak-current" title="Permalink to this heading">¶</a></h2>
+<p>Peak current in AC systems refers to the maximum value of the alternating current waveform. It signifies the highest
+magnitude reached during each cycle of the sinusoidal waveform. Peak current is relevant for sizing components and
+assessing the capacity of electrical equipment in the system. This advanced measurement is avaiable from the ATM90E32.
+Peak current can be displayed in signed or unsigned format using a bolean parameter which spans all phases.
+The default is false which is unsigned.</p>
+<p><strong>Peak Current Example:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">atm90e32</span>
+<span class="w">    </span><span class="nt">phase_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">peak_current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${disp_name} CT1 Peak Current</span>
+<span class="w">  </span><span class="nt">peak_current_signed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference external" href="/api/atm90e32_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/atm90e32.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

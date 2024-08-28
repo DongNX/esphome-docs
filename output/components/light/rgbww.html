@@ -1,0 +1,320 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up RGBWW lights.">
+<meta itemprop="name" content="RGBWW Light">
+<meta itemprop="description" content="Instructions for setting up RGBWW lights.">
+<meta itemprop="image" content="https://esphome.io/_images/rgbw.png">
+<meta name="twitter:title" content="RGBWW Light">
+<meta name="twitter:image:src" content="https://esphome.io/_images/rgbw.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up RGBWW lights.">
+<meta property="og:title" content="RGBWW Light">
+<meta property="og:image" content="https://esphome.io/_images/rgbw.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up RGBWW lights.">
+
+    <title>RGBWW Light &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/light/rgbww.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="RP2040 PIO LED Strip" href="rp2040_pio_led_strip.html" />
+    <link rel="prev" title="RGBW Light" href="rgbw.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">RGBWW Light</a><ul>
+<li><a class="reference internal" href="#color-correction">Color Correction</a></li>
+<li><a class="reference internal" href="#color-interlock">Color Interlock</a></li>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Light Component</a> ➔</li>
+      <li>RGBWW Light</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="rgbww-light">
+<h1>RGBWW Light<a class="headerlink" href="#rgbww-light" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">rgbww</span></code> light platform creates an RGBWW (cold white + warm white)
+light from 5 <a class="reference internal" href="../output/index.html#output"><span class="std std-ref">float output components</span></a> (one for each channel). The cold and warm
+white channels can be controlled individually or together, see <a class="reference internal" href="cwww.html#cwww-mixing"><span class="std std-ref">Mixing</span></a> for more information.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">light</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rgbww</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Livingroom</span><span class="nv"> </span><span class="s">Lights&quot;</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_component1</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_component2</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_component3</span>
+<span class="w">    </span><span class="nt">cold_white</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_component4</span>
+<span class="w">    </span><span class="nt">warm_white</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_component5</span>
+<span class="w">    </span><span class="nt">cold_white_color_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6536 K</span>
+<span class="w">    </span><span class="nt">warm_white_color_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000 K</span>
+</pre></div>
+</div>
+<section id="color-correction">
+<h2>Color Correction<a class="headerlink" href="#color-correction" title="Permalink to this heading">¶</a></h2>
+<p>It is often favourable to calibrate/correct the color produced by an LED strip light as the
+perceived intensity of different colors will generally vary. This can be done by using
+<a class="reference internal" href="../output/index.html#config-output"><span class="std std-ref">max_power</span></a> on individual output channels:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">light</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rgbw</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Livingroom</span><span class="nv"> </span><span class="s">Lights&quot;</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_component1</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_component2</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_component3</span>
+<span class="w">    </span><span class="nt">white</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_component4</span>
+
+<span class="c1"># Example output entry</span>
+<span class="nt">output</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_component1</span>
+<span class="w">    </span><span class="nt">max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80%</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember that <code class="docutils literal notranslate"><span class="pre">gamma_correct</span></code> is enabled by default (<code class="docutils literal notranslate"><span class="pre">γ=2.8</span></code>), and you may want take it into account for the calibration. For instance if you command a light to <em>50%</em> brightness and want it to be the new maximum: <code class="docutils literal notranslate"><span class="pre">max_PWM_power</span> <span class="pre">=</span> <span class="pre">max_light_power^2.8</span> <span class="pre">=</span> <span class="pre">0.5^2.8</span> <span class="pre">=</span> <span class="pre">0.144</span></code>, then you would set <code class="docutils literal notranslate"><span class="pre">max_power</span></code> to <em>14.4%</em>.</p>
+</div>
+</section>
+<section id="color-interlock">
+<h2>Color Interlock<a class="headerlink" href="#color-interlock" title="Permalink to this heading">¶</a></h2>
+<p>With some LED bulbs, it is not possible to enable the RGB leds at the same time as the white leds, or setting
+the RGB channels to maximum whilst wanting a white light will have an undesired hue effect. For these cases a
+configuration variable is available that prevents the RGB leds and white leds from being turned on at the same
+time: <code class="docutils literal notranslate"><span class="pre">color_interlock</span></code>.</p>
+<p>Setting this option to <code class="docutils literal notranslate"><span class="pre">true</span></code> will result in the light having two color modes available, <code class="docutils literal notranslate"><span class="pre">RGB</span></code> and <code class="docutils literal notranslate"><span class="pre">COLD_WARM_WHITE</span></code>.
+When the <code class="docutils literal notranslate"><span class="pre">RGB</span></code> color mode is active, the white leds are turned off, and when the <code class="docutils literal notranslate"><span class="pre">COLD_WARM_WHITE</span></code> color mode is active,
+the RGB leds are turned off. Switching between these modes can be done from the Home Assistant interface, or by using
+the <code class="docutils literal notranslate"><span class="pre">color_mode</span></code> option of the <a class="reference internal" href="index.html#light-turn-on-action"><span class="std std-ref">light control actions</span></a>.</p>
+</section>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the light.</p></li>
+<li><p><strong>red</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The id of the float <a class="reference internal" href="../output/index.html#output"><span class="std std-ref">Output Component</span></a> to use for the red channel.</p></li>
+<li><p><strong>green</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The id of the float <a class="reference internal" href="../output/index.html#output"><span class="std std-ref">Output Component</span></a> to use for the green channel.</p></li>
+<li><p><strong>blue</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The id of the float <a class="reference internal" href="../output/index.html#output"><span class="std std-ref">Output Component</span></a> to use for the blue channel.</p></li>
+<li><p><strong>cold_white</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The id of the float <a class="reference internal" href="../output/index.html#output"><span class="std std-ref">Output Component</span></a> to use for the cold
+white channel.</p></li>
+<li><p><strong>warm_white</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The id of the float <a class="reference internal" href="../output/index.html#output"><span class="std std-ref">Output Component</span></a> to use for the warm
+white channel.</p></li>
+<li><p><strong>cold_white_color_temperature</strong> (<em>Optional</em>, float): The color temperature (in
+<a class="reference external" href="https://en.wikipedia.org/wiki/Mired">mireds</a> or Kelvin) of the cold white channel. Note that when the color interlock
+is enabled, this option is required to control the light from Home Assistant.</p></li>
+<li><p><strong>warm_white_color_temperature</strong> (<em>Optional</em>, float): The color temperature (in
+<a class="reference external" href="https://en.wikipedia.org/wiki/Mired">mireds</a> or Kelvin) of the warm white channel. Note that when the color interlock
+is enabled, this option is required to control the light from Home Assistant.</p></li>
+<li><p><strong>constant_brightness</strong> (<em>Optional</em>, boolean): When enabled, this will keep the overall brightness of the
+cold and warm white channels constant by limiting the combined output to 100% of a single channel. This
+reduces the possible overall brightness but is necessary for some power supplies that are not able to run
+both channels at full brightness at once. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>color_interlock</strong> (<em>Optional</em>, boolean): When enabled, this will prevent white leds being on at the same
+time as RGB leds. See <a class="reference internal" href="rgbw.html#rgbw-color-interlock"><span class="std std-ref">Color Interlock</span></a> for more information. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>effects</strong> (<em>Optional</em>, list): A list of <a class="reference internal" href="index.html#light-effects"><span class="std std-ref">light effects</span></a> to use for this light.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-light"><span class="std std-ref">Light</span></a>.</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../output/index.html"><span class="doc">Output Component</span></a></p></li>
+<li><p><a class="reference internal" href="index.html"><span class="doc">Light Component</span></a></p></li>
+<li><p><a class="reference internal" href="rgb.html"><span class="doc">RGB Light</span></a></p></li>
+<li><p><a class="reference internal" href="rgbw.html"><span class="doc">RGBW Light</span></a></p></li>
+<li><p><a class="reference internal" href="../power_supply.html"><span class="doc">Power Supply Component</span></a></p></li>
+<li><p><a class="reference internal" href="../output/ledc.html"><span class="doc">ESP32 LEDC Output</span></a></p></li>
+<li><p><a class="reference internal" href="../output/esp8266_pwm.html"><span class="doc">ESP8266 Software PWM Output</span></a></p></li>
+<li><p><a class="reference internal" href="../output/pca9685.html"><span class="doc">PCA9685</span></a></p></li>
+<li><p><a class="reference internal" href="../output/tlc59208f.html"><span class="doc">TLC59208F</span></a></p></li>
+<li><p><a class="reference internal" href="../output/my9231.html"><span class="doc">MY9231/MY9291 LED driver</span></a></p></li>
+<li><p><a class="reference internal" href="../output/sm16716.html"><span class="doc">SM16716 LED driver</span></a></p></li>
+<li><p><a class="reference external" href="/api/rgbww__light__output_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/light/rgbww.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

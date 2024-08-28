@@ -1,0 +1,321 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up I²S based microphones in ESPHome.">
+<meta itemprop="name" content="I²S Audio Microphone">
+<meta itemprop="description" content="Instructions for setting up I²S based microphones in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/i2s_audio.png">
+<meta name="twitter:title" content="I²S Audio Microphone">
+<meta name="twitter:image:src" content="https://esphome.io/_images/i2s_audio.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up I²S based microphones in ESPHome.">
+<meta property="og:title" content="I²S Audio Microphone">
+<meta property="og:image" content="https://esphome.io/_images/i2s_audio.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up I²S based microphones in ESPHome.">
+
+    <title>I²S Audio Microphone &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/microphone/i2s_audio.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Speaker Components" href="../speaker/index.html" />
+    <link rel="prev" title="Microphone Components" href="index.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">I²S Audio Microphone</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#external-adc">External ADC</a></li>
+<li><a class="reference internal" href="#internal-adc">Internal ADC</a></li>
+<li><a class="reference internal" href="#known-devices">Known Devices</a><ul>
+<li><a class="reference internal" href="#m5stack-atom-echo">M5Stack Atom Echo</a></li>
+<li><a class="reference internal" href="#raspiaudio-muse-luxe">RaspiAudio Muse Luxe</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Microphone Components</a> ➔</li>
+      <li>I²S Audio Microphone</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="i2s-audio-microphone">
+<h1>I²S Audio Microphone<a class="headerlink" href="#i2s-audio-microphone" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">i2s_audio</span></code> microphone platform allows you to receive audio via the the <a class="reference internal" href="../i2s_audio.html"><span class="doc">I²S Audio Component</span></a>.</p>
+<p>This platform only works on ESP32 based chips.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Audio and voice components consume a significant amount of resources (RAM, CPU) on the device.</p>
+<p><strong>Crashes are likely to occur</strong> if you include too many additional components in your device’s
+configuration. In particular, Bluetooth/BLE components are known to cause issues when used in
+combination with Voice Assistant and/or other audio components.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">microphone</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">i2s_audio</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external_mic</span>
+<span class="w">    </span><span class="nt">adc_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external</span>
+<span class="w">    </span><span class="nt">i2s_din_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">i2s_audio</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adc_mic</span>
+<span class="w">    </span><span class="nt">adc_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">internal</span>
+<span class="w">    </span><span class="nt">adc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>adc_type</strong> (<strong>Required</strong>, enum):</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">external</span></code>: Use an external ADC connected to the I²S bus.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">internal</span></code>: Use the internal ADC of the ESP32. Only supported on ESP32, no variant support.</p></li>
+</ul>
+</li>
+<li><p><strong>channel</strong> (<em>Optional</em>, enum): The channel of the microphone. One of <code class="docutils literal notranslate"><span class="pre">left</span></code> or <code class="docutils literal notranslate"><span class="pre">right</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">right</span></code>.</p></li>
+<li><p><strong>sample_rate</strong> (<em>Optional</em>, positive integer): I2S sample rate. Defaults to <code class="docutils literal notranslate"><span class="pre">16000</span></code>.</p></li>
+<li><p><strong>bits_per_sample</strong> (<em>Optional</em>, enum): The bit depth of the audio samples. Note that while set to <code class="docutils literal notranslate"><span class="pre">32bit</span></code>, the samples
+will be scaled down to 16bit before being forwarded.
+One of <code class="docutils literal notranslate"><span class="pre">16bit</span></code> or <code class="docutils literal notranslate"><span class="pre">32bit</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">16bit</span></code>.</p></li>
+<li><p><strong>use_apll</strong> (<em>Optional</em>, boolean): I2S using APLL as main I2S clock, enable it to get accurate clock. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>i2s_audio_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the <a class="reference internal" href="../i2s_audio.html#i2s-audio"><span class="std std-ref">I²S Audio</span></a> you wish to use for this microphone.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-microphone"><span class="std std-ref">Microphone</span></a></p></li>
+</ul>
+</section>
+<section id="external-adc">
+<h2>External ADC<a class="headerlink" href="#external-adc" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><strong>i2s_din_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The GPIO pin to use for the I²S <code class="docutils literal notranslate"><span class="pre">DIN/SDIN</span></code> <em>(Data In)</em> signal, also referred to as <code class="docutils literal notranslate"><span class="pre">SD/SDATA</span></code> <em>(Serial Data)</em> or <code class="docutils literal notranslate"><span class="pre">ADCDAT</span></code> <em>(Analog to Digital Converter Data)</em>.</p></li>
+<li><p><strong>pdm</strong> (<strong>Required</strong>, boolean): Set this to <code class="docutils literal notranslate"><span class="pre">true</span></code> if your external ADC uses PDM (Pulse Density Modulation) instead of I²S.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>PDM microphones are only supported on ESP32 and ESP32-S3.</p>
+</div>
+</li>
+</ul>
+</section>
+<section id="internal-adc">
+<h2>Internal ADC<a class="headerlink" href="#internal-adc" title="Permalink to this heading">¶</a></h2>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Internal ADC microphones are only supported on a regular ESP32, not the variants.</p>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>adc_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The GPIO pin to use for the ADC input.</p></li>
+</ul>
+</section>
+<section id="known-devices">
+<h2>Known Devices<a class="headerlink" href="#known-devices" title="Permalink to this heading">¶</a></h2>
+<section id="m5stack-atom-echo">
+<h3>M5Stack Atom Echo<a class="headerlink" href="#m5stack-atom-echo" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">microphone</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">i2s_audio</span>
+<span class="w">    </span><span class="nt">adc_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external</span>
+<span class="w">    </span><span class="nt">i2s_din_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">pdm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</section>
+<section id="raspiaudio-muse-luxe">
+<h3>RaspiAudio Muse Luxe<a class="headerlink" href="#raspiaudio-muse-luxe" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">microphone</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">i2s_audio</span>
+<span class="w">    </span><span class="nt">i2s_din_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">adc_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external</span>
+<span class="w">    </span><span class="nt">pdm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Microphone Components</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/microphone/i2s_audio.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

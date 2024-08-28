@@ -1,0 +1,557 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up select components in ESPHome.">
+<meta itemprop="name" content="Select Component">
+<meta itemprop="description" content="Instructions for setting up select components in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/folder-open.png">
+<meta name="twitter:title" content="Select Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/folder-open.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up select components in ESPHome.">
+<meta property="og:title" content="Select Component">
+<meta property="og:image" content="https://esphome.io/_images/folder-open.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up select components in ESPHome.">
+
+    <title>Select Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/select/index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Modbus Controller Select" href="modbus_controller.html" />
+    <link rel="prev" title="X9C Potentiometer Output" href="../output/x9c.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Select Component</a><ul>
+<li><a class="reference internal" href="#base-select-configuration">Base Select Configuration</a></li>
+<li><a class="reference internal" href="#select-automation">Select Automation</a><ul>
+<li><a class="reference internal" href="#on-value"><code class="docutils literal notranslate"><span class="pre">on_value</span></code></a></li>
+<li><a class="reference internal" href="#select-set-action"><code class="docutils literal notranslate"><span class="pre">select.set</span></code> Action</a></li>
+<li><a class="reference internal" href="#select-set-index-action"><code class="docutils literal notranslate"><span class="pre">select.set_index</span></code> Action</a></li>
+<li><a class="reference internal" href="#select-next-action"><code class="docutils literal notranslate"><span class="pre">select.next</span></code> Action</a></li>
+<li><a class="reference internal" href="#select-previous-action"><code class="docutils literal notranslate"><span class="pre">select.previous</span></code> Action</a></li>
+<li><a class="reference internal" href="#select-first-action"><code class="docutils literal notranslate"><span class="pre">select.first</span></code> Action</a></li>
+<li><a class="reference internal" href="#select-last-action"><code class="docutils literal notranslate"><span class="pre">select.last</span></code> Action</a></li>
+<li><a class="reference internal" href="#select-operation-action"><code class="docutils literal notranslate"><span class="pre">select.operation</span></code> Action</a></li>
+<li><a class="reference internal" href="#lambda-calls">lambda calls</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li>Select Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="select-component">
+<h1>Select Component<a class="headerlink" href="#select-component" title="Permalink to this heading">¶</a></h1>
+<p>ESPHome has support for components to create a select entity. A select entity is
+basically an option list that can be set by either yaml, hardware or the user/frontend.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Home Assistant Core 2021.8 or higher is required for ESPHome select entities to work.</p>
+</div>
+<section id="base-select-configuration">
+<span id="config-select"></span><h2>Base Select Configuration<a class="headerlink" href="#base-select-configuration" title="Permalink to this heading">¶</a></h2>
+<p>All selects in ESPHome have a name and an optional icon.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example select configuration</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Livingroom Mood</span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select</span>
+
+<span class="c1"># Optional variables:</span>
+<span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mdi:emoticon-outline&quot;</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the select.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have a <a class="reference internal" href="../esphome.html#esphome-configuration-variables"><span class="std std-ref">friendly_name</span></a> set for your device and
+you want the select to use that name, you can set <code class="docutils literal notranslate"><span class="pre">name:</span> <span class="pre">None</span></code>.</p>
+</div>
+</li>
+<li><p><strong>icon</strong> (<em>Optional</em>, icon): Manually set the icon to use for the select in the frontend.</p></li>
+<li><p><strong>internal</strong> (<em>Optional</em>, boolean): Mark this component as internal. Internal components will
+not be exposed to the frontend (like Home Assistant). Only specifying an <code class="docutils literal notranslate"><span class="pre">id</span></code> without
+a <code class="docutils literal notranslate"><span class="pre">name</span></code> will implicitly set this to true.</p></li>
+<li><p><strong>disabled_by_default</strong> (<em>Optional</em>, boolean): If true, then this entity should not be added to any client’s frontend,
+(usually Home Assistant) without the user manually enabling it (via the Home Assistant UI).
+Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>entity_category</strong> (<em>Optional</em>, string): The category of the entity.
+See <a class="reference external" href="https://developers.home-assistant.io/docs/core/entity/#generic-properties">https://developers.home-assistant.io/docs/core/entity/#generic-properties</a>
+for a list of available options.
+Set to <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> to remove the default entity category.</p></li>
+</ul>
+<p>Automations:</p>
+<ul class="simple">
+<li><p><strong>on_value</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when a new value is published. See <a class="reference internal" href="#select-on-value"><span class="std std-ref">on_value</span></a>.</p></li>
+</ul>
+<p>MQTT Options:</p>
+<ul class="simple">
+<li><p>All other options from <a class="reference internal" href="../mqtt.html#config-mqtt-component"><span class="std std-ref">MQTT Component</span></a>.</p></li>
+</ul>
+</section>
+<section id="select-automation">
+<h2>Select Automation<a class="headerlink" href="#select-automation" title="Permalink to this heading">¶</a></h2>
+<p>You can access the most recent state of the select in <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a> using
+<code class="docutils literal notranslate"><span class="pre">id(select_id).state</span></code>.
+For more information on using lambdas with select, see <a class="reference internal" href="#select-lambda-calls"><span class="std std-ref">lambda calls</span></a>.</p>
+<section id="on-value">
+<span id="select-on-value"></span><h3><code class="docutils literal notranslate"><span class="pre">on_value</span></code><a class="headerlink" href="#on-value" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered whenever a value is set/published, even if the value is the same as before. In <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">Lambdas</span></a>
+you can get the value from the trigger with <code class="docutils literal notranslate"><span class="pre">x</span></code> and the index offset of the selected value with <code class="docutils literal notranslate"><span class="pre">i</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">select</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_value</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Chosen</span><span class="nv"> </span><span class="s">option:</span><span class="nv"> </span><span class="s">%s</span><span class="nv"> </span><span class="s">(index</span><span class="nv"> </span><span class="s">%d)&quot;</span>
+<span class="w">            </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;x.c_str()&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;i&quot;</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>Configuration variables: See <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p>
+</section>
+<section id="select-set-action">
+<span id="id1"></span><h3><code class="docutils literal notranslate"><span class="pre">select.set</span></code> Action<a class="headerlink" href="#select-set-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> for setting the active option using an option value.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">select.set</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select</span>
+<span class="w">    </span><span class="nt">option</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Happy&quot;</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the select to set.</p></li>
+<li><p><strong>option</strong> (<strong>Required</strong>, string, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>):
+The option to set the select to.</p></li>
+</ul>
+<p>When a non-existing option value is used, a warning is logged and the state of
+the select is left as-is.</p>
+</section>
+<section id="select-set-index-action">
+<span id="id2"></span><h3><code class="docutils literal notranslate"><span class="pre">select.set_index</span></code> Action<a class="headerlink" href="#select-set-index-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> for setting the active option using its index offset.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">select.set_index</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select</span>
+<span class="w">    </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the select to set.</p></li>
+<li><p><strong>index</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>):
+The index offset of the option to be activated.</p></li>
+</ul>
+<p>When a non-existing index value is used, a warning is logged and the state of
+the select is left as-is.</p>
+</section>
+<section id="select-next-action">
+<span id="id3"></span><h3><code class="docutils literal notranslate"><span class="pre">select.next</span></code> Action<a class="headerlink" href="#select-next-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> for selecting the next option in a select component.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">select.next</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select</span>
+<span class="w">    </span><span class="nt">cycle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="c1"># Shorthand</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">select.next</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the select to set.</p></li>
+<li><p><strong>cycle</strong> (<em>Optional</em>, boolean): Whether or not to jump back to the first option
+of the select when the last option is currently selected. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+</ul>
+</section>
+<section id="select-previous-action">
+<span id="id4"></span><h3><code class="docutils literal notranslate"><span class="pre">select.previous</span></code> Action<a class="headerlink" href="#select-previous-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> for selecting the previous option in
+a select component.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">select.previous</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select</span>
+<span class="w">    </span><span class="nt">cycle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="c1"># Shorthand</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">select.previous</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the select to set.</p></li>
+<li><p><strong>cycle</strong> (<em>Optional</em>, boolean): Whether or not to jump to the last option
+of the select when the first option is currently selected. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+</ul>
+</section>
+<section id="select-first-action">
+<span id="id5"></span><h3><code class="docutils literal notranslate"><span class="pre">select.first</span></code> Action<a class="headerlink" href="#select-first-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> for selecting the first option in
+a select component.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">select.first</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select</span>
+
+<span class="c1"># Shorthand</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">select.first</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the select to set.</p></li>
+</ul>
+</section>
+<section id="select-last-action">
+<span id="id6"></span><h3><code class="docutils literal notranslate"><span class="pre">select.last</span></code> Action<a class="headerlink" href="#select-last-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> for selecting the last option in
+a select component.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">select.last</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select</span>
+
+<span class="c1"># Shorthand</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">select.last</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the select to set.</p></li>
+</ul>
+</section>
+<section id="select-operation-action">
+<span id="id7"></span><h3><code class="docutils literal notranslate"><span class="pre">select.operation</span></code> Action<a class="headerlink" href="#select-operation-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> that can be used to change the active
+option in a select component (first, last, previous or next), using a generic
+templatable action call.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using values</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">select.operation</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select</span>
+<span class="w">    </span><span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Next</span>
+<span class="w">    </span><span class="nt">cycle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="c1"># Or templated (lambdas)</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">select.operation</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select</span>
+<span class="w">    </span><span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&quot;return</span><span class="nv"> </span><span class="s">SELECT_OP_NEXT;&quot;</span>
+<span class="w">    </span><span class="nt">cycle</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&quot;return</span><span class="nv"> </span><span class="s">true;&quot;</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the select to set.</p></li>
+<li><p><strong>operation</strong> (<strong>Required</strong>, string, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The
+operation to perform. One of <code class="docutils literal notranslate"><span class="pre">FIRST</span></code>, <code class="docutils literal notranslate"><span class="pre">LAST</span></code>, <code class="docutils literal notranslate"><span class="pre">PREVIOUS</span></code> or
+<code class="docutils literal notranslate"><span class="pre">NEXT</span></code> (case insensitive). When writing a lambda for this field, then return
+one of the following enum values: <code class="docutils literal notranslate"><span class="pre">SELECT_OP_FIRST</span></code>, <code class="docutils literal notranslate"><span class="pre">SELECT_OP_LAST</span></code>,
+<code class="docutils literal notranslate"><span class="pre">SELECT_OP_PREVIOUS</span></code> or <code class="docutils literal notranslate"><span class="pre">SELECT_OP_NEXT</span></code>.</p></li>
+<li><p><strong>cycle</strong> (<em>Optional</em>, bool, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>):
+Can be used for options <code class="docutils literal notranslate"><span class="pre">NEXT</span></code> and <code class="docutils literal notranslate"><span class="pre">PREVIOUS</span></code> to specify whether or not to
+wrap around the options list when respectively the last or first option in
+the select is currently active.</p></li>
+</ul>
+</section>
+<section id="lambda-calls">
+<span id="select-lambda-calls"></span><h3>lambda calls<a class="headerlink" href="#lambda-calls" title="Permalink to this heading">¶</a></h3>
+<p>From <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>, you can call several methods on all selects to do some
+advanced stuff (see the full API Reference for more info).</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">.make_call()</span></code>: Create a call for changing the select state.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Within lambda, select the &quot;Happy&quot; option.</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">call</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">my_select</span><span class="p">).</span><span class="n">make_call</span><span class="p">();</span>
+<span class="n">call</span><span class="p">.</span><span class="n">set_option</span><span class="p">(</span><span class="s">&quot;Happy&quot;</span><span class="p">);</span>
+<span class="n">call</span><span class="p">.</span><span class="n">perform</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Check the API reference for information on the methods that are available for
+the <code class="docutils literal notranslate"><span class="pre">SelectCall</span></code> object. You can for example also use <code class="docutils literal notranslate"><span class="pre">call.select_first()</span></code>
+to select the first option or <code class="docutils literal notranslate"><span class="pre">call.select_next(true)</span></code> to select the next
+option with the cycle feature enabled.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.state</span></code>: Retrieve the currently selected option of the select.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// For example, create a custom log message when an option is selected:</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">my_select</span><span class="p">).</span><span class="n">state</span><span class="p">.</span><span class="n">c_str</span><span class="p">();</span>
+<span class="n">ESP_LOGI</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Option of my select: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if a specific option is selected</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">id(my_select).state</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&quot;my_option_value&quot;;&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.size()</span></code>: Retrieve the number of options in the select.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">my_select</span><span class="p">).</span><span class="n">size</span><span class="p">();</span>
+<span class="n">ESP_LOGI</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Select has %d options&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.index_of(&lt;option</span> <span class="pre">value&gt;)</span></code>: Retrieve the index offset for an option value.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">my_select</span><span class="p">).</span><span class="n">index_of</span><span class="p">(</span><span class="s">&quot;Happy&quot;</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">index</span><span class="p">.</span><span class="n">has_value</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ESP_LOGI</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&#39;Happy&#39; is at index: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">.</span><span class="n">value</span><span class="p">());</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ESP_LOGE</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;There is no option &#39;Happy&#39;&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.active_index()</span></code>: Retrieve the index of the currently active option.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">my_select</span><span class="p">).</span><span class="n">active_index</span><span class="p">();</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">index</span><span class="p">.</span><span class="n">has_value</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ESP_LOGI</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Option at index %d is active&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">.</span><span class="n">value</span><span class="p">());</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ESP_LOGI</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;No option is active&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.at(&lt;index</span> <span class="pre">offset&gt;)</span></code>: Retrieve the option value at a given index offset.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">my_select</span><span class="p">).</span><span class="n">at</span><span class="p">(</span><span class="n">index</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">option</span><span class="p">.</span><span class="n">has_value</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">option</span><span class="p">.</span><span class="n">value</span><span class="p">();</span>
+<span class="w">  </span><span class="n">ESP_LOGI</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Option at %d is: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ESP_LOGE</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Index %d does not exist&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.has_option(&lt;option</span> <span class="pre">value&gt;)</span></code>: Check if the select contains the given option value.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Happy&quot;</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">(</span><span class="n">my_select</span><span class="p">).</span><span class="n">has_option</span><span class="p">(</span><span class="n">option</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ESP_LOGI</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Select has option &#39;%s&#39;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">option</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.has_index(&lt;index</span> <span class="pre">offset&gt;)</span></code>: Check if the select contains an option value for the given index offset.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">(</span><span class="n">my_select</span><span class="p">).</span><span class="n">has_index</span><span class="p">(</span><span class="n">index</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ESP_LOGI</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Select has index offset %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<p>Setting up three options and set component state to selected option value.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">select</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Mode</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mode</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Option1&quot;</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Option2&quot;</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Option3&quot;</span>
+<span class="w">    </span><span class="nt">initial_option</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Option1&quot;</span>
+<span class="w">    </span><span class="nt">optimistic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">set_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Chosen</span><span class="nv"> </span><span class="s">option:</span><span class="nv"> </span><span class="s">%s&quot;</span>
+<span class="w">          </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;x.c_str()&quot;</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/api/select_8h.html">Select </a></p></li>
+<li><p><a class="reference external" href="/api/select__call_8h.html">SelectCall </a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/select/index.rst">Edit this page on GitHub</a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modbus_controller.html">Modbus Controller Select</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template.html">Template Select</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuya.html">Tuya Select</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

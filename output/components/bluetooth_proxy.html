@@ -1,0 +1,326 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up the Bluetooth Proxy in ESPHome.">
+<meta itemprop="name" content="Bluetooth Proxy">
+<meta itemprop="description" content="Instructions for setting up the Bluetooth Proxy in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/bluetooth.png">
+<meta name="twitter:title" content="Bluetooth Proxy">
+<meta name="twitter:image:src" content="https://esphome.io/_images/bluetooth.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up the Bluetooth Proxy in ESPHome.">
+<meta property="og:title" content="Bluetooth Proxy">
+<meta property="og:image" content="https://esphome.io/_images/bluetooth.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up the Bluetooth Proxy in ESPHome.">
+
+    <title>Bluetooth Proxy &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/bluetooth_proxy.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CAN bus" href="canbus.html" />
+    <link rel="prev" title="BLE Client" href="ble_client.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Bluetooth Proxy</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration:</a></li>
+<li><a class="reference internal" href="#improving-reception-performance">Improving reception performance</a></li>
+<li><a class="reference internal" href="#complete-sample-recommended-configuration-for-an-ethernet-connected-bluetooth-proxy">Complete sample recommended configuration for an ethernet-connected Bluetooth proxy</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>Bluetooth Proxy</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="bluetooth-proxy">
+<h1>Bluetooth Proxy<a class="headerlink" href="#bluetooth-proxy" title="Permalink to this heading">¶</a></h1>
+<p>Home Assistant can expand its Bluetooth reach by communicating through the Bluetooth proxy component in ESPHome.
+The individual device integrations in Home Assistant (such as BTHome) will receive the data from the Bluetooth
+Integration in Home Assistant which automatically aggregates all ESPHome Bluetooth proxies with any USB Bluetooth
+Adapters you might have. This exceptional feature offers fault tolerant connection between the Bluetooth devices
+and Home Assistant.</p>
+<p>Note that while this component is named <code class="docutils literal notranslate"><span class="pre">bluetooth_proxy</span></code>, only BLE devices (and their Home Assistant integrations)
+are supported.</p>
+<p>If you’re looking to create an ESPHome node that is just a Bluetooth Proxy, see
+our <a class="reference external" href="https://esphome.github.io/bluetooth-proxies/">Bluetooth Proxy installer</a> website.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Active connections</p>
+<p>The Bluetooth proxy of ESPHome provides Home Assistant with a maximum number of 3 simultaneous active connections.
+Devices which maintain a <em>continuous active</em> connection will consume one of these constantly, whilst devices which
+do <em>periodic disconnections and reconnections</em> will permit using more than 3 of them (on a statistical basis).
+Passively broadcasted sensor data (that is advertised by certain devices without active connections) is received
+separately from these, and is not limited to a specific number.</p>
+<p>The <a class="reference internal" href="esp32.html"><span class="doc">ESP32 Platform</span></a> component should be configured to use the <code class="docutils literal notranslate"><span class="pre">esp-idf</span></code> framework, as the <code class="docutils literal notranslate"><span class="pre">arduino</span></code> framework
+uses significantly more memory and performs poorly with the Bluetooth proxy enabled. When switching from
+<code class="docutils literal notranslate"><span class="pre">arduino</span></code> to <code class="docutils literal notranslate"><span class="pre">esp-idf</span></code>, make sure to update the device with a serial cable as the partition table is
+different between the two frameworks as <a class="reference internal" href="ota.html"><span class="doc">OTA Update Component</span></a> updates will not change the partition table.</p>
+<p>The <a class="reference internal" href="web_server.html"><span class="doc">Web Server Component</span></a> component should be disabled as the device is likely
+to run out of memory and will malfunction when both components are enabled simultaneously.</p>
+<p>Not all devices are supported and ESPHome does not decode or keep a list. To find out if your device is supported,
+please search for it in the <a class="reference external" href="https://www.home-assistant.io/integrations/">Home Assistant Integrations</a> list.</p>
+</div>
+<section id="configuration">
+<h2>Configuration:<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">bluetooth_proxy</span><span class="p">:</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>active</strong> (<em>Optional</em>, boolean): Enables proxying active connections. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>cache_services</strong> (<em>Optional</em>, boolean): Enables caching GATT services in NVS flash storage which significantly speeds up active connections. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code> when using the ESP-IDF framework.</p></li>
+</ul>
+<p>The Bluetooth proxy depends on <a class="reference internal" href="esp32_ble_tracker.html"><span class="doc">ESP32 Bluetooth Low Energy Tracker Hub</span></a> so make sure to add that to your configuration.</p>
+</section>
+<section id="improving-reception-performance">
+<h2>Improving reception performance<a class="headerlink" href="#improving-reception-performance" title="Permalink to this heading">¶</a></h2>
+<p>Use a board with an Ethernet connection to the network, to offload ESP32’s radio module from WiFi traffic, this gains performance on Bluetooth side.
+To maximize the chances of catching advertisements of the sensors, you can set <code class="docutils literal notranslate"><span class="pre">interval</span></code> equal to <code class="docutils literal notranslate"><span class="pre">window</span></code> in <a class="reference internal" href="esp32_ble_tracker.html"><span class="doc">ESP32 Bluetooth Low Energy Tracker Hub</span></a> scan parameter settings:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">scan_parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1100ms</span>
+<span class="w">    </span><span class="nt">window</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1100ms</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For WiFi-based proxies, changing the <code class="docutils literal notranslate"><span class="pre">interval</span></code> or <code class="docutils literal notranslate"><span class="pre">window</span></code> from their default values may result in an unstable WiFi connection. Using the default values for <code class="docutils literal notranslate"><span class="pre">interval</span></code> and <code class="docutils literal notranslate"><span class="pre">window</span></code> will usually resolve any instability.</p>
+</div>
+<p>Avoid placing the ESP node in racks, close to routers/switches or other network equipment as EMI interference will degrade Bluetooth signal reception. For best results put as far away as possible, at least 3 meters distance from any other such equipment. Place your ESPHome devices close to the Bluetooth devices that you want to interact with for the best experience.</p>
+</section>
+<section id="complete-sample-recommended-configuration-for-an-ethernet-connected-bluetooth-proxy">
+<h2>Complete sample recommended configuration for an ethernet-connected Bluetooth proxy<a class="headerlink" href="#complete-sample-recommended-configuration-for-an-ethernet-connected-bluetooth-proxy" title="Permalink to this heading">¶</a></h2>
+<p>Below is a complete sample recommended configuration for an ethernet-connected Bluetooth proxy. This configuration is not for a Wi-Fi based proxy. If you experience issues with your proxy, try reducing your configuration to be as similar to this as possible.</p>
+<p>This configuration is for an Olimex ESP32-PoE-ISO board with an Ethernet connection to the network. If you use a different board, you must change the <code class="docutils literal notranslate"><span class="pre">board</span></code> substitution to match your board.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">substitutions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-bluetooth-proxy</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp32-poe-iso</span>
+
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${name}</span>
+<span class="w">  </span><span class="nt">name_add_mac_suffix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">esp32</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${board}</span>
+<span class="w">  </span><span class="nt">framework</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp-idf</span>
+
+<span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LAN8720</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO18</span>
+<span class="w">  </span><span class="nt">clk_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO17_OUT</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">power_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO12</span>
+
+<span class="c1"># Enable logging</span>
+<span class="nt">logger</span><span class="p">:</span>
+
+<span class="c1"># Enable Home Assistant API</span>
+<span class="nt">api</span><span class="p">:</span>
+
+<span class="nt">ota</span><span class="p">:</span>
+
+<span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">scan_parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1100ms</span>
+<span class="w">    </span><span class="nt">window</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1100ms</span>
+<span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">bluetooth_proxy</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="esp32_ble_tracker.html"><span class="doc">ESP32 Bluetooth Low Energy Tracker Hub</span></a></p></li>
+<li><p><a class="reference external" href="/api/bluetooth__proxy_8h.html">API Reference</a></p></li>
+<li><p>BTHome <a class="reference external" href="https://bthome.io/">https://bthome.io/</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/bluetooth_proxy.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,494 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a Midea climate device">
+<meta itemprop="name" content="Midea Air Conditioner">
+<meta itemprop="description" content="Instructions for setting up a Midea climate device">
+<meta itemprop="image" content="https://esphome.io/_images/air-conditioner.png">
+<meta name="twitter:title" content="Midea Air Conditioner">
+<meta name="twitter:image:src" content="https://esphome.io/_images/air-conditioner.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a Midea climate device">
+<meta property="og:title" content="Midea Air Conditioner">
+<meta property="og:image" content="https://esphome.io/_images/air-conditioner.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a Midea climate device">
+
+    <title>Midea Air Conditioner &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/climate/midea.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="PID Climate" href="pid.html" />
+    <link rel="prev" title="Haier Climate" href="haier.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Midea Air Conditioner</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#automations">Automations</a><ul>
+<li><a class="reference internal" href="#midea-ac-power-on-action"><code class="docutils literal notranslate"><span class="pre">midea_ac.power_on</span></code> Action</a></li>
+<li><a class="reference internal" href="#midea-ac-power-off-action"><code class="docutils literal notranslate"><span class="pre">midea_ac.power_off</span></code> Action</a></li>
+<li><a class="reference internal" href="#midea-ac-power-toggle-action"><code class="docutils literal notranslate"><span class="pre">midea_ac.power_toggle</span></code> Action</a></li>
+<li><a class="reference internal" href="#midea-ac-follow-me-action"><code class="docutils literal notranslate"><span class="pre">midea_ac.follow_me</span></code> Action</a></li>
+<li><a class="reference internal" href="#midea-ac-display-toggle-action"><code class="docutils literal notranslate"><span class="pre">midea_ac.display_toggle</span></code> Action</a></li>
+<li><a class="reference internal" href="#midea-ac-swing-step-action"><code class="docutils literal notranslate"><span class="pre">midea_ac.swing_step</span></code> Action</a></li>
+<li><a class="reference internal" href="#midea-ac-beeper-on-action"><code class="docutils literal notranslate"><span class="pre">midea_ac.beeper_on</span></code> Action</a></li>
+<li><a class="reference internal" href="#midea-ac-beeper-off-action"><code class="docutils literal notranslate"><span class="pre">midea_ac.beeper_off</span></code> Action</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#additional-control-options-using-ir-commands">Additional control options using IR commands</a></li>
+<li><a class="reference internal" href="#example-of-beeper-control-using-a-switch">Example of Beeper Control Using a Switch</a></li>
+<li><a class="reference internal" href="#acknowledgments">Acknowledgments:</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Climate Component</a> ➔</li>
+      <li>Midea Air Conditioner</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="midea-air-conditioner">
+<h1>Midea Air Conditioner<a class="headerlink" href="#midea-air-conditioner" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">midea</span></code> component creates a Midea air conditioner climate device.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This protocol also used by some vendors:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.electrolux.ru/">Electrolux</a></p></li>
+<li><p><a class="reference external" href="https://www.qlima.com/">Qlima</a></p></li>
+<li><p><a class="reference external" href="https://www.artelgroup.com/">Artel</a></p></li>
+<li><p><a class="reference external" href="https://www.carrier.com/">Carrier</a></p></li>
+<li><p><a class="reference external" href="http://www.comfee-russia.ru/">Comfee</a></p></li>
+<li><p><a class="reference external" href="https://www.inventorairconditioner.com/">Inventor</a></p></li>
+<li><p><a class="reference external" href="https://senville.com/">Senville</a></p></li>
+<li><p>and maybe others</p></li>
+</ul>
+</div></blockquote>
+<p>Control is possible with a custom dongle. Example of hardware implementation is <a class="reference external" href="https://github.com/dudanov/iot-uni-dongle">IoT Uni Dongle</a> or <a class="reference external" href="https://smartlight.me/smart-home-devices/wifi-devices/wifi-dongle-air-conditioners-midea-idea-electrolux-for-home-assistant">Midea SLWF-01pro</a> (<a class="reference external" href="https://cloudfree.shop/product/ductless-hvac-wi-fi-module/">CloudFree</a>, <a class="reference external" href="https://www.tindie.com/products/smartlightme/wifi-dongle-for-air-conditioners-midea-electrolux">Tindie</a>).</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="c1"># Main settings</span>
+<span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">midea</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Midea Climate</span><span class="w">         </span><span class="c1"># Use a unique name.</span>
+<span class="w">    </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span><span class="w">                  </span><span class="c1"># Optional</span>
+<span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2s</span><span class="w">                 </span><span class="c1"># Optional</span>
+<span class="w">    </span><span class="nt">num_attempts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">             </span><span class="c1"># Optional</span>
+<span class="w">    </span><span class="nt">autoconf</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">              </span><span class="c1"># Autoconfigure most options.</span>
+<span class="w">    </span><span class="nt">beeper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">                </span><span class="c1"># Beep on commands.</span>
+<span class="w">    </span><span class="nt">visual</span><span class="p">:</span><span class="w">                     </span><span class="c1"># Optional. Example of visual settings override.</span>
+<span class="w">      </span><span class="nt">min_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">17 °C</span><span class="w">    </span><span class="c1"># min: 17</span>
+<span class="w">      </span><span class="nt">max_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30 °C</span><span class="w">    </span><span class="c1"># max: 30</span>
+<span class="w">      </span><span class="nt">temperature_step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5 °C</span><span class="w">  </span><span class="c1"># min: 0.5</span>
+<span class="w">    </span><span class="nt">supported_modes</span><span class="p">:</span><span class="w">            </span><span class="c1"># Optional. All capabilities in this section may be detected by autoconf.</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FAN_ONLY</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HEAT_COOL</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">COOL</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HEAT</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DRY</span>
+<span class="w">    </span><span class="nt">custom_fan_modes</span><span class="p">:</span><span class="w">           </span><span class="c1"># Optional</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SILENT</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TURBO</span>
+<span class="w">    </span><span class="nt">supported_presets</span><span class="p">:</span><span class="w">          </span><span class="c1"># Optional. All capabilities in this section may be detected by autoconf.</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECO</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BOOST</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SLEEP</span>
+<span class="w">    </span><span class="nt">custom_presets</span><span class="p">:</span><span class="w">             </span><span class="c1"># Optional. All capabilities in this section may be detected by autoconf.</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FREEZE_PROTECTION</span>
+<span class="w">    </span><span class="nt">supported_swing_modes</span><span class="p">:</span><span class="w">      </span><span class="c1"># Optional</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VERTICAL</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HORIZONTAL</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BOTH</span>
+<span class="w">    </span><span class="nt">outdoor_temperature</span><span class="p">:</span><span class="w">        </span><span class="c1"># Optional. Outdoor temperature sensor (may display incorrect values after long inactivity).</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Temp</span>
+<span class="w">    </span><span class="nt">power_usage</span><span class="p">:</span><span class="w">                </span><span class="c1"># Optional. Power usage sensor (only for devices that support this feature).</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Power</span>
+<span class="w">    </span><span class="nt">humidity_setpoint</span><span class="p">:</span><span class="w">          </span><span class="c1"># Optional. Indoor humidity sensor (only for devices that support this feature).</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Humidity</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>uart_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the <a class="reference internal" href="../uart.html"><span class="doc">UART Bus</span></a> if you want
+to use multiple UART buses.</p></li>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the climate device.</p></li>
+<li><p><strong>transmitter_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Defined and used automatically when using <a class="reference internal" href="../remote_transmitter.html"><span class="doc">Remote Transmitter</span></a> component for IR commands transmit.</p></li>
+<li><p><strong>period</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Minimal period between requests to the appliance. Defaults to <code class="docutils literal notranslate"><span class="pre">1s</span></code>.</p></li>
+<li><p><strong>timeout</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Request response timeout until next request attempt. Defaults to <code class="docutils literal notranslate"><span class="pre">2s</span></code>.</p></li>
+<li><p><strong>num_attempts</strong> (<em>Optional</em>, int): Number of request attempts between 1 and 5 inclusive. Defaults to <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p></li>
+<li><p><strong>autoconf</strong> (<em>Optional</em>, boolean): Get capabilities automatically. Allows you not to manually define most of the capabilities of the appliance.
+Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>beeper</strong> (<em>Optional</em>, boolean): Beeper feedback on command. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>supported_modes</strong> (<em>Optional</em>, list): List of supported modes. Possible values are: <code class="docutils literal notranslate"><span class="pre">HEAT_COOL</span></code>, <code class="docutils literal notranslate"><span class="pre">COOL</span></code>, <code class="docutils literal notranslate"><span class="pre">HEAT</span></code>, <code class="docutils literal notranslate"><span class="pre">DRY</span></code>, <code class="docutils literal notranslate"><span class="pre">FAN_ONLY</span></code>.</p></li>
+<li><p><strong>custom_fan_modes</strong> (<em>Optional</em>, list): List of supported custom fan modes. Possible values are: <code class="docutils literal notranslate"><span class="pre">SILENT</span></code>, <code class="docutils literal notranslate"><span class="pre">TURBO</span></code>.</p></li>
+<li><p><strong>supported_presets</strong> (<em>Optional</em>, list): List of supported presets. Possible values are: <code class="docutils literal notranslate"><span class="pre">ECO</span></code>, <code class="docutils literal notranslate"><span class="pre">BOOST</span></code>, <code class="docutils literal notranslate"><span class="pre">SLEEP</span></code>.</p></li>
+<li><p><strong>custom_presets</strong> (<em>Optional</em>, list): List of supported custom presets. Possible values are: <code class="docutils literal notranslate"><span class="pre">FREEZE_PROTECTION</span></code>.</p></li>
+<li><p><strong>supported_swing_modes</strong> (<em>Optional</em>, list): List of supported swing modes. Possible values are: <code class="docutils literal notranslate"><span class="pre">VERTICAL</span></code>, <code class="docutils literal notranslate"><span class="pre">HORIZONTAL</span></code>, <code class="docutils literal notranslate"><span class="pre">BOTH</span></code>.</p></li>
+<li><p><strong>outdoor_temperature</strong> (<em>Optional</em>): The information for the outdoor temperature
+sensor.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>power_usage</strong> (<em>Optional</em>): The information for the current power consumption
+sensor.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>humidity_setpoint</strong> (<em>Optional</em>): The information for the humidity indoor
+sensor (experimental).</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="../sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-climate"><span class="std std-ref">Climate</span></a>.</p></li>
+</ul>
+</section>
+<section id="automations">
+<h2>Automations<a class="headerlink" href="#automations" title="Permalink to this heading">¶</a></h2>
+<section id="midea-ac-power-on-action">
+<span id="id1"></span><h3><code class="docutils literal notranslate"><span class="pre">midea_ac.power_on</span></code> Action<a class="headerlink" href="#midea-ac-power-on-action" title="Permalink to this heading">¶</a></h3>
+<p>This action turn on power. The mode and preset will be restored to the last state before turned off.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">midea_ac.power_on</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="midea-ac-power-off-action">
+<span id="id2"></span><h3><code class="docutils literal notranslate"><span class="pre">midea_ac.power_off</span></code> Action<a class="headerlink" href="#midea-ac-power-off-action" title="Permalink to this heading">¶</a></h3>
+<p>This action turn off power.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">midea_ac.power_off</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="midea-ac-power-toggle-action">
+<span id="id3"></span><h3><code class="docutils literal notranslate"><span class="pre">midea_ac.power_toggle</span></code> Action<a class="headerlink" href="#midea-ac-power-toggle-action" title="Permalink to this heading">¶</a></h3>
+<p>This action toggle the power state. Identical to pressing the power button on the remote control.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">midea_ac.power_toggle</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="midea-ac-follow-me-action">
+<span id="id4"></span><h3><code class="docutils literal notranslate"><span class="pre">midea_ac.follow_me</span></code> Action<a class="headerlink" href="#midea-ac-follow-me-action" title="Permalink to this heading">¶</a></h3>
+<p>This action transmit IR FollowMe command telling the air conditioner a more accurate
+room temperature value to be used instead of the internal indoor unit sensor.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">midea_ac.follow_me</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&quot;return</span><span class="nv"> </span><span class="s">x;&quot;</span>
+<span class="w">        </span><span class="nt">beeper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>temperature</strong> (<strong>Required</strong>, float, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): Set the
+value of a internal temperature sensor.</p></li>
+<li><p><strong>beeper</strong> (<em>Optional</em>, boolean, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): set beep on update.
+Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ul>
+</section>
+<section id="midea-ac-display-toggle-action">
+<span id="id5"></span><h3><code class="docutils literal notranslate"><span class="pre">midea_ac.display_toggle</span></code> Action<a class="headerlink" href="#midea-ac-display-toggle-action" title="Permalink to this heading">¶</a></h3>
+<p>This action toggle ac screen. Works via UART if supported or <a class="reference internal" href="../remote_transmitter.html"><span class="doc">Remote Transmitter</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">midea_ac.display_toggle</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="midea-ac-swing-step-action">
+<span id="id6"></span><h3><code class="docutils literal notranslate"><span class="pre">midea_ac.swing_step</span></code> Action<a class="headerlink" href="#midea-ac-swing-step-action" title="Permalink to this heading">¶</a></h3>
+<p>This action adjust the louver by one step. <a class="reference internal" href="../remote_transmitter.html"><span class="doc">Remote Transmitter</span></a> required.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">midea_ac.swing_step</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="midea-ac-beeper-on-action">
+<span id="id7"></span><h3><code class="docutils literal notranslate"><span class="pre">midea_ac.beeper_on</span></code> Action<a class="headerlink" href="#midea-ac-beeper-on-action" title="Permalink to this heading">¶</a></h3>
+<p>This action turn on beeper feedback.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">midea_ac.beeper_on</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="midea-ac-beeper-off-action">
+<span id="id8"></span><h3><code class="docutils literal notranslate"><span class="pre">midea_ac.beeper_off</span></code> Action<a class="headerlink" href="#midea-ac-beeper-off-action" title="Permalink to this heading">¶</a></h3>
+<p>This action turn off beeper feedback.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">midea_ac.beeper_off</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="additional-control-options-using-ir-commands">
+<h2>Additional control options using IR commands<a class="headerlink" href="#additional-control-options-using-ir-commands" title="Permalink to this heading">¶</a></h2>
+<p>It is possible to use the FollowMe function and some other features available only through IR commands.
+Below is an example of how to send FollowMe commands with the values of your sensor using the <a class="reference internal" href="../remote_transmitter.html"><span class="doc">Remote Transmitter</span></a>
+component, as well as control the light of the LED display.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+
+<span class="nt">remote_transmitter</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO13</span><span class="w">                       </span><span class="c1"># For iot-uni-stick.</span>
+<span class="w">  </span><span class="nt">carrier_duty_percent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span><span class="w">        </span><span class="c1"># 50% for IR LED, 100% for direct connect to TSOP IR receiver output.</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">homeassistant</span>
+<span class="w">    </span><span class="nt">entity_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.room_sensor</span><span class="w">   </span><span class="c1"># Sensor from HASS</span>
+<span class="w">    </span><span class="nt">internal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">throttle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">heartbeat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2min</span><span class="w">             </span><span class="c1"># Maximum interval between updates.</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">debounce</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+<span class="w">    </span><span class="nt">on_value</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">midea_ac.follow_me</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&quot;return</span><span class="nv"> </span><span class="s">x;&quot;</span>
+<span class="w">        </span><span class="nt">beeper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">               </span><span class="c1"># Optional. Beep on update.</span>
+
+<span class="c1"># template buttons for sending display control command and swing step actions</span>
+<span class="nt">button</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Display Toggle</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:theme-light-dark</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">midea_ac.display_toggle</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Swing Step</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:tailwind</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">midea_ac.swing_step</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="example-of-beeper-control-using-a-switch">
+<h2>Example of Beeper Control Using a Switch<a class="headerlink" href="#example-of-beeper-control-using-a-switch" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Beeper</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:volume-source</span>
+<span class="w">    </span><span class="nt">optimistic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">turn_on_action</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">midea_ac.beeper_on</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">turn_off_action</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">midea_ac.beeper_off</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="acknowledgments">
+<h2>Acknowledgments:<a class="headerlink" href="#acknowledgments" title="Permalink to this heading">¶</a></h2>
+<p>Thanks to the following people for their contributions to reverse engineering the UART protocol and source code in the following repositories:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/mac-zhou/midea-msmart">Mac Zhou</a></p></li>
+<li><p><a class="reference external" href="https://github.com/NeoAcheron/midea-ac-py">NeoAcheron</a></p></li>
+<li><p><a class="reference external" href="https://github.com/reneklootwijk/midea-uart">Rene Klootwijk</a></p></li>
+</ul>
+<p>Special thanks to the project <a class="reference external" href="https://github.com/crankyoldgit/IRremoteESP8266">IRremoteESP8266</a> for describing the IR protocol.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Climate Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/midea__ac_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/climate/midea.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

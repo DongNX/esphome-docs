@@ -1,0 +1,515 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up generic Alarm Control Panels in ESPHome.">
+<meta itemprop="name" content="Alarm Control Panel Component">
+<meta itemprop="description" content="Instructions for setting up generic Alarm Control Panels in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/alarm-panel.png">
+<meta name="twitter:title" content="Alarm Control Panel Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/alarm-panel.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up generic Alarm Control Panels in ESPHome.">
+<meta property="og:title" content="Alarm Control Panel Component">
+<meta property="og:image" content="https://esphome.io/_images/alarm-panel.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up generic Alarm Control Panels in ESPHome.">
+
+    <title>Alarm Control Panel Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/alarm_control_panel/index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Template Alarm Control Panel" href="template.html" />
+    <link rel="prev" title="SNTP Time Source" href="../time/sntp.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Alarm Control Panel Component</a><ul>
+<li><a class="reference internal" href="#base-alarm-control-panel-configuration">Base Alarm Control Panel Configuration</a></li>
+<li><a class="reference internal" href="#automation">Automation:</a><ul>
+<li><a class="reference internal" href="#on-state-trigger"><code class="docutils literal notranslate"><span class="pre">on_state</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-pending-trigger"><code class="docutils literal notranslate"><span class="pre">on_pending</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-arming-trigger"><code class="docutils literal notranslate"><span class="pre">on_arming</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-armed-home-trigger"><code class="docutils literal notranslate"><span class="pre">on_armed_home</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-armed-night-trigger"><code class="docutils literal notranslate"><span class="pre">on_armed_night</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-armed-away-trigger"><code class="docutils literal notranslate"><span class="pre">on_armed_away</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-triggered-trigger"><code class="docutils literal notranslate"><span class="pre">on_triggered</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-cleared-trigger"><code class="docutils literal notranslate"><span class="pre">on_cleared</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-disarmed-trigger"><code class="docutils literal notranslate"><span class="pre">on_disarmed</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-ready-trigger"><code class="docutils literal notranslate"><span class="pre">on_ready</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-chime-trigger"><code class="docutils literal notranslate"><span class="pre">on_chime</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#arm-away-action"><code class="docutils literal notranslate"><span class="pre">arm_away</span></code> Action</a></li>
+<li><a class="reference internal" href="#arm-home-action"><code class="docutils literal notranslate"><span class="pre">arm_home</span></code> Action</a></li>
+<li><a class="reference internal" href="#arm-night-action"><code class="docutils literal notranslate"><span class="pre">arm_night</span></code> Action</a></li>
+<li><a class="reference internal" href="#disarm-action"><code class="docutils literal notranslate"><span class="pre">disarm</span></code> Action</a></li>
+<li><a class="reference internal" href="#pending-action"><code class="docutils literal notranslate"><span class="pre">pending</span></code> Action</a></li>
+<li><a class="reference internal" href="#triggered-action"><code class="docutils literal notranslate"><span class="pre">triggered</span></code> Action</a></li>
+<li><a class="reference internal" href="#is-armed-condition"><code class="docutils literal notranslate"><span class="pre">is_armed</span></code> Condition</a></li>
+<li><a class="reference internal" href="#lambda-calls">lambda calls</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#platforms">Platforms</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li>Alarm Control Panel Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="alarm-control-panel-component">
+<h1>Alarm Control Panel Component<a class="headerlink" href="#alarm-control-panel-component" title="Permalink to this heading">¶</a></h1>
+<section id="base-alarm-control-panel-configuration">
+<span id="config-alarm-control-panel"></span><h2>Base Alarm Control Panel Configuration<a class="headerlink" href="#base-alarm-control-panel-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Alarm Panel</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the alarm control panel.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have a <a class="reference internal" href="../esphome.html#esphome-configuration-variables"><span class="std std-ref">friendly_name</span></a> set for your device and
+you want the switch to use that name, you can set <code class="docutils literal notranslate"><span class="pre">name:</span> <span class="pre">None</span></code>.</p>
+</div>
+</li>
+<li><p><strong>on_state</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the alarm changes state. See <a class="reference internal" href="#alarm-control-panel-on-state-trigger"><span class="std std-ref">on_state Trigger</span></a>.</p></li>
+<li><p><strong>on_arming</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the alarm state changes to <code class="docutils literal notranslate"><span class="pre">arming</span></code>. See <a class="reference internal" href="#alarm-control-panel-on-arming-trigger"><span class="std std-ref">on_arming Trigger</span></a>.</p></li>
+<li><p><strong>on_pending</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the alarm state changes to <code class="docutils literal notranslate"><span class="pre">pending</span></code>. See <a class="reference internal" href="#alarm-control-panel-on-pending-trigger"><span class="std std-ref">on_pending Trigger</span></a>.</p></li>
+<li><p><strong>on_armed_home</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the alarm state changes to <code class="docutils literal notranslate"><span class="pre">armed_home</span></code>. See <a class="reference internal" href="#alarm-control-panel-on-armed-home-trigger"><span class="std std-ref">on_armed_home Trigger</span></a>.</p></li>
+<li><p><strong>on_armed_night</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the alarm state changes to <code class="docutils literal notranslate"><span class="pre">armed_night</span></code>. See <a class="reference internal" href="#alarm-control-panel-on-armed-night-trigger"><span class="std std-ref">on_armed_night Trigger</span></a>.</p></li>
+<li><p><strong>on_armed_away</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the alarm state changes to <code class="docutils literal notranslate"><span class="pre">armed_away</span></code>. See <a class="reference internal" href="#alarm-control-panel-on-armed-away-trigger"><span class="std std-ref">on_armed_away Trigger</span></a>.</p></li>
+<li><p><strong>on_triggered</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the alarm triggers. See <a class="reference internal" href="#alarm-control-panel-on-triggered-trigger"><span class="std std-ref">on_triggered Trigger</span></a>.</p></li>
+<li><p><strong>on_disarmed</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the alarm state changes to <code class="docutils literal notranslate"><span class="pre">disarmed</span></code>. See <a class="reference internal" href="#alarm-control-panel-on-disarmed-trigger"><span class="std std-ref">on_disarmed Trigger</span></a>.</p></li>
+<li><p><strong>on_cleared</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the alarm clears. See <a class="reference internal" href="#alarm-control-panel-on-cleared-trigger"><span class="std std-ref">on_cleared Trigger</span></a>.</p></li>
+<li><p><strong>on_ready</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the logical ‘and’ of all the zone sensors change state. See <a class="reference internal" href="#alarm-control-panel-on-ready-trigger"><span class="std std-ref">on_ready Trigger</span></a>.</p></li>
+<li><p><strong>on_chime</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when a zone has been marked as chime in the configuration, and it changes from closed to open.
+See <a class="reference internal" href="#alarm-control-panel-on-chime-trigger"><span class="std std-ref">on_chime Trigger</span></a>.</p></li>
+</ul>
+</section>
+<section id="automation">
+<h2>Automation:<a class="headerlink" href="#automation" title="Permalink to this heading">¶</a></h2>
+<section id="on-state-trigger">
+<span id="alarm-control-panel-on-state-trigger"></span><h3><code class="docutils literal notranslate"><span class="pre">on_state</span></code> Trigger<a class="headerlink" href="#on-state-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This trigger is activated each time the alarm changes state.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_state</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">Panel</span><span class="nv"> </span><span class="s">State</span><span class="nv"> </span><span class="s">Changed!&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-pending-trigger">
+<span id="alarm-control-panel-on-pending-trigger"></span><h3><code class="docutils literal notranslate"><span class="pre">on_pending</span></code> Trigger<a class="headerlink" href="#on-pending-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This trigger is activated when the alarm changes to pending state.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_pending</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">Pending!&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-arming-trigger">
+<span id="alarm-control-panel-on-arming-trigger"></span><h3><code class="docutils literal notranslate"><span class="pre">on_arming</span></code> Trigger<a class="headerlink" href="#on-arming-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This trigger is activated when the alarm changes to arming state.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_arming</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">Arming!&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-armed-home-trigger">
+<span id="alarm-control-panel-on-armed-home-trigger"></span><h3><code class="docutils literal notranslate"><span class="pre">on_armed_home</span></code> Trigger<a class="headerlink" href="#on-armed-home-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This trigger is activated when the alarm changes to armed_home state.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_armed_home</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">armed_home!&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-armed-night-trigger">
+<span id="alarm-control-panel-on-armed-night-trigger"></span><h3><code class="docutils literal notranslate"><span class="pre">on_armed_night</span></code> Trigger<a class="headerlink" href="#on-armed-night-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This trigger is activated when the alarm changes to armed_night state.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_armed_night</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">armed_night!&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-armed-away-trigger">
+<span id="alarm-control-panel-on-armed-away-trigger"></span><h3><code class="docutils literal notranslate"><span class="pre">on_armed_away</span></code> Trigger<a class="headerlink" href="#on-armed-away-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This trigger is activated when the alarm changes to armed_away state.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_armed_away</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">armed_away!&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-triggered-trigger">
+<span id="alarm-control-panel-on-triggered-trigger"></span><h3><code class="docutils literal notranslate"><span class="pre">on_triggered</span></code> Trigger<a class="headerlink" href="#on-triggered-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This trigger is activated when the alarm changes to triggered state.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_triggered</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">Triggered!&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-cleared-trigger">
+<span id="alarm-control-panel-on-cleared-trigger"></span><h3><code class="docutils literal notranslate"><span class="pre">on_cleared</span></code> Trigger<a class="headerlink" href="#on-cleared-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This trigger is activated when the alarm changes from triggered back to either the previous armed state or disarmed.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_cleared</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">Cleared!&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-disarmed-trigger">
+<span id="alarm-control-panel-on-disarmed-trigger"></span><h3><code class="docutils literal notranslate"><span class="pre">on_disarmed</span></code> Trigger<a class="headerlink" href="#on-disarmed-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This trigger is activated when the alarm changes from to disarmed.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_disarmed</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">Disarmed!&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-ready-trigger">
+<span id="alarm-control-panel-on-ready-trigger"></span><h3><code class="docutils literal notranslate"><span class="pre">on_ready</span></code> Trigger<a class="headerlink" href="#on-ready-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This trigger is activated when the logical ‘and’ of all the alarm sensors change state. This is useful for implementing “alarm ready” LEDs.
+Once this trigger is called, you can get the ready state by calling get_all_sensors_ready() in a lambda block.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_disarmed</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">ESP_LOGI(&quot;AlarmPanel&quot;, &quot;Sensor ready change to: %s&quot;, ((id(acp1).get_all_sensors_ready()) ? (const char *) &quot;True&quot; : (const char *) &quot;False&quot;));</span>
+</pre></div>
+</div>
+</section>
+<section id="on-chime-trigger">
+<span id="alarm-control-panel-on-chime-trigger"></span><h3><code class="docutils literal notranslate"><span class="pre">on_chime</span></code> Trigger<a class="headerlink" href="#on-chime-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This trigger is activated when a zone sensor marked with chime:true changes from closed to open. This is useful for implementing keypad chimes when a zone
+opens.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_chime</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">Chime!&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="arm-away-action">
+<span id="alarm-control-panel-arm-away-action"></span><h3><code class="docutils literal notranslate"><span class="pre">arm_away</span></code> Action<a class="headerlink" href="#arm-away-action" title="Permalink to this heading">¶</a></h3>
+<p>This action arms the alarm in away mode. The <code class="docutils literal notranslate"><span class="pre">code</span></code> is required when <em>requires_code_to_arm</em> is <em>true</em>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alarm_control_panel.arm_away</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acp1</span>
+<span class="w">        </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1234&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="arm-home-action">
+<span id="alarm-control-panel-arm-home-action"></span><h3><code class="docutils literal notranslate"><span class="pre">arm_home</span></code> Action<a class="headerlink" href="#arm-home-action" title="Permalink to this heading">¶</a></h3>
+<p>This action arms the alarm in home mode. The <code class="docutils literal notranslate"><span class="pre">code</span></code> is required when <em>requires_code_to_arm</em> is <em>true</em>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alarm_control_panel.arm_home</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acp1</span>
+<span class="w">        </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1234&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="arm-night-action">
+<span id="alarm-control-panel-arm-night-action"></span><h3><code class="docutils literal notranslate"><span class="pre">arm_night</span></code> Action<a class="headerlink" href="#arm-night-action" title="Permalink to this heading">¶</a></h3>
+<p>This action arms the alarm in night mode. The <code class="docutils literal notranslate"><span class="pre">code</span></code> is required when <em>requires_code_to_arm</em> is <em>true</em>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alarm_control_panel.arm_night</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acp1</span>
+<span class="w">        </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1234&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="disarm-action">
+<span id="alarm-control-panel-disarm-action"></span><h3><code class="docutils literal notranslate"><span class="pre">disarm</span></code> Action<a class="headerlink" href="#disarm-action" title="Permalink to this heading">¶</a></h3>
+<p>This action disarms the alarm. The <code class="docutils literal notranslate"><span class="pre">code</span></code> is required when <em>codes</em> is not empty.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alarm_control_panel.disarm</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acp1</span>
+<span class="w">        </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1234&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="pending-action">
+<span id="alarm-control-panel-pending-action"></span><h3><code class="docutils literal notranslate"><span class="pre">pending</span></code> Action<a class="headerlink" href="#pending-action" title="Permalink to this heading">¶</a></h3>
+<p>This action puts the alarm in pending state (the state before triggered after <em>pending_time</em>).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alarm_control_panel.pending</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acp1</span>
+</pre></div>
+</div>
+</section>
+<section id="triggered-action">
+<span id="alarm-control-panel-triggered-action"></span><h3><code class="docutils literal notranslate"><span class="pre">triggered</span></code> Action<a class="headerlink" href="#triggered-action" title="Permalink to this heading">¶</a></h3>
+<p>This action puts the alarm in triggered state.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alarm_control_panel.triggered</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acp1</span>
+</pre></div>
+</div>
+</section>
+<section id="is-armed-condition">
+<span id="alarm-control-panel-is-armed-condition"></span><h3><code class="docutils literal notranslate"><span class="pre">is_armed</span></code> Condition<a class="headerlink" href="#is-armed-condition" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../../guides/automations.html#config-condition"><span class="std std-ref">Condition</span></a> checks if the alarm control panel is armed.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">alarm_control_panel.is_armed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acp1</span>
+</pre></div>
+</div>
+</section>
+<section id="lambda-calls">
+<span id="alarm-control-panel-lambda-calls"></span><h3>lambda calls<a class="headerlink" href="#lambda-calls" title="Permalink to this heading">¶</a></h3>
+<p>From <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>, you can call the following methods:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">arm_away(code)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arm_home(code)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arm_night(code)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disarm(code)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_all_sensors_ready()</span></code></p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">id</span><span class="p">(</span><span class="n">acp1</span><span class="p">).</span><span class="n">arm_away</span><span class="p">();</span>
+<span class="n">id</span><span class="p">(</span><span class="n">acp1</span><span class="p">).</span><span class="n">arm_home</span><span class="p">();</span>
+<span class="n">id</span><span class="p">(</span><span class="n">acp1</span><span class="p">).</span><span class="n">arm_night</span><span class="p">();</span>
+<span class="n">id</span><span class="p">(</span><span class="n">acp1</span><span class="p">).</span><span class="n">disarm</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;1234&quot;</span><span class="p">));</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">all_sensors_ready</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">acp1</span><span class="p">).</span><span class="n">get_all_sensors_ready</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="platforms">
+<h2>Platforms<a class="headerlink" href="#platforms" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="template.html">Template Alarm Control Panel</a></li>
+</ul>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../binary_sensor/index.html"><span class="doc">Binary Sensor Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/alarm__control__panel_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/alarm_control_panel/index.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

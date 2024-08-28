@@ -1,0 +1,333 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up NTC thermistor sensor in ESPHome">
+<meta itemprop="name" content="NTC Sensor">
+<meta itemprop="description" content="Instructions for setting up NTC thermistor sensor in ESPHome">
+<meta itemprop="image" content="https://esphome.io/_images/ntc.jpg">
+<meta name="twitter:title" content="NTC Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/ntc.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up NTC thermistor sensor in ESPHome">
+<meta property="og:title" content="NTC Sensor">
+<meta property="og:image" content="https://esphome.io/_images/ntc.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up NTC thermistor sensor in ESPHome">
+
+    <title>NTC Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/ntc.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="PM1006 Particulate Matter Sensor" href="pm1006.html" />
+    <link rel="prev" title="Nextion Sensor Component" href="nextion.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">NTC Sensor</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#self-heating">Self-Heating</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>NTC Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="ntc-sensor">
+<h1>NTC Sensor<a class="headerlink" href="#ntc-sensor" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">ntc</span></code> platform is a helper sensor that allows you to convert resistance readings
+from a NTC thermistor to temperature readings.</p>
+<p>First, you need to get resistance readings from the sensor - you can set this up with the
+<a class="reference internal" href="resistance.html"><span class="doc">resistance</span></a> and <a class="reference internal" href="adc.html"><span class="doc">adc</span></a> sensors.</p>
+<p>This platform will then convert the resistance values to temperature readings.
+It also requires calibration parameters for this conversion. There are two
+ways of obtaining these values: By looking at the datasheet or manual calculation.</p>
+<p>If you have the datasheet of the thermistor, you can look at its “B-constant” and
+reference temperature/resistance. For example <a class="reference external" href="https://www.adafruit.com/product/372">this product</a>
+would have the following calibration configuration.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ntc</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">calibration</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">b_constant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3950</span>
+<span class="w">      </span><span class="nt">reference_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25°C</span>
+<span class="w">      </span><span class="nt">reference_resistance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10kOhm</span>
+</pre></div>
+</div>
+<p>If you don’t have access to the datasheet or want to calculate these values yourself,
+you have to first measure three resistance values at different temperatures.
+Heat/cool the NTC to three different temperatures (best if temperatures are far apart)
+and write down the resistance readings at those temperatures. Then enter these values in the
+calibration parameter:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ntc</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">calibration</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0kOhm -&gt; 25°C</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27.219kOhm -&gt; 0°C</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">14.674kOhm -&gt; 15°C</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ntc</span>
+<span class="w">    </span><span class="nt">sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resistance_sensor</span>
+<span class="w">    </span><span class="nt">calibration</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">b_constant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3950</span>
+<span class="w">      </span><span class="nt">reference_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25°C</span>
+<span class="w">      </span><span class="nt">reference_resistance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10kOhm</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NTC Temperature</span>
+
+<span class="w">  </span><span class="c1"># Example source sensors:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resistance</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resistance_sensor</span>
+<span class="w">    </span><span class="nt">sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source_sensor</span>
+<span class="w">    </span><span class="nt">configuration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DOWNSTREAM</span>
+<span class="w">    </span><span class="nt">resistor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.6kOhm</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Resistance Sensor</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adc</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source_sensor</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A0</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the sensor.</p></li>
+<li><p><strong>sensor</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The sensor to read the resistance values from
+to convert to temperature readings.</p></li>
+<li><p><strong>calibration</strong> (<strong>Required</strong>, float): The calibration parameters of the sensor - see above
+for more details.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="self-heating">
+<h2>Self-Heating<a class="headerlink" href="#self-heating" title="Permalink to this heading">¶</a></h2>
+<p>A constant voltage supply to the NTC sensor causes it to heat up and therefore creates unreliable temperature values.
+So it’s recommended to only supply the NTC sensor (and voltage divider) during the actual measurement.
+More info <a class="reference external" href="https://learn.adafruit.com/thermistor/using-a-thermistor#self-heating-3-22">here</a>.</p>
+<p>To do this, replace the 3.3V side of the voltage divider with a connection to a GPIO pin. This GPIO pin will
+be switched HIGH (3.3V) only during the measurement, thus preventing the sensor from heating up.
+In the example below, the pin <code class="docutils literal notranslate"><span class="pre">D0</span></code> is the “top” side of the voltage divider:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Same as before:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ntc</span>
+<span class="w">    </span><span class="nt">sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resistance_sensor</span>
+<span class="w">    </span><span class="c1"># ...</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adc</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A0</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source_sensor</span>
+<span class="w">    </span><span class="c1"># Added:</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">never</span>
+
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D0</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ntc_vcc</span>
+
+<span class="nt">interval</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ntc_vcc</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">component.update</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source_sensor</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ntc_vcc</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="adc.html"><span class="doc">Analog To Digital Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="resistance.html"><span class="doc">Resistance Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference external" href="/api/ntc_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/ntc.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

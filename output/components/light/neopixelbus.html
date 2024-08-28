@@ -1,0 +1,386 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Neopixel addressable lights.">
+<meta itemprop="name" content="NeoPixelBus Light">
+<meta itemprop="description" content="Instructions for setting up Neopixel addressable lights.">
+<meta itemprop="image" content="https://esphome.io/_images/color_lens.png">
+<meta name="twitter:title" content="NeoPixelBus Light">
+<meta name="twitter:image:src" content="https://esphome.io/_images/color_lens.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Neopixel addressable lights.">
+<meta property="og:title" content="NeoPixelBus Light">
+<meta property="og:image" content="https://esphome.io/_images/color_lens.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Neopixel addressable lights.">
+
+    <title>NeoPixelBus Light &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/light/neopixelbus.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Light Partition" href="partition.html" />
+    <link rel="prev" title="Monochromatic Light" href="monochromatic.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">NeoPixelBus Light</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Light Component</a> ➔</li>
+      <li>NeoPixelBus Light</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="neopixelbus-light">
+<h1>NeoPixelBus Light<a class="headerlink" href="#neopixelbus-light" title="Permalink to this heading">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>NeoPixelBus does <strong>not</strong> work with ESP-IDF.</p>
+<p>For clockless lights, you can use <a class="reference internal" href="esp32_rmt_led_strip.html"><span class="doc">ESP32 RMT LED Strip</span></a>, and for SPI LEDs see <a class="reference internal" href="spi_led_strip.html"><span class="doc">SPI LED Strip Light</span></a>.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">neopixelbus</span></code> light platform allows you to create RGB lights
+in ESPHome for individually addressable lights like NeoPixel or WS2812.</p>
+<p>It is very similar to the <a class="reference internal" href="fastled.html"><span class="doc">FastLED Light</span></a> platform.
+In fact, most addressable lights are supported through both light platforms. The
+difference is that they use different libraries: while the fastled platform uses
+the <a class="reference external" href="https://github.com/FastLED/FastLED">FastLED</a> library, this component uses
+the <a class="reference external" href="https://github.com/Makuna/NeoPixelBus/">NeoPixelBus</a> library internally.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">light</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neopixelbus</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GRB</span>
+<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WS2811</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">num_leds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;NeoPixel</span><span class="nv"> </span><span class="s">Light&quot;</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<p><strong>Base Options:</strong></p>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the light.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>num_leds</strong> (<strong>Required</strong>, int): The number of LEDs attached.</p></li>
+<li><p><strong>effects</strong> (<em>Optional</em>, list): A list of <a class="reference internal" href="index.html#light-effects"><span class="std std-ref">light effects</span></a> to use for this light.</p></li>
+</ul>
+<p><strong>Type Options:</strong></p>
+<ul>
+<li><p><strong>type</strong> (<em>Optional</em>, string): The type of light. This is used to specify
+if it is an RGBW or RGB light and in which order the colors are. Defaults to
+<code class="docutils literal notranslate"><span class="pre">GRB</span></code>. Change this if you have lights with white channel and/or the colors are in the wrong order.</p></li>
+<li><p><strong>variant</strong> (<strong>Required</strong>, string): The chipset of the light.</p>
+<p>The following options are supported:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">800KBPS</span></code> (generic option, recommended for chipsets without explicit support)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">400KBPS</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WS2811</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WS2812</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WS2812X</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WS2813</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SK6812</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TM1814</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TM1829</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TM1914</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">APA106</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LC8812</span></code></p></li>
+</ul>
+<p>Additionally the following two-wire chipsets (set <code class="docutils literal notranslate"><span class="pre">data_pin</span></code> and <code class="docutils literal notranslate"><span class="pre">clock_pin</span></code>)
+are supported:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">WS2801</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DotStar</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LPD6803</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LPD8806</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P9813</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>method</strong> (<em>Optional</em>, string): The method used to transmit the data. By default, ESPHome will try to use the best method
+available for this chipset, ESP platform, and the given pin. See <a class="reference internal" href="#neopixelbus-methods"><span class="std std-ref">methods</span></a> for more information.</p></li>
+<li><p><strong>invert</strong> (<em>Optional</em>, boolean): Invert data output, for use with n-type transistors. Defaults to <code class="docutils literal notranslate"><span class="pre">no</span></code>.</p></li>
+</ul>
+<p><strong>Pin Options:</strong></p>
+<p>Some chipsets have two data pins to connect, others only have one.
+If you have one line, only specify <code class="docutils literal notranslate"><span class="pre">pin</span></code>, otherwise specify both <code class="docutils literal notranslate"><span class="pre">clock_pin</span></code> and <code class="docutils literal notranslate"><span class="pre">data_pin</span></code>.</p>
+<ul class="simple">
+<li><p><strong>pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The pin for the data line of the light.</p></li>
+<li><p><strong>clock_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The pin for the clock line of the light, for two-wire lights.</p></li>
+<li><p><strong>data_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The pin for the data line of the light, for two-wire lights.</p></li>
+</ul>
+<p><strong>Advanced Options:</strong></p>
+<ul class="simple">
+<li><p>All other options from <a class="reference internal" href="index.html#config-light"><span class="std std-ref">Light</span></a>.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>On ESP8266 it’s highly recommended to connect the light strip to pin
+GPIO3 to reduce flickering.</p>
+</div>
+</section>
+<section id="methods">
+<span id="neopixelbus-methods"></span><h2>Methods<a class="headerlink" href="#methods" title="Permalink to this heading">¶</a></h2>
+<p>NeoPixelBus supports different methods to transmit the pixel data to the light strip depending
+on the chipset, ESP platform and pin.</p>
+<p>Each of these has their own advantages/disadvantages regarding stability and speed. By default
+ESPHome will choose the best one that is available on the device. However, you can override this
+by manually supplying the <code class="docutils literal notranslate"><span class="pre">method</span></code> option.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">light</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neopixelbus</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">method</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp8266_uart</span>
+<span class="w">      </span><span class="nt">bus</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">      </span><span class="nt">async</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">type</span></code> configuration variable to select the method used. The additional configuration
+settings vary by method:</p>
+<ul class="simple">
+<li><p><strong>bit_bang</strong>: The simplest method and available on all platforms. However, it can produce quite a bit of flickering,
+and so is not recommended for use. On ESP8266, supports pins GPIO0-GPIO15, on ESP32 pins GPIO0-GPIO31.</p></li>
+<li><p><strong>esp8266_dma</strong>: The recommended method for ESP8266s. Only available on pin GPIO3.</p></li>
+<li><p><strong>esp8266_uart</strong>: An alternative method for ESP8266s that uses the UART peripheral to send data.
+Available on pin GPIO1 for bus 0, and GPIO2 for bus 1. Additional options:</p>
+<ul>
+<li><p><strong>bus</strong> (<em>Optional</em>, int): The UART bus to use. If 0, the logger <code class="docutils literal notranslate"><span class="pre">baud_rate</span></code> option must
+be set to 0 and logs over USB/serial won’t work.</p></li>
+<li><p><strong>async</strong> (<em>Optional</em>, boolean): Use an asynchronous transfer. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>. If enabled,
+the logger must be disabled even if bus 1 is used.</p></li>
+</ul>
+</li>
+<li><p><strong>esp32_i2s</strong>: The recommended method for ESP32, but not available on the ESP32-S3 or ESP32-C3.
+Available on all output pins. Additional options:</p>
+<ul>
+<li><p><strong>bus</strong> (<em>Optional</em>): The I2S bus to use. The ESP32 has bus 0 or 1 available, but the ESP32-S2 only bus 0.
+One of <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>esp32_rmt</strong>: An alternative method for ESP32 that uses the RMT peripheral to send data.
+Available on all output pins. Additional options:</p>
+<ul>
+<li><p><strong>channel</strong> (<em>Optional</em>): The RMT channel to use. The ESP32 has channels 0-7, ESP32-S2 0-3, ESP32-S3 0-3, and ESP32-C3 0-1.
+Defaults to 6 on ESP32, and 1 on other ESP32 variants.</p></li>
+</ul>
+</li>
+</ul>
+<p>The following method is available only for two-wire chips (specify <code class="docutils literal notranslate"><span class="pre">data_pin</span></code> and <code class="docutils literal notranslate"><span class="pre">clock_pin</span></code>):</p>
+<ul>
+<li><p><strong>spi</strong>: Uses the hardware SPI interface to transmit the data. Available on both ESP platforms.
+Additional options:</p>
+<ul class="simple">
+<li><p><strong>bus</strong> (<em>Optional</em>, string): On ESP32s the SPI bus to be used can be selected. One of <code class="docutils literal notranslate"><span class="pre">vspi</span></code> and <code class="docutils literal notranslate"><span class="pre">hspi</span></code>.</p></li>
+<li><p><strong>speed</strong> (<em>Optional</em>, int): The frequency to send data with. Defaults to <code class="docutils literal notranslate"><span class="pre">10MHz</span></code>. One of
+<code class="docutils literal notranslate"><span class="pre">40MHz</span></code>, <code class="docutils literal notranslate"><span class="pre">20MHz</span></code>, <code class="docutils literal notranslate"><span class="pre">10MHz</span></code>, <code class="docutils literal notranslate"><span class="pre">5MHz</span></code>, <code class="docutils literal notranslate"><span class="pre">2MHz</span></code>, <code class="docutils literal notranslate"><span class="pre">1MHz</span></code>, <code class="docutils literal notranslate"><span class="pre">500KHz</span></code>.</p></li>
+</ul>
+<p>On ESP8266 only GPIO13 can be used for <code class="docutils literal notranslate"><span class="pre">data_pin</span></code> and only GPIO14 can be used for <code class="docutils literal notranslate"><span class="pre">clock_pin</span></code>.</p>
+</li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">method</span></code> key also accepts a short-hand syntax consisting of a single value for historic reasons. Usage of
+this method is no longer recommended, but documented here for reference purposes. Possible values were:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ESP8266_DMA</span></code> (for <code class="docutils literal notranslate"><span class="pre">esp8266_dma</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ESP8266_UART0</span></code> (for <code class="docutils literal notranslate"><span class="pre">esp8266_uart</span></code> on bus 0)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ESP8266_UART1</span></code> (for <code class="docutils literal notranslate"><span class="pre">esp8266_uart</span></code> on bus 1)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ESP8266_ASYNC_UART0</span></code> (for <code class="docutils literal notranslate"><span class="pre">esp8266_uart</span></code> on bus 0 with async enabled)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ESP8266_ASYNC_UART1</span></code> (for <code class="docutils literal notranslate"><span class="pre">esp8266_uart</span></code> on bus 1 with async enabled)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ESP32_I2S_0</span></code> (for <code class="docutils literal notranslate"><span class="pre">esp32_i2s</span></code> on bus 0)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ESP32_I2S_1</span></code> (for <code class="docutils literal notranslate"><span class="pre">esp32_i2s</span></code> on bus 1)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BIT_BANG</span></code> (for <code class="docutils literal notranslate"><span class="pre">bit_bang</span></code>)</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Light Component</span></a></p></li>
+<li><p><a class="reference internal" href="fastled.html"><span class="doc">FastLED Light</span></a></p></li>
+<li><p><a class="reference internal" href="../power_supply.html"><span class="doc">Power Supply Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/neopixelbus__light_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/Makuna/NeoPixelBus/wiki/ESP8266-NeoMethods">NeoPixelBus library</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/light/neopixelbus.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

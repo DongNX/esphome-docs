@@ -1,0 +1,836 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Getting started guide for contributing to the ESPHome project">
+<meta itemprop="name" content="Contributing">
+<meta itemprop="description" content="Getting started guide for contributing to the ESPHome project">
+<meta itemprop="image" content="https://esphome.io/_images/github-circle.png">
+<meta name="twitter:title" content="Contributing">
+<meta name="twitter:image:src" content="https://esphome.io/_images/github-circle.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Getting started guide for contributing to the ESPHome project">
+<meta property="og:title" content="Contributing">
+<meta property="og:image" content="https://esphome.io/_images/github-circle.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Getting started guide for contributing to the ESPHome project">
+
+    <title>Contributing &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/guides/contributing.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sharing ESPHome devices" href="creators.html" />
+    <link rel="prev" title="Configuration Types" href="configuration-types.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Contributing</a><ul>
+<li><a class="reference internal" href="#contributing-to-esphome-docs">Contributing to ESPHome-Docs</a><ul>
+<li><a class="reference internal" href="#through-github">Through Github</a></li>
+<li><a class="reference internal" href="#build">Build</a></li>
+<li><a class="reference internal" href="#notes">Notes</a></li>
+<li><a class="reference internal" href="#syntax">Syntax</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setting-up-development-environment">Setting Up Development Environment</a></li>
+<li><a class="reference internal" href="#setting-up-git-environment">Setting Up Git Environment</a></li>
+<li><a class="reference internal" href="#contributing-to-esphome">Contributing to ESPHome</a><ul>
+<li><a class="reference internal" href="#directory-structure">1. Directory Structure</a></li>
+<li><a class="reference internal" href="#config-validation">2. Config Validation</a></li>
+<li><a class="reference internal" href="#code-generation">3. Code Generation</a></li>
+<li><a class="reference internal" href="#runtime">4. Runtime</a></li>
+<li><a class="reference internal" href="#extras">5. Extras</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#codebase-standards">Codebase Standards</a></li>
+<li><a class="reference internal" href="#prs-are-being-drafted-when-changes-are-needed">PRs are being drafted when changes are needed</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Guides</a> ➔</li>
+      <li>Contributing</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading">¶</a></h1>
+<p>Contributions to the ESPHome suite are very welcome! All the code for the projects
+is hosted on GitHub and you can find the sources here:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/esphome/esphome">ESPHome</a> (Project Source Code)</p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs">ESPHome-Docs</a> (The documentation which you’re reading here)</p></li>
+</ul>
+<p>Just clone the repository locally, do the changes for your new feature/bug fix and submit
+a pull request.</p>
+<section id="contributing-to-esphome-docs">
+<h2>Contributing to ESPHome-Docs<a class="headerlink" href="#contributing-to-esphome-docs" title="Permalink to this heading">¶</a></h2>
+<a class="dark-invert reference internal image-reference" href="../_images/logo-docs.svg"><img alt="../_images/logo-docs.svg" class="dark-invert align-center" src="../_images/logo-docs.svg" width="60.0%" /></a>
+<p>One of the areas of ESPHome that can always be improved is the documentation.
+If you see an issue somewhere, a spelling mistakes or if you want to share your awesome
+setup, please feel free to submit a pull request.</p>
+<p>The ESPHome documentation is built using <a class="reference external" href="http://www.sphinx-doc.org/">sphinx</a> and uses
+<a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> for all source files.</p>
+<p>If you’re not familiar with writing rST, see <a class="reference internal" href="#rst-syntax"><span class="std std-ref">Syntax</span></a> for a quick refresher.</p>
+<section id="through-github">
+<h3>Through Github<a class="headerlink" href="#through-github" title="Permalink to this heading">¶</a></h3>
+<p>This guide essentially goes over the same material found in <a class="reference external" href="https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files#editing-files-in-another-users-repository">GitHub’s Editing files in another user’s repository</a>. You may also find that page helpful to read.</p>
+<p>At the bottom of each page in the docs, there is a “Edit this page on GitHub” link. Click this link and you’ll see something like this:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/docs_ghedit_1.png"><img alt="a screenshot of an rST file opened in GitHub, with the edit button circled" src="../_images/docs_ghedit_1.png" style="width: 80.0%;" /></a>
+</figure>
+<p>Click the edit button to start making changes. If you’re not sure about some element of syntax, see the quick-start <a class="reference internal" href="#rst-syntax"><span class="std std-ref">Syntax</span></a> guide.</p>
+<p>Once you’ve made your changes, give them a useful name and press “Propose changes”. At this point, you’ve made the changes on your own personal copy of the docs in GitHub, but you still need to submit them to us.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/docs_ghedit_2.png"><img alt="the commit creation screen in GitHub, with the commit title and &quot;Propose changes&quot; button circled" src="../_images/docs_ghedit_2.png" style="width: 80.0%;" /></a>
+</figure>
+<p>To do that, you need to create a “Pull request”:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/docs_ghedit_3.png"><img alt="the pull request prompt screen in GitHub with the &quot;Create pull request&quot; button circled" src="../_images/docs_ghedit_3.png" style="width: 80.0%;" /></a>
+</figure>
+<p>Fill out the new pull request form, replacing the <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code> with <code class="docutils literal notranslate"><span class="pre">[x]</span></code> to indicate that you have followed the instructions.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/docs_ghedit_4.png"><img alt="the pull request creation screen in GitHub with the &quot;Create pull request&quot; button circled" src="../_images/docs_ghedit_4.png" style="width: 80.0%;" /></a>
+</figure>
+<p>After waiting a while, you might see a green or a red mark next to your commit in your pull request:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/docs_ghedit_ci_failed.png"><img alt="the pull request with a commit with a red x next to it" src="../_images/docs_ghedit_ci_failed.png" style="width: 80.0%;" /></a>
+</figure>
+<p>This means that there is some error stopping your pull request from being fully processed. Click on the X, click on “Details” next to the lint step, and look and see what’s causing your change to fail.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/docs_ghedit_ci_details.png"><img alt="failed lint substep of build, with &quot;details&quot; link circled" src="../_images/docs_ghedit_ci_details.png" style="width: 80.0%;" /></a>
+</figure>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/docs_ghedit_ci_logs.png"><img alt="log messages showing reason for failed build" src="../_images/docs_ghedit_ci_logs.png" style="width: 80.0%;" /></a>
+</figure>
+<p>For example, in this case, you’d want to go to line 136 of <code class="docutils literal notranslate"><span class="pre">pzemac.rst</span></code> and adjust the number of <code class="docutils literal notranslate"><span class="pre">===</span></code> so that it completely underlines the section heading.</p>
+<p>Once you make that change, the pull request will be built again, and hopefully this time where will be no other errors.</p>
+</section>
+<section id="build">
+<h3>Build<a class="headerlink" href="#build" title="Permalink to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The easiest way is to use the <a class="reference external" href="ghcr.io/esphome/esphome-docs/">esphome-docs container image</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">/&quot;</span>:/workspaces/esphome-docs<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>-it<span class="w"> </span>ghcr.io/esphome/esphome-docs
+</pre></div>
+</div>
+<p>With <code class="docutils literal notranslate"><span class="pre">PWD</span></code> referring to the root of the <code class="docutils literal notranslate"><span class="pre">esphome-docs</span></code> git repository. Then go to <code class="docutils literal notranslate"><span class="pre">&lt;CONTAINER_IP&gt;:8000</span></code> in your browser.</p>
+<p>This way, you don’t have to install the dependencies to build the documentation.</p>
+</div>
+<p>To check your documentation changes locally, you first need install Sphinx (with <strong>Python 3</strong>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># in ESPHome-Docs repo:</span>
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<p>Then, use the provided Makefile to build the changes and start a live-updating web server:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start web server on port 8000</span>
+make<span class="w"> </span>live-html
+</pre></div>
+</div>
+</section>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h3>
+<p>Some notes about the docs:</p>
+<ul class="simple">
+<li><p>Use the English language (duh…)</p></li>
+<li><p>An image tells a thousand words, please use them wherever possible. But also don’t forget to shrink them, for example
+I often use <a class="reference external" href="https://tinypng.com/">https://tinypng.com/</a></p></li>
+<li><p>Try to use examples as often as possible (also while it’s great to use highly accurate,
+and domain-specific lingo, it should not interfere with new users understanding the content)</p></li>
+<li><p>Fixes/improvements for the docs themselves should go to the <code class="docutils literal notranslate"><span class="pre">current</span></code> branch of the
+esphomedocs repository. New features should be added against the <code class="docutils literal notranslate"><span class="pre">next</span></code> branch.</p></li>
+<li><p>Always create new branches in your fork for each pull request.</p></li>
+</ul>
+</section>
+<section id="syntax">
+<span id="rst-syntax"></span><h3>Syntax<a class="headerlink" href="#syntax" title="Permalink to this heading">¶</a></h3>
+<p>Here’s a quick RST primer:</p>
+<p>Title hierarchy is based on order of occurrence, not on type of character used to underline it. This
+documents establish the following character order for better consistency.</p>
+<ul>
+<li><p><strong>Headers</strong>: You can write titles like this:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">My Title</span>
+<span class="gh">========</span>
+</pre></div>
+</div>
+<p>and section headers like this:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">My Sub Section</span>
+<span class="gh">--------------</span>
+</pre></div>
+</div>
+<p>and sub-section headers like this:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">My Sub-sub Section</span>
+<span class="gh">******************</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The length of the bar below the text <strong>must</strong> match the title Text length.
+Also, titles should be in Title Case</p>
+</div>
+</li>
+<li><p><strong>Links</strong>: To create a link to an external resource (for example <a class="reference external" href="https://www.google.com">https://www.google.com</a>), use
+<code class="docutils literal notranslate"><span class="pre">\`Link</span> <span class="pre">text</span> <span class="pre">&lt;link_url&gt;\`__</span></code>. For example:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="s">`Google.com </span><span class="si">&lt;https://www.google.com&gt;</span><span class="s">`__</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://www.google.com">Google.com</a></p>
+</li>
+<li><p><strong>References</strong>: To reference another document, use the <code class="docutils literal notranslate"><span class="pre">:doc:</span></code> and <code class="docutils literal notranslate"><span class="pre">:ref:</span></code> roles (references
+are set up globally and can be used between documents):</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="nt">_my-reference-label:</span>
+
+<span class="gh">Section to cross-reference</span>
+<span class="gh">--------------------------</span>
+
+See <span class="na">:ref:</span><span class="nv">`my-reference-label`</span>, also see <span class="na">:doc:</span><span class="nv">`/components/switch/gpio`</span>.
+<span class="na">:doc:</span><span class="nv">`Using custom text &lt;/components/switch/gpio&gt;`</span>.
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../index.html#devices"><span class="std std-ref">Supported Microcontrollers</span></a>, also see <a class="reference internal" href="../components/switch/gpio.html"><span class="doc">GPIO Switch</span></a>.
+<a class="reference internal" href="../components/switch/gpio.html"><span class="doc">Using custom text</span></a>.</p>
+</li>
+<li><p><strong>Inline code</strong>: To have text appear <code class="docutils literal notranslate"><span class="pre">like</span> <span class="pre">this</span></code>, use double backticks:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>To have text appear <span class="s">``like this``</span>, use double backticks.
+</pre></div>
+</div>
+<p>To have text appear <code class="docutils literal notranslate"><span class="pre">like</span> <span class="pre">this</span></code>, use double backticks.</p>
+</li>
+<li><p><strong>Code blocks</strong>: To show a sample configuration file, use the <code class="docutils literal notranslate"><span class="pre">code-block</span></code> directive:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">yaml</span>
+
+    <span class="c1"># Sample configuration entry</span>
+    <span class="nt">switch</span><span class="p">:</span>
+    <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+    <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Relay</span><span class="nv"> </span><span class="s">#42&quot;</span>
+    <span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sample configuration entry</span>
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Relay</span><span class="nv"> </span><span class="s">#42&quot;</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please note the empty line after the <code class="docutils literal notranslate"><span class="pre">code-block</span></code> directive. That is necessary.</p>
+</div>
+</li>
+<li><p><strong>Images</strong>: To show images, use the <code class="docutils literal notranslate"><span class="pre">figure</span></code> directive:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">figure</span><span class="p">::</span> images/dashboard_states.png
+    <span class="nc">:align:</span> center
+    <span class="nc">:width:</span> 40.0%
+
+    Optional figure caption.
+</pre></div>
+</div>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/dashboard_states.png"><img alt="../_images/dashboard_states.png" src="../_images/dashboard_states.png" style="width: 40.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Optional figure caption.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All images in the documentation need to be as small as possible to ensure
+fast page load times. For normal figures the maximum size should be at most
+about 1000x800 px or so. Additionally, please use online tools like
+<a class="reference external" href="https://tinypng.com/">https://tinypng.com/</a> or <a class="reference external" href="https://tinyjpg.com/">https://tinyjpg.com/</a> to further compress images.</p>
+</div>
+</li>
+<li><p><strong>Notes and warnings</strong>: You can create simple notes and warnings using the <code class="docutils literal notranslate"><span class="pre">note</span></code> and <code class="docutils literal notranslate"><span class="pre">warning</span></code>
+directives:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">note</span><span class="p">::</span>
+
+    This is a note.
+
+<span class="p">..</span> <span class="ow">warning</span><span class="p">::</span>
+
+    This is a warning.
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a note.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is a warning.</p>
+</div>
+</li>
+<li><p><strong>Italic and boldface font families</strong>: To <em>italicize</em> text, use one asterisk around the text. To put
+<strong>a strong emphasis</strong> on a piece of text, put two asterisks around it.</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="ge">*This is italicized.*</span> (A weird word...)
+<span class="gs">**This is very important.**</span>
+</pre></div>
+</div>
+<p><em>This is italicized.</em> (A weird word…)
+<strong>This is very important.</strong></p>
+</li>
+<li><p><strong>Ordered and unordered list</strong>: The syntax for lists in RST is more or less the same as in Markdown:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="m">-</span> Unordered item
+
+  <span class="m">-</span> Unordered sub-item
+
+<span class="m">-</span> Item with a very long text so that it does not fully fit in a single line and
+  must be split up into multiple lines.
+
+<span class="m">1.</span> Ordered item #1
+<span class="m">2.</span> Ordered item #2
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Unordered item</p>
+<ul>
+<li><p>Unordered sub-item</p></li>
+</ul>
+</li>
+<li><p>Item with a very long text so that it does not fully fit in a single line and
+must be split up into multiple lines.</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Ordered item #1</p></li>
+<li><p>Ordered item #2</p></li>
+</ol>
+</li>
+<li><p><strong>imgtable</strong>: ESPHome uses a custom RST directive to show the table on the front page (see
+<a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/index.rst">index.rst</a>).
+New pages need to be added to the <code class="docutils literal notranslate"><span class="pre">imgtable</span></code> list. The syntax is CSV with &lt;PAGE NAME&gt;, &lt;FILE NAME&gt; (without RST),
+&lt;IMAGE&gt; (in top-level images/ directory), &lt;COMMENT&gt; (optional - short text to describe the component). The aspect ratio of these images should be 8:10 (or 10:8) but exceptions are possible.</p>
+<p>Because these images are served on the main page, they need to be compressed heavily. SVGs are preferred over JPGs
+and JPGs should be max. 300x300px.
+If you have imagemagick installed, you can use this command to convert the thumbnail:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>convert<span class="w"> </span>-sampling-factor<span class="w"> </span><span class="m">4</span>:2:0<span class="w"> </span>-strip<span class="w"> </span>-interlace<span class="w"> </span>Plane<span class="w"> </span>-quality<span class="w"> </span><span class="m">80</span>%<span class="w"> </span>-resize<span class="w"> </span>300x300<span class="w"> </span><span class="k">in</span>.jpg<span class="w"> </span>out.jpg
+</pre></div>
+</div>
+</li>
+</ul>
+<p>reStructured text can do a lot more than this, so if you’re looking for a more complete guide
+please have a look at the <a class="reference external" href="http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html">Sphinx reStructuredText Primer</a>.</p>
+</section>
+</section>
+<section id="setting-up-development-environment">
+<span id="setup-dev-env"></span><h2>Setting Up Development Environment<a class="headerlink" href="#setting-up-development-environment" title="Permalink to this heading">¶</a></h2>
+<p>For developing new features to ESPHome, you will first need to set up a development environment.
+This is only possible for <code class="docutils literal notranslate"><span class="pre">pip</span></code> installs.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone repos</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/esphome/esphome.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/esphome/esphome-docs.git
+
+<span class="c1"># Install ESPHome</span>
+<span class="nb">cd</span><span class="w"> </span>esphome/
+script/setup
+<span class="c1"># Start a new feature branch</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>my-new-feature
+<span class="nb">cd</span><span class="w"> </span>..
+</pre></div>
+</div>
+<p>The environment is now ready for use, but you need to activate the Python virtual environment
+every time you are using it.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Activate venv</span>
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate
+</pre></div>
+</div>
+<p>Now you can open ESPHome in your IDE of choice (mine is CLion) with the PlatformIO
+addons (see PlatformIO docs for more info). Then develop the new feature with the
+guidelines below.</p>
+<p>All PRs are automatically checked for some basic formatting/code mistakes with Github Actions.
+These checks <em>must</em> pass for your PR to be mergeable.</p>
+</section>
+<section id="setting-up-git-environment">
+<h2>Setting Up Git Environment<a class="headerlink" href="#setting-up-git-environment" title="Permalink to this heading">¶</a></h2>
+<p>ESPHome’s code-base is hosted on GitHub, and contributing is done exclusively through
+“Pull Requests” (PRs) in the GitHub interface. So you need to set up your git environment
+first.</p>
+<p>When you want to create a patch for ESPHome, first go to the repository you want to contribute to
+(esphome, etc) and click fork in the top right corner. This will create
+a fork of the repository that you can modify and create git branches on.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone your fork</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/&lt;YOUR_GITHUB_USERNAME&gt;/&lt;REPO_NAME&gt;.git
+<span class="c1"># For example: git clone https://github.com/OttoWinter/esphome.git</span>
+
+<span class="c1"># To continue you now need to enter the directory you created above</span>
+<span class="nb">cd</span><span class="w"> </span>&lt;REPO_NAME&gt;
+<span class="c1"># For example: cd esphome</span>
+
+<span class="c1"># Add &quot;upstream&quot; remote</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/esphome/&lt;REPO_NAME&gt;.git
+<span class="c1"># For example: git remote add upstream https://github.com/esphome/esphome.git</span>
+
+<span class="c1"># For each patch, create a new branch from latest dev</span>
+git<span class="w"> </span>checkout<span class="w"> </span>dev
+git<span class="w"> </span>pull<span class="w"> </span>upstream<span class="w"> </span>dev
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>&lt;MY_NEW_FEATURE&gt;
+<span class="c1"># For example: git checkout -b gpio-switch-fix</span>
+
+<span class="c1"># Make your modifications, then commit changes with message describing changes</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;&lt;COMMIT_MESSAGE&gt;&quot;</span>
+<span class="c1"># For example: git commit -m &quot;Fix GPIO Switch Not Turning Off Interlocked Switches&quot;</span>
+
+<span class="c1"># Upload changes</span>
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>&lt;BRANCH_NAME&gt;
+<span class="c1"># For example: git push -u origin gpio-switch-fix</span>
+</pre></div>
+</div>
+<p>Then go to your repository fork in GitHub and wait for a create pull request message to show
+up in the top (alternatively go to branches and create it from there). Fill out the
+Pull Request template outlining your changes; if your PR is not ready to merge yet please
+mark it as a draft PR in the dropdown of the green “create PR” button.</p>
+<p><strong>Review Process:</strong> ESPHome’s code base tries to have a high code standard. At the bottom
+of the Pull Request you will be able to see the “Github Actions” continuous integration check which
+will automatically go through your patch and try to spot errors. If the CI check fails,
+please see the Github Actions log and fix all errors that appear there. Only PRs that pass the automated
+checks can be merged!</p>
+<p><strong>Catching up with reality</strong>: Sometimes other commits have been made to the same files
+you edited. Then your changes need to be re-applied on top of the latest changes with
+a “rebase”. More info <a class="reference external" href="https://developers.home-assistant.io/docs/en/development_catching_up.html">here</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fetch the latest upstream changes and apply them</span>
+git<span class="w"> </span>fetch<span class="w"> </span>upstream<span class="w"> </span>dev
+git<span class="w"> </span>rebase<span class="w"> </span>upstream/dev
+</pre></div>
+</div>
+</section>
+<section id="contributing-to-esphome">
+<span id="id1"></span><h2>Contributing to ESPHome<a class="headerlink" href="#contributing-to-esphome" title="Permalink to this heading">¶</a></h2>
+<a class="dark-invert reference internal image-reference" href="../_images/logo-text.svg"><img alt="../_images/logo-text.svg" class="dark-invert align-center" src="../_images/logo-text.svg" width="60.0%" /></a>
+<p>This is a guide to contributing to the ESPHome codebase. ESPHome uses two languages for its project:
+Python and C++.</p>
+<p>The user configuration is read, validated and transformed into a custom firmware
+with the Python side of the firmware.</p>
+<p>The C++ codebase is what’s actually running on the ESP and called the “runtime”. This part of
+the codebase should first set up the communication interface to a sensor/component/etc. and
+communicate with the ESPHome core via the defined interfaces (like Sensor, BinarySensor, Switch).</p>
+<section id="directory-structure">
+<h3>1. Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this heading">¶</a></h3>
+<p>After you’ve <a class="reference internal" href="#setup-dev-env"><span class="std std-ref">set up development environment</span></a>, you will have a folder structure
+like this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>esphome
+├── __main__.py
+├── automation.py
+├── codegen.py
+├── config_validation.py
+├── components
+│   ├── __init__.py
+│   ├── dht12
+│   │   ├── __init__.py
+│   │   ├── dht12.cpp
+│   │   ├── dht12.h
+│   │   ├── sensor.py
+│   ├── restart
+│   │   ├── __init__.py
+│   │   ├── restart_switch.cpp
+│   │   ├── restart_switch.h
+│   │   ├── switch.py
+│  ...
+</pre></div>
+</div>
+<p>As you can see, all components are in the “components” folder. Each component is in its own
+subfolder which contains the Python code (.py) and the C++ code (.h and .cpp).</p>
+<p>Suppose the user types in the following:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hello1</span><span class="p">:</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hello2</span>
+</pre></div>
+</div>
+<p>In both cases, ESPHome will automatically look for corresponding entries in the “components”
+folder and find the directory with the given name. For example the first entry will make ESPHome
+look at the <code class="docutils literal notranslate"><span class="pre">esphome/components/hello1/__init__.py</span></code> file and the second entry will result in
+<code class="docutils literal notranslate"><span class="pre">esphome/components/hello2/sensor.py</span></code>.</p>
+<p>Let’s leave what’s written in those files for (2.), but for now you should also know that
+whenever a component is loaded, all the C++ source files in the folder of the component
+are automatically copied into the generated PlatformIO project. So you just need to add the C++
+source files in the folder and the ESPHome core will copy them with no additional code required
+by the component developer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For testing you can use <a class="reference internal" href="../components/external_components.html"><span class="doc">External Components</span></a>.</p>
+<p>ESPHome also has a <code class="docutils literal notranslate"><span class="pre">custom_components</span></code> mechanism like <a class="reference external" href="https://developers.home-assistant.io/docs/creating_component_index">Home Assistant does</a>. However this is
+discouraged in favor of <a class="reference internal" href="../components/external_components.html"><span class="doc">External Components</span></a>.</p>
+</div>
+</section>
+<section id="config-validation">
+<h3>2. Config Validation<a class="headerlink" href="#config-validation" title="Permalink to this heading">¶</a></h3>
+<p>The first thing ESPHome does is read and validate the user config. For this ESPHome has a powerful
+“config validation” mechanism. Each component defines a config schema that is validated against
+the user config.</p>
+<p>To do this, all ESPHome Python modules that can be configured by the user have a special field
+called <code class="docutils literal notranslate"><span class="pre">CONFIG_SCHEMA</span></code>. An example of such a schema is shown below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">esphome.config_validation</span> <span class="k">as</span> <span class="nn">cv</span>
+
+<span class="n">CONF_MY_REQUIRED_KEY</span> <span class="o">=</span> <span class="s1">&#39;my_required_key&#39;</span>
+<span class="n">CONF_MY_OPTIONAL_KEY</span> <span class="o">=</span> <span class="s1">&#39;my_optional_key&#39;</span>
+
+<span class="n">CONFIG_SCHEMA</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">Schema</span><span class="p">({</span>
+  <span class="n">cv</span><span class="o">.</span><span class="n">Required</span><span class="p">(</span><span class="n">CONF_MY_REQUIRED_KEY</span><span class="p">):</span> <span class="n">cv</span><span class="o">.</span><span class="n">string</span><span class="p">,</span>
+  <span class="n">cv</span><span class="o">.</span><span class="n">Optional</span><span class="p">(</span><span class="n">CONF_MY_OPTIONAL_KEY</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span> <span class="n">cv</span><span class="o">.</span><span class="n">int_</span><span class="p">,</span>
+<span class="p">})</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">COMPONENT_SCHEMA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This variable is automatically loaded by the ESPHome core and validated against.
+The underlying system ESPHome uses for this is <a class="reference external" href="https://github.com/alecthomas/voluptuous">voluptuous</a>.
+Going into how to validate is out of scope for this guide, but the best way to learn is to look
+at examples of how similar components validate user input.</p>
+<p>A few point on validation:</p>
+<ul class="simple">
+<li><p>ESPHome puts a lot of effort into <strong>strict validation</strong> - If possible, all validation methods should be as strict
+as possible and detect wrong user input at the validation stage (and not later).</p></li>
+<li><p>All default values should be defined in the schema (and not in C++ codebase or other code parts).</p></li>
+<li><p>Config keys should be descriptive - If the meaning of a key is not immediately obvious you should
+always prefer long_but_descriptive_keys.</p></li>
+</ul>
+</section>
+<section id="code-generation">
+<h3>3. Code Generation<a class="headerlink" href="#code-generation" title="Permalink to this heading">¶</a></h3>
+<p>After the user input has been successfully validated, the last step of the Python codebase
+is called: Code generation.</p>
+<p>As you may know, ESPHome converts the user’s configuration into C++ code (you can see the generated
+code under <code class="docutils literal notranslate"><span class="pre">&lt;NODE_NAME&gt;/src/main.cpp</span></code>). Each component must define its own <code class="docutils literal notranslate"><span class="pre">to_code</span></code> method
+that converts the user input to C++ code.</p>
+<p>This method is also automatically loaded and invoked by the ESPHome core. An example of
+such a method can be seen below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">esphome.codegen</span> <span class="k">as</span> <span class="nn">cg</span>
+
+<span class="k">def</span> <span class="nf">to_code</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="n">cg</span><span class="o">.</span><span class="n">new_Pvariable</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="n">CONF_ID</span><span class="p">])</span>
+    <span class="k">yield</span> <span class="n">cg</span><span class="o">.</span><span class="n">register_component</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+
+    <span class="n">cg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">set_my_required_key</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="n">CONF_MY_REQUIRED_KEY</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p>Again, going into all the details of ESPHome code generation would be out-of-scope. However,
+ESPHome’s code generation is 99% syntactic sugar - and again it’s probably best to study other
+components and just copy what they do.</p>
+<p>There’s one important concept for the <code class="docutils literal notranslate"><span class="pre">to_code</span></code> method: coroutines with <code class="docutils literal notranslate"><span class="pre">yield</span></code>.
+First the problem that leads to coroutines: In ESPHome, components can declare (via <code class="docutils literal notranslate"><span class="pre">cg.Pvariable</span></code>) and access variables
+(<code class="docutils literal notranslate"><span class="pre">cg.get_variable()</span></code>) - but sometimes when one part of the code base requests a variable
+it has not been declared yet because the code for the component creating the variable has not run yet.</p>
+<p>To allow for ID references, ESPHome uses so-called <code class="docutils literal notranslate"><span class="pre">coroutines</span></code>. When you see a <code class="docutils literal notranslate"><span class="pre">yield</span></code> statement
+in a <code class="docutils literal notranslate"><span class="pre">to_code</span></code> method, ESPHome will call the provided method - and if that method needs to wait
+for a variable to be declared first, <code class="docutils literal notranslate"><span class="pre">yield</span></code> will wait until that variable has been declared.
+After that, <code class="docutils literal notranslate"><span class="pre">yield</span></code> returns and the method will execute on the next line.</p>
+<p>Next, there’s a special method - <code class="docutils literal notranslate"><span class="pre">cg.add</span></code> - that you will often use. <code class="docutils literal notranslate"><span class="pre">cg.add()</span></code> does a very simple
+thing: Any C++ declared in the parentheses of <code class="docutils literal notranslate"><span class="pre">cg.add()</span></code> will be added to the generated code.
+If you do not call “add” a piece of code explicitly, it will not be added to the main.cpp file!</p>
+</section>
+<section id="runtime">
+<h3>4. Runtime<a class="headerlink" href="#runtime" title="Permalink to this heading">¶</a></h3>
+<p>Okay, the Python part of the codebase is now complete - now let’s talk about the C++ part of
+creating a new component.</p>
+<p>The two major parts of any component roughly are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Setup Phase</p></li>
+<li><p>Run Phase</p></li>
+</ul>
+</div></blockquote>
+<p>When you create a new component, your new component will inherit from <a class="reference external" href="/api/classesphome_1_1_component.html">Component</a>.
+That class has a special <code class="docutils literal notranslate"><span class="pre">setup()</span></code> method that will be called once to set up the component -
+at the time the <code class="docutils literal notranslate"><span class="pre">setup()</span></code> method is called, all the setters generated by the Python codebase
+have already run and the all fields are set for your class.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">setup()</span></code> method should set up the communication interface for the component and check
+if communication works (if not, it should call <code class="docutils literal notranslate"><span class="pre">mark_failed()</span></code>).</p>
+<p>Again, look at examples of other components to learn more.</p>
+<p>The next thing that will be called with your component is <code class="docutils literal notranslate"><span class="pre">loop()</span></code> (or <code class="docutils literal notranslate"><span class="pre">update()</span></code> for a
+<a class="reference external" href="/api/classesphome_1_1_polling_component.html">PollingComponent</a>). In these methods you should retrieve the latest data from the
+component and publish them with the provided methods. One thing to note in these methods
+is that anything in <code class="docutils literal notranslate"><span class="pre">loop()</span></code> or <code class="docutils literal notranslate"><span class="pre">setup()</span></code> <strong>should not block</strong>. Specifically methods like
+<code class="docutils literal notranslate"><span class="pre">delay(10)</span></code> should be avoided and delays above ~10ms are not permitted. The reason for this
+is that ESPHome uses a central single-threaded loop for all components - if your component
+blocks the whole loop will be slowed down.</p>
+<p>Finally, your component should have a <code class="docutils literal notranslate"><span class="pre">dump_config</span></code> method that prints the user configuration.</p>
+</section>
+<section id="extras">
+<h3>5. Extras<a class="headerlink" href="#extras" title="Permalink to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This serves as documentation for some of ESPHome’s internals and is not necessarily part of the
+development guide.</p>
+</div>
+<p>All Python modules have some magic symbols that will automatically be loaded by the ESPHome
+loader. These are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CONFIG_SCHEMA</span></code>: The configuration schema to validate the user config against.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">to_code</span></code>: The function that will be called with the validated configuration and should
+create the necessary C++ source code.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEPENDENCIES</span></code>: Mark the component to depend on other components. If the user hasn’t explicitly
+added these components in their configuration, a validation error will be generated.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AUTO_LOAD</span></code>: Automatically load a component if the user hasn’t added it manually.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MULTI_CONF</span></code>: Mark this component to accept an array of configurations. If this is an
+integer instead of a boolean, validation will only permit the given number of entries.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CONFLICTS_WITH</span></code>: Mark a list of components as conflicting with this component. If the user
+has one of them in the config, a validation error will be generated.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ESP_PLATFORMS</span></code>: Provide a list of allowed ESP types this component works with.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CODEOWNERS</span></code>: GitHub usernames or team names of people that are responsible for this component.
+You should add at least your GitHub username here, as well as anyone who helped you to write code
+that is being included.</p></li>
+</ul>
+</section>
+</section>
+<section id="codebase-standards">
+<h2>Codebase Standards<a class="headerlink" href="#codebase-standards" title="Permalink to this heading">¶</a></h2>
+<p>Standard for the esphome-core codebase:</p>
+<ul>
+<li><p>The C++ code style is based on the
+<a class="reference external" href="https://google.github.io/styleguide/cppguide.html">Google C++ Style Guide</a> with a few modifications.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>function, method and variable names are <code class="docutils literal notranslate"><span class="pre">lower_snake_case</span></code></p></li>
+<li><p>class/struct/enum names should be <code class="docutils literal notranslate"><span class="pre">UpperCamelCase</span></code></p></li>
+<li><p>constants should be <code class="docutils literal notranslate"><span class="pre">UPPER_SNAKE_CASE</span></code></p></li>
+<li><p>fields should be <code class="docutils literal notranslate"><span class="pre">protected</span></code> and <code class="docutils literal notranslate"><span class="pre">lower_snake_case_with_trailing_underscore_</span></code> (DO NOT use private)</p></li>
+<li><p>It’s preferred to use long variable/function names over short and non-descriptive ones.</p></li>
+<li><p>All uses of class members and member functions should be prefixed with
+<code class="docutils literal notranslate"><span class="pre">this-&gt;</span></code> to distinguish them from global functions in code review.</p></li>
+<li><p>Use two spaces, not tabs.</p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">#define</span></code> s is discouraged and should be replaced with constants.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">type_t</span> <span class="pre">=</span> <span class="pre">int;</span></code> instead of <code class="docutils literal notranslate"><span class="pre">typedef</span> <span class="pre">int</span> <span class="pre">type_t;</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>New components should dump their configuration using <code class="docutils literal notranslate"><span class="pre">ESP_LOGCONFIG</span></code>
+at startup in <code class="docutils literal notranslate"><span class="pre">dump_config()</span></code></p></li>
+<li><p>ESPHome uses a unified formatting tool for all source files (but this tool can be difficult to install).
+When creating a new PR in GitHub, see the Github Actions output to see what formatting needs to be changed
+and what potential problems are detected.</p></li>
+<li><p>The number of external libraries should be kept to a minimum. If the component you’re developing has a simple
+communication interface, please consider implementing the library natively in ESPHome.</p>
+<ul class="simple">
+<li><p>This depends on the communication interface of course - if the library is directly working
+with pins or doesn’t do any I/O itself, it’s ok. However if it’s something like I²C, then ESPHome’s
+own communication abstractions should be used. Especially if the library accesses a global variable/state
+like <code class="docutils literal notranslate"><span class="pre">Wire</span></code> there’s a problem because then the component may not modular (i.e. not possible
+to create two instances of a component on one ESP)</p></li>
+</ul>
+</li>
+<li><p>Components <strong>must</strong> use the provided abstractions like <code class="docutils literal notranslate"><span class="pre">sensor</span></code>, <code class="docutils literal notranslate"><span class="pre">switch</span></code> etc.
+Components should specifically <strong>not</strong> directly access other components like for example
+publish to MQTT topics.</p></li>
+<li><p>Implementations for new devices should contain reference links for the datasheet and other sample
+implementations.</p></li>
+<li><p>Please test your changes :)</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also run the lint and Github Actions checks through a docker image:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Full lint+test suite</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">/&quot;</span>:/esphome<span class="w"> </span>-it<span class="w"> </span>ghcr.io/esphome/esphome-lint<span class="w"> </span>script/fulltest
+
+<span class="c1"># Run lint only over changed files</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">/&quot;</span>:/esphome<span class="w"> </span>-it<span class="w"> </span>ghcr.io/esphome/esphome-lint<span class="w"> </span>script/quicklint
+</pre></div>
+</div>
+<p>If you are using Windows and have docker installed the syntax is slightly different.
+If you have cloned esphome to <code class="docutils literal notranslate"><span class="pre">c:\edev\esphome</span></code> the volume format is <code class="docutils literal notranslate"><span class="pre">c/edev/esphome</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># convert the volume format</span>
+<span class="nv">$current_dir</span><span class="o">=(</span>Get-Location<span class="o">)</span>.Path.ToLower<span class="o">()</span>.Replace<span class="o">(</span><span class="s1">&#39;:&#39;</span>,<span class="s1">&#39;&#39;</span><span class="o">)</span>.Replace<span class="o">(</span><span class="s1">&#39;\&#39;</span>,<span class="s1">&#39;/&#39;</span><span class="o">)</span>
+<span class="c1"># Run lint only over changed files from powershell</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nv">$current_dir</span><span class="k">)</span><span class="s2">:/esphome&quot;</span><span class="w"> </span>-it<span class="w"> </span>ghcr.io/esphome/esphome-lint<span class="w"> </span>script/quicklint
+</pre></div>
+</div>
+</div>
+</section>
+<section id="prs-are-being-drafted-when-changes-are-needed">
+<h2>PRs are being drafted when changes are needed<a class="headerlink" href="#prs-are-being-drafted-when-changes-are-needed" title="Permalink to this heading">¶</a></h2>
+<p>If there have been changes requested to your PR, our bot will automatically mark your PR as a draft.
+This means that the PR is not ready to be merged or further reviewed for the moment.</p>
+<p>Draft PRs tell other reviewers that look at the list of all PRs that this PR is currently in progress and doesn’t require their attention yet.</p>
+<p>Once you have made the requested changes, you can mark the PR as ready for review again by clicking the “Ready for review button”:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/pr-draft-ready.png"><img alt="The ready for review button in the bottom of a PR in draft mode" src="../_images/pr-draft-ready.png" style="width: 100.0%;" /></a>
+</figure>
+<p>Before you click the “Ready for review” button, ensure you have addressed all requested changes,
+there are no merge conflicts, and that all our CI jobs and checks are passing successfully.</p>
+<p>Once you’ve clicked the “Ready for review” button, the PR will return to a normal state again,
+and our bot will automatically notify the reviewers who requested the changes that the PR is ready to go!</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../index.html"><span class="doc">ESPHome index</span></a></p></li>
+<li><p><a class="reference internal" href="faq.html"><span class="doc">Frequently Asked Questions</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/guides/contributing.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

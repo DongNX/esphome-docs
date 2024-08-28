@@ -1,0 +1,457 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a UART serial bus on ESPs">
+<meta name="keywords" content="UART, serial bus">
+<meta itemprop="name" content="UART Bus">
+<meta itemprop="description" content="Instructions for setting up a UART serial bus on ESPs">
+<meta itemprop="image" content="https://esphome.io/_images/uart.png">
+<meta name="twitter:title" content="UART Bus">
+<meta name="twitter:image:src" content="https://esphome.io/_images/uart.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a UART serial bus on ESPs">
+<meta property="og:title" content="UART Bus">
+<meta property="og:image" content="https://esphome.io/_images/uart.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a UART serial bus on ESPs">
+
+    <title>UART Bus &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/uart.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Uponor Smatrix Base Pulse Underfloor Heating" href="uponor_smatrix.html" />
+    <link rel="prev" title="Tuya MCU" href="tuya.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">UART Bus</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#hardware-uarts">Hardware UARTs</a></li>
+<li><a class="reference internal" href="#uart-write-action"><code class="docutils literal notranslate"><span class="pre">uart.write</span></code> Action</a></li>
+<li><a class="reference internal" href="#debugging">Debugging</a></li>
+<li><a class="reference internal" href="#changing-at-runtime">Changing at runtime</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>UART Bus</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="uart-bus">
+<span id="uart"></span><h1>UART Bus<a class="headerlink" href="#uart-bus" title="Permalink to this heading">¶</a></h1>
+<p>UART is a common serial protocol for a lot of devices. For example, when uploading a binary to your ESP
+you have probably used UART to access the chip. UART (or for Arduino often also called Serial) usually
+consists of 2 pins:</p>
+<ul class="simple">
+<li><p><strong>TX</strong>: This line is used to send data to the device at the other end.</p></li>
+<li><p><strong>RX</strong>: This line is used to receive data from the device at the other end.</p></li>
+</ul>
+<p>Please note that the naming of these two pins depends on the chosen perspective and can be ambiguous. For example,
+while the ESP might send (<code class="docutils literal notranslate"><span class="pre">TX</span></code>) on pin A and receive (<code class="docutils literal notranslate"><span class="pre">RX</span></code>) data on pin B, from the other device’s
+perspective these two pins are switched (i.e. <em>it</em> sends on pin B and receives on pin A). So you might
+need to try with the two pins switched if it doesn’t work immediately.</p>
+<p>Additionally, each UART bus can operate at different speeds (baud rates), so ESPHome needs to know what speed to
+receive/send data at using the <code class="docutils literal notranslate"><span class="pre">baud_rate</span></code> option. The most common baud rates are 9600 and 115200.</p>
+<p>In some cases only <strong>TX</strong> or <strong>RX</strong> exists as the device at the other end only accepts data or sends data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On the ESP32, this component uses the hardware UART units and is thus very accurate. On the ESP8266 however,
+ESPHome has to use a software implementation as there are no other hardware UART units available other than the
+ones used for logging. Therefore the UART data on the ESP8266 can have occasional data glitches especially with
+higher baud rates.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>From ESPHome 2021.8 the <code class="docutils literal notranslate"><span class="pre">ESP8266SoftwareSerial</span></code> UART <code class="docutils literal notranslate"><span class="pre">write_byte</span></code> function had the parity bit fixed to be correct
+for the data being sent. This could cause unexpected issues if you are using the Software UART and have devices that
+explicity check the parity. Most likely you will need to flip the <code class="docutils literal notranslate"><span class="pre">parity</span></code> flag in YAML.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">uart</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tx_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">rx_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9600</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>baud_rate</strong> (<strong>Required</strong>, int): The baud rate of the UART bus.</p></li>
+<li><p><strong>tx_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The pin to send data to from the ESP’s perspective. Use the full pin schema and set <code class="docutils literal notranslate"><span class="pre">inverted:</span> <span class="pre">true</span></code> to invert logic levels.</p></li>
+<li><p><strong>rx_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The pin to receive data on from the ESP’s perspective. Use the full pin schema and set <code class="docutils literal notranslate"><span class="pre">inverted:</span> <span class="pre">true</span></code> to invert logic levels.</p></li>
+<li><p><strong>rx_buffer_size</strong> (<em>Optional</em>, int): The size of the buffer used for receiving UART messages. Increase if you use an integration that needs to read big payloads from UART. Defaults to <code class="docutils literal notranslate"><span class="pre">256</span></code>.</p></li>
+<li><p><strong>data_bits</strong> (<em>Optional</em>, int): The number of data bits used on the UART bus. Options: 5 to 8. Defaults to 8.</p></li>
+<li><p><strong>parity</strong> (<em>Optional</em>): The parity used on the UART bus. Options: <code class="docutils literal notranslate"><span class="pre">NONE</span></code>, <code class="docutils literal notranslate"><span class="pre">EVEN</span></code>, <code class="docutils literal notranslate"><span class="pre">ODD</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">NONE</span></code>.</p></li>
+<li><p><strong>stop_bits</strong> (<em>Optional</em>, int): The number of stop bits to send. Options: 1, 2. Defaults to 1.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID for this UART hub if you need multiple UART hubs.</p></li>
+<li><p><strong>debug</strong> (<em>Optional</em>, mapping): Options for debugging communication on the UART hub, see <a class="reference internal" href="#uart-debugging"><span class="std std-ref">Debugging</span></a>.</p></li>
+</ul>
+</section>
+<section id="hardware-uarts">
+<span id="uart-hardware-uarts"></span><h2>Hardware UARTs<a class="headerlink" href="#hardware-uarts" title="Permalink to this heading">¶</a></h2>
+<p>Whenever possible, ESPHome will use the hardware UART unit on the ESP8266 for fast and accurate communication.
+When the hardware UARTs are all occupied, ESPHome will fall back to a software implementation that may not
+be accurate at higher baud rates.</p>
+<p><code class="docutils literal notranslate"><span class="pre">UART0</span></code> is (by default) used by the <a class="reference internal" href="logger.html"><span class="doc">logger component</span></a>, using <code class="docutils literal notranslate"><span class="pre">tx_pin:</span> <span class="pre">GPIO1</span></code> and
+<code class="docutils literal notranslate"><span class="pre">rx_pin:</span> <span class="pre">GPIO3</span></code>. If you configure a UART that overlaps with these pins, you can share the hardware with the
+logger and leave others available. If you have configured the logger to use a different hardware UART, the pins
+used for hardware sharing change accordingly.</p>
+<p>The ESP32 has three UARTs. ESP32 lite variant chips (ESP32-S3, ESP32-C3, ESP32-S2, etc) may have fewer UARTs (usually two). Any pair of GPIO pins can be used, as long as they support the proper output/input modes.</p>
+<p>The ESP8266 has two UARTs; the second of which is TX-only. Only a limited set of pins can be used. <code class="docutils literal notranslate"><span class="pre">UART0</span></code> may
+use either <code class="docutils literal notranslate"><span class="pre">tx_pin:</span> <span class="pre">GPIO1</span></code> and <code class="docutils literal notranslate"><span class="pre">rx_pin:</span> <span class="pre">GPIO3</span></code>, or <code class="docutils literal notranslate"><span class="pre">tx_pin:</span> <span class="pre">GPIO15</span></code> and <code class="docutils literal notranslate"><span class="pre">rx_pin:</span> <span class="pre">GPIO13</span></code>. <code class="docutils literal notranslate"><span class="pre">UART1</span></code> must
+use <code class="docutils literal notranslate"><span class="pre">tx_pin:</span> <span class="pre">GPIO2</span></code>. Any other combination of pins will result in use of a software UART.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Software UART is only available on the ESP8266. It is not available on ESP32 and variants.</p>
+</div>
+</section>
+<section id="uart-write-action">
+<span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">uart.write</span></code> Action<a class="headerlink" href="#uart-write-action" title="Permalink to this heading">¶</a></h2>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> sends a defined UART signal to the given UART bus.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Hello</span><span class="nv"> </span><span class="s">World&#39;</span>
+
+<span class="w">  </span><span class="c1"># For escape characters, you must use double quotes!</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hello</span><span class="nv"> </span><span class="s">World\r\n&quot;</span>
+
+<span class="w">  </span><span class="c1"># Raw data</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x20</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x42</span><span class="p p-Indicator">]</span>
+
+<span class="w">  </span><span class="c1"># Templated, return type is std::vector&lt;uint8_t&gt;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">return {0x00, 0x20, 0x42};</span>
+
+<span class="w">  </span><span class="c1"># in case you need to specify the uart id</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_second_uart</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;other</span><span class="nv"> </span><span class="s">data&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="debugging">
+<span id="uart-debugging"></span><h2>Debugging<a class="headerlink" href="#debugging" title="Permalink to this heading">¶</a></h2>
+<p>If you need insight in the communication that is being sent and/or received over a UART bus, then you can make use
+of the debugging feature.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">uart</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">115200</span>
+<span class="w">  </span><span class="nt">debug</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">direction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BOTH</span>
+<span class="w">    </span><span class="nt">dummy_receiver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">after</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">delimiter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;\n&quot;</span>
+<span class="w">    </span><span class="nt">sequence</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UARTDebug::log_string(direction, bytes);</span>
+
+<span class="c1"># Minimal configuration example, logs hex strings by default</span>
+<span class="nt">uart</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9600</span>
+<span class="w">  </span><span class="nt">debug</span><span class="p">:</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>direction</strong> (<em>Optional</em>, enum): The direction of communication to debug, one of: “RX” (receive, incoming),
+“TX” (send, outgoing) or “BOTH”. Defaults to “BOTH”.</p></li>
+<li><p><strong>dummy_receiver</strong> (<em>Optional</em>, boolean): Whether or not to enable the dummy receiver feature. The debugger
+will only accumulate bytes that are actually read or sent by a UART device component. This feature is
+useful when you want to debug all incoming communication, while no UART device component is configured
+for the UART bus (yet). This is especially useful for developers. Normally you’d want to leave this
+option disabled. Defaults to false.</p></li>
+<li><p><strong>after</strong> (<em>Optional</em>, mapping): The debugger accumulates bytes of communication. This option defines when
+to trigger publishing the accumulated bytes. The possible options are:</p>
+<ul>
+<li><p><strong>bytes</strong> (<em>Optional</em>, int): Trigger after accumulating the specified number of bytes. Defaults to 150.</p></li>
+<li><p><strong>timeout</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Trigger after no communication has been seen during the
+specified timeout, while one or more bytes have been accumulated. Defaults to 100ms.</p></li>
+<li><p><strong>delimiter</strong> (<em>Optional</em>, string or list of bytes): Trigger after the specified sequence of bytes is
+detected in the communication.</p></li>
+</ul>
+</li>
+<li><p><strong>sequence</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): Action(s) to perform for publishing debugging data.
+Defaults to an action that logs the bytes in hex format. The actions can make use of the following variables:</p>
+<ul>
+<li><p><strong>direction</strong>: <code class="docutils literal notranslate"><span class="pre">uart::UART_DIRECTION_RX</span></code> or <code class="docutils literal notranslate"><span class="pre">uart::UART_DIRECTION_TX</span></code></p></li>
+<li><p><strong>bytes</strong>: <code class="docutils literal notranslate"><span class="pre">std::vector&lt;uint8_t&gt;</span></code> containing the accumulated bytes</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Helper functions for logging</strong></p>
+<p>Helper functions are provided to make logging of debug data in various formats easy:</p>
+<ul class="simple">
+<li><p><strong>UARTDebug::log_hex(direction, bytes, char separator)</strong> Log the bytes as hex values, separated by the provided
+separator character.</p></li>
+<li><p><strong>UARTDebug::log_string(direction, bytes)</strong> Log the bytes as string values, escaping unprintable characters.</p></li>
+<li><p><strong>UARTDebug::log_int(direction, bytes, char separator)</strong> Log the bytes as integer values, separated by the provided
+separator character.</p></li>
+<li><p><strong>UARTDebug::log_binary(direction, bytes, char separator)</strong> Log the bytes as <code class="docutils literal notranslate"><span class="pre">&lt;binary&gt;</span> <span class="pre">(&lt;hex&gt;)</span></code> values,
+separated by the provided separator character.</p></li>
+</ul>
+<p><strong>Logger buffer size</strong></p>
+<p>Beware that the <code class="docutils literal notranslate"><span class="pre">logger</span></code> component uses a limited buffer size of 512 bytes by default. If the UART
+debugger log lines become too long, then you will notice that they end up truncated in the log output.</p>
+<p>In that case, either make sure that the debugger outputs less data per log line (e.g. by setting the
+<code class="docutils literal notranslate"><span class="pre">after.bytes</span></code> option to a lower value) or increase the logger buffer size using the logger
+<code class="docutils literal notranslate"><span class="pre">tx_buffer_size</span></code> option.</p>
+</section>
+<section id="changing-at-runtime">
+<span id="uart-runtime-change"></span><h2>Changing at runtime<a class="headerlink" href="#changing-at-runtime" title="Permalink to this heading">¶</a></h2>
+<p>There are scenarios where you might need to adjust UART parameters during runtime to enhance communication efficiency
+and adapt to varying operational conditions. ESPHome facilitates this through lambda calls.
+Below are the methods to read current settings and modify them dynamically:</p>
+<ul>
+<li><p><strong>Reading Current Settings:</strong> Access UART’s current configuration using these read-only attributes:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// RX buffer size</span>
+<span class="n">id</span><span class="p">(</span><span class="n">my_uart</span><span class="p">).</span><span class="n">get_rx_buffer_size</span><span class="p">();</span>
+<span class="c1">// Stop bits</span>
+<span class="n">id</span><span class="p">(</span><span class="n">my_uart</span><span class="p">).</span><span class="n">get_stop_bits</span><span class="p">();</span>
+<span class="c1">// Data bits</span>
+<span class="n">id</span><span class="p">(</span><span class="n">my_uart</span><span class="p">).</span><span class="n">get_data_bits</span><span class="p">();</span>
+<span class="c1">// Parity</span>
+<span class="n">id</span><span class="p">(</span><span class="n">my_uart</span><span class="p">).</span><span class="n">get_parity</span><span class="p">();</span>
+<span class="c1">// Baud rate</span>
+<span class="n">id</span><span class="p">(</span><span class="n">my_uart</span><span class="p">).</span><span class="n">get_baud_rate</span><span class="p">();</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Modifying Settings at Runtime:</strong> You can change certain UART parameters during runtime.
+After setting new values, invoke <code class="docutils literal notranslate"><span class="pre">load_settings()</span></code> (ESP only) to apply these changes:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">select</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">change_baud_rate</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Baud rate</span>
+<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;2400&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;9600&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;38400&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;57600&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;115200&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;256000&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;512000&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;921600&quot;</span>
+<span class="w">    </span><span class="nt">initial_option</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;115200&quot;</span>
+<span class="w">    </span><span class="nt">optimistic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">restore_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">    </span><span class="nt">internal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">entity_category</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:swap-horizontal</span>
+<span class="w">    </span><span class="nt">set_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">id(my_uart).flush();</span>
+<span class="w">          </span><span class="no">uint32_t new_baud_rate = stoi(x);</span>
+<span class="w">          </span><span class="no">ESP_LOGD(&quot;change_baud_rate&quot;, &quot;Changing baud rate from %i to %i&quot;,id(my_uart).get_baud_rate(), new_baud_rate);</span>
+<span class="w">          </span><span class="no">if (id(my_uart).get_baud_rate() != new_baud_rate) {</span>
+<span class="w">            </span><span class="no">id(my_uart).set_baud_rate(new_baud_rate);</span>
+<span class="w">            </span><span class="no">id(my_uart).load_settings();</span>
+<span class="w">          </span><span class="no">}</span>
+</pre></div>
+</div>
+<p>Available methods for runtime changes:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Set TX/RX pins</span>
+<span class="n">id</span><span class="p">(</span><span class="n">my_uart</span><span class="p">).</span><span class="n">set_tx_pin</span><span class="p">(</span><span class="n">InternalGPIOPin</span><span class="w"> </span><span class="o">*</span><span class="n">tx_pin</span><span class="p">);</span>
+<span class="n">id</span><span class="p">(</span><span class="n">my_uart</span><span class="p">).</span><span class="n">set_rx_pin</span><span class="p">(</span><span class="n">InternalGPIOPin</span><span class="w"> </span><span class="o">*</span><span class="n">rx_pin</span><span class="p">);</span>
+<span class="c1">// RX buffer size</span>
+<span class="n">id</span><span class="p">(</span><span class="n">my_uart</span><span class="p">).</span><span class="n">set_rx_buffer_size</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">rx_buffer_size</span><span class="p">);</span>
+<span class="c1">// Stop bits</span>
+<span class="n">id</span><span class="p">(</span><span class="n">my_uart</span><span class="p">).</span><span class="n">set_stop_bits</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">stop_bits</span><span class="p">);</span>
+<span class="c1">// Data bits</span>
+<span class="n">id</span><span class="p">(</span><span class="n">my_uart</span><span class="p">).</span><span class="n">set_data_bits</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">data_bits</span><span class="p">);</span>
+<span class="c1">// Parity</span>
+<span class="n">id</span><span class="p">(</span><span class="n">my_uart</span><span class="p">).</span><span class="n">set_parity</span><span class="p">(</span><span class="n">UARTParityOptions</span><span class="w"> </span><span class="n">parity</span><span class="p">);</span>
+<span class="c1">// Baud rate</span>
+<span class="n">id</span><span class="p">(</span><span class="n">my_uart</span><span class="p">).</span><span class="n">set_baud_rate</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">baud_rate</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>This flexibility allows for dynamic adaptation to different communication requirements, enhancing the versatility of your ESPHome setup.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="logger.html"><span class="doc">Logger Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/uart_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/uart.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

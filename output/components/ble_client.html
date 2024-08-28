@@ -1,0 +1,670 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Configuration of the BLE client on ESP32.">
+<meta itemprop="name" content="BLE Client">
+<meta itemprop="description" content="Configuration of the BLE client on ESP32.">
+<meta itemprop="image" content="https://esphome.io/_images/bluetooth.png">
+<meta name="twitter:title" content="BLE Client">
+<meta name="twitter:image:src" content="https://esphome.io/_images/bluetooth.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Configuration of the BLE client on ESP32.">
+<meta property="og:title" content="BLE Client">
+<meta property="og:image" content="https://esphome.io/_images/bluetooth.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Configuration of the BLE client on ESP32.">
+
+    <title>BLE Client &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/ble_client.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Bluetooth Proxy" href="bluetooth_proxy.html" />
+    <link rel="prev" title="AirTouch AT581x Radar" href="at581x.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">BLE Client</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#ble-client-automation">BLE Client Automation</a><ul>
+<li><a class="reference internal" href="#on-connect"><code class="docutils literal notranslate"><span class="pre">on_connect</span></code></a></li>
+<li><a class="reference internal" href="#on-disconnect"><code class="docutils literal notranslate"><span class="pre">on_disconnect</span></code></a></li>
+<li><a class="reference internal" href="#on-passkey-request"><code class="docutils literal notranslate"><span class="pre">on_passkey_request</span></code></a></li>
+<li><a class="reference internal" href="#on-passkey-notification"><code class="docutils literal notranslate"><span class="pre">on_passkey_notification</span></code></a></li>
+<li><a class="reference internal" href="#on-numeric-comparison-request"><code class="docutils literal notranslate"><span class="pre">on_numeric_comparison_request</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ble-client-connect-action"><code class="docutils literal notranslate"><span class="pre">ble_client.connect</span></code> Action</a></li>
+<li><a class="reference internal" href="#ble-client-disconnect-action"><code class="docutils literal notranslate"><span class="pre">ble_client.disconnect</span></code> Action</a></li>
+<li><a class="reference internal" href="#ble-client-ble-write-action"><code class="docutils literal notranslate"><span class="pre">ble_client.ble_write</span></code> Action</a></li>
+<li><a class="reference internal" href="#ble-client-passkey-reply-action"><code class="docutils literal notranslate"><span class="pre">ble_client.passkey_reply</span></code> Action</a></li>
+<li><a class="reference internal" href="#ble-client-numeric-comparison-reply-action"><code class="docutils literal notranslate"><span class="pre">ble_client.numeric_comparison_reply</span></code> Action</a></li>
+<li><a class="reference internal" href="#ble-client-remove-bond-action"><code class="docutils literal notranslate"><span class="pre">ble_client.remove_bond</span></code> Action</a></li>
+<li><a class="reference internal" href="#ble-overview">BLE Overview</a></li>
+<li><a class="reference internal" href="#setting-up-devices">Setting Up Devices</a></li>
+<li><a class="reference internal" href="#passkey-examples">Passkey examples</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>BLE Client</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="ble-client">
+<h1>BLE Client<a class="headerlink" href="#ble-client" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">ble_client</span></code> component enables connections to Bluetooth Low Energy devices in order to query and
+control them. This component does not expose any sensors or output components itself, but merely manages
+connections to them for use by other components.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The BLE software stack on the ESP32 consumes a significant amount of RAM on the device.</p>
+<p><strong>Crashes are likely to occur</strong> if you include too many additional components in your device’s
+configuration. Memory-intensive components such as <a class="reference internal" href="voice_assistant.html"><span class="doc">Voice Assistant</span></a> and other
+audio components are most likely to cause issues.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A maximum of three devices is supported due to limitations in the ESP32 BLE stack. If you wish to
+connect more devices, use additional ESP32 boards.</p>
+<p>This component supports devices that require a 6 digit PIN code for authentication.</p>
+<p>Currently, devices connected with the client cannot be supported by other components based on
+<a class="reference internal" href="esp32_ble_tracker.html"><span class="doc">ESP32 Bluetooth Low Energy Tracker Hub</span></a> as they listen to advertisements which are only sent by devices
+without an active connection.</p>
+</div>
+<p>Despite the last point above, the <code class="docutils literal notranslate"><span class="pre">ble_client</span></code> component requires the <code class="docutils literal notranslate"><span class="pre">esp32_ble_tracker</span></code> component in order
+to discover available client devices.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+
+<span class="nt">ble_client</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FF:FF:20:00:0F:15</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">itag_black</span>
+<span class="w">    </span><span class="nt">auto_connect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>mac_address</strong> (<strong>Required</strong>, MAC Address): The MAC address of the BLE device to connect to.</p></li>
+<li><p><strong>auto_connect</strong> (<em>Optional</em>, boolean): If true the device will be automatically connected when found by the <a class="reference internal" href="esp32_ble_tracker.html"><span class="doc">ESP32 Bluetooth Low Energy Tracker Hub</span></a>. Defaults to true.</p></li>
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID to use for code generation, and for reference by dependent components.</p></li>
+</ul>
+<p>Automations:</p>
+<ul class="simple">
+<li><p><strong>on_connect</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the client connects to a device. See <a class="reference internal" href="#ble-client-on-connect"><span class="std std-ref">on_connect</span></a>.</p></li>
+<li><p><strong>on_disconnect</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the client disconnects from a device. See <a class="reference internal" href="#ble-client-on-disconnect"><span class="std std-ref">on_disconnect</span></a>.</p></li>
+<li><p><strong>on_passkey_request</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to enter
+the passkey required by the other BLE device. See <a class="reference internal" href="#ble-client-on-passkey-request"><span class="std std-ref">on_passkey_request</span></a>.</p></li>
+<li><p><strong>on_passkey_notification</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to
+display the passkey to the user. See <a class="reference internal" href="#ble-client-on-passkey-notification"><span class="std std-ref">on_passkey_notification</span></a>.</p></li>
+<li><p><strong>on_numeric_comparison_request</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to
+compare the passkeys shown on the two BLE devices. See <a class="reference internal" href="#ble-client-on-numeric-comparison-request"><span class="std std-ref">on_numeric_comparison_request</span></a>.</p></li>
+</ul>
+</section>
+<section id="ble-client-automation">
+<h2>BLE Client Automation<a class="headerlink" href="#ble-client-automation" title="Permalink to this heading">¶</a></h2>
+<section id="on-connect">
+<span id="ble-client-on-connect"></span><h3><code class="docutils literal notranslate"><span class="pre">on_connect</span></code><a class="headerlink" href="#on-connect" title="Permalink to this heading">¶</a></h3>
+<p>This automation is triggered when the client connects to the BLE device.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ble_client</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11:22:33:44:55:66</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_itag</span>
+<span class="w">    </span><span class="nt">on_connect</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">            </span><span class="no">ESP_LOGD(&quot;ble_client_lambda&quot;, &quot;Connected to BLE device&quot;);</span>
+</pre></div>
+</div>
+</section>
+<section id="on-disconnect">
+<span id="ble-client-on-disconnect"></span><h3><code class="docutils literal notranslate"><span class="pre">on_disconnect</span></code><a class="headerlink" href="#on-disconnect" title="Permalink to this heading">¶</a></h3>
+<p>This automation is triggered when the client disconnects from a BLE device.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ble_client</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11:22:33:44:55:66</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_itag</span>
+<span class="w">    </span><span class="nt">on_disconnect</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">            </span><span class="no">ESP_LOGD(&quot;ble_client_lambda&quot;, &quot;Disconnected from BLE device&quot;);</span>
+</pre></div>
+</div>
+</section>
+<section id="on-passkey-request">
+<span id="ble-client-on-passkey-request"></span><h3><code class="docutils literal notranslate"><span class="pre">on_passkey_request</span></code><a class="headerlink" href="#on-passkey-request" title="Permalink to this heading">¶</a></h3>
+<p>This automation is triggered when the BLE device requests a passkey for authentication.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ble_client</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11:22:33:44:55:66</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_itag</span>
+<span class="w">    </span><span class="nt">on_passkey_request</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ble_client.passkey_reply</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_itag</span>
+<span class="w">            </span><span class="nt">passkey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">123456</span>
+</pre></div>
+</div>
+</section>
+<section id="on-passkey-notification">
+<span id="ble-client-on-passkey-notification"></span><h3><code class="docutils literal notranslate"><span class="pre">on_passkey_notification</span></code><a class="headerlink" href="#on-passkey-notification" title="Permalink to this heading">¶</a></h3>
+<p>This automation is triggered when a passkey is received from the BLE device.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ble_client</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11:22:33:44:55:66</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_itag</span>
+<span class="w">    </span><span class="nt">on_passkey_notification</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Enter</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">passkey</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">BLE</span><span class="nv"> </span><span class="s">device:</span><span class="nv"> </span><span class="s">%06d&quot;</span>
+<span class="w">            </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">passkey</span><span class="w"> </span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="on-numeric-comparison-request">
+<span id="ble-client-on-numeric-comparison-request"></span><h3><code class="docutils literal notranslate"><span class="pre">on_numeric_comparison_request</span></code><a class="headerlink" href="#on-numeric-comparison-request" title="Permalink to this heading">¶</a></h3>
+<p>This automation is triggered when a numeric comparison is requested by the BLE device.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ble_client</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11:22:33:44:55:66</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_itag</span>
+<span class="w">    </span><span class="nt">on_numeric_comparison_request</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Compare</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">passkey</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">BLE</span><span class="nv"> </span><span class="s">device:</span><span class="nv"> </span><span class="s">%06d&quot;</span>
+<span class="w">            </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">passkey</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ble_client.numeric_comparison_reply</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_itag</span>
+<span class="w">            </span><span class="nt">accept</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ble-client-connect-action">
+<span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">ble_client.connect</span></code> Action<a class="headerlink" href="#ble-client-connect-action" title="Permalink to this heading">¶</a></h2>
+<p>This action is useful only for devices with <code class="docutils literal notranslate"><span class="pre">auto_connect:</span> <span class="pre">false</span></code> and allows a connection to be made from
+within an automation. Once connected other actions like <code class="docutils literal notranslate"><span class="pre">ble_write</span></code> can be used. This is useful where
+a BLE server needs only to be interacted with occasionally, and thus does not need a constant
+connection held.</p>
+<p>The following example updates the time of a Xiaomi MHO-C303 clock once per hour. Note that the BLE tracker must
+be stopped during the connect attempt, and restarted afterwards. This would not be necessary if the tracker had
+<code class="docutils literal notranslate"><span class="pre">continuous:</span> <span class="pre">false</span></code> set. In this example scenario there is another BLE device that does require the scanner to be
+on, hence the stop and start of the scan during connect.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ble_client</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_clock</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">17:75:BC:F2:94:4D</span>
+<span class="w">    </span><span class="nt">auto_connect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">other_device</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0D:33:12:66:00:D4</span>
+
+<span class="nt">interval</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60min</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">esp32_ble_tracker.stop_scan</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ble_client.connect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_clock</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ble_client.ble_write</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_clock</span>
+<span class="w">          </span><span class="nt">service_uuid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EBE0CCB0-7A0A-4B0C-8A1A-6FF2997DA3A6</span>
+<span class="w">          </span><span class="nt">characteristic_uuid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EBE0CCB7-7A0A-4B0C-8A1A-6FF2997DA3A6</span>
+<span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">              </span><span class="no">uint32_t t = id(sntp_time).now().timestamp + ESPTime::timezone_offset();</span>
+<span class="w">              </span><span class="no">return {(uint8_t)t, (uint8_t)(t &gt;&gt; 8), (uint8_t)(t &gt;&gt; 16), (uint8_t)(t &gt;&gt; 24), 0};</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ble_client.disconnect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_clock</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">esp32_ble_tracker.start_scan</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Any actions after the <code class="docutils literal notranslate"><span class="pre">connect</span></code> action will proceed only after the connect succeeds. If the connect
+fails the subsequent actions in the automation block will <em>not</em> be executed. This should be considered
+if scanning has been stopped - another mechanism may be required to restart it.</p>
+</section>
+<section id="ble-client-disconnect-action">
+<span id="id2"></span><h2><code class="docutils literal notranslate"><span class="pre">ble_client.disconnect</span></code> Action<a class="headerlink" href="#ble-client-disconnect-action" title="Permalink to this heading">¶</a></h2>
+<p>This action disconnects a device that was connected with the <code class="docutils literal notranslate"><span class="pre">ble_client.connect</span></code> action.
+Execution of the automation block sequence resumes after the disconnect has completed.</p>
+</section>
+<section id="ble-client-ble-write-action">
+<span id="id3"></span><h2><code class="docutils literal notranslate"><span class="pre">ble_client.ble_write</span></code> Action<a class="headerlink" href="#ble-client-ble-write-action" title="Permalink to this heading">¶</a></h2>
+<p>This action triggers a write to a specified BLE characteristic. The write is attempted in
+a best-effort fashion and will only succeed if the <code class="docutils literal notranslate"><span class="pre">ble_client</span></code>’s  connection has been
+established and the peripheral exposes the expected BLE service and characteristic.
+Execution of the automation block sequence resumes after the write has completed. A write failure will <em>not</em>
+stop execution of succeeding actions (this allows a disconnect to be executed, for example.)</p>
+<p>Example usage:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ble_client</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11:22:33:44:55:66</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ble_client</span>
+
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My</span><span class="nv"> </span><span class="s">Switch&quot;</span>
+<span class="w">    </span><span class="nt">turn_on_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ble_client.ble_write</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ble_client</span>
+<span class="w">          </span><span class="nt">service_uuid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">F61E3BE9-2826-A81B-970A-4D4DECFABBAE</span>
+<span class="w">          </span><span class="nt">characteristic_uuid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6490FAFE-0734-732C-8705-91B653A081FC</span>
+<span class="w">          </span><span class="c1"># List of bytes to write.</span>
+<span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0x01</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xab</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xff</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ble_client.ble_write</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ble_client</span>
+<span class="w">          </span><span class="nt">service_uuid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">F61E3BE9-2826-A81B-970A-4D4DECFABBAE</span>
+<span class="w">          </span><span class="nt">characteristic_uuid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6490FAFE-0734-732C-8705-91B653A081FC</span>
+<span class="w">          </span><span class="c1"># A lambda returning an std::vector&lt;uint8_t&gt;.</span>
+<span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">              </span><span class="no">return {0x13, 0x37};</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): ID of the associated BLE client.</p></li>
+<li><p><strong>service_uuid</strong> (<strong>Required</strong>, UUID): UUID of the service to write to.</p></li>
+<li><p><strong>characteristic_uuid</strong> (<strong>Required</strong>, UUID): UUID of the service’s characteristic to write to.</p></li>
+<li><p><strong>value</strong> (<strong>Required</strong>, Array of bytes or <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>): The value to be written.</p></li>
+</ul>
+</section>
+<section id="ble-client-passkey-reply-action">
+<span id="id4"></span><h2><code class="docutils literal notranslate"><span class="pre">ble_client.passkey_reply</span></code> Action<a class="headerlink" href="#ble-client-passkey-reply-action" title="Permalink to this heading">¶</a></h2>
+<p>This action triggers an authentication attempt using the specified <code class="docutils literal notranslate"><span class="pre">passkey</span></code>.</p>
+<p>Example usage:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ble_client.passkey_reply</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ble_client</span>
+<span class="w">        </span><span class="nt">passkey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">123456</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): ID of the associated BLE client.</p></li>
+<li><p><strong>passkey</strong> (<strong>Required</strong>, int): The 6-digit passkey.</p></li>
+</ul>
+</section>
+<section id="ble-client-numeric-comparison-reply-action">
+<span id="id5"></span><h2><code class="docutils literal notranslate"><span class="pre">ble_client.numeric_comparison_reply</span></code> Action<a class="headerlink" href="#ble-client-numeric-comparison-reply-action" title="Permalink to this heading">¶</a></h2>
+<p>This action triggers an authentication attempt after a numeric comparison.</p>
+<p>Example usage:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ble_client.numeric_comparison_reply</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ble_client</span>
+<span class="w">        </span><span class="nt">accept</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): ID of the associated BLE client.</p></li>
+<li><p><strong>accept</strong> (<strong>Required</strong>, boolean): Should be <code class="docutils literal notranslate"><span class="pre">true</span></code> if the passkeys
+displayed on both BLE devices are matching.</p></li>
+</ul>
+</section>
+<section id="ble-client-remove-bond-action">
+<span id="id6"></span><h2><code class="docutils literal notranslate"><span class="pre">ble_client.remove_bond</span></code> Action<a class="headerlink" href="#ble-client-remove-bond-action" title="Permalink to this heading">¶</a></h2>
+<p>This action removes a device from the security database and manages
+unpairing.</p>
+<p>Example usage:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ble_client</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11:22:33:44:55:66</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ble_client</span>
+<span class="w">    </span><span class="nt">on_connect</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ble_client.remove_bond</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ble_client</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): ID of the associated BLE client.</p></li>
+</ul>
+</section>
+<section id="ble-overview">
+<h2>BLE Overview<a class="headerlink" href="#ble-overview" title="Permalink to this heading">¶</a></h2>
+<p>This section gives a brief overview of the Bluetooth LE architecture
+to help with understanding this and the related components. There are
+plenty of more detailed references online.</p>
+<p>BLE uses the concept of a <em>server</em> and a <em>client</em>. In simple terms,
+the server is implemented on the device providing services, usually
+these are the devices such as heart monitors, tags, weather stations,
+etc. The client connects to the server and makes use of its services.
+The client will often be an app on a phone, or in the case of ESPHome,
+it’s the ESP32 device.</p>
+<p>When a client connects to a server, the client queries for <em>services</em>
+provided by the server. Services expose categories of functionality
+on the server. These might be well defined and supported services,
+such as the Battery Level service, Device Information or Heart Rate.
+Or they might be custom services designed just for that device. For
+example the button on cheap iTags uses a custom service.</p>
+<p>Each service then defines one or more <em>characteristics</em> which are
+typically the discrete values of that service. For example for the
+Environmental Sensor service characteristics exposed include the
+Wind Speed, Humidity and Rainfall. Each of these may be read-only
+or read-write, depending on their functionality.</p>
+<p>A characteristic may also expose one or more <em>descriptors</em>, which carry
+further information about the characteristic. This could be things
+like the units, the valid ranges, and whether notifications (see below)
+are enabled.</p>
+<p>BLE also supports <em>notifications</em>. A client continuously polling for
+updates could consume a lot of power, which is undesirable for a
+protocol that’s designed to be low energy. Instead, a server can push
+updates to the client only when they change. Depending on their purpose
+and design, a characteristic may allow for notifications to be sent. The
+client can then enable notifications by setting the configuration
+descriptor for the characteristic.</p>
+<p>Each service, characteristic, and descriptor is identified by a
+unique identifier (UUID) that may be between 16 and 128 bits long.
+A client will typically identify a device’s capabilities based on
+the UUIDs.</p>
+<p>Once the connection is established, referencing each
+service/characteristic/descriptor by the full UUID would take a
+considerable portion of the small (~23 byte) packet. So the
+characteristics and descriptors also provide a small 2-byte
+<em>handle</em> (alias) to maximize available data space.</p>
+</section>
+<section id="setting-up-devices">
+<h2>Setting Up Devices<a class="headerlink" href="#setting-up-devices" title="Permalink to this heading">¶</a></h2>
+<p>Whilst the component can connect to most BLE devices, useful functionality
+is only obtained through dependent components, such as <a class="reference internal" href="sensor/ble_client.html"><span class="doc">BLE Client Sensor</span></a>.
+See the documentation for these components for details on setting up
+specific devices.</p>
+<p>In order to use the <code class="docutils literal notranslate"><span class="pre">ble_client</span></code> component, you need to enable the
+<a class="reference internal" href="esp32_ble_tracker.html"><span class="doc">ESP32 Bluetooth Low Energy Tracker Hub</span></a> component. This will also allow you to discover
+the MAC address of the device.</p>
+<p>When you have discovered the MAC address of the device, you can add it
+to the <code class="docutils literal notranslate"><span class="pre">ble_client</span></code> stanza.</p>
+<p>If you then build and upload this configuration, the ESP will listen for
+the device and attempt to connect to it when it is discovered. The component
+will then query the device for all available services and characteristics and
+display them in the log:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[18:24:56][D][ble_client:043]: Found device at MAC address [FC:58:FA:B1:F8:93]
+[18:24:56][I][ble_client:072]: Attempting BLE connection to fc:58:fa:b1:f8:93
+[18:24:56][I][ble_client:097]: [fc:58:fa:b1:f8:93] ESP_GATTC_OPEN_EVT
+[18:24:57][I][ble_client:143]: Service UUID: 0x1800
+[18:24:57][I][ble_client:144]:   start_handle: 0x1  end_handle: 0x5
+[18:24:57][I][ble_client:305]:  characteristic 0x2A00, handle 0x3, properties 0x2
+[18:24:57][I][ble_client:305]:  characteristic 0x2A01, handle 0x5, properties 0x2
+[18:24:57][I][ble_client:143]: Service UUID: 0x1801
+[18:24:57][I][ble_client:144]:   start_handle: 0x6  end_handle: 0x6
+[18:24:57][I][ble_client:143]: Service UUID: 0x180A
+[18:24:57][I][ble_client:144]:   start_handle: 0x7  end_handle: 0x19
+[18:24:57][I][ble_client:305]:  characteristic 0x2A29, handle 0x9, properties 0x2
+[18:24:57][I][ble_client:305]:  characteristic 0x2A24, handle 0xb, properties 0x2
+[18:24:57][I][ble_client:305]:  characteristic 0x2A25, handle 0xd, properties 0x2
+[18:24:57][I][ble_client:305]:  characteristic 0x2A27, handle 0xf, properties 0x2
+[18:24:57][I][ble_client:305]:  characteristic 0x2A26, handle 0x11, properties 0x2
+[18:24:57][I][ble_client:305]:  characteristic 0x2A28, handle 0x13, properties 0x2
+[18:24:57][I][ble_client:305]:  characteristic 0x2A23, handle 0x15, properties 0x2
+[18:24:57][I][ble_client:305]:  characteristic 0x2A2A, handle 0x17, properties 0x2
+[18:24:57][I][ble_client:305]:  characteristic 0x2A50, handle 0x19, properties 0x2
+[18:24:57][I][ble_client:143]: Service UUID: F000FFC0045140-00B0-0000-0000-000000
+[18:24:57][I][ble_client:144]:   start_handle: 0x1a  end_handle: 0x22
+[18:24:57][I][ble_client:305]:  characteristic F000FFC1045140-00B0-0000-0000-000000, handle 0x1c, properties 0x1c
+[18:24:57][I][ble_client:343]:    descriptor 0x2902, handle 0x1d
+[18:24:57][I][ble_client:343]:    descriptor 0x2901, handle 0x1e
+[18:24:57][I][ble_client:305]:  characteristic F000FFC2045140-00B0-0000-0000-000000, handle 0x20, properties 0x1c
+[18:24:57][I][ble_client:343]:    descriptor 0x2902, handle 0x21
+[18:24:57][I][ble_client:343]:    descriptor 0x2901, handle 0x22
+[18:24:57][I][ble_client:143]: Service UUID: 0xFFE0
+[18:24:57][I][ble_client:144]:   start_handle: 0x23  end_handle: 0x26
+[18:24:57][I][ble_client:305]:  characteristic 0xFFE1, handle 0x25, properties 0x10
+[18:24:57][I][ble_client:343]:    descriptor 0x2902, handle 0x26
+[18:24:57][I][ble_client:143]: Service UUID: 0x1802
+[18:24:57][I][ble_client:144]:   start_handle: 0x27  end_handle: 0x29
+[18:24:57][I][ble_client:305]:  characteristic 0x2A06, handle 0x29, properties 0x4
+</pre></div>
+</div>
+<p>The discovered services can then be used to enable and configure other
+ESPHome components, for example Service UUID 0xFFE0 is used for iTag style
+keychain button events, used by the <a class="reference internal" href="sensor/ble_client.html"><span class="doc">BLE Client Sensor</span></a> component.</p>
+</section>
+<section id="passkey-examples">
+<h2>Passkey examples<a class="headerlink" href="#passkey-examples" title="Permalink to this heading">¶</a></h2>
+<p>Secure connection with a fixed passkey:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">io_capability</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyboard_only</span>
+
+<span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+
+<span class="nt">ble_client</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A4:C1:38:B1:CD:7F</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pvvx_ble_display</span>
+<span class="w">    </span><span class="nt">on_passkey_request</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Authenticating</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">passkey&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ble_client.passkey_reply</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pvvx_ble_display</span>
+<span class="w">            </span><span class="nt">passkey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">123456</span>
+</pre></div>
+</div>
+<p>Secure connection with a dynamically generated passkey:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">services</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">passkey_reply</span>
+<span class="w">      </span><span class="nt">variables</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">passkey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Authenticating</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">passkey&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ble_client.passkey_reply</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ble_client</span>
+<span class="w">            </span><span class="nt">passkey</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return passkey;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">numeric_comparison_reply</span>
+<span class="w">      </span><span class="nt">variables</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">accept</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bool</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Authenticating</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">numeric</span><span class="nv"> </span><span class="s">comparison&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ble_client.numeric_comparison_reply</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ble_client</span>
+<span class="w">            </span><span class="nt">accept</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return accept;</span>
+
+<span class="nt">esp32_ble</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">io_capability</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keyboard_display</span>
+
+<span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+
+<span class="nt">ble_client</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AA:BB:CC:DD:EE:FF</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ble_client</span>
+<span class="w">    </span><span class="nt">on_passkey_request</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Enter</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">passkey</span><span class="nv"> </span><span class="s">displayed</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">BLE</span><span class="nv"> </span><span class="s">device&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">Go</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">https://my.home-assistant.io/redirect/developer_services/</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">select</span><span class="nv"> </span><span class="s">passkey_reply&quot;</span>
+<span class="w">    </span><span class="nt">on_passkey_notification</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Enter</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">passkey</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">BLE</span><span class="nv"> </span><span class="s">device:</span><span class="nv"> </span><span class="s">%06d&quot;</span>
+<span class="w">            </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">passkey</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">on_numeric_comparison_request</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Compare</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">passkey</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">BLE</span><span class="nv"> </span><span class="s">device:</span><span class="nv"> </span><span class="s">%06d&quot;</span>
+<span class="w">            </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">passkey</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">Go</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">https://my.home-assistant.io/redirect/developer_services/</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">select</span><span class="nv"> </span><span class="s">numeric_comparison_reply&quot;</span>
+<span class="w">    </span><span class="nt">on_connect</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Connected&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="sensor/ble_client.html"><span class="doc">BLE Client Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a></p></li>
+<li><p><a class="reference external" href="/api/ble__client_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/ble_client.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

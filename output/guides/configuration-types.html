@@ -1,0 +1,750 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Documentation of different configuration types in ESPHome">
+<meta itemprop="name" content="Configuration Types">
+<meta itemprop="description" content="Documentation of different configuration types in ESPHome">
+<meta itemprop="image" content="https://esphome.io/_images/settings.png">
+<meta name="twitter:title" content="Configuration Types">
+<meta name="twitter:image:src" content="https://esphome.io/_images/settings.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Documentation of different configuration types in ESPHome">
+<meta property="og:title" content="Configuration Types">
+<meta property="og:image" content="https://esphome.io/_images/settings.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Documentation of different configuration types in ESPHome">
+
+    <title>Configuration Types &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/guides/configuration-types.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="Command Line Interface" href="cli.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Configuration Types</a><ul>
+<li><a class="reference internal" href="#config-id">ID</a></li>
+<li><a class="reference internal" href="#pin">Pin</a></li>
+<li><a class="reference internal" href="#pin-schema">Pin Schema</a></li>
+<li><a class="reference internal" href="#time">Time</a></li>
+<li><a class="reference internal" href="#substitutions">Substitutions</a><ul>
+<li><a class="reference internal" href="#yaml-insertion-operator">YAML insertion operator</a></li>
+<li><a class="reference internal" href="#substitute-include-variables">Substitute !include variables</a></li>
+<li><a class="reference internal" href="#command-line-substitutions">Command line substitutions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#packages">Packages</a><ul>
+<li><a class="reference internal" href="#local-packages">Local packages</a></li>
+<li><a class="reference internal" href="#remote-git-packages">Remote/git Packages</a></li>
+<li><a class="reference internal" href="#packages-as-templates">Packages as Templates</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extend">Extend</a></li>
+<li><a class="reference internal" href="#remove">Remove</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Guides</a> ➔</li>
+      <li>Configuration Types</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="configuration-types">
+<h1>Configuration Types<a class="headerlink" href="#configuration-types" title="Permalink to this heading">¶</a></h1>
+<p>ESPHome’s configuration files have several configuration types. This
+page describes them.</p>
+<section id="config-id">
+<span id="id"></span><h2>ID<a class="headerlink" href="#config-id" title="Permalink to this heading">¶</a></h2>
+<p>Quite an important aspect of ESPHome are “IDs”. They are used to
+connect components from different domains. For example, you define an
+output component together with an ID and then later specify that same ID
+in the light component. IDs should always be unique within a
+configuration and ESPHome will warn you if you try to use the same
+ID twice.</p>
+<p>Because ESPHome converts your configuration into C++ code and the
+IDs are in reality just C++ variable names, they must also adhere to
+C++’s naming conventions. <a class="reference external" href="https://venus.cs.qc.cuny.edu/~krishna/cs111/lectures/D3_C++_Variables.pdf">C++ Variable
+names</a>
+…</p>
+<ul class="simple">
+<li><p>… must start with a letter and can end with numbers.</p></li>
+<li><p>… must not have a space in the name.</p></li>
+<li><p>… can not have special characters except the underscore (“_“).</p></li>
+<li><p>… must not be a keyword.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These IDs are used only within ESPHome and are not translated to Home Assistant’s Entity ID.</p>
+</div>
+</section>
+<section id="pin">
+<span id="config-pin"></span><h2>Pin<a class="headerlink" href="#pin" title="Permalink to this heading">¶</a></h2>
+<p>ESPHome always uses the <strong>chip-internal GPIO numbers</strong>. These
+internal numbers are always integers like <code class="docutils literal notranslate"><span class="pre">16</span></code> and can be prefixed by
+<code class="docutils literal notranslate"><span class="pre">GPIO</span></code>. For example to use the pin with the <strong>internal</strong> GPIO number 16,
+you could type <code class="docutils literal notranslate"><span class="pre">GPIO16</span></code> or just <code class="docutils literal notranslate"><span class="pre">16</span></code>.</p>
+<p>Most boards however have aliases for certain pins. For example the NodeMCU
+ESP8266 uses pin names <code class="docutils literal notranslate"><span class="pre">D0</span></code> through <code class="docutils literal notranslate"><span class="pre">D8</span></code> as aliases for the internal GPIO
+pin numbers. Each board (defined in <a class="reference internal" href="../components/esphome.html"><span class="doc">ESPHome section</span></a>)
+has their own aliases and so not all of them are supported yet. For example,
+for the <code class="docutils literal notranslate"><span class="pre">D0</span></code> (as printed on the PCB silkscreen) pin on the NodeMCU ESP8266
+has the internal GPIO name <code class="docutils literal notranslate"><span class="pre">GPIO16</span></code>, but also has an alias <code class="docutils literal notranslate"><span class="pre">D0</span></code>. So using
+either one of these names in your configuration will lead to the same result.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">some_config_option</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO16</span>
+
+<span class="nt">some_config_option</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># alias on the NodeMCU ESP8266:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D0</span>
+</pre></div>
+</div>
+</section>
+<section id="pin-schema">
+<span id="config-pin-schema"></span><h2>Pin Schema<a class="headerlink" href="#pin-schema" title="Permalink to this heading">¶</a></h2>
+<p>In some places, ESPHome also supports a more advanced “pin schema”.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">some_config_option</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Basic:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+
+<span class="w">  </span><span class="c1"># Advanced:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">pullup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul>
+<li><p><strong>number</strong> (<strong>Required</strong>, pin): The pin number.</p></li>
+<li><p><strong>inverted</strong> (<em>Optional</em>, boolean): If all read and written values
+should be treated as inverted. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>allow_other_uses</strong> (<em>Optional</em>, boolean): If the pin is also specified elsewhere in the configuration.
+By default multiple uses of the same pin will be flagged as an error. This option will suppress the error and is
+intended for rare cases where a pin is shared between multiple components. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>mode</strong> (<em>Optional</em>, string or mapping): Configures the pin to behave in different
+modes like input or output. The default value depends on the context.
+Accepts either a shorthand string or a mapping where each feature can be individually
+enabled/disabled:</p>
+<ul class="simple">
+<li><p><strong>input</strong> (<em>Optional</em>, boolean): If true, configure the pin as an input.</p></li>
+<li><p><strong>output</strong> (<em>Optional</em>, boolean): If true, configure the pin as an output.</p></li>
+<li><p><strong>pullup</strong> (<em>Optional</em>, boolean): Activate internal pullup resistors on the pin.</p></li>
+<li><p><strong>pulldown</strong> (<em>Optional</em>, boolean): Activate internal pulldown resistors on the pin.</p></li>
+<li><p><strong>open_drain</strong> (<em>Optional</em>, boolean): Set the pin to open-drain (as opposed to push-pull).
+The active pin state will then result in a high-impedance state.</p></li>
+</ul>
+<p>For compatibility some shorthand modes can also be used.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">INPUT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OUTPUT_OPEN_DRAIN</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ANALOG</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INPUT_PULLUP</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INPUT_PULLDOWN</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INPUT_OUTPUT_OPEN_DRAIN</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p>Advanced options:</p>
+<ul>
+<li><p><strong>drive_strength</strong> (<em>Optional</em>, string): On ESP32s with esp-idf framework the pad drive strength,
+i.e. the maximum amount of current can additionally be set. Defaults to <code class="docutils literal notranslate"><span class="pre">20mA</span></code>.
+Options are <code class="docutils literal notranslate"><span class="pre">5mA</span></code>, <code class="docutils literal notranslate"><span class="pre">10mA</span></code>, <code class="docutils literal notranslate"><span class="pre">20mA</span></code>, <code class="docutils literal notranslate"><span class="pre">40mA</span></code>.</p></li>
+<li><p><strong>ignore_strapping_warning</strong> (<em>Optional</em>, boolean): Certain pins on ESP32s are designated <em>strapping pins</em> and are read
+by the chip on reset to configure initial operation, e.g. to enable bootstrap mode.
+Using such pins for I/O should be avoided and ESPHome will warn if I/O is configured on a strapping pin.</p>
+<p>For more detail see <a class="reference internal" href="faq.html#strapping-warnings"><span class="std std-ref">Why am I getting a warning about strapping pins?</span></a>.</p>
+<p>If you are <em>absolutely</em> sure that you are using a strapping pin for I/O in a way that will not cause problems,
+you can suppress the warning by setting this option to <code class="docutils literal notranslate"><span class="pre">true</span></code> in the pin configuration.</p>
+</li>
+</ul>
+</section>
+<section id="time">
+<span id="config-time"></span><h2>Time<a class="headerlink" href="#time" title="Permalink to this heading">¶</a></h2>
+<p>In lots of places in ESPHome you need to define time periods.
+There are several ways of doing this. See below examples to see how you can specify time periods:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">some_config_option</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">some_time_option</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000us</span><span class="w">  </span><span class="c1"># 1000 microseconds = 1ms</span>
+<span class="w">  </span><span class="nt">some_time_option</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000ms</span><span class="w">  </span><span class="c1"># 1000 milliseconds</span>
+<span class="w">  </span><span class="nt">some_time_option</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.5s</span><span class="w">  </span><span class="c1"># 1.5 seconds</span>
+<span class="w">  </span><span class="nt">some_time_option</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5min</span><span class="w">  </span><span class="c1"># half a minute</span>
+<span class="w">  </span><span class="nt">some_time_option</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2h</span><span class="w">  </span><span class="c1"># 2 hours</span>
+
+<span class="w">  </span><span class="c1"># Make sure you wrap these in quotes</span>
+<span class="w">  </span><span class="nt">some_time_option</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2:01&#39;</span><span class="w">  </span><span class="c1"># 2 hours 1 minute</span>
+<span class="w">  </span><span class="nt">some_time_option</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2:01:30&#39;</span><span class="w">  </span><span class="c1"># 2 hours 1 minute 30 seconds</span>
+
+<span class="w">  </span><span class="c1"># 10ms + 30s + 25min + 3h</span>
+<span class="w">  </span><span class="nt">some_time_option</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">milliseconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">    </span><span class="nt">minutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span>
+<span class="w">    </span><span class="nt">hours</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+
+<span class="w">  </span><span class="c1"># for all &#39;update_interval&#39; options, also</span>
+<span class="w">  </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">never</span><span class="w">  </span><span class="c1"># never update</span>
+<span class="w">  </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0ms</span><span class="w">  </span><span class="c1"># update in every loop() iteration</span>
+</pre></div>
+</div>
+</section>
+<section id="substitutions">
+<span id="config-substitutions"></span><h2>Substitutions<a class="headerlink" href="#substitutions" title="Permalink to this heading">¶</a></h2>
+<p>Starting with version 1.10.0, ESPHome has a powerful new way to reduce repetition in configuration files:
+Substitutions. With substitutions, you can have a single generic source file for all nodes of one kind and
+substitute expressions in.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">substitutions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">devicename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">livingroom</span>
+<span class="w">  </span><span class="nt">upper_devicename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Livingroom</span>
+
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$devicename</span>
+<span class="w">  </span><span class="c1"># ...</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dht</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${upper_devicename} Temperature</span>
+<span class="w">  </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${upper_devicename} Humidity</span>
+</pre></div>
+</div>
+<p>In the top-level <code class="docutils literal notranslate"><span class="pre">substitutions</span></code> section, you can put as many key-value pairs as you want. Before
+validating your configuration, ESPHome will automatically replace all occurrences of substitutions
+by their value. The syntax for a substitution is based on bash and is case-sensitive: <code class="docutils literal notranslate"><span class="pre">$substitution_key</span></code> or
+<code class="docutils literal notranslate"><span class="pre">${substitution_key}</span></code> (same).</p>
+<p>Two substitution passes are performed allowing compound replacements.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">substitutions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">foo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yellow</span>
+<span class="w">  </span><span class="nt">bar_yellow_value</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yellow_secret</span>
+<span class="w">  </span><span class="nt">bar_green_value</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">green_secret</span>
+
+<span class="nt">something</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${bar_${foo}_value}</span>
+</pre></div>
+</div>
+<section id="yaml-insertion-operator">
+<span id="id1"></span><h3>YAML insertion operator<a class="headerlink" href="#yaml-insertion-operator" title="Permalink to this heading">¶</a></h3>
+<p>Additionally, you can use the YAML insertion operator <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> syntax to create a single YAML file from which a number
+of nodes inherit:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In common.yaml</span>
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$devicename</span>
+<span class="w">  </span><span class="c1"># ...</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dht</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${upper_devicename} Temperature</span>
+<span class="w">  </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${upper_devicename} Humidity</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In nodemcu1.yaml</span>
+<span class="nt">substitutions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">devicename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodemcu1</span>
+<span class="w">  </span><span class="nt">upper_devicename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodeMCU 1</span>
+
+<span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">common.yaml</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To hide these base files from the dashboard, you can</p>
+<ul class="simple">
+<li><p>Place them in a subdirectory (dashboard only shows files in top-level directory)</p></li>
+<li><p>Prepend a dot to the filename, like <code class="docutils literal notranslate"><span class="pre">.base.yaml</span></code></p></li>
+</ul>
+</div>
+</section>
+<section id="substitute-include-variables">
+<span id="id2"></span><h3>Substitute !include variables<a class="headerlink" href="#substitute-include-variables" title="Permalink to this heading">¶</a></h3>
+<p>ESPHome’s <code class="docutils literal notranslate"><span class="pre">!include</span></code> accepts a list of variables that can be substituted within the included file.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">button1</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">on_multi_click</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> file</span><span class="p">:</span><span class="w"> </span><span class="nv">on-multi-click.yaml</span><span class="p p-Indicator">,</span><span class="nt"> vars</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> id</span><span class="p">:</span><span class="w"> </span><span class="nv">1</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"> </span><span class="c1"># inline syntax</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">button2</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">on_multi_click</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span>
+<span class="w">      </span><span class="c1"># multi-line syntax</span>
+<span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">on-multi-click.yaml</span>
+<span class="w">      </span><span class="nt">vars</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">on-multi-click.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">timing</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">click-single.yaml</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mqtt.publish</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${device_name}/button${id}/status</span>
+<span class="w">        </span><span class="nt">payload</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">single</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">timing</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">click-double.yaml</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mqtt.publish</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${device_name}/button${id}/status</span>
+<span class="w">        </span><span class="nt">payload</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">double</span>
+</pre></div>
+</div>
+</section>
+<section id="command-line-substitutions">
+<span id="id3"></span><h3>Command line substitutions<a class="headerlink" href="#command-line-substitutions" title="Permalink to this heading">¶</a></h3>
+<p>You can define or override substitutions from the command line by adding e.g. <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">KEY</span> <span class="pre">VALUE</span></code>
+which overrides substitution KEY and gives it value VALUE. This can be issued multiple times,
+so e.g. with the following <code class="docutils literal notranslate"><span class="pre">example.yaml</span></code> file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">substitutions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">  </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ESP8266</span>
+
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$name</span>
+<span class="w">  </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$platform</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$board</span>
+</pre></div>
+</div>
+<p>and the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>esphome<span class="w"> </span>-s<span class="w"> </span>name<span class="w"> </span>device01<span class="w"> </span>-s<span class="w"> </span>board<span class="w"> </span>esp01_1m<span class="w"> </span>example.yaml<span class="w"> </span>config
+</pre></div>
+</div>
+<p>You will get something like the following output (please note the unchanged <code class="docutils literal notranslate"><span class="pre">platform</span></code>,
+added <code class="docutils literal notranslate"><span class="pre">board</span></code>, and overridden <code class="docutils literal notranslate"><span class="pre">name</span></code> substitutions):</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">substitutions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device01</span>
+<span class="w">  </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ESP8266</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp01_1m</span>
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device01</span>
+<span class="w">  </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ESP8266</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp01_1m</span>
+<span class="w">  </span><span class="nt">includes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">  </span><span class="nt">libraries</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="w">  </span><span class="nt">esp8266_restore_from_flash</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">build_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device01</span>
+<span class="w">  </span><span class="nt">platformio_options</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">  </span><span class="nt">arduino_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">espressif8266@2.2.3</span>
+</pre></div>
+</div>
+<p>We can observe here that command line substitutions take precedence over the ones in
+your configuration file. This can be used to create generic ‘template’ configuration
+files (like the <code class="docutils literal notranslate"><span class="pre">example.yaml</span></code> above) which can be used for multiple devices,
+using substitutions which are provided on the command line.</p>
+</section>
+</section>
+<section id="packages">
+<span id="config-packages"></span><h2>Packages<a class="headerlink" href="#packages" title="Permalink to this heading">¶</a></h2>
+<p>Another way to modularize and reuse your configuration is to use packages. This feature allows
+you to put common pieces of configuration in separate files and keep only unique pieces of your
+config in the main yaml file. All definitions from packages will be merged with your main
+config in non-destructive way so you could always override some bits and pieces of package
+configuration. Substitutions in your main config will override substitutions with the same
+name in a package.</p>
+<p>Dictionaries are merged key-by-key. Lists of components are merged by component
+ID if specified. Other lists are merged by concatenation. All other config
+values are replaced with the later value.</p>
+<section id="local-packages">
+<h3>Local packages<a class="headerlink" href="#local-packages" title="Permalink to this heading">¶</a></h3>
+<p>Consider the following example where the author put common pieces of configuration like WiFi and
+I²C into base files and extends it with some device specific configurations in the main config.</p>
+<p>Note how the piece of configuration describing <code class="docutils literal notranslate"><span class="pre">api</span></code> component in <code class="docutils literal notranslate"><span class="pre">device_base.yaml</span></code> gets
+merged with the services definitions from main config file.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In config.yaml</span>
+<span class="nt">substitutions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">node_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mydevice</span>
+<span class="w">  </span><span class="nt">device_verbose_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My</span><span class="nv"> </span><span class="s">Device&quot;</span>
+
+<span class="nt">packages</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">wifi</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">common/wifi.yaml</span>
+<span class="w">  </span><span class="nt">device_base</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">common/device_base.yaml</span>
+
+<span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">services</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">start_laundry</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3h</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mhz19</span>
+<span class="w">    </span><span class="nt">co2</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CO2&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature&quot;</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+<span class="w">    </span><span class="nt">automatic_baseline_calibration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In wifi.yaml</span>
+<span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ssid</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wifi_ssid</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wifi_password</span>
+<span class="w">  </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.yourdomain.lan</span>
+<span class="w">  </span><span class="nt">fast_connect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In device_base.yaml</span>
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${node_name}</span>
+<span class="w">  </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ESP32</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wemos_d1_mini32</span>
+<span class="w">  </span><span class="nt">build_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./build/${node_name}</span>
+
+<span class="c1"># I²C Bus</span>
+<span class="nt">i2c</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">scl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">scan</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100kHz</span>
+
+<span class="c1"># Enable logging</span>
+<span class="nt">logger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${log_level}</span>
+
+<span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">encryption</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_encryption_key</span>
+<span class="w">  </span><span class="nt">reboot_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1h</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">common/sensor/uptime.config.yaml</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">common/sensor/wifi_signal.config.yaml</span>
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">common/binary_sensor/connection_status.config.yaml</span>
+
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">common/switch/restart_switch.config.yaml</span>
+</pre></div>
+</div>
+</section>
+<section id="remote-git-packages">
+<span id="config-git-packages"></span><h3>Remote/git Packages<a class="headerlink" href="#remote-git-packages" title="Permalink to this heading">¶</a></h3>
+<p>Packages can also be loaded from a git repository by utilizing the correct config syntax.
+<a class="reference internal" href="#config-substitutions"><span class="std std-ref">Substitutions</span></a> can be used inside the remote packages which allows users to override
+them locally with their own subsitution value.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remote packages cannot have <code class="docutils literal notranslate"><span class="pre">secret</span></code> lookups in them. They should instead make use of substitutions with an
+optional default in the packaged YAML, which the local device YAML can set using values from the local secrets.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">packages</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Git repo examples</span>
+<span class="w">  </span><span class="nt">remote_package</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/esphome/non-existant-repo</span>
+<span class="w">    </span><span class="nt">ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span><span class="w"> </span><span class="c1"># optional</span>
+<span class="w">    </span><span class="nt">files</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">file1.yml</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">file2.yml</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">refresh</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1d</span><span class="w"> </span><span class="c1"># optional</span>
+
+<span class="w">  </span><span class="c1"># A single file can be expressed using `file` or `files` as a string</span>
+<span class="w">  </span><span class="nt">remote_package_two</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/esphome/non-existant-repo</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file1.yml</span><span class="w"> </span><span class="c1"># cannot be combined with `files`</span>
+<span class="w">    </span><span class="c1"># files: file1.yml</span>
+
+<span class="w">  </span><span class="c1"># shorthand form github://username/repository/[folder/]file-path.yml[@branch-or-tag]</span>
+<span class="w">  </span><span class="nt">remote_package_three</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github://esphome/non-existant-repo/file1.yml@main</span>
+</pre></div>
+</div>
+</section>
+<section id="packages-as-templates">
+<h3>Packages as Templates<a class="headerlink" href="#packages-as-templates" title="Permalink to this heading">¶</a></h3>
+<p>Since packages are incorporated using the <code class="docutils literal notranslate"><span class="pre">!include</span></code> system,
+variables can be provided to them.  This means that packages can be
+used as <cite>templates</cite>, allowing complex or repetitive configurations to
+be stored in a package file and then incorporated into the
+configuration more than once.
+Additionally packages could contain a <code class="docutils literal notranslate"><span class="pre">defaults</span></code> block which provides
+subsitutions for variables not provided by the <code class="docutils literal notranslate"><span class="pre">!include</span></code> block.</p>
+<p>As an example, if the configuration needed to support three garage
+doors using the <code class="docutils literal notranslate"><span class="pre">gpio</span></code> switch platform and the <code class="docutils literal notranslate"><span class="pre">time_based</span></code> cover
+platform, it could be constructed like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In config.yaml</span>
+<span class="nt">packages</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">left_garage_door</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">garage-door.yaml</span>
+<span class="w">    </span><span class="nt">vars</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">door_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Left</span>
+<span class="w">      </span><span class="nt">door_location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">left</span>
+<span class="w">      </span><span class="nt">open_switch_gpio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span>
+<span class="w">      </span><span class="nt">close_switch_gpio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">26</span>
+<span class="w">  </span><span class="nt">middle_garage_door</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">garage-door.yaml</span>
+<span class="w">    </span><span class="nt">vars</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">door_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Middle</span>
+<span class="w">      </span><span class="nt">door_location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middle</span>
+<span class="w">      </span><span class="nt">open_switch_gpio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27</span>
+<span class="w">      </span><span class="nt">close_switch_gpio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">29</span>
+<span class="w">  </span><span class="nt">right_garage_door</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">garage-door.yaml</span>
+<span class="w">    </span><span class="nt">vars</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">door_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Right</span>
+<span class="w">      </span><span class="nt">door_location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">right</span>
+<span class="w">      </span><span class="nt">open_switch_gpio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span>
+<span class="w">      </span><span class="nt">close_switch_gpio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">18</span>
+<span class="w">      </span><span class="nt">open_duration</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1min&quot;</span>
+<span class="w">      </span><span class="nt">close_duration</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;50s&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In garage-door.yaml</span>
+<span class="nt">defaults</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">open_duration</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.1min&quot;</span>
+<span class="w">  </span><span class="nt">close_duration</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2min&quot;</span>
+
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">open_${door_location}_door_switch</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${door_name} Garage Door Open Switch</span>
+<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${open_switch_gpio}</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">close_${door_location}_door_switch</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${door_name} Garage Door Close Switch</span>
+<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${close_switch_gpio}</span>
+
+<span class="nt">cover</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">time_based</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${door_name} Garage Door</span>
+
+<span class="w">    </span><span class="nt">open_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">open_${door_location}_door_switch</span>
+<span class="w">    </span><span class="nt">open_duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${open_duration}</span>
+
+<span class="w">    </span><span class="nt">close_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">close_${door_location}_door_switch</span>
+<span class="w">    </span><span class="nt">close_duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${close_duration}</span>
+
+<span class="w">    </span><span class="nt">stop_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">open_${door_location}_door_switch</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">close_${door_location}_door_switch</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="extend">
+<h2>Extend<a class="headerlink" href="#extend" title="Permalink to this heading">¶</a></h2>
+<p>To make changes or add additional configuration to included configurations <code class="docutils literal notranslate"><span class="pre">!extend</span> <span class="pre">config_id</span></code> can be used, where <code class="docutils literal notranslate"><span class="pre">config_id</span></code> is the ID of the configuration to modify.
+For example to set a specific update interval on a common uptime sensor that is shared between configurations:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">packages</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">common</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">common.yaml</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="kt">!extend</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uptime_sensor</span>
+<span class="w">  </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+</pre></div>
+</div>
+</section>
+<section id="remove">
+<h2>Remove<a class="headerlink" href="#remove" title="Permalink to this heading">¶</a></h2>
+<p>To remove existing entries from included configurations <code class="docutils literal notranslate"><span class="pre">!remove</span> <span class="pre">[config_id]</span></code> can be used, where <code class="docutils literal notranslate"><span class="pre">config_id</span></code> is the ID of the entry to modify.
+For example to remove a common uptime sensor that is shared between configurations:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">packages</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">common</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">common.yaml</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="kt">!remove</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uptime_sensor</span>
+</pre></div>
+</div>
+<p>To remove captive portal for a specific device:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">packages</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">common</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">common.yaml</span>
+
+<span class="nt">captive_portal</span><span class="p">:</span><span class="w"> </span><span class="kt">!remove</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../index.html"><span class="doc">ESPHome index</span></a></p></li>
+<li><p><a class="reference internal" href="getting_started_command_line.html"><span class="doc">Getting Started with the ESPHome Command Line</span></a></p></li>
+<li><p><a class="reference internal" href="faq.html"><span class="doc">Frequently Asked Questions</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/guides/configuration-types.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

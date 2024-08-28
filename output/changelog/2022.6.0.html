@@ -1,0 +1,478 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Changelog for ESPHome 2022.6.0.">
+<meta itemprop="name" content="ESPHome 2022.6.0 - 15th June 2022">
+<meta itemprop="description" content="Changelog for ESPHome 2022.6.0.">
+<meta itemprop="image" content="https://esphome.io/_static/changelog-2022.6.0.png">
+<meta name="twitter:title" content="ESPHome 2022.6.0 - 15th June 2022">
+<meta name="twitter:image:src" content="https://esphome.io/_static/changelog-2022.6.0.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:creator" content="@jesserockz">
+<meta name="twitter:description" content="Changelog for ESPHome 2022.6.0.">
+<meta property="og:title" content="ESPHome 2022.6.0 - 15th June 2022">
+<meta property="og:image" content="https://esphome.io/_static/changelog-2022.6.0.png">
+<meta property="og:type" content="article">
+<meta property="og:description" content="Changelog for ESPHome 2022.6.0.">
+
+    <title>ESPHome 2022.6.0 - 15th June 2022 &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/changelog/2022.6.0.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ESPHome 2022.8.0 - 17th August 2022" href="2022.8.0.html" />
+    <link rel="prev" title="ESPHome 2022.5.0 - 18th May 2022" href="2022.5.0.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ESPHome 2022.6.0 - 15th June 2022</a><ul>
+<li><a class="reference internal" href="#media-players">🎶🎶🎶 Media Players</a></li>
+<li><a class="reference internal" href="#includes-with-vars">Includes with vars</a></li>
+<li><a class="reference internal" href="#release-2022-6-1-june-18">Release 2022.6.1 - June 18</a></li>
+<li><a class="reference internal" href="#release-2022-6-2-june-23">Release 2022.6.2 - June 23</a></li>
+<li><a class="reference internal" href="#release-2022-6-3-august-8">Release 2022.6.3 - August 8</a></li>
+<li><a class="reference internal" href="#breaking-changes">Breaking Changes</a><ul>
+<li><a class="reference internal" href="#tcs34725-integration-time">TCS34725 integration time</a></li>
+<li><a class="reference internal" href="#sgp40-moved">SGP40 moved</a></li>
+<li><a class="reference internal" href="#mqtt-fan-speeds">MQTT fan speeds</a></li>
+<li><a class="reference internal" href="#ac-dimmer">AC Dimmer</a></li>
+<li><a class="reference internal" href="#displaybuffer">DisplayBuffer</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#full-list-of-changes">Full list of changes</a><ul>
+<li><a class="reference internal" href="#new-components">New Components</a></li>
+<li><a class="reference internal" href="#id2">Breaking Changes</a></li>
+<li><a class="reference internal" href="#beta-changes">Beta Changes</a></li>
+<li><a class="reference internal" href="#notable-changes">Notable Changes</a></li>
+<li><a class="reference internal" href="#all-changes">All changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#past-changelogs">Past Changelogs</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Changelog</a> ➔</li>
+      <li>ESPHome 2022.6.0 - 15th June 2022</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="esphome-2022-6-0-15th-june-2022">
+<h1>ESPHome 2022.6.0 - 15th June 2022<a class="headerlink" href="#esphome-2022-6-0-15th-june-2022" title="Permalink to this heading">¶</a></h1>
+<table class="table-center docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference external" href="/components/select/tuya.html"><img alt="Tuya Select" class="component-image" src="../_images/tuya.png" /></a></p></td>
+<td><p><a class="reference external" href="/components/sensor/sgp4x.html"><img alt="SGP41" class="component-image" src="../_images/sgp401.jpg" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="/components/select/tuya.html">Tuya Select</a></p></td>
+<td><p><a class="reference external" href="/components/sensor/sgp4x.html">SGP41</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="/components/media_player/index.html"><img alt="Media Player Core" class="component-image dark-invert" src="../_images/folder-open.svg" /></a></p></td>
+<td><p><a class="reference external" href="/components/media_player/i2s_audio.html"><img alt="I2S Audio" class="component-image" src="../_images/i2s_audio.svg" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="/components/media_player/index.html">Media Player Core</a></p></td>
+<td><p><a class="reference external" href="/components/media_player/i2s_audio.html">I2S Audio</a></p></td>
+</tr>
+</tbody>
+</table>
+<p>We are almost half way through 2022 already! My, how fast time flies when we
+are having fun with ESPHome. This release is kind of small, but packs some big features.
+There will be no 2022.7.0 (July) release next month as I (<a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a>) will be away
+around that time. So lets hope we can make 2022.8.0 worth the wait.</p>
+<section id="media-players">
+<h2>🎶🎶🎶 Media Players<a class="headerlink" href="#media-players" title="Permalink to this heading">¶</a></h2>
+<p>ESPHome can now become a media player target for Home Assistant. This allows users to buy or build
+ESP32 based speakers and place them around the house.</p>
+<p>We made a small website showing you a few tested <a class="reference external" href="https://esphome.github.io/media-players">Media Players</a> and you can
+install ESPHome directly to them via the browser using ESP Web Tools.</p>
+<p>Join us in a live stream all about Audio in the Open Home!</p>
+<p>When: Thursday, June 16, at 7pm UTC / 12pm PST / 9pm CET</p>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/SEH-DxOsywg"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+</iframe></section>
+<section id="includes-with-vars">
+<h2>Includes with vars<a class="headerlink" href="#includes-with-vars" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference external" href="https://github.com/jimtng">&#64;jimtng</a> is a newcomer to ESPHome. While migrating everything from a certain other
+firmware, they found that they had to duplicate lots of yaml configuration for their many devices.
+Basically, they decided to upgrade the <code class="docutils literal notranslate"><span class="pre">!include</span></code> yaml “directive” to allow variables.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># device.yaml</span>
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span>
+<span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bin-sensor.yaml</span>
+<span class="w">      </span><span class="nt">vars</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO1</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Binary</span><span class="nv"> </span><span class="s">Sensor</span><span class="nv"> </span><span class="s">1&quot;</span>
+<span class="w">        </span><span class="nt">switch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch_1_id</span>
+<span class="w">        </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="kt">!include</span>
+<span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bin-sensor.yaml</span>
+<span class="w">      </span><span class="nt">vars</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO1</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Binary</span><span class="nv"> </span><span class="s">Sensor</span><span class="nv"> </span><span class="s">2&quot;</span>
+<span class="w">        </span><span class="nt">switch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch_2_id</span>
+<span class="w">        </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+
+<span class="c1"># bin-sensor.yaml</span>
+<span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${pin}</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${name}</span>
+<span class="nt">on_press</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${switch}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${delay}</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${switch}</span>
+</pre></div>
+</div>
+<p>Now while this is probably not the best example, the variables act as <code class="docutils literal notranslate"><span class="pre">substitutions</span></code>
+and can be used anywhere in the underlying yaml file and can very much DRY out your configurations.</p>
+</section>
+<section id="release-2022-6-1-june-18">
+<h2>Release 2022.6.1 - June 18<a class="headerlink" href="#release-2022-6-1-june-18" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Setup the mute pin if configured <a class="reference external" href="https://github.com/esphome/esphome/pull/3568">esphome#3568</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>Bugfix for ExternalRAMAllocator copy constructor <a class="reference external" href="https://github.com/esphome/esphome/pull/3571">esphome#3571</a> by <a class="reference external" href="https://github.com/bnw">&#64;bnw</a></p></li>
+<li><p>Media Player: added triggers <a class="reference external" href="https://github.com/esphome/esphome/pull/3576">esphome#3576</a> by <a class="reference external" href="https://github.com/dudanov">&#64;dudanov</a></p></li>
+</ul>
+</section>
+<section id="release-2022-6-2-june-23">
+<h2>Release 2022.6.2 - June 23<a class="headerlink" href="#release-2022-6-2-june-23" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Move gas mbus config option being a define to being a build flag <a class="reference external" href="https://github.com/esphome/esphome/pull/3575">esphome#3575</a> by <a class="reference external" href="https://github.com/lkomurcu">&#64;lkomurcu</a></p></li>
+<li><p>Fix: Make MQTT over TLS actually work <a class="reference external" href="https://github.com/esphome/esphome/pull/3580">esphome#3580</a> by <a class="reference external" href="https://github.com/ShellAddicted">&#64;ShellAddicted</a></p></li>
+<li><p>Fix wrong type for voc_state*_ in sgp4x component <a class="reference external" href="https://github.com/esphome/esphome/pull/3581">esphome#3581</a> by <a class="reference external" href="https://github.com/kahrendt">&#64;kahrendt</a></p></li>
+<li><p>Media Player: added play_media action <a class="reference external" href="https://github.com/esphome/esphome/pull/3579">esphome#3579</a> by <a class="reference external" href="https://github.com/dudanov">&#64;dudanov</a></p></li>
+<li><p>Fix 2 small issues in BLEClient <a class="reference external" href="https://github.com/esphome/esphome/pull/3544">esphome#3544</a> by <a class="reference external" href="https://github.com/jhansche">&#64;jhansche</a></p></li>
+</ul>
+</section>
+<section id="release-2022-6-3-august-8">
+<h2>Release 2022.6.3 - August 8<a class="headerlink" href="#release-2022-6-3-august-8" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>FIX: Modbus queue deduplicator deleting custom commands <a class="reference external" href="https://github.com/esphome/esphome/pull/3650">esphome#3650</a> by <a class="reference external" href="https://github.com/jpeletier">&#64;jpeletier</a></p></li>
+<li><p>Update inkbird_ibsth1_mini.cpp <a class="reference external" href="https://github.com/esphome/esphome/pull/3664">esphome#3664</a> by <a class="reference external" href="https://github.com/ssieb">&#64;ssieb</a></p></li>
+<li><p>Add CO device class to binary_sensor <a class="reference external" href="https://github.com/esphome/esphome/pull/3656">esphome#3656</a> by <a class="reference external" href="https://github.com/berg">&#64;berg</a></p></li>
+<li><p>Use application/json instead of text/json <a class="reference external" href="https://github.com/esphome/esphome/pull/3671">esphome#3671</a> by <a class="reference external" href="https://github.com/ssieb">&#64;ssieb</a></p></li>
+<li><p>Use correct struct members. <a class="reference external" href="https://github.com/esphome/esphome/pull/3672">esphome#3672</a> by <a class="reference external" href="https://github.com/ssieb">&#64;ssieb</a></p></li>
+</ul>
+</section>
+<section id="breaking-changes">
+<h2>Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permalink to this heading">¶</a></h2>
+<section id="tcs34725-integration-time">
+<h3>TCS34725 integration time<a class="headerlink" href="#tcs34725-integration-time" title="Permalink to this heading">¶</a></h3>
+<p>The sampling settings for the TCS34725 have had a new option <code class="docutils literal notranslate"><span class="pre">auto</span></code> added and set as the default. This allows for better accuracy.
+You are able to set it back to the previous default value by specifying <code class="docutils literal notranslate"><span class="pre">integration_time:</span> <span class="pre">2.4ms</span></code> in your configuration.</p>
+</section>
+<section id="sgp40-moved">
+<h3>SGP40 moved<a class="headerlink" href="#sgp40-moved" title="Permalink to this heading">¶</a></h3>
+<p>While adding support for the SGP41 chip, the SGP40 was moved and they were both combined into a new <code class="docutils literal notranslate"><span class="pre">sgp4x</span></code> component.</p>
+</section>
+<section id="mqtt-fan-speeds">
+<h3>MQTT fan speeds<a class="headerlink" href="#mqtt-fan-speeds" title="Permalink to this heading">¶</a></h3>
+<p><a class="reference external" href="https://github.com/esphome/esphome/pull/3397">esphome#3397</a> removes deprecated MQTT fan speed state and speed command topics.
+These were replaced with speed level state and command topics in ESPHome 2021.10.0.</p>
+</section>
+<section id="ac-dimmer">
+<h3>AC Dimmer<a class="headerlink" href="#ac-dimmer" title="Permalink to this heading">¶</a></h3>
+<p>Due to an output power calculation the perceived power might vary slightly specially in the lower and upper regions.</p>
+</section>
+<section id="displaybuffer">
+<h3>DisplayBuffer<a class="headerlink" href="#displaybuffer" title="Permalink to this heading">¶</a></h3>
+<p>A new virtual method was added to the DisplayBuffer class for specifying the display type. This change only affects <code class="docutils literal notranslate"><span class="pre">external_components</span></code>.
+See <a class="reference external" href="https://github.com/esphome/esphome/pull/3430">esphome#3430</a> for more details.</p>
+</section>
+</section>
+<section id="full-list-of-changes">
+<h2>Full list of changes<a class="headerlink" href="#full-list-of-changes" title="Permalink to this heading">¶</a></h2>
+<section id="new-components">
+<h3>New Components<a class="headerlink" href="#new-components" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Add Tuya select <a class="reference external" href="https://github.com/esphome/esphome/pull/3469">esphome#3469</a> by <a class="reference external" href="https://github.com/bearpawmaxim">&#64;bearpawmaxim</a> (new-integration)</p></li>
+<li><p>Add support for SGP41 <a class="reference external" href="https://github.com/esphome/esphome/pull/3382">esphome#3382</a> by <a class="reference external" href="https://github.com/martgras">&#64;martgras</a> (new-integration) (breaking-change)</p></li>
+<li><p>Implement Media Player and I2S Media player <a class="reference external" href="https://github.com/esphome/esphome/pull/3487">esphome#3487</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a> (new-integration)</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>Breaking Changes<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Tcs34725 automatic sampling settings for improved dynamics and accuracy <a class="reference external" href="https://github.com/esphome/esphome/pull/3258">esphome#3258</a> by <a class="reference external" href="https://github.com/swifty99">&#64;swifty99</a> (breaking-change)</p></li>
+<li><p>Add support for SGP41 <a class="reference external" href="https://github.com/esphome/esphome/pull/3382">esphome#3382</a> by <a class="reference external" href="https://github.com/martgras">&#64;martgras</a> (new-integration) (breaking-change)</p></li>
+<li><p>Remove deprecated fan speeds <a class="reference external" href="https://github.com/esphome/esphome/pull/3397">esphome#3397</a> by <a class="reference external" href="https://github.com/kbickar">&#64;kbickar</a> (breaking-change)</p></li>
+<li><p>Output a true RMS voltage % <a class="reference external" href="https://github.com/esphome/esphome/pull/3494">esphome#3494</a> by <a class="reference external" href="https://github.com/josephdouce">&#64;josephdouce</a> (breaking-change)</p></li>
+<li><p>Add display_type property to DisplayBuffer <a class="reference external" href="https://github.com/esphome/esphome/pull/3430">esphome#3430</a> by <a class="reference external" href="https://github.com/guillempages">&#64;guillempages</a> (breaking-change)</p></li>
+</ul>
+</section>
+<section id="beta-changes">
+<h3>Beta Changes<a class="headerlink" href="#beta-changes" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>publish fan speed count for discovery <a class="reference external" href="https://github.com/esphome/esphome/pull/3537">esphome#3537</a> by <a class="reference external" href="https://github.com/ssieb">&#64;ssieb</a></p></li>
+<li><p>Nextion brightness setting requires an assignment <a class="reference external" href="https://github.com/esphome/esphome/pull/3533">esphome#3533</a> by <a class="reference external" href="https://github.com/nagyv">&#64;nagyv</a></p></li>
+<li><p>Implement media player volume actions <a class="reference external" href="https://github.com/esphome/esphome/pull/3551">esphome#3551</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>Fix compilation with ESP32-S3 <a class="reference external" href="https://github.com/esphome/esphome/pull/3543">esphome#3543</a> by <a class="reference external" href="https://github.com/misery">&#64;misery</a></p></li>
+<li><p>Bm3xx: Fix typo <a class="reference external" href="https://github.com/esphome/esphome/pull/3559">esphome#3559</a> by <a class="reference external" href="https://github.com/martgras">&#64;martgras</a></p></li>
+</ul>
+</section>
+<section id="notable-changes">
+<h3>Notable Changes<a class="headerlink" href="#notable-changes" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Add variable substitutions for !include <a class="reference external" href="https://github.com/esphome/esphome/pull/3510">esphome#3510</a> by <a class="reference external" href="https://github.com/jimtng">&#64;jimtng</a> (notable-change)</p></li>
+</ul>
+</section>
+<section id="all-changes">
+<h3>All changes<a class="headerlink" href="#all-changes" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Tcs34725 automatic sampling settings for improved dynamics and accuracy <a class="reference external" href="https://github.com/esphome/esphome/pull/3258">esphome#3258</a> by <a class="reference external" href="https://github.com/swifty99">&#64;swifty99</a> (breaking-change)</p></li>
+<li><p>Remove duplicate convert_to_8bit_color function. <a class="reference external" href="https://github.com/esphome/esphome/pull/2469">esphome#2469</a> by <a class="reference external" href="https://github.com/davet2001">&#64;davet2001</a></p></li>
+<li><p>Bump esptool from 3.3 to 3.3.1 <a class="reference external" href="https://github.com/esphome/esphome/pull/3468">esphome#3468</a> by <a class="reference external" href="https://github.com/dependabot[bot]">&#64;dependabot[bot]</a></p></li>
+<li><p>Bump pylint from 2.13.8 to 2.13.9 <a class="reference external" href="https://github.com/esphome/esphome/pull/3470">esphome#3470</a> by <a class="reference external" href="https://github.com/dependabot[bot]">&#64;dependabot[bot]</a></p></li>
+<li><p>Tuya status gpio support <a class="reference external" href="https://github.com/esphome/esphome/pull/3466">esphome#3466</a> by <a class="reference external" href="https://github.com/bearpawmaxim">&#64;bearpawmaxim</a></p></li>
+<li><p>Add Tuya select <a class="reference external" href="https://github.com/esphome/esphome/pull/3469">esphome#3469</a> by <a class="reference external" href="https://github.com/bearpawmaxim">&#64;bearpawmaxim</a> (new-integration)</p></li>
+<li><p>MQTT cover: send state even if position is available <a class="reference external" href="https://github.com/esphome/esphome/pull/3473">esphome#3473</a> by <a class="reference external" href="https://github.com/pyos">&#64;pyos</a></p></li>
+<li><p>Ili9341 8bit indexed mode pt1 <a class="reference external" href="https://github.com/esphome/esphome/pull/2490">esphome#2490</a> by <a class="reference external" href="https://github.com/davet2001">&#64;davet2001</a></p></li>
+<li><p>feat: esp32-camera add stream event <a class="reference external" href="https://github.com/esphome/esphome/pull/3285">esphome#3285</a> by <a class="reference external" href="https://github.com/myml">&#64;myml</a></p></li>
+<li><p>Add support for SGP41 <a class="reference external" href="https://github.com/esphome/esphome/pull/3382">esphome#3382</a> by <a class="reference external" href="https://github.com/martgras">&#64;martgras</a> (new-integration) (breaking-change)</p></li>
+<li><p>add support user-defined modbus functions <a class="reference external" href="https://github.com/esphome/esphome/pull/3461">esphome#3461</a> by <a class="reference external" href="https://github.com/gazoodle">&#64;gazoodle</a></p></li>
+<li><p>Remove deprecated fan speeds <a class="reference external" href="https://github.com/esphome/esphome/pull/3397">esphome#3397</a> by <a class="reference external" href="https://github.com/kbickar">&#64;kbickar</a> (breaking-change)</p></li>
+<li><p>Fix compile issues on windows <a class="reference external" href="https://github.com/esphome/esphome/pull/3491">esphome#3491</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>midea: New power_toggle action. Auto-use remote transmitter. <a class="reference external" href="https://github.com/esphome/esphome/pull/3496">esphome#3496</a> by <a class="reference external" href="https://github.com/dudanov">&#64;dudanov</a></p></li>
+<li><p>Output a true RMS voltage % <a class="reference external" href="https://github.com/esphome/esphome/pull/3494">esphome#3494</a> by <a class="reference external" href="https://github.com/josephdouce">&#64;josephdouce</a> (breaking-change)</p></li>
+<li><p>[scd4x] Fix not passing arguments to templatable value for perform_forced_calibration <a class="reference external" href="https://github.com/esphome/esphome/pull/3495">esphome#3495</a> by <a class="reference external" href="https://github.com/Wumpf">&#64;Wumpf</a></p></li>
+<li><p>Thermostat preset with modes <a class="reference external" href="https://github.com/esphome/esphome/pull/3298">esphome#3298</a> by <a class="reference external" href="https://github.com/MrMDavidson">&#64;MrMDavidson</a></p></li>
+<li><p>Allow Prometheus component to export internal components <a class="reference external" href="https://github.com/esphome/esphome/pull/3508">esphome#3508</a> by <a class="reference external" href="https://github.com/jangrewe">&#64;jangrewe</a></p></li>
+<li><p>[BedJet] Add configurable heating strategy <a class="reference external" href="https://github.com/esphome/esphome/pull/3519">esphome#3519</a> by <a class="reference external" href="https://github.com/jhansche">&#64;jhansche</a></p></li>
+<li><p>Add variable substitutions for !include <a class="reference external" href="https://github.com/esphome/esphome/pull/3510">esphome#3510</a> by <a class="reference external" href="https://github.com/jimtng">&#64;jimtng</a> (notable-change)</p></li>
+<li><p>Change rain intensity sensor string <a class="reference external" href="https://github.com/esphome/esphome/pull/3511">esphome#3511</a> by <a class="reference external" href="https://github.com/wtremmel">&#64;wtremmel</a></p></li>
+<li><p>Implement Media Player and I2S Media player <a class="reference external" href="https://github.com/esphome/esphome/pull/3487">esphome#3487</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a> (new-integration)</p></li>
+<li><p>Add mqtt.on_connect and mqtt.on_disconnect triggers <a class="reference external" href="https://github.com/esphome/esphome/pull/3520">esphome#3520</a> by <a class="reference external" href="https://github.com/jimtng">&#64;jimtng</a></p></li>
+<li><p>Refactor clock syncing <a class="reference external" href="https://github.com/esphome/esphome/pull/3503">esphome#3503</a> by <a class="reference external" href="https://github.com/jhansche">&#64;jhansche</a></p></li>
+<li><p>Added RC6 protocol support <a class="reference external" href="https://github.com/esphome/esphome/pull/3514">esphome#3514</a> by <a class="reference external" href="https://github.com/Emrvb">&#64;Emrvb</a></p></li>
+<li><p>Add display_type property to DisplayBuffer <a class="reference external" href="https://github.com/esphome/esphome/pull/3430">esphome#3430</a> by <a class="reference external" href="https://github.com/guillempages">&#64;guillempages</a> (breaking-change)</p></li>
+<li><p>Correct ADC auto-range for ESP32-S2 variant (13 bit adc) <a class="reference external" href="https://github.com/esphome/esphome/pull/3158">esphome#3158</a> by <a class="reference external" href="https://github.com/CarlosGS">&#64;CarlosGS</a></p></li>
+<li><p>Suppress first rotary encoder event <a class="reference external" href="https://github.com/esphome/esphome/pull/3532">esphome#3532</a> by <a class="reference external" href="https://github.com/mmakaay">&#64;mmakaay</a></p></li>
+<li><p>Fix endless ‘WiFi Unknown connection status 0’ loop <a class="reference external" href="https://github.com/esphome/esphome/pull/3530">esphome#3530</a> by <a class="reference external" href="https://github.com/mmakaay">&#64;mmakaay</a></p></li>
+<li><p>support rotated ILI9341 (ILI9342) <a class="reference external" href="https://github.com/esphome/esphome/pull/3526">esphome#3526</a> by <a class="reference external" href="https://github.com/ssieb">&#64;ssieb</a></p></li>
+<li><p>Fix sdp3x error checking <a class="reference external" href="https://github.com/esphome/esphome/pull/3531">esphome#3531</a> by <a class="reference external" href="https://github.com/Azimath">&#64;Azimath</a></p></li>
+<li><p>Fix percentage validation for wrong data type input <a class="reference external" href="https://github.com/esphome/esphome/pull/3524">esphome#3524</a> by <a class="reference external" href="https://github.com/mmakaay">&#64;mmakaay</a></p></li>
+<li><p>Block Tuya light from reacting to dp changes if transitioning <a class="reference external" href="https://github.com/esphome/esphome/pull/3076">esphome#3076</a> by <a class="reference external" href="https://github.com/VitaliyKurokhtin">&#64;VitaliyKurokhtin</a></p></li>
+<li><p>Cleanup deprecated EntityBase::hash_base() <a class="reference external" href="https://github.com/esphome/esphome/pull/3525">esphome#3525</a> by <a class="reference external" href="https://github.com/mmakaay">&#64;mmakaay</a></p></li>
+<li><p>Fix bogus reading on no communication with MAX31865 <a class="reference external" href="https://github.com/esphome/esphome/pull/3505">esphome#3505</a> by <a class="reference external" href="https://github.com/DAVe3283">&#64;DAVe3283</a></p></li>
+<li><p>Implement the media player actions <a class="reference external" href="https://github.com/esphome/esphome/pull/3534">esphome#3534</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>RG15 data is float/double, not int <a class="reference external" href="https://github.com/esphome/esphome/pull/3512">esphome#3512</a> by <a class="reference external" href="https://github.com/wtremmel">&#64;wtremmel</a></p></li>
+<li><p>publish fan speed count for discovery <a class="reference external" href="https://github.com/esphome/esphome/pull/3537">esphome#3537</a> by <a class="reference external" href="https://github.com/ssieb">&#64;ssieb</a></p></li>
+<li><p>Nextion brightness setting requires an assignment <a class="reference external" href="https://github.com/esphome/esphome/pull/3533">esphome#3533</a> by <a class="reference external" href="https://github.com/nagyv">&#64;nagyv</a></p></li>
+<li><p>Implement media player volume actions <a class="reference external" href="https://github.com/esphome/esphome/pull/3551">esphome#3551</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>Fix compilation with ESP32-S3 <a class="reference external" href="https://github.com/esphome/esphome/pull/3543">esphome#3543</a> by <a class="reference external" href="https://github.com/misery">&#64;misery</a></p></li>
+<li><p>Bm3xx: Fix typo <a class="reference external" href="https://github.com/esphome/esphome/pull/3559">esphome#3559</a> by <a class="reference external" href="https://github.com/martgras">&#64;martgras</a></p></li>
+</ul>
+</section>
+</section>
+<section id="past-changelogs">
+<h2>Past Changelogs<a class="headerlink" href="#past-changelogs" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="2022.5.0.html"><span class="doc">ESPHome 2022.5.0 - 18th May 2022</span></a></p></li>
+<li><p><a class="reference internal" href="2022.4.0.html"><span class="doc">ESPHome 2022.4.0 - 20th April 2022</span></a></p></li>
+<li><p><a class="reference internal" href="2022.3.0.html"><span class="doc">ESPHome 2022.3.0 - 16th March 2022</span></a></p></li>
+<li><p><a class="reference internal" href="2022.2.0.html"><span class="doc">ESPHome 2022.2.0 - 16th February 2022</span></a></p></li>
+<li><p><a class="reference internal" href="2022.1.0.html"><span class="doc">ESPHome 2022.1.0 - 19th January 2022</span></a></p></li>
+<li><p><a class="reference internal" href="2021.12.0.html"><span class="doc">ESPHome 2021.12.0 - 11th December 2021</span></a></p></li>
+<li><p><a class="reference internal" href="2021.11.0.html"><span class="doc">ESPHome 2021.11.0 - 17th November 2021</span></a></p></li>
+<li><p><a class="reference internal" href="2021.10.0.html"><span class="doc">ESPHome 2021.10.0 - 20th October 2021</span></a></p></li>
+<li><p><a class="reference internal" href="2021.9.0.html"><span class="doc">ESPHome 2021.9.0 - 15th September 2021</span></a></p></li>
+<li><p><a class="reference internal" href="2021.8.0.html"><span class="doc">ESPHome 2021.8.0 - 18th August 2021</span></a></p></li>
+<li><p><a class="reference internal" href="v1.20.0.html"><span class="doc">Changelog - Version 1.20.0 - 21st July 2021</span></a></p></li>
+<li><p><a class="reference internal" href="v1.19.0.html"><span class="doc">Changelog - Version 1.19.0 - 16th June 2021</span></a></p></li>
+<li><p><a class="reference internal" href="v1.18.0.html"><span class="doc">Changelog - Version 1.18.0 - 19th May 2021</span></a></p></li>
+<li><p><a class="reference internal" href="v1.17.0.html"><span class="doc">Changelog - Version 1.17.0 - 4th May 2021</span></a></p></li>
+<li><p><a class="reference internal" href="v1.16.0.html"><span class="doc">Changelog - Version 1.16.0 - February 3, 2021</span></a></p></li>
+<li><p><a class="reference internal" href="v1.15.0.html"><span class="doc">Changelog - Version 1.15.0 - September 13, 2020</span></a></p></li>
+<li><p><a class="reference internal" href="v1.14.0.html"><span class="doc">Changelog - Version 1.14.0 - November 1</span></a></p></li>
+<li><p><a class="reference internal" href="v1.13.0.html"><span class="doc">Changelog - Version 1.13.0 - May 30th 2019</span></a></p></li>
+<li><p><a class="reference internal" href="v1.12.0.html"><span class="doc">Changelog - Version 1.12.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.11.0.html"><span class="doc">Changelog - Version 1.11.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.10.0.html"><span class="doc">Changelog - Version 1.10.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.9.0.html"><span class="doc">Changelog - Version 1.9.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.8.0.html"><span class="doc">Version 1.8.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.7.0.html"><span class="doc">Version 1.7.0</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

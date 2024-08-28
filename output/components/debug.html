@@ -1,0 +1,313 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up the debug component in ESPHome">
+<meta itemprop="name" content="Debug Component">
+<meta itemprop="description" content="Instructions for setting up the debug component in ESPHome">
+<meta itemprop="image" content="https://esphome.io/_images/bug-report.png">
+<meta name="twitter:title" content="Debug Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/bug-report.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up the debug component in ESPHome">
+<meta property="og:title" content="Debug Component">
+<meta property="og:image" content="https://esphome.io/_images/bug-report.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up the debug component in ESPHome">
+
+    <title>Debug Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/debug.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Deep Sleep Component" href="deep_sleep.html" />
+    <link rel="prev" title="Copy Component" href="copy.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Debug Component</a><ul>
+<li><a class="reference internal" href="#text-sensor">Text Sensor</a></li>
+<li><a class="reference internal" href="#sensor">Sensor</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>Debug Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="debug-component">
+<h1>Debug Component<a class="headerlink" href="#debug-component" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">debug</span></code> component can be used to debug problems with ESPHome. At startup, it prints
+a bunch of useful information like reset reason, free heap size, ESPHome version and so on.
+It also allows you to get the same information as a text sensor, and to monitor the state of the
+ESP heap memory (free space, maximum free block size and fragmentation level) and the main-loop timing.</p>
+<figure class="align-center" id="id1">
+<img alt="../_images/debug.png" src="../_images/debug.png" />
+<figcaption>
+<p><span class="caption-text">Example debug component output.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">debug</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+
+<span class="nt">text_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">debug</span>
+<span class="w">    </span><span class="nt">device</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Device</span><span class="nv"> </span><span class="s">Info&quot;</span>
+<span class="w">    </span><span class="nt">reset_reason</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Reset</span><span class="nv"> </span><span class="s">Reason&quot;</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">debug</span>
+<span class="w">    </span><span class="nt">free</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Heap</span><span class="nv"> </span><span class="s">Free&quot;</span>
+<span class="w">    </span><span class="nt">fragmentation</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Heap</span><span class="nv"> </span><span class="s">Fragmentation&quot;</span>
+<span class="w">    </span><span class="nt">block</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Heap</span><span class="nv"> </span><span class="s">Max</span><span class="nv"> </span><span class="s">Block&quot;</span>
+<span class="w">    </span><span class="nt">loop_time</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Loop</span><span class="nv"> </span><span class="s">Time&quot;</span>
+<span class="w">    </span><span class="nt">psram</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Free</span><span class="nv"> </span><span class="s">PSRAM&quot;</span>
+
+<span class="c1"># Logger must be at least debug (default)</span>
+<span class="nt">logger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">debug</span>
+</pre></div>
+</div>
+<section id="text-sensor">
+<h2>Text Sensor<a class="headerlink" href="#text-sensor" title="Permalink to this heading">¶</a></h2>
+<p>Configuration variables:</p>
+<ul>
+<li><p><strong>device</strong> (<em>Optional</em>): Reports the following device information:</p>
+<ul class="simple">
+<li><p>ESPHome Version</p></li>
+<li><p>Free heap size at startup</p></li>
+<li><p>Flash chip size, speed and mode</p></li>
+<li><p>ESP32:</p>
+<ul>
+<li><p>Chip model, cores, revision</p></li>
+<li><p>Chip features (BLE / BT / WiFi_BGN / EMB_FLASH / EMB_PSRAM / …)</p></li>
+<li><p>ESP-IDF version</p></li>
+<li><p>EFuse MAC</p></li>
+<li><p>Reset reason</p></li>
+<li><p>Wakeup reason</p></li>
+</ul>
+</li>
+<li><p>ESP8266:</p>
+<ul>
+<li><p>Chip id, frequency</p></li>
+<li><p>Flash id</p></li>
+<li><p>SDK, Core &amp; Boot versions</p></li>
+<li><p>Reset reason &amp; information</p></li>
+</ul>
+</li>
+</ul>
+<p>Accepts all options from <a class="reference internal" href="text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p>
+</li>
+<li><p><strong>reset_reason</strong> (<em>Optional</em>): Reports the last reboot reason in a human-readable form. Accepts all options from <a class="reference internal" href="text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="sensor">
+<h2>Sensor<a class="headerlink" href="#sensor" title="Permalink to this heading">¶</a></h2>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>free</strong> (<em>Optional</em>): Reports the free heap size in bytes. All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>fragmentation</strong> (<em>Optional</em>): Reports the fragmentation metric of the heap
+(0% is clean, more than ~50% is not harmless). Only available on ESP8266 with Arduino 2.5.2+.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>block</strong> (<em>Optional</em>): Reports the largest contiguous free RAM block on the heap in bytes. All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>loop_time</strong> (<em>Optional</em>): Reports the longest time between successive iterations of the main loop. All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>psram</strong> (<em>Optional</em>): Reports the free PSRAM in bytes. Only available on ESP32. All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="sensor/index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference internal" href="logger.html"><span class="doc">Logger Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/debug__component_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/debug.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

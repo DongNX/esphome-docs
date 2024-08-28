@@ -1,0 +1,338 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up PMWCS3 capacitive soil moisture sensor in ESPHome.">
+<meta name="keywords" content="PMWCS3">
+<meta itemprop="name" content="PMWCS3 Capacitive Soil Moisture and Temperature Sensor">
+<meta itemprop="description" content="Instructions for setting up PMWCS3 capacitive soil moisture sensor in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/pmwcs3.jpg">
+<meta name="twitter:title" content="PMWCS3 Capacitive Soil Moisture and Temperature Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/pmwcs3.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up PMWCS3 capacitive soil moisture sensor in ESPHome.">
+<meta property="og:title" content="PMWCS3 Capacitive Soil Moisture and Temperature Sensor">
+<meta property="og:image" content="https://esphome.io/_images/pmwcs3.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up PMWCS3 capacitive soil moisture sensor in ESPHome.">
+
+    <title>PMWCS3 Capacitive Soil Moisture and Temperature Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/pmwcs3.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Pulse Counter Sensor" href="pulse_counter.html" />
+    <link rel="prev" title="PMSX003 Particulate Matter Sensor" href="pmsx003.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">PMWCS3 Capacitive Soil Moisture and Temperature Sensor</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#pmwcs3-air-calibration-action"><code class="docutils literal notranslate"><span class="pre">pmwcs3.air_calibration</span></code> Action</a></li>
+<li><a class="reference internal" href="#pmwcs3-water-calibration-action"><code class="docutils literal notranslate"><span class="pre">pmwcs3.water_calibration</span></code> Action</a></li>
+<li><a class="reference internal" href="#pmwcs3-new-i2c-address-action"><code class="docutils literal notranslate"><span class="pre">pmwcs3.new_i2c_address</span></code> Action</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>PMWCS3 Capacitive Soil Moisture and Temperature Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="pmwcs3-capacitive-soil-moisture-and-temperature-sensor">
+<h1>PMWCS3 Capacitive Soil Moisture and Temperature Sensor<a class="headerlink" href="#pmwcs3-capacitive-soil-moisture-and-temperature-sensor" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">pmwcs3</span></code> sensor platform allows you to use your PMWCS3
+(<a class="reference external" href="https://tinovi.com/wp-content/uploads/2020/01/PM-WCS-3-I2C.pdf">informations</a>)
+capacitive soil moisture and temperature sensor with ESPHome. The <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C bus</span></a> is required to be set up in
+your configuration for this sensor to work. Wiring scheme: red is 3.3V, black &amp; shield is GND, green is SDA and white is SCL.
+2.2kOhm resistors are advised to pullup both SDA &amp; SDA lines.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/pmwcs3.jpg"><img alt="../../_images/pmwcs3.jpg" src="../../_images/pmwcs3.jpg" style="width: 80.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">PMWCS3 Capacitive Soil Moisture and Temperature Sensor.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pmwcs3</span>
+<span class="w">    </span><span class="nt">e25</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;pmwcs3</span><span class="nv"> </span><span class="s">e25&quot;</span>
+<span class="w">    </span><span class="nt">ec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;pmwcs3</span><span class="nv"> </span><span class="s">ec&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;pmwcs3</span><span class="nv"> </span><span class="s">temperature&quot;</span>
+<span class="w">    </span><span class="nt">vwc</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;pmwcs3</span><span class="nv"> </span><span class="s">vwc&quot;</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>e25</strong> (<em>Optional</em>): Electrical Conductivity, reference at 25°C in dS/m.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>ec</strong> (<em>Optional</em>): Electrical Conductivity in mS/m.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>temperature</strong> (<em>Optional</em>): Soil temperature in °C.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>vwc</strong> (<em>Optional</em>): Volumetric Water Content in cm3cm−3.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>address</strong> (<em>Optional</em>, int): Manually specify the I²C address of the sensor.
+Defaults to <code class="docutils literal notranslate"><span class="pre">0x63</span></code>.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to check the
+sensor. Defaults to <code class="docutils literal notranslate"><span class="pre">60s</span></code>.</p></li>
+</ul>
+</section>
+<section id="pmwcs3-air-calibration-action">
+<span id="sensor-pmwcs3aircalibrationaction"></span><h2><code class="docutils literal notranslate"><span class="pre">pmwcs3.air_calibration</span></code> Action<a class="headerlink" href="#pmwcs3-air-calibration-action" title="Permalink to this heading">¶</a></h2>
+<p>The pmwcs3 probe can to be calibrated in dry/air conditions.
+The air calibration is a 30s procedure.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pmwcs3</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pmwcs3_id</span>
+<span class="w">    </span><span class="c1"># ...</span>
+
+<span class="c1"># in some trigger</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">sensor.pmwcs3_id.air_calibration</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pmwcs3_id</span>
+</pre></div>
+</div>
+<p>Configuration option:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pmwcs3 sensor.</p></li>
+</ul>
+</section>
+<section id="pmwcs3-water-calibration-action">
+<span id="sensor-pmwcs3watercalibrationaction"></span><h2><code class="docutils literal notranslate"><span class="pre">pmwcs3.water_calibration</span></code> Action<a class="headerlink" href="#pmwcs3-water-calibration-action" title="Permalink to this heading">¶</a></h2>
+<p>The pmwcs3 probe can to be also calibrated in water saturated conditions. Install the probe into a glass of water.
+The water calibration is also a 30s procedure.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pmwcs3</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pmwcs3_id</span>
+<span class="w">    </span><span class="c1"># ...</span>
+
+<span class="c1"># in some trigger</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">sensor.pmwcs3_id.water_calibration</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pmwcs3_id</span>
+</pre></div>
+</div>
+<p>Configuration option:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pmwcs3 sensor.</p></li>
+</ul>
+</section>
+<section id="pmwcs3-new-i2c-address-action">
+<span id="sensor-pmwcs3newi2caddressaction"></span><h2><code class="docutils literal notranslate"><span class="pre">pmwcs3.new_i2c_address</span></code> Action<a class="headerlink" href="#pmwcs3-new-i2c-address-action" title="Permalink to this heading">¶</a></h2>
+<p>A new I2C address can be set (for multi-probes cases for example)</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pmwcs3</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pmwcs3_id</span>
+<span class="w">    </span><span class="c1"># ...</span>
+
+<span class="c1"># in some trigger</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">sensor.pmwcs3_id.new_i2c_address</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pmwcs3_id</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x65</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pmwcs3 sensor.</p></li>
+<li><p><strong>address</strong> (<strong>Required</strong>, int): New I2C address.</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference external" href="/api/pmwcs3_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://www.aqion.de/site/112">Temperature Compensation for Conductivity</a></p></li>
+<li><p><a class="reference external" href="https://github.com/tinovi/i2cArduino">PMWCS3 Library</a> by <a class="reference external" href="https://github.com/tinovi">&#64;tinovi</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/pmwcs3.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

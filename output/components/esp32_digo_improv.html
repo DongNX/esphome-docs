@@ -1,0 +1,572 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Improv via BLE in ESPHome with Digo additional setting.">
+<meta itemprop="name" content="Digo Improv via BLE">
+<meta itemprop="description" content="Instructions for setting up Improv via BLE in ESPHome with Digo additional setting.">
+<meta itemprop="image" content="https://esphome.io/_images/improv-social.png">
+<meta name="twitter:title" content="Digo Improv via BLE">
+<meta name="twitter:image:src" content="https://esphome.io/_images/improv-social.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Improv via BLE in ESPHome with Digo additional setting.">
+<meta property="og:title" content="Digo Improv via BLE">
+<meta property="og:image" content="https://esphome.io/_images/improv-social.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Improv via BLE in ESPHome with Digo additional setting.">
+
+    <title>Digo Improv via BLE &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/esp32_digo_improv.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Improv via BLE" href="esp32_improv.html" />
+    <link rel="prev" title="Digo Control via BLE" href="esp32_digo_ble.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Digo Improv via BLE</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#status-indicator">Status Indicator</a></li>
+<li><a class="reference internal" href="#gatt-services">GATT Services</a><ul>
+<li><a class="reference internal" href="#characteristic-capabilities">Characteristic: Capabilities</a></li>
+<li><a class="reference internal" href="#characteristic-current-state">Characteristic: Current State</a></li>
+<li><a class="reference internal" href="#characteristic-error-state">Characteristic: Error state</a></li>
+<li><a class="reference internal" href="#characteristic-rpc-command">Characteristic: RPC Command</a><ul>
+<li><a class="reference internal" href="#rpc-command-send-wi-fi-settings">RPC Command: Send Wi-Fi settings</a></li>
+<li><a class="reference internal" href="#rpc-command-identify">RPC Command: Identify</a></li>
+<li><a class="reference internal" href="#digo-rpc-command-set-host-settings">DIGO RPC command: Set Host settings</a></li>
+<li><a class="reference internal" href="#digo-rpc-command-set-device-settings">DIGO RPC command: Set Device settings</a></li>
+<li><a class="reference internal" href="#digo-rpc-command-set-token-settings">DIGO RPC command: Set Token settings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>Digo Improv via BLE</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="digo-improv-via-ble">
+<h1>Digo Improv via BLE<a class="headerlink" href="#digo-improv-via-ble" title="Permalink to this heading">¶</a></h1>
+<p>This component was customized by DigoTech. Basically, this component still base on <code class="docutils literal notranslate"><span class="pre">esp32_improv</span></code> component.
+Some additional RPC commands were added to make device could setup to connect to DigoTech cloud.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">esp32_digo_improv</span></code> component in ESPHome implements the open <a class="reference external" href="https://www.improv-wifi.com/">Improv standard</a>
+for configuring Wi-Fi on an ESP32 device by using Bluetooth Low Energy (BLE) to receive the credentials.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">esp32_digo_improv</span></code> component will automatically set up the <a class="reference internal" href="esp32_ble.html"><span class="doc">BLE Server</span></a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The BLE software stack on the ESP32 consumes a significant amount of RAM on the device.</p>
+<p><strong>Crashes are likely to occur</strong> if you include too many additional components in your device’s
+configuration. Memory-intensive components such as <a class="reference internal" href="voice_assistant.html"><span class="doc">Voice Assistant</span></a> and other
+audio components are most likely to cause issues.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+
+<span class="nt">esp32_improv</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">authorizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor_id</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>authorizer</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): A <a class="reference internal" href="binary_sensor/index.html"><span class="doc">binary sensor</span></a> to authorize with.
+Also accepts <code class="docutils literal notranslate"><span class="pre">none</span></code>/<code class="docutils literal notranslate"><span class="pre">false</span></code> to skip authorization.</p></li>
+<li><p><strong>authorized_duration</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The amount of time until authorization times out and needs
+to be re-authorized. Defaults to <code class="docutils literal notranslate"><span class="pre">1min</span></code>.</p></li>
+<li><p><strong>status_indicator</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): An <a class="reference internal" href="output/index.html"><span class="doc">output</span></a> to display feedback to the user.</p></li>
+<li><p><strong>identify_duration</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The amount of time to identify for. Defaults to <code class="docutils literal notranslate"><span class="pre">10s</span></code>.</p></li>
+<li><p><strong>wifi_timeout</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The amount of time to wait before starting the improv service after Wi-Fi
+is no longer connected. Defaults to <code class="docutils literal notranslate"><span class="pre">1min</span></code>.</p></li>
+</ul>
+</section>
+<section id="status-indicator">
+<h2>Status Indicator<a class="headerlink" href="#status-indicator" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">status_indicator</span></code> has the following patterns:</p>
+<ul class="simple">
+<li><p>solid: The improv service is active and waiting to be authorized.</p></li>
+<li><p>blinking once per second: The improv service is awaiting credentials.</p></li>
+<li><p>blinking 3 times per second with a break in between: The identify command has been used by the client.</p></li>
+<li><p>blinking 5 times per second: Credentials are being verified and saved to the device.</p></li>
+<li><p>off: The improv service is not running.</p></li>
+</ul>
+</section>
+<section id="gatt-services">
+<h2>GATT Services<a class="headerlink" href="#gatt-services" title="Permalink to this heading">¶</a></h2>
+<p>Service UUID: <code class="docutils literal notranslate"><span class="pre">00467768-6228-2272-4663-277478268000</span></code></p>
+<section id="characteristic-capabilities">
+<h3>Characteristic: Capabilities<a class="headerlink" href="#characteristic-capabilities" title="Permalink to this heading">¶</a></h3>
+<p>Characteristic UUID: <code class="docutils literal notranslate"><span class="pre">00467768-6228-2272-4663-277478268005</span></code></p>
+<p>This characteristic has binary encoded byte(s) of the device’s capabilities.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Bit (LSB)</p></th>
+<th class="head"><p>Capability</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>1 if the device supports the identify command.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="characteristic-current-state">
+<h3>Characteristic: Current State<a class="headerlink" href="#characteristic-current-state" title="Permalink to this heading">¶</a></h3>
+<p>Characteristic UUID: <code class="docutils literal notranslate"><span class="pre">00467768-6228-2272-4663-277478268001</span></code></p>
+<p>This characteristic will hold the current status of the provisioning service and will write and notify any listening clients for instant feedback.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Value</p></th>
+<th class="head"><p>State</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0x01</p></td>
+<td><p>Authorization Required</p></td>
+<td><p>Awaiting authorization via physical interaction.</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x02</p></td>
+<td><p>Authorized</p></td>
+<td><p>Ready to accept credentials.</p></td>
+</tr>
+<tr class="row-even"><td><p>0x03</p></td>
+<td><p>Provisioning</p></td>
+<td><p>Credentials received, attempt to connect.</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x04</p></td>
+<td><p>Provisioned</p></td>
+<td><p>Connection successful.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="characteristic-error-state">
+<h3>Characteristic: Error state<a class="headerlink" href="#characteristic-error-state" title="Permalink to this heading">¶</a></h3>
+<p>Characteristic UUID: <code class="docutils literal notranslate"><span class="pre">00467768-6228-2272-4663-277478268002</span></code></p>
+<p>This characteristic will hold the current error of the provisioning service and will write and notify any listening clients for instant feedback.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Value</p></th>
+<th class="head"><p>State</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0x00</p></td>
+<td><p>No error</p></td>
+<td><p>This shows there is no current error state.</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x01</p></td>
+<td><p>Invalid RPC packet</p></td>
+<td><p>RPC packet was malformed/invalid.</p></td>
+</tr>
+<tr class="row-even"><td><p>0x02</p></td>
+<td><p>Unknown RPC command</p></td>
+<td><p>The command sent is unknown.</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x03</p></td>
+<td><p>Unable to connect</p></td>
+<td><p>The credentials have been received and an attempt to connect to the network has failed.</p></td>
+</tr>
+<tr class="row-even"><td><p>0x04</p></td>
+<td><p>Not Authorized</p></td>
+<td><p>Credentials were sent via RPC but the Improv service is not authorized.</p></td>
+</tr>
+<tr class="row-odd"><td><p>0xFF</p></td>
+<td><p>Unknown Error</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="characteristic-rpc-command">
+<h3>Characteristic: RPC Command<a class="headerlink" href="#characteristic-rpc-command" title="Permalink to this heading">¶</a></h3>
+<p>Characteristic UUID: <code class="docutils literal notranslate"><span class="pre">00467768-6228-2272-4663-277478268003</span></code></p>
+<p>This characteristic is where the client can write data to call the RPC service.</p>
+<p>Note: if the combined payload is over 20 bytes, it will require multiple BLE packets to transfer the data. Make sure that your code deals with this.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Byte</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Command (see below)</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Data length</p></td>
+</tr>
+<tr class="row-even"><td><p>3…X</p></td>
+<td><p>Data</p></td>
+</tr>
+<tr class="row-odd"><td><p>X + 1</p></td>
+<td><p>Checksum - A simple sum checksum keeping only the LSB</p></td>
+</tr>
+</tbody>
+</table>
+<section id="rpc-command-send-wi-fi-settings">
+<h4>RPC Command: Send Wi-Fi settings<a class="headerlink" href="#rpc-command-send-wi-fi-settings" title="Permalink to this heading">¶</a></h4>
+<p>Submit Wi-Fi credentials to the Improv Service to attempt to connect to.</p>
+<p>Requires the Improv service to be authorized.</p>
+<p>Command ID: <code class="docutils literal notranslate"><span class="pre">0x01</span></code></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Byte</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Command</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Data length</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>SSID length</p></td>
+</tr>
+<tr class="row-odd"><td><p>4…X</p></td>
+<td><p>SSID bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>X + 1</p></td>
+<td><p>Password length</p></td>
+</tr>
+<tr class="row-odd"><td><p>X + 2 … Y</p></td>
+<td><p>Password bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>Y + 1</p></td>
+<td><p>Checksum - A simple sum checksum keeping only the LSB</p></td>
+</tr>
+</tbody>
+</table>
+<p>Example: SSID = MyWirelessAP, Password = mysecurepassword
+<code class="docutils literal notranslate"><span class="pre">01</span> <span class="pre">1E</span> <span class="pre">0C</span> <span class="pre">{MyWirelessAP}</span> <span class="pre">10</span> <span class="pre">{mysecurepassword}</span> <span class="pre">CS</span></code></p>
+</section>
+<section id="rpc-command-identify">
+<h4>RPC Command: Identify<a class="headerlink" href="#rpc-command-identify" title="Permalink to this heading">¶</a></h4>
+<p>What a device actually does when an identify command is received is up to that specific device, but the user should be able to visually or audibly identify the device.</p>
+<p>Command ID: <code class="docutils literal notranslate"><span class="pre">0x02</span></code></p>
+<p>Does not require the Improv service to be authorized.</p>
+<p>Should only be sent if the capability characteristic indicates that identify is supported.</p>
+<p>Payload: <code class="docutils literal notranslate"><span class="pre">02</span> <span class="pre">00</span> <span class="pre">CS</span></code></p>
+</section>
+<section id="digo-rpc-command-set-host-settings">
+<h4>DIGO RPC command: Set Host settings<a class="headerlink" href="#digo-rpc-command-set-host-settings" title="Permalink to this heading">¶</a></h4>
+<p>Command ID: <code class="docutils literal notranslate"><span class="pre">0xC8</span></code></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Byte</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Command</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Data length</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Host length</p></td>
+</tr>
+<tr class="row-odd"><td><p>4…X</p></td>
+<td><p>Host bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>X + 1</p></td>
+<td><p>Port length</p></td>
+</tr>
+<tr class="row-odd"><td><p>X + 2 … Y</p></td>
+<td><p>Port bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>Y + 1</p></td>
+<td><p>Host_http length</p></td>
+</tr>
+<tr class="row-odd"><td><p>Y + 2 … Z</p></td>
+<td><p>Host_http bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>Z + 1</p></td>
+<td><p>Port_http length</p></td>
+</tr>
+<tr class="row-odd"><td><p>Z + 2 … G</p></td>
+<td><p>Port_http bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>G + 1</p></td>
+<td><p>SSL length</p></td>
+</tr>
+<tr class="row-odd"><td><p>H + 2 … I</p></td>
+<td><p>SSL bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>I + 1</p></td>
+<td><p>Checksum - A simple sum checksum keeping only the LSB</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="digo-rpc-command-set-device-settings">
+<h4>DIGO RPC command: Set Device settings<a class="headerlink" href="#digo-rpc-command-set-device-settings" title="Permalink to this heading">¶</a></h4>
+<p>Command ID: <code class="docutils literal notranslate"><span class="pre">0xC9</span></code></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Byte</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Command</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Data length</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Device_profile_id length</p></td>
+</tr>
+<tr class="row-odd"><td><p>4…X</p></td>
+<td><p>Device_profile_id bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>X + 1</p></td>
+<td><p>Device_id length</p></td>
+</tr>
+<tr class="row-odd"><td><p>X + 2 … Y</p></td>
+<td><p>Device_id bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>Y + 1</p></td>
+<td><p>Box_id length</p></td>
+</tr>
+<tr class="row-odd"><td><p>Y + 2 … Z</p></td>
+<td><p>Box_id bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>Z + 1</p></td>
+<td><p>Tenant_id length</p></td>
+</tr>
+<tr class="row-odd"><td><p>Z + 2 … G</p></td>
+<td><p>Tenant_id bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>G + 1</p></td>
+<td><p>Device_owner length</p></td>
+</tr>
+<tr class="row-odd"><td><p>G + 2 … I</p></td>
+<td><p>Device_owner bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>I + 1</p></td>
+<td><p>Checksum - A simple sum checksum keeping only the LSB</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="digo-rpc-command-set-token-settings">
+<h4>DIGO RPC command: Set Token settings<a class="headerlink" href="#digo-rpc-command-set-token-settings" title="Permalink to this heading">¶</a></h4>
+<p>Command ID: <code class="docutils literal notranslate"><span class="pre">0xCA</span></code></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Byte</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Command</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Data length</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Token length</p></td>
+</tr>
+<tr class="row-odd"><td><p>4…X</p></td>
+<td><p>Token bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>X + 1</p></td>
+<td><p>Checksum - A simple sum checksum keeping only the LSB</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

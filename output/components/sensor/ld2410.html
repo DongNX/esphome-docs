@@ -1,0 +1,972 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up LD2410 sensors.">
+<meta itemprop="name" content="LD2410 Sensor">
+<meta itemprop="description" content="Instructions for setting up LD2410 sensors.">
+<meta itemprop="image" content="https://esphome.io/_images/ld2410.jpg">
+<meta name="twitter:title" content="LD2410 Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/ld2410.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up LD2410 sensors.">
+<meta property="og:title" content="LD2410 Sensor">
+<meta property="og:image" content="https://esphome.io/_images/ld2410.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up LD2410 sensors.">
+
+    <title>LD2410 Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/ld2410.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="LD2420 24Ghz mmWave Radar Sensor" href="ld2420.html" />
+    <link rel="prev" title="Kuntze pool monitor" href="kuntze.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">LD2410 Sensor</a><ul>
+<li><a class="reference internal" href="#component-hub">Component/Hub</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#binary-sensor">Binary Sensor</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sensor">Sensor</a><ul>
+<li><a class="reference internal" href="#ld2410-sensors">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#switch">Switch</a><ul>
+<li><a class="reference internal" href="#ld2410-engineering-mode">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#number">Number</a><ul>
+<li><a class="reference internal" href="#ld2410-light-threshold">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#button">Button</a><ul>
+<li><a class="reference internal" href="#id5">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#text-sensor">Text Sensor</a><ul>
+<li><a class="reference internal" href="#id6">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#select">Select</a><ul>
+<li><a class="reference internal" href="#ld2410-light-function">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#automations">Automations</a><ul>
+<li><a class="reference internal" href="#bluetooth-password-set-action"><code class="docutils literal notranslate"><span class="pre">bluetooth_password.set</span></code> Action</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#out-pin">OUT pin</a></li>
+<li><a class="reference internal" href="#calibration-process">Calibration Process</a><ul>
+<li><a class="reference internal" href="#home-assistant-card">Home Assistant Card</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>LD2410 Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="ld2410-sensor">
+<h1>LD2410 Sensor<a class="headerlink" href="#ld2410-sensor" title="Permalink to this heading">¶</a></h1>
+<section id="component-hub">
+<h2>Component/Hub<a class="headerlink" href="#component-hub" title="Permalink to this heading">¶</a></h2>
+<p id="ld2410-component">The <code class="docutils literal notranslate"><span class="pre">ld2410</span></code> sensor platform allows you to use HI-LINK LD2410 motion and presence sensor
+(<a class="reference external" href="https://drive.google.com/drive/folders/1p4dhbEJA3YubyIjIIC7wwVsSo8x29Fq-?spm=a2g0o.detail.1000023.17.93465697yFwVxH">datasheet and user manual</a>) with ESPHome.</p>
+<p>The <a class="reference internal" href="../uart.html#uart"><span class="std std-ref">UART</span></a> is required to be set up in your configuration for this sensor to work, <code class="docutils literal notranslate"><span class="pre">parity</span></code> and <code class="docutils literal notranslate"><span class="pre">stop_bits</span></code> <strong>must be</strong> respectively <code class="docutils literal notranslate"><span class="pre">NONE</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code>.
+Use of hardware UART pins is highly recommended, in order to support the out-of-the-box 256000 baud rate of the LD2410 sensor.</p>
+<figure class="align-center" id="id8">
+<a class="reference internal image-reference" href="../../_images/ld2410.jpg"><img alt="../../_images/ld2410.jpg" src="../../_images/ld2410.jpg" style="width: 50.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">LD2410 motion and presence sensor</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">ld2410</span><span class="p">:</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>uart_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the <a class="reference internal" href="../uart.html#uart"><span class="std std-ref">UART Component</span></a> if you want
+to use multiple UART buses.</p></li>
+<li><p><strong>throttle</strong> (<em>Optional</em>, int): Time in milliseconds to control the rate of data updates. Defaults to <code class="docutils literal notranslate"><span class="pre">1000ms</span></code>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID for this <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a> component if you need multiple components.</p></li>
+</ul>
+</section>
+</section>
+<section id="binary-sensor">
+<h2>Binary Sensor<a class="headerlink" href="#binary-sensor" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ld2410</span></code> binary sensor allows you to use your <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a> to perform different
+measurements.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2410</span>
+<span class="w">    </span><span class="nt">has_target</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Presence</span>
+<span class="w">    </span><span class="nt">has_moving_target</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Moving Target</span>
+<span class="w">    </span><span class="nt">has_still_target</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Still Target</span>
+<span class="w">    </span><span class="nt">out_pin_presence_status</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">out pin presence status</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>has_target</strong> (<em>Optional</em>): If true target detect either still or in movement.
+All options from <a class="reference internal" href="../binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+<li><p><strong>has_moving_target</strong> (<em>Optional</em>): If true a moving target is detected.
+All options from <a class="reference internal" href="../binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+<li><p><strong>has_still_target</strong> (<em>Optional</em>): If true a still target is detected.
+All options from <a class="reference internal" href="../binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+<li><p><strong>out_pin_presence_status</strong> (<em>Optional</em>): When in <a class="reference internal" href="#ld2410-engineering-mode"><span class="std std-ref">engineering mode</span></a>, indicates whether the OUT pin indicates presence or not, otherwise <code class="docutils literal notranslate"><span class="pre">false</span></code>.
+OUT pin indication depends on the <a class="reference internal" href="#ld2410-light-function"><span class="std std-ref">light function</span></a> configuration. Might need latest firmware to work.
+All options from <a class="reference internal" href="../binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+<li><p><strong>ld2410_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID for the <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a> component if you are using multiple components.</p></li>
+</ul>
+</section>
+</section>
+<section id="sensor">
+<h2>Sensor<a class="headerlink" href="#sensor" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ld2410</span></code> sensor allows you to use your <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a> to perform different
+measurements.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2410</span>
+<span class="w">    </span><span class="nt">light</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">light</span>
+<span class="w">    </span><span class="nt">moving_distance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Moving Distance</span>
+<span class="w">    </span><span class="nt">still_distance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Still Distance</span>
+<span class="w">    </span><span class="nt">moving_energy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Move Energy</span>
+<span class="w">    </span><span class="nt">still_energy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Still Energy</span>
+<span class="w">    </span><span class="nt">detection_distance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Detection Distance</span>
+<span class="w">    </span><span class="nt">g0</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g0 move energy</span>
+<span class="w">      </span><span class="nt">still_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g0 still energy</span>
+<span class="w">    </span><span class="nt">g1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g1 move energy</span>
+<span class="w">      </span><span class="nt">still_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g1 still energy</span>
+<span class="w">    </span><span class="nt">g2</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g2 move energy</span>
+<span class="w">      </span><span class="nt">still_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g2 still energy</span>
+<span class="w">    </span><span class="nt">g3</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g3 move energy</span>
+<span class="w">      </span><span class="nt">still_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g3 still energy</span>
+<span class="w">    </span><span class="nt">g4</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g4 move energy</span>
+<span class="w">      </span><span class="nt">still_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g4 still energy</span>
+<span class="w">    </span><span class="nt">g5</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g5 move energy</span>
+<span class="w">      </span><span class="nt">still_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g5 still energy</span>
+<span class="w">    </span><span class="nt">g6</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g6 move energy</span>
+<span class="w">      </span><span class="nt">still_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g6 still energy</span>
+<span class="w">    </span><span class="nt">g7</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g7 move energy</span>
+<span class="w">      </span><span class="nt">still_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g7 still energy</span>
+<span class="w">    </span><span class="nt">g8</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g8 move energy</span>
+<span class="w">      </span><span class="nt">still_energy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g8 still energy</span>
+</pre></div>
+</div>
+<section id="ld2410-sensors">
+<span id="id2"></span><h3>Configuration variables:<a class="headerlink" href="#ld2410-sensors" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><p><strong>light</strong> (<em>Optional</em>, int): When in <a class="reference internal" href="#ld2410-engineering-mode"><span class="std std-ref">engineering mode</span></a>, indicates the light sensitivity, otherwise <code class="docutils literal notranslate"><span class="pre">unknown</span></code>.
+Value between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">255</span></code> inclusive. Though it seems that the value <code class="docutils literal notranslate"><span class="pre">85</span></code> is the lowest value at complete darkness.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>moving_distance</strong> (<em>Optional</em>, int): Distance in cm of detected moving target.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>still_distance</strong> (<em>Optional</em>, int): Distance in cm of detected still target.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>moving_energy</strong> (<em>Optional</em>, int): Energy for moving target.
+Value between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">100</span></code> inclusive.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>still_energy</strong> (<em>Optional</em>, int): Energy for still target.
+Value between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">100</span></code> inclusive.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>detection_distance</strong> (<em>Optional</em>, int): Distance in cm of target.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>gX</strong> (<em>Optional</em>): Energies for the Xth gate (X =&gt; 0 to 8).</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>move_energy</strong> (<em>Optional</em>, int): When in <a class="reference internal" href="#ld2410-engineering-mode"><span class="std std-ref">engineering mode</span></a>, the move energy of the gate, otherwise <code class="docutils literal notranslate"><span class="pre">unknown</span></code>.
+Value between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">100</span></code> inclusive.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>still_energy</strong> (<em>Optional</em>, int): When in <a class="reference internal" href="#ld2410-engineering-mode"><span class="std std-ref">engineering mode</span></a>, the still energy of the gate, otherwise <code class="docutils literal notranslate"><span class="pre">unknown</span></code>.
+Value between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">100</span></code> inclusive.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>ld2410_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID for the <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a> component if you are using multiple components.</p></li>
+</ul>
+</section>
+</section>
+<section id="switch">
+<h2>Switch<a class="headerlink" href="#switch" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ld2410</span></code> switch allows you to control your <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2410</span>
+<span class="w">    </span><span class="nt">engineering_mode</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;engineering</span><span class="nv"> </span><span class="s">mode&quot;</span>
+<span class="w">    </span><span class="nt">bluetooth</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;control</span><span class="nv"> </span><span class="s">bluetooth&quot;</span>
+</pre></div>
+</div>
+<section id="ld2410-engineering-mode">
+<span id="id3"></span><h3>Configuration variables:<a class="headerlink" href="#ld2410-engineering-mode" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>engineering_mode</strong> (<em>Optional</em>): enable/disable engineering mode. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.
+Notice this requires more resources and is not recommended to be enabled when not necessary.
+All options from <a class="reference internal" href="../switch/index.html#config-switch"><span class="std std-ref">Switch</span></a>.</p></li>
+<li><p><strong>bluetooth</strong> (<em>Optional</em>): Turn on/off the bluetooth adapter. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.
+All options from <a class="reference internal" href="../switch/index.html#config-switch"><span class="std std-ref">Switch</span></a>.</p></li>
+<li><p><strong>ld2410_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID for the <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a> component if you are using multiple components.</p></li>
+</ul>
+</section>
+</section>
+<section id="number">
+<span id="ld2410-number"></span><h2>Number<a class="headerlink" href="#number" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ld2410</span></code> number allows you to control the configuration of your <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">number</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2410</span>
+<span class="w">    </span><span class="nt">timeout</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeout</span>
+<span class="w">    </span><span class="nt">light_threshold</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">light threshold</span>
+<span class="w">    </span><span class="nt">max_move_distance_gate</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max move distance gate</span>
+<span class="w">    </span><span class="nt">max_still_distance_gate</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max still distance gate</span>
+<span class="w">    </span><span class="nt">g0</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g0 move threshold</span>
+<span class="w">      </span><span class="nt">still_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g0 still threshold</span>
+<span class="w">    </span><span class="nt">g1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g1 move threshold</span>
+<span class="w">      </span><span class="nt">still_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g1 still threshold</span>
+<span class="w">    </span><span class="nt">g2</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g2 move threshold</span>
+<span class="w">      </span><span class="nt">still_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g2 still threshold</span>
+<span class="w">    </span><span class="nt">g3</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g3 move threshold</span>
+<span class="w">      </span><span class="nt">still_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g3 still threshold</span>
+<span class="w">    </span><span class="nt">g4</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g4 move threshold</span>
+<span class="w">      </span><span class="nt">still_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g4 still threshold</span>
+<span class="w">    </span><span class="nt">g5</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g5 move threshold</span>
+<span class="w">      </span><span class="nt">still_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g5 still threshold</span>
+<span class="w">    </span><span class="nt">g6</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g6 move threshold</span>
+<span class="w">      </span><span class="nt">still_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g6 still threshold</span>
+<span class="w">    </span><span class="nt">g7</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g7 move threshold</span>
+<span class="w">      </span><span class="nt">still_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g7 still threshold</span>
+<span class="w">    </span><span class="nt">g8</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g8 move threshold</span>
+<span class="w">      </span><span class="nt">still_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g8 still threshold</span>
+</pre></div>
+</div>
+<section id="ld2410-light-threshold">
+<span id="id4"></span><h3>Configuration variables:<a class="headerlink" href="#ld2410-light-threshold" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><p><strong>timeout</strong> (<em>Optional</em>, int): Time in seconds during which presence state will stay present
+after leaving. Defaults to <code class="docutils literal notranslate"><span class="pre">5s</span></code>
+All options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+<li><p><strong>light_threshold</strong> (<em>Optional</em>, int): Sets the light threshold for the <a class="reference internal" href="#ld2410-light-function"><span class="std std-ref">light function</span></a>.
+Value between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">255</span></code> inclusive. Defaults to <code class="docutils literal notranslate"><span class="pre">128</span></code>.
+All options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+<li><p><strong>max_move_distance_gate</strong> (<em>Optional</em>, int): Maximum distance gate for movement detection.
+Value between <code class="docutils literal notranslate"><span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">8</span></code> inclusive. Defaults to <code class="docutils literal notranslate"><span class="pre">8</span></code>.
+All options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+<li><p><strong>max_still_distance_gate</strong> (<em>Optional</em>, int): Maximum distance gate for still detection.
+Value between <code class="docutils literal notranslate"><span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">8</span></code> inclusive. Defaults to <code class="docutils literal notranslate"><span class="pre">8</span></code>.
+All options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+<li><p><strong>gX</strong> (<em>Optional</em>): Thresholds for the Xth gate (X =&gt; 0 to 8).</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>move_threshold</strong> (<strong>Required</strong>, int): Threshold for the gate for motion detection.
+Above this level for the considered gate (distance), movement detection will be triggered.
+Value between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">100</span></code> inclusive. See default values below.
+All options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+<li><p><strong>still_threshold</strong> (<strong>Required</strong>, int): Threshold for the gate for still detection.
+Above this level for the considered gate (distance), still detection will be triggered.
+Value between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">100</span></code> inclusive. See default values below.
+All options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>ld2410_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID for the <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a> component if you are using multiple components.</p></li>
+</ul>
+<table class="docutils align-default" id="id9">
+<caption><span class="caption-text">Default values for gate threshold</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Gate</p></th>
+<th class="head"><p>Default Move threshold</p></th>
+<th class="head"><p>Default Still threshold</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>50</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>50</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>40</p></td>
+<td><p>40</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>30</p></td>
+<td><p>40</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>20</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>15</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>15</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>15</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>15</p></td>
+<td><p>20</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="button">
+<h2>Button<a class="headerlink" href="#button" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ld2410</span></code> button allows you to perform actions on your <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">button</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2410</span>
+<span class="w">    </span><span class="nt">factory_reset</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;factory</span><span class="nv"> </span><span class="s">reset&quot;</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;restart&quot;</span>
+<span class="w">    </span><span class="nt">query_params</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">query params</span>
+</pre></div>
+</div>
+<section id="id5">
+<h3>Configuration variables:<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>factory_reset</strong> (<em>Optional</em>): This command is used to restore all configuration values to their original values.
+All options from <a class="reference internal" href="../button/index.html#config-button"><span class="std std-ref">Button</span></a>.</p></li>
+<li><p><strong>restart</strong> (<em>Optional</em>): Restart the device.
+All options from <a class="reference internal" href="../button/index.html#config-button"><span class="std std-ref">Button</span></a>.</p></li>
+<li><p><strong>query_params</strong> (<em>Optional</em>): Refresh all sensors values of the device.
+All options from <a class="reference internal" href="../button/index.html#config-button"><span class="std std-ref">Button</span></a>.</p></li>
+<li><p><strong>ld2410_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID for the <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a> component if you are using multiple components.</p></li>
+</ul>
+</section>
+</section>
+<section id="text-sensor">
+<h2>Text Sensor<a class="headerlink" href="#text-sensor" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ld2410</span></code> text sensor allows you to get information about your <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">text_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2410</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;firmware</span><span class="nv"> </span><span class="s">version&quot;</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mac</span><span class="nv"> </span><span class="s">address&quot;</span>
+</pre></div>
+</div>
+<section id="id6">
+<h3>Configuration variables:<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>version</strong> (<em>Optional</em>): The firmware version.
+All options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+<li><p><strong>mac_address</strong> (<em>Optional</em>): The bluetooth mac address. Will be set to <code class="docutils literal notranslate"><span class="pre">unknown</span></code> when bluetooth is off.
+All options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+<li><p><strong>ld2410_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID for the <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a> component if you are using multiple components.</p></li>
+</ul>
+</section>
+</section>
+<section id="select">
+<h2>Select<a class="headerlink" href="#select" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ld2410</span></code> select allows you to control your <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">select</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2410</span>
+<span class="w">    </span><span class="nt">distance_resolution</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;distance</span><span class="nv"> </span><span class="s">resolution&quot;</span>
+<span class="w">    </span><span class="nt">baud_rate</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;baud</span><span class="nv"> </span><span class="s">rate&quot;</span>
+<span class="w">    </span><span class="nt">light_function</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">light function</span>
+<span class="w">    </span><span class="nt">out_pin_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">out pin level</span>
+</pre></div>
+</div>
+<section id="ld2410-light-function">
+<span id="id7"></span><h3>Configuration variables:<a class="headerlink" href="#ld2410-light-function" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>distance_resolution</strong> (<em>Optional</em>): Control the gates distance resolution. Can be <code class="docutils literal notranslate"><span class="pre">0.75m</span></code> or <code class="docutils literal notranslate"><span class="pre">0.2m</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">0.75m</span></code>.
+All options from <a class="reference internal" href="../select/index.html#config-select"><span class="std std-ref">Select</span></a>.</p></li>
+<li><p><strong>baud_rate</strong> (<em>Optional</em>): Control the serial port baud rate. Defaults to <code class="docutils literal notranslate"><span class="pre">256000</span></code>.
+Once changed, all sensors will stop working until a fresh install with an updated <a class="reference internal" href="../uart.html#uart"><span class="std std-ref">UART Component</span></a> configuration.
+All options from <a class="reference internal" href="../select/index.html#config-select"><span class="std std-ref">Select</span></a>.</p></li>
+<li><p><strong>light_function</strong> (<em>Optional</em>): If set, will affect the OUT pin value, based on <a class="reference internal" href="#ld2410-light-threshold"><span class="std std-ref">light threshold</span></a>. Can be <code class="docutils literal notranslate"><span class="pre">off</span></code>, <code class="docutils literal notranslate"><span class="pre">low</span></code> or <code class="docutils literal notranslate"><span class="pre">above</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">off</span></code>.
+All options from <a class="reference internal" href="../select/index.html#config-select"><span class="std std-ref">Select</span></a>.</p></li>
+<li><p><strong>out_pin_level</strong> (<em>Optional</em>): Control OUT pin <code class="docutils literal notranslate"><span class="pre">away</span></code> value. Can be <code class="docutils literal notranslate"><span class="pre">low</span></code> or <code class="docutils literal notranslate"><span class="pre">high</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">low</span></code>.
+All options from <a class="reference internal" href="../select/index.html#config-select"><span class="std std-ref">Select</span></a>.</p></li>
+<li><p><strong>ld2410_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID for the <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a> component if you are using multiple components.</p></li>
+</ul>
+</section>
+</section>
+<section id="automations">
+<h2>Automations<a class="headerlink" href="#automations" title="Permalink to this heading">¶</a></h2>
+<section id="bluetooth-password-set-action">
+<h3><code class="docutils literal notranslate"><span class="pre">bluetooth_password.set</span></code> Action<a class="headerlink" href="#bluetooth-password-set-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> for setting the bluetooth password.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bluetooth_password.set</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ld2410</span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HiLink&quot;</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the <a class="reference internal" href="#"><span class="doc">LD2410 Sensor</span></a> component to set.</p></li>
+<li><p><strong>password</strong> (<strong>Required</strong>, string, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>):
+The password to set. Case sensitive. Must be exactly 6 characters long. Default password is <code class="docutils literal notranslate"><span class="pre">HiLink</span></code>.</p></li>
+</ul>
+<p>To change the password from HA you can use the following example config:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ld2410</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ld2410</span>
+
+<span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">services</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">set_ld2410_bluetooth_password</span>
+<span class="w">      </span><span class="nt">variables</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bluetooth_password.set</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ld2410</span>
+<span class="w">            </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">password;&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="out-pin">
+<h2>OUT pin<a class="headerlink" href="#out-pin" title="Permalink to this heading">¶</a></h2>
+<p>In order to monitor the presence indicated by the component, with the <a class="reference internal" href="#ld2410-light-function"><span class="std std-ref">light function</span></a> taken
+under account, you can set up a <a class="reference internal" href="../binary_sensor/gpio.html#gpio-binary-sensor"><span class="std std-ref">GPIO Binary Sensor</span></a>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio out pin presence</span>
+<span class="w">    </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">presence</span>
+</pre></div>
+</div>
+</section>
+<section id="calibration-process">
+<h2>Calibration Process<a class="headerlink" href="#calibration-process" title="Permalink to this heading">¶</a></h2>
+<p>In order to calibrate your <code class="docutils literal notranslate"><span class="pre">ld2410</span></code> sensor perform the following:</p>
+<ol class="arabic simple">
+<li><p>Enable <a class="reference internal" href="#ld2410-engineering-mode"><span class="std std-ref">engineering mode</span></a>.</p></li>
+<li><p>Monitor the <code class="docutils literal notranslate"><span class="pre">gX_move_energy</span></code> and <code class="docutils literal notranslate"><span class="pre">gX_still_energy</span></code> <a class="reference internal" href="#ld2410-sensors"><span class="std std-ref">sensors</span></a>.</p></li>
+<li><p>Change the <a class="reference internal" href="#ld2410-number"><span class="std std-ref">thresholds</span></a> and repeat step 2 until satisfaction.</p></li>
+<li><p>Disable <a class="reference internal" href="#ld2410-engineering-mode"><span class="std std-ref">engineering mode</span></a>.</p></li>
+</ol>
+<section id="home-assistant-card">
+<h3>Home Assistant Card<a class="headerlink" href="#home-assistant-card" title="Permalink to this heading">¶</a></h3>
+<p>For easy calibration process, you can use the following custom manual card.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vertical-stack</span>
+<span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;DEVICE&#39;</span>
+<span class="nt">cards</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">    </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entities</span>
+<span class="w">        </span><span class="nt">entities</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;switch.DEVICE_engineering_mode&#39;</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering mode</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vertical-stack</span>
+<span class="w">    </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entities</span>
+<span class="w">        </span><span class="nt">entities</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_timeout&#39;</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeout</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_max_move_distance_gate&#39;</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max move distance gate</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_max_still_distance_gate&#39;</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max still distance gate</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;select.DEVICE_light_function&#39;</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">light function</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_light_threshold&#39;</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">light threshold</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">        </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">            </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_detection_distance&#39;</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">distance</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">            </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_moving_distance&#39;</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">move</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">            </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_still_distance&#39;</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">still</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">    </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">        </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_move_energy&#39;</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">move energy</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">        </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_still_energy&#39;</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">still energy</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">    </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">        </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;binary_sensor.DEVICE_gpio_out_pin_presence&#39;</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio presence</span>
+<span class="w">        </span><span class="nt">state_color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">        </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;binary_sensor.DEVICE_presence&#39;</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">presence</span>
+<span class="w">        </span><span class="nt">state_color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">        </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;binary_sensor.DEVICE_moving_target&#39;</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">movement</span>
+<span class="w">        </span><span class="nt">state_color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">        </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;binary_sensor.DEVICE_still_target&#39;</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">still</span>
+<span class="w">        </span><span class="nt">state_color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conditional</span>
+<span class="w">    </span><span class="nt">conditions</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;switch.DEVICE_engineering_mode&#39;</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;on&#39;</span>
+<span class="w">    </span><span class="nt">card</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vertical-stack</span>
+<span class="w">      </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">          </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_light&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">light</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;binary_sensor.DEVICE_out_pin_presence_status&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">out pin presence</span>
+<span class="w">              </span><span class="nt">state_color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">          </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g0_move_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;g0&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g0_move_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g0_still_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g0_still_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">          </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g1_move_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;g1&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g1_move_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g1_still_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g1_still_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">          </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g2_move_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;g2&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g2_move_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g2_still_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g2_still_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">          </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g3_move_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;g3&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g3_move_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g3_still_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g3_still_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">          </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g4_move_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;g4&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g4_move_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g4_still_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g4_still_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">          </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g5_move_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;g5&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g5_move_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g5_still_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g5_still_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">          </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g6_move_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;g6&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g6_move_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g6_still_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g6_still_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">          </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g7_move_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;g7&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g7_move_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g7_still_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g7_still_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizontal-stack</span>
+<span class="w">          </span><span class="nt">cards</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g8_move_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;g8&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g8_move_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;sensor.DEVICE_g8_still_energy&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">entity</span>
+<span class="w">              </span><span class="nt">entity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;number.DEVICE_g8_still_threshold&#39;</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+<span class="w">              </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;</span><span class="nv"> </span><span class="s">&#39;</span>
+</pre></div>
+</div>
+<p>Then replace all instances of <code class="docutils literal notranslate"><span class="pre">DEVICE</span></code> with your device name</p>
+<p>The result:</p>
+<figure class="align-center">
+<img alt="../../_images/ld2410-card.png" src="../../_images/ld2410-card.png" />
+</figure>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://drive.google.com/drive/folders/1p4dhbEJA3YubyIjIIC7wwVsSo8x29Fq-">Official Datasheet and user manuals</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rain931215/ESPHome-LD2410">Source of inspiration for implementation</a></p></li>
+<li><p><a class="reference external" href="/api/ld2410_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/ld2410.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

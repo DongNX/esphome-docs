@@ -1,0 +1,275 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up ST7920 LCD display drivers.">
+<meta itemprop="name" content="ST7920 LCD Graphic Display">
+<meta itemprop="description" content="Instructions for setting up ST7920 LCD display drivers.">
+<meta itemprop="image" content="https://esphome.io/_images/st7920.jpg">
+<meta name="twitter:title" content="ST7920 LCD Graphic Display">
+<meta name="twitter:image:src" content="https://esphome.io/_images/st7920.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up ST7920 LCD display drivers.">
+<meta property="og:title" content="ST7920 LCD Graphic Display">
+<meta property="og:image" content="https://esphome.io/_images/st7920.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up ST7920 LCD display drivers.">
+
+    <title>ST7920 LCD Graphic Display &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/display/st7920.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="TM1621 LCD Display" href="tm1621.html" />
+    <link rel="prev" title="ST7789V TFT LCD" href="st7789v.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ST7920 LCD Graphic Display</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Display Component</a> ➔</li>
+      <li>ST7920 LCD Graphic Display</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="st7920-lcd-graphic-display">
+<h1>ST7920 LCD Graphic Display<a class="headerlink" href="#st7920-lcd-graphic-display" title="Permalink to this heading">¶</a></h1>
+<section id="usage">
+<span id="st7920"></span><h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">st7920</span></code> display platform allows you to use
+ST7920 (<a class="reference external" href="http://www.elecrow.com/download/SPE_IM120424014_EONE_12864_Graphic_LCD.pdf">datasheet</a>,
+<a class="reference external" href="https://www.elecrow.com/128x64-graphic-lcd-p-1143.html">electrodragon</a>)
+displays with ESPHome. Note that this component is for displays that are connected via the 3-Wire <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI bus</span></a>.
+It’s a monochrome LCD graphic display.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/st7920-full.jpg"><img alt="../../_images/st7920-full.jpg" src="../../_images/st7920-full.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">ST7920 LCD Graphic Display</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Connect D5 to the E pin you chose for the <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI bus</span></a>, connect D7 to the R/W pin and <code class="docutils literal notranslate"><span class="pre">RS</span></code> to some GPIO pins on the ESP.
+For SPI communication it’s important to connect PSB on the LCD to GND.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">spi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">clk_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D5</span>
+<span class="w">  </span><span class="nt">mosi_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D7</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">st7920</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.print(0, 0, id(font), &quot;Hello World!&quot;);</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>cs_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): Sometimes also called <code class="docutils literal notranslate"><span class="pre">RS</span></code>. For ST7920 should be inverted.</p></li>
+<li><p><strong>width</strong> (<strong>Required</strong>, int): The “width” of a screen. Defaults to 128.</p></li>
+<li><p><strong>height</strong> (<strong>Required</strong>, int): The “height” of a screen. Defaults to 64;</p></li>
+<li><p><strong>rotation</strong> (<em>Optional</em>): Set the rotation of the display. Everything you draw in <code class="docutils literal notranslate"><span class="pre">lambda:</span></code> will be rotated
+by this option. One of <code class="docutils literal notranslate"><span class="pre">0°</span></code> (default), <code class="docutils literal notranslate"><span class="pre">90°</span></code>, <code class="docutils literal notranslate"><span class="pre">180°</span></code>, <code class="docutils literal notranslate"><span class="pre">270°</span></code>.</p></li>
+<li><p><strong>lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>): The lambda to use for rendering the content on the display.
+See <a class="reference internal" href="index.html#display-engine"><span class="std std-ref">Display Rendering Engine</span></a> for more information.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to re-draw the screen. Defaults to <code class="docutils literal notranslate"><span class="pre">60s</span></code>.</p></li>
+<li><p><strong>pages</strong> (<em>Optional</em>, list): Show pages instead of a single lambda. See <a class="reference internal" href="index.html#display-pages"><span class="std std-ref">Display Pages</span></a>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+</ul>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Display Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/st7920_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/display/st7920.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

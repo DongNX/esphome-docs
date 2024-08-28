@@ -1,0 +1,718 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Grow Fingerprint Reader component in ESPHome.">
+<meta itemprop="name" content="Grow Fingerprint Reader">
+<meta itemprop="description" content="Instructions for setting up Grow Fingerprint Reader component in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/fingerprint.png">
+<meta name="twitter:title" content="Grow Fingerprint Reader">
+<meta name="twitter:image:src" content="https://esphome.io/_images/fingerprint.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Grow Fingerprint Reader component in ESPHome.">
+<meta property="og:title" content="Grow Fingerprint Reader">
+<meta property="og:image" content="https://esphome.io/_images/fingerprint.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Grow Fingerprint Reader component in ESPHome.">
+
+    <title>Grow Fingerprint Reader &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/fingerprint_grow.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="GPS Component" href="gps.html" />
+    <link rel="prev" title="Atlas Scientific Peristaltic Pump" href="ezo_pmp.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Grow Fingerprint Reader</a><ul>
+<li><a class="reference internal" href="#component-hub">Component/Hub</a></li>
+<li><a class="reference internal" href="#binary-sensor">Binary Sensor</a></li>
+<li><a class="reference internal" href="#sensor">Sensor</a></li>
+<li><a class="reference internal" href="#sleep-mode">Sleep Mode</a></li>
+<li><a class="reference internal" href="#setting-a-new-password">Setting a New Password</a></li>
+<li><a class="reference internal" href="#on-finger-scan-start-trigger"><code class="docutils literal notranslate"><span class="pre">on_finger_scan_start</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-finger-scan-invalid-trigger"><code class="docutils literal notranslate"><span class="pre">on_finger_scan_invalid</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-finger-scan-matched-trigger"><code class="docutils literal notranslate"><span class="pre">on_finger_scan_matched</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-finger-scan-unmatched-trigger"><code class="docutils literal notranslate"><span class="pre">on_finger_scan_unmatched</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-finger-scan-misplaced-trigger"><code class="docutils literal notranslate"><span class="pre">on_finger_scan_misplaced</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-enrollment-scan-trigger"><code class="docutils literal notranslate"><span class="pre">on_enrollment_scan</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-enrollment-done-trigger"><code class="docutils literal notranslate"><span class="pre">on_enrollment_done</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-enrollment-failed-trigger"><code class="docutils literal notranslate"><span class="pre">on_enrollment_failed</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#fingerprint-grow-enroll-action"><code class="docutils literal notranslate"><span class="pre">fingerprint_grow.enroll</span></code> Action</a></li>
+<li><a class="reference internal" href="#fingerprint-grow-cancel-enroll-action"><code class="docutils literal notranslate"><span class="pre">fingerprint_grow.cancel_enroll</span></code> Action</a></li>
+<li><a class="reference internal" href="#fingerprint-grow-delete-action"><code class="docutils literal notranslate"><span class="pre">fingerprint_grow.delete</span></code> Action</a></li>
+<li><a class="reference internal" href="#fingerprint-grow-delete-all-action"><code class="docutils literal notranslate"><span class="pre">fingerprint_grow.delete_all</span></code> Action</a></li>
+<li><a class="reference internal" href="#fingerprint-grow-led-control-action"><code class="docutils literal notranslate"><span class="pre">fingerprint_grow.led_control</span></code> Action</a></li>
+<li><a class="reference internal" href="#fingerprint-grow-aura-led-control-action"><code class="docutils literal notranslate"><span class="pre">fingerprint_grow.aura_led_control</span></code> Action</a></li>
+<li><a class="reference internal" href="#all-actions">All actions</a></li>
+<li><a class="reference internal" href="#test-setup">Test setup</a><ul>
+<li><a class="reference internal" href="#sample-code">Sample code</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>Grow Fingerprint Reader</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="grow-fingerprint-reader">
+<h1>Grow Fingerprint Reader<a class="headerlink" href="#grow-fingerprint-reader" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">fingerprint_grow</span></code> component allows you to use your R307, R503, R503-RGB, ZFM-20, … fingerprint sensors with ESPHome.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/r307-full.jpg"><img alt="../_images/r307-full.jpg" src="../_images/r307-full.jpg" style="width: 50.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">R307/ZFM-20 Optical Fingerprint Reader (<a class="reference external" href="https://cdn-shop.adafruit.com/datasheets/ZFM+user+manualV15.pdf">datasheet</a>, <a class="reference external" href="https://www.adafruit.com/product/751">Adafruit</a>). Image by <a class="reference external" href="https://www.adafruit.com/product/751">Adafruit</a>.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/r503-full.jpg"><img alt="../_images/r503-full.jpg" src="../_images/r503-full.jpg" style="width: 50.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">R503 Capacitive Fingerprint Reader with Bi-Color Aura LED (<a class="reference external" href="https://cdn-shop.adafruit.com/product-files/4651/4651_R503+fingerprint+module+user+manual.pdf">datasheet</a>, <a class="reference external" href="https://www.adafruit.com/product/4651">Adafruit</a>). Image by <a class="reference external" href="https://www.adafruit.com/product/4651">Adafruit</a>.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="component-hub">
+<h2>Component/Hub<a class="headerlink" href="#component-hub" title="Permalink to this heading">¶</a></h2>
+<p>The reader can be powered by the 3.3V output of an NodeMCU. As the communication with the reader is done using UART (default baud rate is 57600), you need to have an <a class="reference internal" href="uart.html#uart"><span class="std std-ref">UART bus</span></a> in your configuration with the <code class="docutils literal notranslate"><span class="pre">rx_pin</span></code> connected to the reader’s <code class="docutils literal notranslate"><span class="pre">TX</span></code> and the <code class="docutils literal notranslate"><span class="pre">tx_pin</span></code> connected to the reader’s <code class="docutils literal notranslate"><span class="pre">RX</span></code>.</p>
+<p>If available on your reader model, it’s recommended to connect 3.3VT (touch induction power supply) &amp; 3.3V to 3.3V; WAKEUP (finger detection signal) to a free GPIO pin and define it with the <code class="docutils literal notranslate"><span class="pre">sensing_pin</span></code> option to allow the polling function to quickly return when there’s no finger on the reader.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">fingerprint_grow</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sensing_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">sensor_power_pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">idle_period_to_sleep</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+
+<span class="w">  </span><span class="nt">on_finger_scan_start</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="nt">on_finger_scan_matched</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="nt">on_finger_scan_unmatched</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="nt">on_finger_scan_misplaced</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="nt">on_finger_scan_invalid</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="nt">on_enrollment_scan</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="nt">on_enrollment_done</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="nt">on_enrollment_failed</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<p>The configuration is made up of three parts: The central component, optional individual sensors, and the optional enrolling binary sensor.</p>
+<p>Base Configuration:</p>
+<ul class="simple">
+<li><p><strong>uart_id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the UART hub.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>sensing_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): Pin connected to the reader’s finger detection signal (WAKEUP) output.</p></li>
+<li><p><strong>sensor_power_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): Output pin responsible for toogling the sensor power on and off.</p></li>
+<li><p><strong>password</strong> (<em>Optional</em>, int): Password to use for authentication. Defaults to <code class="docutils literal notranslate"><span class="pre">0x00</span></code>.</p></li>
+<li><p><strong>new_password</strong> (<em>Optional</em>, int): Sets a new password to use for authentication. See <a class="reference internal" href="#fingerprint-grow-set-new-password"><span class="std std-ref">Setting a New Password</span></a> for more information.</p></li>
+<li><p><strong>idle_period_to_sleep</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The sensor idle period to wait before powering it off (sleep). Defaults to <code class="docutils literal notranslate"><span class="pre">5s</span></code>. See <a class="reference internal" href="#fingerprint-grow-sleep-mode"><span class="std std-ref">Sleep Mode</span></a> for more information.</p></li>
+<li><p><strong>on_finger_scan_start</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be performed when the finger touches the sensor. See <a class="reference internal" href="#fingerprint-grow-on-finger-scan-start"><span class="std std-ref">on_finger_scan_start Trigger</span></a>.</p></li>
+<li><p><strong>on_finger_scan_matched</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be performed when an enrolled fingerprint is scanned. See <a class="reference internal" href="#fingerprint-grow-on-finger-scan-matched"><span class="std std-ref">on_finger_scan_matched Trigger</span></a>.</p></li>
+<li><p><strong>on_finger_scan_unmatched</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be performed when an unknown fingerprint is scanned. See <a class="reference internal" href="#fingerprint-grow-on-finger-scan-unmatched"><span class="std std-ref">on_finger_scan_unmatched Trigger</span></a>.</p></li>
+<li><p><strong>on_finger_scan_misplaced</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be performed when the finger is not entirely touching the sensor. See <a class="reference internal" href="#fingerprint-grow-on-finger-scan-misplaced"><span class="std std-ref">on_finger_scan_misplaced Trigger</span></a>.</p></li>
+<li><p><strong>on_finger_scan_invalid</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be performed when the scan of a fingerprint failed. See <a class="reference internal" href="#fingerprint-grow-on-finger-scan-invalid"><span class="std std-ref">on_finger_scan_invalid Trigger</span></a>.</p></li>
+<li><p><strong>on_enrollment_scan</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be performed when a fingerprint is scanned during enrollment. See <a class="reference internal" href="#fingerprint-grow-on-enrollment-scan"><span class="std std-ref">on_enrollment_scan Trigger</span></a>.</p></li>
+<li><p><strong>on_enrollment_done</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be performed when a fingerprint is enrolled. See <a class="reference internal" href="#fingerprint-grow-on-enrollment-done"><span class="std std-ref">on_enrollment_done Trigger</span></a>.</p></li>
+<li><p><strong>on_enrollment_failed</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be performed when a fingerprint enrollment failed. See <a class="reference internal" href="#fingerprint-grow-on-enrollment-failed"><span class="std std-ref">on_enrollment_failed Trigger</span></a>.</p></li>
+</ul>
+</section>
+<section id="binary-sensor">
+<h2>Binary Sensor<a class="headerlink" href="#binary-sensor" title="Permalink to this heading">¶</a></h2>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the enrolling binary sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p>All other options from <a class="reference internal" href="binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="sensor">
+<h2>Sensor<a class="headerlink" href="#sensor" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>fingerprint_count</strong>: The number of enrolled fingerprints stored on the reader.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>last_finger_id</strong>: The last matched enrolled fingerprint as set by <a class="reference internal" href="#fingerprint-grow-on-finger-scan-matched"><span class="std std-ref">on_finger_scan_matched Trigger</span></a>.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>last_confidence</strong>: The last matched confidence as set by <a class="reference internal" href="#fingerprint-grow-on-finger-scan-matched"><span class="std std-ref">on_finger_scan_matched Trigger</span></a>.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>status</strong>: The integer representation of the internal status register of the reader.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>capacity</strong>: The fingerprint storage capacity of the reader.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>security_level</strong>: The integer representation of the currently configured security level of the reader. Higher security levels reduce the false acceptance rate (FAR) at the expense of increasing the false rejection rate (FRR). Range is 1 (lowest) to 5 (highest).
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="sleep-mode">
+<span id="fingerprint-grow-sleep-mode"></span><h2>Sleep Mode<a class="headerlink" href="#sleep-mode" title="Permalink to this heading">¶</a></h2>
+<p>The sensor idle power consumption is roughly 20mA. If you plan to keep the device running continuously, it is wise to implement the Sleep Mode, which puts the sensor to sleep (power off) a few seconds after the last communication (configurable with <code class="docutils literal notranslate"><span class="pre">idle_period_to_sleep</span></code>). It can only be implemented along with the Touch Sensing Feature, since it uses the touch feedback to wake up the sensor.
+To implement this feature, you will need one more free GPIO pin to toggle the sensor power on and off and two external components: a 10kOhms resistor and a PNP transistor (like a BC327).</p>
+<p>This is a wiring example for the R503 and below you can find the respective configuration:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/fingeprint_grow-sleep_mode_wiring.jpg"><img alt="../_images/fingeprint_grow-sleep_mode_wiring.jpg" src="../_images/fingeprint_grow-sleep_mode_wiring.jpg" style="width: 50.0%;" /></a>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">uart</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">rx_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">tx_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">57600</span>
+
+<span class="nt">fingerprint_grow</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sensing_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">sensor_power_pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">idle_period_to_sleep</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-a-new-password">
+<span id="fingerprint-grow-set-new-password"></span><h2>Setting a New Password<a class="headerlink" href="#setting-a-new-password" title="Permalink to this heading">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Forgetting the password will render your fingerprint reader unusable!</p>
+</div>
+<p>You can set a new password for your fingerprint reader using the <code class="docutils literal notranslate"><span class="pre">new_password:</span></code> configuration option. The password is defined as a 32-bit unsigned integer.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">fingerprint_grow</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x275FE3D2</span><span class="w">      </span><span class="c1"># Existing password, can be omitted if it&#39;s the default of 0x00</span>
+<span class="w">  </span><span class="nt">new_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x72AB96CD</span><span class="w">  </span><span class="c1"># New password</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">new_password:</span></code> configuration option is meant to be compiled, flashed to the ESP device and run once, after which it’s removed and the new password is defined in the <code class="docutils literal notranslate"><span class="pre">password:</span></code> configuration option to be compiled and flashed again.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">fingerprint_grow</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x72AB96CD</span><span class="w">      </span><span class="c1"># Update the existing password with the new one</span>
+</pre></div>
+</div>
+</section>
+<section id="on-finger-scan-start-trigger">
+<span id="fingerprint-grow-on-finger-scan-start"></span><h2><code class="docutils literal notranslate"><span class="pre">on_finger_scan_start</span></code> Trigger<a class="headerlink" href="#on-finger-scan-start-trigger" title="Permalink to this heading">¶</a></h2>
+<p>With this configuration option, you can trigger an automation when a finger is detected touching the sensor. Very useful to indicate to the user via AuraLed that the sensor has detected the finger touch and will perform the scan. This trigger will <strong>only</strong> activate if your fingerprint sensor is configured with the <code class="docutils literal notranslate"><span class="pre">sensing_pin</span></code> option.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_finger_scan_start</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.aura_led_control</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ALWAYS_ON</span>
+<span class="w">      </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GREEN</span>
+<span class="w">      </span><span class="nt">speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">      </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+</section>
+<section id="on-finger-scan-invalid-trigger">
+<span id="fingerprint-grow-on-finger-scan-invalid"></span><h2><code class="docutils literal notranslate"><span class="pre">on_finger_scan_invalid</span></code> Trigger<a class="headerlink" href="#on-finger-scan-invalid-trigger" title="Permalink to this heading">¶</a></h2>
+<p>With this configuration option you can write complex automations whenever a scan fails, e.g. when the finger is not placed correctly on the reader. This is different from <code class="docutils literal notranslate"><span class="pre">on_finger_scan_unmatched</span></code> which is triggered when an unknown fingerprint is scanned. This option works best with the <code class="docutils literal notranslate"><span class="pre">sensing_pin</span></code> option defined.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_finger_scan_invalid</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text_sensor.template.publish</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fingerprint_state</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Invalid</span><span class="nv"> </span><span class="s">finger&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-finger-scan-matched-trigger">
+<span id="fingerprint-grow-on-finger-scan-matched"></span><h2><code class="docutils literal notranslate"><span class="pre">on_finger_scan_matched</span></code> Trigger<a class="headerlink" href="#on-finger-scan-matched-trigger" title="Permalink to this heading">¶</a></h2>
+<p>With this configuration option you can write complex automations whenever a finger scan is matched to an enrolled fingerprint.
+To use the variables, use a <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a> template, the matched slot number and the confidence are available inside that lambda under the variables named <code class="docutils literal notranslate"><span class="pre">finger_id</span></code> and <code class="docutils literal notranslate"><span class="pre">confidence</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_finger_scan_matched</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text_sensor.template.publish</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fingerprint_state</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">&quot;Authorized</span><span class="nv"> </span><span class="s">finger</span><span class="nv"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">to_string(finger_id)</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">&quot;,</span><span class="nv"> </span><span class="s">confidence</span><span class="nv"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">to_string(confidence);&#39;</span>
+<span class="w">  </span><span class="c1"># Pushing a tag_scanned event based on finger_id only if confidence is greater than 50</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">confidence</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">50;&#39;</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.tag_scanned</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">            </span><span class="no">switch (finger_id) {</span>
+<span class="w">              </span><span class="no">case 0:</span>
+<span class="w">                </span><span class="no">return &quot;person_a&quot;;</span>
+<span class="w">              </span><span class="no">case 1:</span>
+<span class="w">                </span><span class="no">return &quot;person_b&quot;;</span>
+<span class="w">              </span><span class="no">...</span>
+<span class="w">              </span><span class="no">default:</span>
+<span class="w">                </span><span class="no">return &quot;person_unknown&quot;;</span>
+<span class="w">            </span><span class="no">}</span>
+</pre></div>
+</div>
+</section>
+<section id="on-finger-scan-unmatched-trigger">
+<span id="fingerprint-grow-on-finger-scan-unmatched"></span><h2><code class="docutils literal notranslate"><span class="pre">on_finger_scan_unmatched</span></code> Trigger<a class="headerlink" href="#on-finger-scan-unmatched-trigger" title="Permalink to this heading">¶</a></h2>
+<p>With this configuration option you can write complex automations whenever an unknown fingerprint is scanned.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_finger_scan_unmatched</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text_sensor.template.publish</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fingerprint_state</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Unauthorized</span><span class="nv"> </span><span class="s">finger&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-finger-scan-misplaced-trigger">
+<span id="fingerprint-grow-on-finger-scan-misplaced"></span><h2><code class="docutils literal notranslate"><span class="pre">on_finger_scan_misplaced</span></code> Trigger<a class="headerlink" href="#on-finger-scan-misplaced-trigger" title="Permalink to this heading">¶</a></h2>
+<p>With this configuration option, you can create automations for situations when the finger is in contact with the sensor but not fully covering it, enabling you to perform a successful scan.
+This trigger will <strong>only</strong> activate if your fingerprint sensor is configured with the <code class="docutils literal notranslate"><span class="pre">sensing_pin</span></code> option. It serves as a useful indicator to alert the user when their touch on the sensor is insufficient.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_finger_scan_misplaced</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text_sensor.template.publish</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fingerprint_state</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Misplaced</span><span class="nv"> </span><span class="s">finger&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-enrollment-scan-trigger">
+<span id="fingerprint-grow-on-enrollment-scan"></span><h2><code class="docutils literal notranslate"><span class="pre">on_enrollment_scan</span></code> Trigger<a class="headerlink" href="#on-enrollment-scan-trigger" title="Permalink to this heading">¶</a></h2>
+<p>With this configuration option you can write complex automations whenever a finger is scanned during enrollment.
+To use the variables, use a <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a> template, the scan number and the slot number to be enrolled into are available inside that lambda under the variables named <code class="docutils literal notranslate"><span class="pre">scan_num</span></code> and <code class="docutils literal notranslate"><span class="pre">finger_id</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_enrollment_scan</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text_sensor.template.publish</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fingerprint_state</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">&quot;Enrolling</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">slot</span><span class="nv"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">to_string(finger_id)</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">&quot;,</span><span class="nv"> </span><span class="s">scanned</span><span class="nv"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">to_string(scan_num)</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">time(s)&quot;;&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-enrollment-done-trigger">
+<span id="fingerprint-grow-on-enrollment-done"></span><h2><code class="docutils literal notranslate"><span class="pre">on_enrollment_done</span></code> Trigger<a class="headerlink" href="#on-enrollment-done-trigger" title="Permalink to this heading">¶</a></h2>
+<p>With this configuration option you can write complex automations whenever a finger is successfully enrolled.
+To use the variables, use a <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a> template, the slot number enrolled into is available inside that lambda under the variable named <code class="docutils literal notranslate"><span class="pre">finger_id</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_enrollment_done</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text_sensor.template.publish</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fingerprint_state</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">&quot;Enrolled</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">slot</span><span class="nv"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">to_string(finger_id);&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-enrollment-failed-trigger">
+<span id="fingerprint-grow-on-enrollment-failed"></span><h2><code class="docutils literal notranslate"><span class="pre">on_enrollment_failed</span></code> Trigger<a class="headerlink" href="#on-enrollment-failed-trigger" title="Permalink to this heading">¶</a></h2>
+<p>With this configuration option you can write complex automations whenever a finger failed to be enrolled.
+To use the variables, use a <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a> template, the slot number that failed to be enrolled into is available inside that lambda under the variable named <code class="docutils literal notranslate"><span class="pre">finger_id</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_enrollment_failed</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text_sensor.template.publish</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fingerprint_state</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">&quot;Failed</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">enroll</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">slot</span><span class="nv"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">to_string(finger_id);&#39;</span>
+<span class="w">  </span><span class="c1"># Retry enrollment into the same slot</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3s</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text_sensor.template.publish</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fingerprint_state</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">&quot;Retrying</span><span class="nv"> </span><span class="s">enrollment</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">slot</span><span class="nv"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">to_string(finger_id)</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">3</span><span class="nv"> </span><span class="s">seconds...&quot;;&#39;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3s</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.enroll</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">finger_id;&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="fingerprint-grow-enroll-action">
+<h2><code class="docutils literal notranslate"><span class="pre">fingerprint_grow.enroll</span></code> Action<a class="headerlink" href="#fingerprint-grow-enroll-action" title="Permalink to this heading">¶</a></h2>
+<p>Starts the fingerprint enrollment process on the slot number defined.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.enroll</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">finger_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">num_scans</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="c1"># Shorthand</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.enroll</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="c1"># Update the template text sensor for visual feedback</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text_sensor.template.publish</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fingerprint_state</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Place</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">finger</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">reader&quot;</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>finger_id</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The slot number to enroll the new fingerprint into. Limited to the fingerprint capacity available on the reader.</p></li>
+<li><p><strong>num_scans</strong> (<em>Optional</em>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): Number of times to scan the finger to be enrolled. Limited to the number of character buffers available on the reader. Defaults to 2.</p></li>
+</ul>
+</section>
+<section id="fingerprint-grow-cancel-enroll-action">
+<h2><code class="docutils literal notranslate"><span class="pre">fingerprint_grow.cancel_enroll</span></code> Action<a class="headerlink" href="#fingerprint-grow-cancel-enroll-action" title="Permalink to this heading">¶</a></h2>
+<p>Cancels the current fingerprint enrollment process. Triggers the <code class="docutils literal notranslate"><span class="pre">on_enrollment_failed</span></code> trigger.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.cancel_enroll</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="fingerprint-grow-delete-action">
+<h2><code class="docutils literal notranslate"><span class="pre">fingerprint_grow.delete</span></code> Action<a class="headerlink" href="#fingerprint-grow-delete-action" title="Permalink to this heading">¶</a></h2>
+<p>Removes the enrolled fingerprint from the slot number defined.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.delete</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">finger_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="c1"># Shorthand</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.delete</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>finger_id</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The slot number of the enrolled fingerprint to delete.</p></li>
+</ul>
+</section>
+<section id="fingerprint-grow-delete-all-action">
+<h2><code class="docutils literal notranslate"><span class="pre">fingerprint_grow.delete_all</span></code> Action<a class="headerlink" href="#fingerprint-grow-delete-all-action" title="Permalink to this heading">¶</a></h2>
+<p>Removes all enrolled fingerprints.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.delete_all</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="fingerprint-grow-led-control-action">
+<h2><code class="docutils literal notranslate"><span class="pre">fingerprint_grow.led_control</span></code> Action<a class="headerlink" href="#fingerprint-grow-led-control-action" title="Permalink to this heading">¶</a></h2>
+<p>Turns on or off the LED on the reader. Only available on select models. If you have the R503 or R503-RGB use <a class="reference internal" href="#fingerprint-grow-aura-led-control"><span class="std std-ref">fingerprint_grow.aura_led_control Action</span></a> instead.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.led_control</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ON</span>
+<span class="w">    </span><span class="c1"># Shorthand</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.led_control</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ON</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>state</strong> (<strong>Required</strong>, boolean, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The state to set the LED.</p></li>
+</ul>
+</section>
+<section id="fingerprint-grow-aura-led-control-action">
+<span id="fingerprint-grow-aura-led-control"></span><h2><code class="docutils literal notranslate"><span class="pre">fingerprint_grow.aura_led_control</span></code> Action<a class="headerlink" href="#fingerprint-grow-aura-led-control-action" title="Permalink to this heading">¶</a></h2>
+<p>Controls the Aura LED on the reader. Only available on select models.  NOTE: The R503 has 2 variants with different LED colour options.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.aura_led_control</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BREATHING</span>
+<span class="w">        </span><span class="nt">speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BLUE</span>
+<span class="w">        </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="c1"># Sample Aura LED config for all reader triggers</span>
+<span class="nt">fingerprint_grow</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_finger_scan_start</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.aura_led_control</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ALWAYS_ON</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GREEN</span>
+<span class="w">        </span><span class="nt">speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">on_finger_scan_matched</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.aura_led_control</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BREATHING</span>
+<span class="w">        </span><span class="nt">speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BLUE</span>
+<span class="w">        </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">on_finger_scan_unmatched</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.aura_led_control</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FLASHING</span>
+<span class="w">        </span><span class="nt">speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RED</span>
+<span class="w">        </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">on_finger_scan_misplaced</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.aura_led_control</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FLASHING</span>
+<span class="w">        </span><span class="nt">speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PURPLE</span>
+<span class="w">        </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">on_enrollment_scan</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.aura_led_control</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FLASHING</span>
+<span class="w">        </span><span class="nt">speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BLUE</span>
+<span class="w">        </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.aura_led_control</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ALWAYS_ON</span>
+<span class="w">        </span><span class="nt">speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PURPLE</span>
+<span class="w">        </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">on_enrollment_done</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.aura_led_control</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BREATHING</span>
+<span class="w">        </span><span class="nt">speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BLUE</span>
+<span class="w">        </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">on_enrollment_failed</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.aura_led_control</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FLASHING</span>
+<span class="w">        </span><span class="nt">speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RED</span>
+<span class="w">        </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="nt">on...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.enroll</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.aura_led_control</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ALWAYS_ON</span>
+<span class="w">        </span><span class="nt">speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PURPLE</span>
+<span class="w">        </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>state</strong> (<strong>Required</strong>, string, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The state to set the LED. One of <code class="docutils literal notranslate"><span class="pre">BREATHING</span></code>, <code class="docutils literal notranslate"><span class="pre">FLASHING</span></code>, <code class="docutils literal notranslate"><span class="pre">ALWAYS_ON</span></code>, <code class="docutils literal notranslate"><span class="pre">ALWAYS_OFF</span></code>, <code class="docutils literal notranslate"><span class="pre">GRADUAL_ON</span></code> and <code class="docutils literal notranslate"><span class="pre">GRADUAL_OFF</span></code>.</p></li>
+<li><p><strong>speed</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The duration each cycle lasts, a factor of 10ms. Only relevant for <code class="docutils literal notranslate"><span class="pre">BREATHING</span></code>, <code class="docutils literal notranslate"><span class="pre">FLASHING</span></code>, <code class="docutils literal notranslate"><span class="pre">GRADUAL_ON</span></code> and <code class="docutils literal notranslate"><span class="pre">GRADUAL_OFF</span></code> states. The total duration is defined by 10ms * speed * count. Range is 0 to 255.</p></li>
+<li><p><strong>color</strong> (<strong>Required</strong>, string, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The LED color to activate. For R503, one of <code class="docutils literal notranslate"><span class="pre">RED</span></code>, <code class="docutils literal notranslate"><span class="pre">BLUE</span></code> and <code class="docutils literal notranslate"><span class="pre">PURPLE</span></code>.  For R503-RGB, one of <code class="docutils literal notranslate"><span class="pre">RED</span></code>, <code class="docutils literal notranslate"><span class="pre">BLUE</span></code>, <code class="docutils literal notranslate"><span class="pre">PURPLE</span></code>, <code class="docutils literal notranslate"><span class="pre">GREEN</span></code>, <code class="docutils literal notranslate"><span class="pre">YELLOW</span></code>, <code class="docutils literal notranslate"><span class="pre">CYAN</span></code> and <code class="docutils literal notranslate"><span class="pre">WHITE</span></code>.</p></li>
+<li><p><strong>count</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): How many times to repeat the pattern. Only relevant for <code class="docutils literal notranslate"><span class="pre">BREATHING</span></code> and <code class="docutils literal notranslate"><span class="pre">FLASHING</span></code> states. 0 for infinite, or 1 to 255.</p></li>
+</ul>
+</section>
+<section id="all-actions">
+<h2>All actions<a class="headerlink" href="#all-actions" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the Grow fingerprint reader if you have multiple components.</p></li>
+</ul>
+</section>
+<section id="test-setup">
+<h2>Test setup<a class="headerlink" href="#test-setup" title="Permalink to this heading">¶</a></h2>
+<p>With the following code you can quickly setup a node and use Home Assistant’s service in the developer tools.
+E.g. for calling <code class="docutils literal notranslate"><span class="pre">fingerprint_grow.enroll</span></code> select the service <code class="docutils literal notranslate"><span class="pre">esphome.test_node_enroll</span></code> and in service data enter</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;finger_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;num_scans&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<section id="sample-code">
+<h3>Sample code<a class="headerlink" href="#sample-code" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">uart</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">rx_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">tx_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">57600</span>
+
+<span class="nt">fingerprint_grow</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sensing_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">on_finger_scan_invalid</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.event</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.test_node_finger_scan_invalid</span>
+<span class="w">  </span><span class="nt">on_finger_scan_matched</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.event</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.test_node_finger_scan_matched</span>
+<span class="w">        </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">finger_id</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">finger_id;&#39;</span>
+<span class="w">          </span><span class="nt">confidence</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">confidence;&#39;</span>
+<span class="w">  </span><span class="nt">on_finger_scan_unmatched</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.event</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.test_node_finger_scan_unmatched</span>
+<span class="w">  </span><span class="nt">on_finger_scan_misplaced</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.event</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.frontdoor_finger_scan_misplaced</span>
+<span class="w">  </span><span class="nt">on_enrollment_scan</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.event</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.test_node_enrollment_scan</span>
+<span class="w">        </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">finger_id</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">finger_id;&#39;</span>
+<span class="w">          </span><span class="nt">scan_num</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">scan_num;&#39;</span>
+<span class="w">  </span><span class="nt">on_enrollment_done</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.event</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.test_node_enrollment_done</span>
+<span class="w">        </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">finger_id</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">finger_id;&#39;</span>
+<span class="w">  </span><span class="nt">on_enrollment_failed</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.event</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.test_node_enrollment_failed</span>
+<span class="w">        </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">finger_id</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">finger_id;&#39;</span>
+
+<span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">enroll</span>
+<span class="w">    </span><span class="nt">variables</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">finger_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">      </span><span class="nt">num_scans</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.enroll</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">finger_id</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">finger_id;&#39;</span>
+<span class="w">          </span><span class="nt">num_scans</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">num_scans;&#39;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cancel_enroll</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.cancel_enroll</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">delete</span>
+<span class="w">    </span><span class="nt">variables</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">finger_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.delete</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">finger_id</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">finger_id;&#39;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">delete_all</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fingerprint_grow.delete_all</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/api/fingerprint__grow_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://learn.adafruit.com/adafruit-optical-fingerprint-sensor">Tutorial from Adafruit</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adafruit/Adafruit-Fingerprint-Sensor-Library">Adafruit Fingerprint Sensor Library</a> by <a class="reference external" href="https://www.adafruit.com/">Adafruit</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/fingerprint_grow.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

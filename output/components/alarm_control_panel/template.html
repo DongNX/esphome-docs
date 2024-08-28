@@ -1,0 +1,445 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up template Alarm Control Panels in ESPHome.">
+<meta itemprop="name" content="Template Alarm Control Panel">
+<meta itemprop="description" content="Instructions for setting up template Alarm Control Panels in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/description.png">
+<meta name="twitter:title" content="Template Alarm Control Panel">
+<meta name="twitter:image:src" content="https://esphome.io/_images/description.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up template Alarm Control Panels in ESPHome.">
+<meta property="og:title" content="Template Alarm Control Panel">
+<meta property="og:image" content="https://esphome.io/_images/description.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up template Alarm Control Panels in ESPHome.">
+
+    <title>Template Alarm Control Panel &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/alarm_control_panel/template.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Text Component" href="../text/index.html" />
+    <link rel="prev" title="Alarm Control Panel Component" href="index.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Template Alarm Control Panel</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#trigger-modes">Trigger Modes</a></li>
+<li><a class="reference internal" href="#state-flow">State Flow:</a></li>
+<li><a class="reference internal" href="#example">Example:</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Alarm Control Panel Component</a> ➔</li>
+      <li>Template Alarm Control Panel</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="template-alarm-control-panel">
+<h1>Template Alarm Control Panel<a class="headerlink" href="#template-alarm-control-panel" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">template</span></code> alarm control panel platform allows you to turn your binary sensors into a state machine
+managed alarm control panel.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Alarm Panel</span>
+<span class="w">    </span><span class="nt">codes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;1234&quot;</span>
+<span class="w">    </span><span class="nt">binary_sensors</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zone_1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zone_2</span>
+<span class="w">        </span><span class="nt">bypass_armed_home</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>codes</strong> (<em>Optional</em>, list of string): A list of codes for disarming the alarm, if <em>requires_code_to_arm</em> set to true then for arming the alarm too.</p></li>
+<li><p><strong>requires_code_to_arm</strong> (<em>Optional</em>, boolean): Code required for arming the alarm, <em>codes</em> must be provided.</p></li>
+<li><p><strong>arming_away_time</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The exit delay before the alarm is armed to away mode. Defaults to <code class="docutils literal notranslate"><span class="pre">0s</span></code>.</p></li>
+<li><p><strong>arming_home_time</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The exit delay before the alarm is armed to home mode.</p></li>
+<li><p><strong>arming_night_time</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The exit delay before the alarm is armed to night mode.</p></li>
+<li><p><strong>pending_time</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The entry delay before the alarm is triggered. Defaults to <code class="docutils literal notranslate"><span class="pre">0s</span></code>.</p></li>
+<li><p><strong>trigger_time</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The time after a triggered alarm before resetting to previous state if the sensors are cleared/off. Defaults to <code class="docutils literal notranslate"><span class="pre">0s</span></code>.</p></li>
+<li><p><strong>binary_sensors</strong> (<em>Optional</em>, <em>list</em>): A list of binary sensors the panel should use. Each consists of:</p>
+<ul>
+<li><p><strong>input</strong> (<strong>Required</strong>, string): The id of the binary sensor component</p></li>
+<li><p><strong>bypass_armed_home</strong> (<em>Optional</em>, boolean): This binary sensor will not trigger the alarm when in <code class="docutils literal notranslate"><span class="pre">armed_home</span></code> state.</p></li>
+<li><p><strong>bypass_armed_night</strong> (<em>Optional</em>, boolean): This binary sensor will not trigger the alarm when in <code class="docutils literal notranslate"><span class="pre">armed_night</span></code> state.</p></li>
+<li><p><strong>trigger_mode</strong> (<em>Optional</em>, string): Sets the trigger mode for this sensor. One of <code class="docutils literal notranslate"><span class="pre">delayed</span></code>, <code class="docutils literal notranslate"><span class="pre">instant</span></code>, or <code class="docutils literal notranslate"><span class="pre">delayed_follower</span></code>. (<code class="docutils literal notranslate"><span class="pre">delayed</span></code> is the default if not specified)</p></li>
+<li><p><strong>chime</strong> (<em>Optional</em>, boolean): When set <code class="docutils literal notranslate"><span class="pre">true</span></code>, the chime callback will be called whenever the sensor goes from closed to open. (<code class="docutils literal notranslate"><span class="pre">false</span></code> is the default if not specified)</p></li>
+</ul>
+</li>
+<li><p><strong>restore_mode</strong> (<em>Optional</em>, enum):</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ALWAYS_DISARMED</span></code> (Default): Always start in <code class="docutils literal notranslate"><span class="pre">disarmed</span></code> state.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RESTORE_DEFAULT_DISARMED</span></code>: Restore state or default to <code class="docutils literal notranslate"><span class="pre">disarmed</span></code> state if no saved state was found.</p></li>
+</ul>
+</li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-alarm-control-panel"><span class="std std-ref">Alarm Control Panel</span></a></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">binary_sensors</span></code> is omitted then you’re expected to trigger the alarm using
+<a class="reference internal" href="index.html#alarm-control-panel-pending-action"><span class="std std-ref">pending Action</span></a> or <a class="reference internal" href="index.html#alarm-control-panel-triggered-action"><span class="std std-ref">triggered Action</span></a>.</p>
+</div>
+</section>
+<section id="trigger-modes">
+<span id="template-alarm-control-panel-trigger-modes"></span><h2>Trigger Modes<a class="headerlink" href="#trigger-modes" title="Permalink to this heading">¶</a></h2>
+<p>Each binary sensor “zone” supports 3 trigger modes. The 3 trigger modes are:</p>
+<ul class="simple">
+<li><p>delayed</p></li>
+<li><p>instant</p></li>
+<li><p>delayed_follower</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">delayed</span></code> trigger mode is typically specified for exterior doors where entry is required to access an alarm keypad or other arm/disarm method. If the alarm panel is armed, and a zone set to <code class="docutils literal notranslate"><span class="pre">delayed</span></code> is “faulted” (i.e. the zone state is <code class="docutils literal notranslate"><span class="pre">true</span></code>) the alarm state will change from the <code class="docutils literal notranslate"><span class="pre">armed</span></code> state to the <code class="docutils literal notranslate"><span class="pre">pending</span></code> state. During the <code class="docutils literal notranslate"><span class="pre">pending</span></code> state, the user has a preset time to disarm the alarm before it changes to the <code class="docutils literal notranslate"><span class="pre">triggered</span></code> state. This is the default trigger mode if not specified.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">instant</span></code> trigger mode is typically used for exterior zones (e.g. windows, and glass break detectors).  If the alarm control panel is armed, a fault on this type of zone will cause the alarm to go from the <code class="docutils literal notranslate"><span class="pre">armed</span></code> state directly to the <code class="docutils literal notranslate"><span class="pre">triggered</span></code> state.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">delayed_follower</span></code> trigger mode is typically specifed for interior passive infared (PIR) or microwave sensors. One of two things happen when a <code class="docutils literal notranslate"><span class="pre">delayed_follower</span></code> zone is faulted:</p>
+<ol class="arabic simple">
+<li><p>When the alarm panel is in the armed state, a fault on a zone with <code class="docutils literal notranslate"><span class="pre">delayed_follower</span></code> specified will cause the alarm control panel to go directly to the <code class="docutils literal notranslate"><span class="pre">triggered</span></code> state.</p></li>
+<li><p>When the alarm panel is in the pending state, a fault on a zone with <code class="docutils literal notranslate"><span class="pre">delayed_follower</span></code> specified will remain in the <code class="docutils literal notranslate"><span class="pre">pending</span></code> state.</p></li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">delayed_follower</span></code> trigger mode offers better protection if someone enters a premises via an unprotected window or door. If there is a PIR guarding the main hallway, it will cause an instant trigger of the alarm panel as someone
+entered the premises in a unusual manner. Likewise, if someone enters the premises though a door set to the <code class="docutils literal notranslate"><span class="pre">delayed</span></code> trigger mode, and then triggers the PIR, the alarm will stay in the <code class="docutils literal notranslate"><span class="pre">pending</span></code> state until either they disarm the alarm, or
+the pending timer expires.</p>
+</section>
+<section id="state-flow">
+<span id="template-alarm-control-panel-state-flow"></span><h2>State Flow:<a class="headerlink" href="#state-flow" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>The alarm starts in <code class="docutils literal notranslate"><span class="pre">DISARMED</span></code> state</p></li>
+<li><p>When the <code class="docutils literal notranslate"><span class="pre">arm_...</span></code> method is invoked</p></li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">arming_..._time</span></code> is greater than 0 the state is <code class="docutils literal notranslate"><span class="pre">ARMING</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arming_..._time</span></code> is 0 or after the delay the state is <code class="docutils literal notranslate"><span class="pre">ARMED_...</span></code></p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>When the alarm is tripped by a sensor state changing to <code class="docutils literal notranslate"><span class="pre">on</span></code> or <code class="docutils literal notranslate"><span class="pre">alarm_control_panel_pending_action</span></code> invoked</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>If trigger_mode is set to <code class="docutils literal notranslate"><span class="pre">delayed</span></code>:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pending_time</span></code> greater than 0 the state is <code class="docutils literal notranslate"><span class="pre">PENDING</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pending_time</span></code> is 0 or after the <code class="docutils literal notranslate"><span class="pre">pending_time</span></code> delay the state is <code class="docutils literal notranslate"><span class="pre">TRIGGERED</span></code></p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>If trigger_mode is set to <code class="docutils literal notranslate"><span class="pre">instant</span></code>:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>The state is set to <code class="docutils literal notranslate"><span class="pre">TRIGGERED</span></code></p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>If the trigger_mode is set to <code class="docutils literal notranslate"><span class="pre">interior_follower</span></code>:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>If the current state is <code class="docutils literal notranslate"><span class="pre">ARMED_...</span></code> the state will be set to <code class="docutils literal notranslate"><span class="pre">TRIGGERED</span></code></p></li>
+<li><p>If the current state is <code class="docutils literal notranslate"><span class="pre">PENDING</span></code> then nothing will happen and it will stay in the <code class="docutils literal notranslate"><span class="pre">PENDING</span></code> state.</p></li>
+</ol>
+</div></blockquote>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">trigger_time</span></code> greater than 0 and no sensors are <code class="docutils literal notranslate"><span class="pre">on</span></code> after <code class="docutils literal notranslate"><span class="pre">trigger_time</span></code> delay
+the state returns to <code class="docutils literal notranslate"><span class="pre">ARM_...</span></code></p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the interface supports all arming modes only <code class="docutils literal notranslate"><span class="pre">away</span></code>, <code class="docutils literal notranslate"><span class="pre">home</span></code> and <code class="docutils literal notranslate"><span class="pre">night</span></code> have been implemented for now.
+<code class="docutils literal notranslate"><span class="pre">arm_...</span></code> is for either <code class="docutils literal notranslate"><span class="pre">arm_away</span></code> or <code class="docutils literal notranslate"><span class="pre">arm_home</span></code>
+<code class="docutils literal notranslate"><span class="pre">arming_..._time</span></code> is for either <code class="docutils literal notranslate"><span class="pre">arming_away_time</span></code>, <code class="docutils literal notranslate"><span class="pre">arming_home_time</span></code>, or <code class="docutils literal notranslate"><span class="pre">arming_night_time</span></code>
+<code class="docutils literal notranslate"><span class="pre">ARMED_...</span></code> is for either <code class="docutils literal notranslate"><span class="pre">ARMED_AWAY</span></code>, <code class="docutils literal notranslate"><span class="pre">ARMED_HOME</span></code>, or <code class="docutils literal notranslate"><span class="pre">ARMED_NIGHT</span></code></p>
+</div>
+</section>
+<section id="example">
+<h2>Example:<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">alarm_control_panel</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Alarm Panel</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acp1</span>
+<span class="w">  </span><span class="nt">codes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;1234&quot;</span>
+<span class="w">  </span><span class="nt">requires_code_to_arm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">arming_away_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
+<span class="w">  </span><span class="nt">arming_home_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">  </span><span class="nt">pending_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
+<span class="w">  </span><span class="nt">trigger_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5min</span>
+<span class="w">  </span><span class="nt">binary_sensors</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zone_1</span>
+<span class="w">      </span><span class="nt">chime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">trigger_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">delayed</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zone_2</span>
+<span class="w">      </span><span class="nt">chime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">trigger_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">delayed</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zone_3</span>
+<span class="w">      </span><span class="nt">bypass_armed_home</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">trigger_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">delayed_follower</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zone_4</span>
+<span class="w">      </span><span class="nt">trigger_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">instant</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ha_test</span>
+<span class="w">  </span><span class="nt">on_state</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">ESP_LOGD(&quot;TEST&quot;, &quot;State change %s&quot;, alarm_control_panel_state_to_string(id(acp1)-&gt;get_state()));</span>
+<span class="w">  </span><span class="nt">on_triggered</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">siren</span>
+<span class="w">  </span><span class="nt">on_cleared</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">siren</span>
+<span class="w">  </span><span class="nt">on_ready</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">         </span><span class="no">ESP_LOGD(&quot;TEST&quot;, &quot;Sensor ready change to: %s&quot;,</span>
+<span class="w">           </span><span class="no">(id(acp1).get_all_sensors_ready())) ? (const char *) &quot;True&quot; : (const char *) &quot;False&quot;);</span>
+<span class="w">  </span><span class="nt">on_chime</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">         </span><span class="no">ESP_LOGD(&quot;TEST&quot;, &quot;Zone with chime mode set opened&quot;);</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zone_1</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Zone 1</span>
+<span class="w">    </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">door</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INPUT_PULLUP</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zone_2</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Zone 2</span>
+<span class="w">    </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">door</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INPUT_PULLUP</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zone_3</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Zone 3</span>
+<span class="w">    </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">motion</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INPUT_PULLUP</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zone_4</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Zone 4</span>
+<span class="w">    </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">door</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INPUT_PULLUP</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">homeassistant</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ha_test</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HA Test</span>
+<span class="w">    </span><span class="nt">entity_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">input_boolean.test_switch</span>
+
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">siren</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Siren</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:alarm-bell</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Alarm Control Panel Component</span></a></p></li>
+<li><p><a class="reference internal" href="../binary_sensor/index.html"><span class="doc">Binary Sensor Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/template__alarm__control__panel_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/alarm_control_panel/template.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

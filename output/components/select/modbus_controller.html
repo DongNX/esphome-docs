@@ -1,0 +1,363 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Modbus Controller Select(s) with ESPHome.">
+<meta itemprop="name" content="Modbus Controller Select">
+<meta itemprop="description" content="Instructions for setting up Modbus Controller Select(s) with ESPHome.">
+<meta name="twitter:title" content="Modbus Controller Select">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Modbus Controller Select(s) with ESPHome.">
+<meta property="og:title" content="Modbus Controller Select">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Modbus Controller Select(s) with ESPHome.">
+
+    <title>Modbus Controller Select &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/select/modbus_controller.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Template Select" href="template.html" />
+    <link rel="prev" title="Select Component" href="index.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Modbus Controller Select</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#parameters-passed-into-write-lambda">Parameters passed into <code class="docutils literal notranslate"><span class="pre">write_lambda</span></code></a></li>
+<li><a class="reference internal" href="#example">Example:</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Select Component</a> ➔</li>
+      <li>Modbus Controller Select</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="modbus-controller-select">
+<h1>Modbus Controller Select<a class="headerlink" href="#modbus-controller-select" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">modbus_controller</span></code> Select platform allows you to create a Select from modbus
+registers.</p>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the Select.</p></li>
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The start address of the first or only register
+of the Select  (can be decimal or hexadecimal).</p></li>
+<li><p><strong>optionsmap</strong> (<strong>Required</strong>, Map[str, int]): Provide a mapping from options (str) of
+this Select to values (int) of the modbus register and vice versa. All options and
+all values have to be unique.</p></li>
+<li><p><strong>value_type</strong> (<em>Optional</em>): The datatype of the modbus data. Defaults to <code class="docutils literal notranslate"><span class="pre">U_WORD</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">U_WORD</span></code> (unsigned 16 bit integer from 1 register = 16bit)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S_WORD</span></code> (signed 16 bit integer from 1 register = 16bit)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">U_DWORD</span></code> (unsigned 32 bit integer from 2 registers = 32bit)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S_DWORD</span></code> (signed 32 bit integer from 2 registers = 32bit)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">U_DWORD_R</span></code> (unsigned 32 bit integer from 2 registers low word first)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S_DWORD_R</span></code> (signed 32 bit integer from 2 registers low word first)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">U_QWORD</span></code> (unsigned 64 bit integer from 4 registers = 64bit)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S_QWORD</span></code> (signed 64 bit integer from 4 registers = 64bit)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">U_QWORD_R</span></code> (unsigned 64 bit integer from 4 registers low word first)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">U_QWORD_R</span></code> (signed 64 bit integer from 4 registers low word first)</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>register_count</strong> (<em>Optional</em>): The number of registers which are used for this Select. Only
+required for uncommon response encodings or to
+<a class="reference internal" href="../modbus_controller.html#modbus-register-count"><span class="std std-ref">optimize modbus communications</span></a>. Overrides the defaults determined
+by <code class="docutils literal notranslate"><span class="pre">value_type</span></code>.</p></li>
+<li><p><strong>skip_updates</strong> (<em>Optional</em>, int): By default, all sensors of a modbus_controller are updated together. For data points that don’t change very frequently, updates can be skipped. A value of 5 would only update this sensor range in every 5th update cycle. Note: The modbus_controller groups components by address ranges to reduce number of transactions. All components with the same starting address will be updated in one request. <code class="docutils literal notranslate"><span class="pre">skip_updates</span></code> applies for <em>all</em> components in the same range.</p></li>
+<li><p><strong>register_count</strong> (<em>Optional</em>, int): The number of consecutive registers this read request should span or skip in a single command. Default is 1. See <a class="reference internal" href="../modbus_controller.html#modbus-register-count"><span class="std std-ref">Optimizing modbus communications</span></a> for more details.</p></li>
+<li><p><strong>force_new_range</strong> (<em>Optional</em>, boolean): If possible sensors with sequential addresses are
+grouped together and requested in one range. Setting this to <code class="docutils literal notranslate"><span class="pre">true</span></code> enforces the start of a new
+range at that address.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>): Lambda to be evaluated every update interval
+to get the current option of the select.</p>
+<p>Parameters passed into lambda</p>
+<ul class="simple">
+<li><p><strong>x</strong> (<code class="docutils literal notranslate"><span class="pre">int64_t</span></code>): The parsed integer value of the modbus data.</p></li>
+<li><p><strong>data</strong> (<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">std::vector&lt;uint8_t&gt;&amp;</span></code>): vector containing the complete raw modbus response bytes for this
+sensor. Note: because the response contains data for all registers in the same range you have to
+use <code class="docutils literal notranslate"><span class="pre">data[item-&gt;offset]</span></code> to get the first response byte for your sensor.</p></li>
+<li><p><strong>item</strong> (<code class="docutils literal notranslate"><span class="pre">ModbusSelect*const</span></code>):  The sensor object itself.</p></li>
+</ul>
+<p>Possible return values for the lambda:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">&lt;std::string&gt;;</span></code> The new option for this Select.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">{};</span></code> Use default mapping (see <code class="docutils literal notranslate"><span class="pre">optionsmap</span></code>).</p></li>
+</ul>
+</li>
+<li><p><strong>write_lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>): Lambda to be evaluated on every update
+of the Sensor, before the new value is written to the modbus registers.</p></li>
+<li><p><strong>use_write_multiple</strong> (<em>Optional</em>, boolean): By default the modbus command <em>Function Code 6 (Preset Single Registers)</em>
+is used for setting the holding register if only one register is set. If your device only supports <em>Function Code 16 (Preset Multiple Registers)</em> set this option to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><strong>optimistic</strong> (<em>Optional</em>, boolean): Whether to operate in optimistic mode - when in this mode,
+any command sent to the Modbus Select will immediately update the reported state. Defaults
+to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-select"><span class="std std-ref">Select</span></a>.</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># example</span>
+<span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">  </span><span class="no">ESP_LOGD(&quot;Reg1000&quot;, &quot;Received value %lld&quot;, x);</span>
+<span class="w">  </span><span class="no">ESP_LOGD(&quot;Reg1000&quot;, &quot;Parsed from bytes 0x%x;0x%x&quot;, data[item-&gt;offset], data[item-&gt;offset + 1]);</span>
+<span class="w">  </span><span class="no">if (x &gt; 3) {</span>
+<span class="w">    </span><span class="no">return std::string(&quot;Three&quot;);</span>
+<span class="w">  </span><span class="no">}</span>
+</pre></div>
+</div>
+</section>
+<section id="parameters-passed-into-write-lambda">
+<h2>Parameters passed into <code class="docutils literal notranslate"><span class="pre">write_lambda</span></code><a class="headerlink" href="#parameters-passed-into-write-lambda" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>x</strong> (<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">std::string&amp;</span></code>): The option value to set for this Select.</p></li>
+<li><p><strong>value</strong> (<code class="docutils literal notranslate"><span class="pre">int64_t</span></code>): The mapping value of <code class="docutils literal notranslate"><span class="pre">x</span></code> using <code class="docutils literal notranslate"><span class="pre">optionsmap</span></code>.</p></li>
+<li><p><strong>payload</strong> (<code class="docutils literal notranslate"><span class="pre">std::vector&lt;uint16_t&gt;&amp;</span> <span class="pre">payload</span></code>): Empty vector for the payload. The lamdba can add
+16 bit raw modbus register words which are send to the modbus device.</p></li>
+<li><p><strong>item</strong> (<code class="docutils literal notranslate"><span class="pre">ModbusSelect*const</span></code>):  The sensor object itself.</p></li>
+</ul>
+<p>Possible return values for the lambda:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">&lt;int64_t&gt;;</span></code> the value which should be written to the configured modbus registers. If there were data written to <code class="docutils literal notranslate"><span class="pre">payload</span></code> this value is ignored.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">{};</span></code> Skip updating the register.</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># example</span>
+<span class="nt">write_lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">  </span><span class="no">ESP_LOGD(&quot;Reg1000&quot;, &quot;Set option to %s (%lld)&quot;, x.c_str(), value);</span>
+
+<span class="w">  </span><span class="no">// re-use default option value from optionsmap</span>
+<span class="w">  </span><span class="no">if (value == 0) {</span>
+<span class="w">    </span><span class="no">return value;</span>
+<span class="w">  </span><span class="no">}</span>
+
+<span class="w">  </span><span class="no">// return own option value</span>
+<span class="w">  </span><span class="no">if (x == &quot;One&quot;) {</span>
+<span class="w">    </span><span class="no">return 2;</span>
+<span class="w">  </span><span class="no">}</span>
+
+<span class="w">  </span><span class="no">// write payload</span>
+<span class="w">  </span><span class="no">if (x == &quot;Two&quot;) {</span>
+<span class="w">    </span><span class="no">payload.push_back(0x0001);</span>
+<span class="w">    </span><span class="no">return 0; // any value will do</span>
+<span class="w">  </span><span class="no">}</span>
+
+<span class="w">  </span><span class="no">// ignore update</span>
+<span class="w">  </span><span class="no">return {};</span>
+</pre></div>
+</div>
+</section>
+<section id="example">
+<h2>Example:<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">select</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">modbus_controller</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Modbus</span><span class="nv"> </span><span class="s">Select</span><span class="nv"> </span><span class="s">Register</span><span class="nv"> </span><span class="s">1000&quot;</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">    </span><span class="nt">value_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">U_WORD</span>
+<span class="w">    </span><span class="nt">optionsmap</span><span class="p">:</span>
+<span class="w">      </span><span class="s">&quot;Zero&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">      </span><span class="s">&quot;One&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="s">&quot;Two&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">      </span><span class="s">&quot;Three&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../modbus.html"><span class="doc">Modbus Component</span></a></p></li>
+<li><p><a class="reference internal" href="../modbus_controller.html"><span class="doc">Modbus Controller</span></a></p></li>
+<li><p><a class="reference internal" href="../sensor/modbus_controller.html"><span class="doc">Modbus Controller Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="../binary_sensor/modbus_controller.html"><span class="doc">Modbus Controller Binary Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="../output/modbus_controller.html"><span class="doc">Modbus Controller Output</span></a></p></li>
+<li><p><a class="reference internal" href="../switch/modbus_controller.html"><span class="doc">Modbus Controller Switch</span></a></p></li>
+<li><p><a class="reference internal" href="../number/modbus_controller.html"><span class="doc">Modbus Controller Number</span></a></p></li>
+<li><p><a class="reference internal" href="../text_sensor/modbus_controller.html"><span class="doc">Modbus Controller Text Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automations and Templates</span></a></p></li>
+<li><p><a class="reference external" href="https://www.modbustools.com/modbus.html">https://www.modbustools.com/modbus.html</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/select/modbus_controller.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

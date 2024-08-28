@@ -1,0 +1,549 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Nextion TFT LCD displays">
+<meta itemprop="name" content="Nextion TFT LCD Display">
+<meta itemprop="description" content="Instructions for setting up Nextion TFT LCD displays">
+<meta itemprop="image" content="https://esphome.io/_images/nextion.jpg">
+<meta name="twitter:title" content="Nextion TFT LCD Display">
+<meta name="twitter:image:src" content="https://esphome.io/_images/nextion.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Nextion TFT LCD displays">
+<meta property="og:title" content="Nextion TFT LCD Display">
+<meta property="og:image" content="https://esphome.io/_images/nextion.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Nextion TFT LCD displays">
+
+    <title>Nextion TFT LCD Display &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/display/nextion.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="PCD 8544 Display (Nokia 5110/3310)" href="pcd8544.html" />
+    <link rel="prev" title="MAX7219 Digit Display" href="max7219digit.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Nextion TFT LCD Display</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#rendering-lambda">Rendering Lambda</a><ul>
+<li><a class="reference internal" href="#lambda-calls">Lambda Calls</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nextion-automation">Nextion Automation</a><ul>
+<li><a class="reference internal" href="#on-setup"><code class="docutils literal notranslate"><span class="pre">on_setup</span></code></a></li>
+<li><a class="reference internal" href="#on-sleep-on-wake"><code class="docutils literal notranslate"><span class="pre">on_sleep</span> <span class="pre">/</span> <span class="pre">on_wake</span></code></a></li>
+<li><a class="reference internal" href="#on-page"><code class="docutils literal notranslate"><span class="pre">on_page</span></code></a></li>
+<li><a class="reference internal" href="#on-touch"><code class="docutils literal notranslate"><span class="pre">on_touch</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#uploading-a-tft-file">Uploading A TFT File</a><ul>
+<li><a class="reference internal" href="#home-assistant">Home Assistant</a></li>
+<li><a class="reference internal" href="#nginx">NGINX</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#components">Components</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Display Component</a> ➔</li>
+      <li>Nextion TFT LCD Display</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="nextion-tft-lcd-display">
+<h1>Nextion TFT LCD Display<a class="headerlink" href="#nextion-tft-lcd-display" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">nextion</span></code> display platform allows you to use Nextion LCD displays (<a class="reference external" href="https://nextion.itead.cc/resources/datasheets/">datasheet</a>,
+<a class="reference external" href="https://www.itead.cc/display/nextion.html">iTead</a>)
+with ESPHome.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/nextion-full.jpg"><img alt="../../_images/nextion-full.jpg" src="../../_images/nextion-full.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Nextion LCD Display.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>As the communication with the Nextion LCD display is done using UART, you need to have an <a class="reference internal" href="../uart.html#uart"><span class="std std-ref">UART bus</span></a>
+in your configuration with <code class="docutils literal notranslate"><span class="pre">rx_pin</span></code> both the <code class="docutils literal notranslate"><span class="pre">tx_pin</span></code> set to the respective pins on the display.
+The Nextion uses a baud rate of 9600 by default. It may be configured to use a faster speed by adding (for
+example)</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">baud</span><span class="o">=</span><span class="mi">115200</span><span class="w">   </span><span class="c1">// Sets the baud rate to 115200</span>
+<span class="n">bkcmd</span><span class="o">=</span><span class="mi">0</span><span class="w">       </span><span class="c1">// Tells the Nextion to not send responses on commands. This is the current default but can be set just in case</span>
+</pre></div>
+</div>
+<p>to the <code class="docutils literal notranslate"><span class="pre">program.s</span></code> source file (in the Nextion Editor) before the <code class="docutils literal notranslate"><span class="pre">page</span></code> line.
+This permits faster communication with the Nextion display and it is highly recommended when using <a class="reference internal" href="../uart.html#uart-hardware-uarts"><span class="std std-ref">Hardware UARTs</span></a>. Without a hardware uart make sure to set the baud rate to 9600.</p>
+<p>The below example configures a UART for the Nextion display to use</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion1</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.set_component_value(&quot;gauge&quot;, 50);</span>
+<span class="w">      </span><span class="no">it.set_component_text(&quot;textview&quot;, &quot;Hello World!&quot;);</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>uart_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the <a class="reference internal" href="../uart.html#uart"><span class="std std-ref">UART bus</span></a> you wish to use for this display.
+Use this if you want to use multiple UART buses at once.</p></li>
+<li><p><strong>brightness</strong> (<em>Optional</em>, percentage): Set display brightness in %. Defaults to <code class="docutils literal notranslate"><span class="pre">100%</span></code></p></li>
+<li><p><strong>lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>): The lambda to use for rendering the content on the nextion display.
+See <a class="reference internal" href="#display-nextion-lambda"><span class="std std-ref">Rendering Lambda</span></a> for more information. This is typically empty. The individual components for the Nextion will handle almost all features needed for updating</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to call the lambda to update the display.
+Defaults to <code class="docutils literal notranslate"><span class="pre">5s</span></code>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>tft_url</strong> (<em>Optional</em>, string): The URL to download the TFT file from for updates. See <a class="reference internal" href="#nextion-upload-tft"><span class="std std-ref">Nextion Upload</span></a>.</p></li>
+<li><p><strong>touch_sleep_timeout</strong> (<em>Optional</em>, int): Sets internal No-touch-then-sleep timer in seconds.</p></li>
+<li><p><strong>start_up_page</strong> (<em>Optional</em>, int): Sets the page to display when ESPHome connects to the Nextion. (Nextion shows page 0 on start-up by default).</p></li>
+<li><p><strong>wake_up_page</strong> (<em>Optional</em>, int): Sets the page to display after waking up</p></li>
+<li><p><strong>auto_wake_on_touch</strong> (<em>Optional</em>, boolean): Sets if Nextion should auto-wake from sleep when touch press occurs.</p></li>
+<li><p><strong>exit_reparse_on_start</strong> (<em>Optional</em>, boolean): Request the Nextion exit Active Reparse Mode before setup of the display. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>on_setup</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An action to be performed after ESPHome connects to the Nextion. See <a class="reference internal" href="#nextion-on-setup"><span class="std std-ref">Nextion Automation</span></a>.</p></li>
+<li><p><strong>on_sleep</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An action to be performed when the Nextion goes to sleep. See <a class="reference internal" href="#nextion-on-sleep"><span class="std std-ref">Nextion Automation</span></a>.</p></li>
+<li><p><strong>on_wake</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An action to be performed when the Nextion wakes up. See <a class="reference internal" href="#nextion-on-sleep"><span class="std std-ref">Nextion Automation</span></a>.</p></li>
+<li><p><strong>on_page</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An action to be performed after a page change. See <a class="reference internal" href="#nextion-on-page"><span class="std std-ref">Nextion Automation</span></a>.</p></li>
+<li><p><strong>on_touch</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An action to be performed after a touch event (press or release). See <a class="reference internal" href="#nextion-on-touch"><span class="std std-ref">Nextion Automation</span></a>.</p></li>
+</ul>
+</section>
+<section id="rendering-lambda">
+<span id="display-nextion-lambda"></span><h2>Rendering Lambda<a class="headerlink" href="#rendering-lambda" title="Permalink to this heading">¶</a></h2>
+<p>With Nextion displays, a dedicated chip on the display itself does the whole rendering. ESPHome can only
+send <em>instructions</em> to the display to tell it <em>how</em> to render something and <em>what</em> to render.</p>
+<p>First, you need to use the <a class="reference external" href="https://nextion.tech/nextion-editor/">Nextion Editor</a> to
+create a display file and insert it using the SD card slot. Then, in the rendering <code class="docutils literal notranslate"><span class="pre">lambda</span></code>, you can use the various API calls
+to populate data on the display:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// set the &quot;value&quot; of a component - value is always an integer</span>
+<span class="w">      </span><span class="no">// for example gauges represent their status using integers from 0 to 100</span>
+<span class="w">      </span><span class="no">it.set_component_value(&quot;gauge&quot;, 50);</span>
+
+<span class="w">      </span><span class="no">// set the text of a component</span>
+<span class="w">      </span><span class="no">it.set_component_text(&quot;textview&quot;, &quot;Hello World!&quot;);</span>
+
+<span class="w">      </span><span class="no">// set the text of a component with formatting</span>
+<span class="w">      </span><span class="no">it.set_component_text_printf(&quot;textview&quot;, &quot;The uptime is: %.1f&quot;, id(uptime_sensor).state);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although you can use the rendering lambda most, if not all, updates to the Nextion can be handled by the individual Nextion components. <strong>See Below</strong></p>
+</div>
+<p>Please see <a class="reference internal" href="index.html#display-printf"><span class="std std-ref">Formatted Text</span></a> for a quick introduction into the <code class="docutils literal notranslate"><span class="pre">printf</span></code> formatting rules and
+<a class="reference internal" href="index.html#display-strftime"><span class="std std-ref">Displaying Time</span></a> for an introduction into the <code class="docutils literal notranslate"><span class="pre">strftime</span></code> time formatting.</p>
+<section id="lambda-calls">
+<h3>Lambda Calls<a class="headerlink" href="#lambda-calls" title="Permalink to this heading">¶</a></h3>
+<p>Several methods are available for use within <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>; these permit advanced functionality beyond simple
+display updates. See the full <a class="reference external" href="/api/nextion_8h.html">API Reference</a> for more info.</p>
+<ul class="simple" id="nextion-upload-tft">
+<li><p><code class="docutils literal notranslate"><span class="pre">upload_tft</span></code>: Start the upload process. See <a class="reference internal" href="#nextion-upload-tft-file"><span class="std std-ref">Uploading A TFT File</span></a></p></li>
+</ul>
+<dl>
+<dt>The developer tools in Home Assistant can be used to trigger the update. The below code block is an example on how to set this up.</dt><dd><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">services</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">update_nextion</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;id(nextion1)-&gt;upload_tft();&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<ul id="nextion-update-all-components">
+<li><p><code class="docutils literal notranslate"><span class="pre">update_all_components()</span></code>: All the components will publish their states.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">id</span><span class="p">(</span><span class="n">nextion1</span><span class="p">).</span><span class="n">update_all_components</span><span class="p">();</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<ul id="update-components-by-prefix">
+<li><p><code class="docutils literal notranslate"><span class="pre">update_components_by_prefix(std::string</span> <span class="pre">page)</span></code>: This will send the current state of any <strong>component_name</strong> matching the prefix. Some settings like background color need to be resent on page change. This is a good hook for that.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">id</span><span class="p">(</span><span class="n">nextion1</span><span class="p">).</span><span class="n">update_components_by_prefix</span><span class="p">(</span><span class="s">&quot;page0.&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<ul class="simple" id="set-nextion-sensor-state">
+<li><p><code class="docutils literal notranslate"><span class="pre">set_nextion_sensor_state(NextionQueueType</span> <span class="pre">queue_type,</span> <span class="pre">std::string</span> <span class="pre">name,</span> <span class="pre">float</span> <span class="pre">state);</span></code> : Sets the sensor state. See <a class="reference internal" href="#nextion-queue-types"><span class="std std-ref">Queue Types</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_nextion_sensor_state(int</span> <span class="pre">queue_type,</span> <span class="pre">std::string</span> <span class="pre">name,</span> <span class="pre">float</span> <span class="pre">state);</span></code> : Sets the sensor state. See <a class="reference internal" href="#nextion-queue-types"><span class="std std-ref">Queue Types</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_nextion_text_state(std::string</span> <span class="pre">name,</span> <span class="pre">std::string</span> <span class="pre">state);</span></code> : Sets the text sensor state</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Below is a method for HASS to send updates to the Nextion by code.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable Home Assistant API</span>
+<span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">services</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">set_nextion_sensor</span>
+<span class="w">      </span><span class="nt">variables</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">nextion_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">            </span><span class="no">id(nextion1).set_nextion_sensor_state(nextion_type,name,state);</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">set_nextion_text</span>
+<span class="w">      </span><span class="nt">variables</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">            </span><span class="no">id(nextion1).set_nextion_text_state(name,state);</span>
+</pre></div>
+</div>
+</div>
+<blockquote id="nextion-queue-types">
+<div><dl class="simple">
+<dt>Queue Types:</dt><dd><ul class="simple">
+<li><p>SENSOR            0</p></li>
+<li><p>BINARY_SENSOR     1</p></li>
+<li><p>SWITCH            2</p></li>
+<li><p>TEXT_SENSOR       3</p></li>
+<li><p>WAVEFORM_SENSOR   4</p></li>
+<li><p>NO_RESULT         5</p></li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+</section>
+<section id="nextion-automation">
+<span id="display-nextion-automation"></span><h2>Nextion Automation<a class="headerlink" href="#nextion-automation" title="Permalink to this heading">¶</a></h2>
+<p>With Nextion displays, it’s possible to define several automation actions. Depending on your setup, you may or may not need to use some of them.</p>
+<section id="on-setup">
+<span id="nextion-on-setup"></span><h3><code class="docutils literal notranslate"><span class="pre">on_setup</span></code><a class="headerlink" href="#on-setup" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered once ESP establishes a connection with Nextion. This happens after a boot up and may take some
+noticeable time (e.g. hundreds of milliseconds) to establish a connection over UART. Typical use scenario for this automation is choosing of the initial
+page to display depending on some runtime conditions or simply showing a page with a non-zero index (Nextion shows page 0 by default and ESPHome will
+use <code class="docutils literal notranslate"><span class="pre">start_up_page</span></code> on connection, if set).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ap</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"> </span><span class="c1"># This spawns an AP with the device name and mac address with no password.</span>
+
+<span class="nt">captive_portal</span><span class="p">:</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">disp</span>
+<span class="w">    </span><span class="nt">on_setup</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">// Check if WiFi hot-spot is configured</span>
+<span class="w">          </span><span class="no">if (wifi::global_wifi_component-&gt;has_sta()) {</span>
+<span class="w">            </span><span class="no">// Show the main page</span>
+<span class="w">            </span><span class="no">id(disp).goto_page(&quot;main_page&quot;);</span>
+<span class="w">          </span><span class="no">} else {</span>
+<span class="w">            </span><span class="no">// Show WiFi Access Point QR code for captive portal, see https://qifi.org/</span>
+<span class="w">            </span><span class="no">id(disp).goto_page(&quot;wifi_qr_page&quot;);</span>
+<span class="w">          </span><span class="no">}</span>
+</pre></div>
+</div>
+</section>
+<section id="on-sleep-on-wake">
+<span id="nextion-on-sleep"></span><h3><code class="docutils literal notranslate"><span class="pre">on_sleep</span> <span class="pre">/</span> <span class="pre">on_wake</span></code><a class="headerlink" href="#on-sleep-on-wake" title="Permalink to this heading">¶</a></h3>
+<p>The action is called before and after Nextion goes to sleep mode. Nextion is not responsive while in sleep mode. Use these triggers to prepare your code
+for that and <a class="reference internal" href="#nextion-update-all-components"><span class="std std-ref">force-update</span></a> the on-screen content once it’s back.</p>
+</section>
+<section id="on-page">
+<span id="nextion-on-page"></span><h3><code class="docutils literal notranslate"><span class="pre">on_page</span></code><a class="headerlink" href="#on-page" title="Permalink to this heading">¶</a></h3>
+<p>This automation is triggered when a page is changed on the Nextion display. This includes both ESP and Nextion initiated page changes.
+ESP initiates a page change by calling <code class="docutils literal notranslate"><span class="pre">goto_page(&quot;page_name&quot;)</span></code> or <code class="docutils literal notranslate"><span class="pre">goto_page(page_id)</span></code> function. Nextion can change pages as a reaction to user’s activity (e.g. clicks) or using a timer.
+In either case, this automation can be helpful to update on-screen controls for the newly displayed page.</p>
+<p>If you fully own your Nextoin HMI design and follow the best practice of setting the components’ vscope to global in the Nextion Editor, you’ll probably never need this trigger.
+However, if this is not the case and all / some of your UI components have local visibility scope, <code class="docutils literal notranslate"><span class="pre">on_page</span></code> will be your remedy. Here you can initiate updates of the relevant components.</p>
+<p>Before actually updating components, you need to understand which page Nextion was switched to. <code class="docutils literal notranslate"><span class="pre">x</span></code> argument will contain a page id integer.
+Once you know the page id, it’s time to update the components. Two strategies would be possible. The first one is to use <a class="reference internal" href="../sensor/nextion.html#nextion-sensor"><span class="std std-ref">Nextion Sensors</span></a> for every UI field and use one of the
+<a class="reference internal" href="#nextion-update-all-components"><span class="std std-ref">update functions</span></a>. The second is to manually set component text or value for each field:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_page</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">switch (x) {</span>
+<span class="w">        </span><span class="no">case 0x02: // wifi_qr_page</span>
+<span class="w">          </span><span class="no">// Manually trigger update for controls on page 0x02 here</span>
+<span class="w">          </span><span class="no">id(disp).set_component_text_printf(&quot;qr_wifi&quot;, &quot;WIFI:T:nopass;S:%s;P:;;&quot;, wifi::global_wifi_component-&gt;get_ap().get_ssid().c_str());</span>
+<span class="w">          </span><span class="no">break;</span>
+<span class="w">      </span><span class="no">}</span>
+</pre></div>
+</div>
+</section>
+<section id="on-touch">
+<span id="nextion-on-touch"></span><h3><code class="docutils literal notranslate"><span class="pre">on_touch</span></code><a class="headerlink" href="#on-touch" title="Permalink to this heading">¶</a></h3>
+<p>This automation is triggered when a component is pressed or released on the Nextion display.</p>
+<p>The following arguments will be available:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">page_id</span></code>: Contains the id (integer) of the page where the touch happened.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">component_id</span></code>: Contains the id (integer) of the component touched. It’s required that the component have “Send Component ID” enabled either for “Touch Press Event” and/or “Touch Release Event”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">touch_event</span></code>: It will be <code class="docutils literal notranslate"><span class="pre">true</span></code> for a “press” event, or <code class="docutils literal notranslate"><span class="pre">false</span></code> for a “release” event.</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_touch</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">ESP_LOGD(&quot;nextion.on_touch&quot;, &quot;Nextion touch event detected!&quot;);</span>
+<span class="w">      </span><span class="no">ESP_LOGD(&quot;nextion.on_touch&quot;, &quot;Page Id: %i&quot;, page_id);</span>
+<span class="w">      </span><span class="no">ESP_LOGD(&quot;nextion.on_touch&quot;, &quot;Component Id: %i&quot;, component_id);</span>
+<span class="w">      </span><span class="no">ESP_LOGD(&quot;nextion.on_touch&quot;, &quot;Event type: %s&quot;, touch_event ? &quot;Press&quot; : &quot;Release&quot;);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="uploading-a-tft-file">
+<span id="nextion-upload-tft-file"></span><h2>Uploading A TFT File<a class="headerlink" href="#uploading-a-tft-file" title="Permalink to this heading">¶</a></h2>
+<p>This will download the file from the tft_url and will transfer it over the UART to the Nextion.
+Once completed both the ESP and Nextion will reboot. During the upload process esphome will be
+unresponsive and no logging will take place. This uses the same protocol as the Nextion editor and
+only updates the changes of the TFT file. If HTTPS/SSL is enabled it will be about 1kB/sec.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If <a class="reference internal" href="../uart.html#uart-hardware-uarts"><span class="std std-ref">Hardware UARTs</span></a> are not available then inconsistent results WILL occur. Lowering the speed to 9600 baud may help.</p>
+</div>
+<p>To host the TFT file you can use Home Assistant itself or any other web server. HTTPS, while always recommended on any network, will greatly reduce the upload speed.</p>
+<section id="home-assistant">
+<h3>Home Assistant<a class="headerlink" href="#home-assistant" title="Permalink to this heading">¶</a></h3>
+<p>To host the TFT file from Home Assistant, create a www directory if it doesn’t exist in your config
+directory. You can create a subdirectory for those files as well.</p>
+<p>For example if the file is located
+under your configuration directory <code class="docutils literal notranslate"><span class="pre">www/tft/default.tft</span></code> the URL to access it will be
+<code class="docutils literal notranslate"><span class="pre">http(s)://your_home_assistant_url:port/local/tft/default.tft</span></code></p>
+</section>
+<section id="nginx">
+<h3>NGINX<a class="headerlink" href="#nginx" title="Permalink to this heading">¶</a></h3>
+<p><a class="reference external" href="https://www.nginx.com/">NGINX</a></p>
+<p>The below NGINX example configuration will serve files out of the /var/www/nextion directory.</p>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
+<span class="w">  </span><span class="kn">access_log</span><span class="w">  </span><span class="s">/var/log/nginx/nextion_access.log</span><span class="p">;</span>
+<span class="w">  </span><span class="kn">error_log</span><span class="w">  </span><span class="s">/var/log/nginx/nextion_error.log</span><span class="p">;</span>
+<span class="w">  </span><span class="kn">root</span><span class="w"> </span><span class="s">/var/www/nextion</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Permalink to this heading">¶</a></h2>
+<p>This library supports a few different components allowing communication back and forth from HA &lt;-&gt; MCU &lt;-&gt; Nextion.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the Nextion is sleeping or if the component was set to be hidden, it will not update its components even if updates are sent.
+After the Nextion wakes up, all components will send their states to the Nextion to get around this.</p>
+</div>
+<dl>
+<dt>With the exception of the <a class="reference internal" href="../binary_sensor/nextion.html"><span class="doc">Nextion Binary Sensor Component</span></a> that has the <code class="docutils literal notranslate"><span class="pre">page_id</span></code>/<code class="docutils literal notranslate"><span class="pre">component_id</span></code> options configured, the example below illustrates:</dt><dd><ul class="simple">
+<li><p>Polling the Nextion for updates</p></li>
+<li><p>Dynamic updates sent from the Nextion to the ESP device</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion</span>
+<span class="w">    </span><span class="nt">nextion_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion1</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;n0&quot;</span>
+<span class="w">    </span><span class="nt">component_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n0</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">current_page</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;current_page&quot;</span>
+<span class="w">    </span><span class="nt">variable_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dp</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Note that the first one requires a custom protocol to be included in the Nextion display’s code/configuration. See the individual components for more detail.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Display Component</span></a></p></li>
+<li><p><a class="reference internal" href="../binary_sensor/nextion.html"><span class="doc">Nextion Binary Sensor Component</span></a></p></li>
+<li><p><a class="reference internal" href="../sensor/nextion.html"><span class="doc">Nextion Sensor Component</span></a></p></li>
+<li><p><a class="reference internal" href="../switch/nextion.html"><span class="doc">Nextion Switch Component</span></a></p></li>
+<li><p><a class="reference internal" href="../text_sensor/nextion.html"><span class="doc">Nextion Text Sensor Component</span></a></p></li>
+<li><p><a class="reference internal" href="../uart.html"><span class="doc">UART Bus</span></a></p></li>
+<li><p><a class="reference external" href="/api/nextion_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/bborncr/nextion">Simple Nextion Library</a> by <a class="reference external" href="https://github.com/bborncr">Bentley Born</a></p></li>
+<li><p><a class="reference external" href="https://github.com/itead/ITEADLIB_Arduino_Nextion">Official Nextion Library</a> by <a class="reference external" href="https://www.itead.cc/">iTead</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/display/nextion.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

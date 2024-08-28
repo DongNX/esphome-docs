@@ -1,0 +1,494 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up ADE7880 energy metering sensors">
+<meta name="keywords" content="ADE7880, Shelly 3EM">
+<meta itemprop="name" content="ADE7880 Power Sensor">
+<meta itemprop="description" content="Instructions for setting up ADE7880 energy metering sensors">
+<meta name="twitter:title" content="ADE7880 Power Sensor">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up ADE7880 energy metering sensors">
+<meta property="og:title" content="ADE7880 Power Sensor">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up ADE7880 energy metering sensors">
+
+    <title>ADE7880 Power Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/ade7880.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ADE7953 Power Sensor" href="ade7953.html" />
+    <link rel="prev" title="ADC128S102 8-Channel 12-Bit A/D Converter" href="adc128s102.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ADE7880 Power Sensor</a><ul>
+<li><a class="reference internal" href="#instantaneous-vs-accumulated-sensors">Instantaneous vs. Accumulated Sensors</a></li>
+<li><a class="reference internal" href="#configuration-variables">Configuration Variables</a></li>
+<li><a class="reference internal" href="#calibration">Calibration</a></li>
+<li><a class="reference internal" href="#configuration-examples">Configuration Examples</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>ADE7880 Power Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="ade7880-power-sensor">
+<h1>ADE7880 Power Sensor<a class="headerlink" href="#ade7880-power-sensor" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">ade7880</span></code> sensor platform allows you to use ADE7880
+voltage/current/power sensors (<a class="reference external" href="https://www.analog.com/media/en/technical-documentation/data-sheets/ADE7880.pdf">datasheet</a>) with ESPHome. This sensor
+chip is commonly found in Shelly 3EM and 3EM Pro devices.</p>
+<p>Communication with the chip is over an <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I2C bus</span></a>, so
+you need to have an <code class="docutils literal notranslate"><span class="pre">i2c:</span></code> entry in your configuration with both
+<code class="docutils literal notranslate"><span class="pre">sda</span></code> and <code class="docutils literal notranslate"><span class="pre">scl</span></code> set. It is also recommended to set the I2C
+<code class="docutils literal notranslate"><span class="pre">frequency</span></code> to <code class="docutils literal notranslate"><span class="pre">200kHz</span></code> or higher, if the board containing the
+chip can support it (this speed has been verified to work in the
+Shelly 3EM). While this is not necessary, if a significant number of
+the <code class="docutils literal notranslate"><span class="pre">ade7880</span></code> individual sensors (e.g. more than six) are enabled,
+the time consumed by the I2C transactions can be substantial and
+result in warning messages in the ESPHome logs.</p>
+<p>The ADE7880 chip can measure up to three power phases, along with a
+neutral. Current can be measured on all four inputs, while voltage and
+power can be measured on the power phases. Current is measured using
+CT clamps.</p>
+<p>While the chip is designed for 3-phase AC power, the phase inputs are
+independent of each other, so the chip can be used with single-phase
+and two-phase AC power circuits as well (or a mixture of them).</p>
+<section id="instantaneous-vs-accumulated-sensors">
+<h2>Instantaneous vs. Accumulated Sensors<a class="headerlink" href="#instantaneous-vs-accumulated-sensors" title="Permalink to this heading">¶</a></h2>
+<p>The digital signal processor (DSP) in the ADE7880 executes its
+computations 8,000 times per second. As a result, each sensor listed
+below as ‘instantaneous’ reports the computed value from the most
+recent DSP cycle; it does not report an average over the time period
+since the last update.</p>
+<p>Each sensor listed as ‘accumulated’ below reports the sum of all
+computed values since the last update.</p>
+<p>The update interval defaults to 60 seconds, but can be lowered if you
+wish to have more frequent readings; this will increase the load (and
+database growth) of the connected Home Assistant correspondingly.</p>
+</section>
+<section id="configuration-variables">
+<h2>Configuration Variables<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>irq1_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>):
+The GPIO pin that the ADE7880’s IRQ1 output is connected to. The
+<code class="docutils literal notranslate"><span class="pre">ade7880</span></code> component uses this input to determine when the ADE7880
+chip has completed its power-up and reset cycles.</p></li>
+<li><p><strong>irq0_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>):
+The GPIO pin that the ADE7880’s IRQ0 output is connected to, if
+any. The <code class="docutils literal notranslate"><span class="pre">ade7880</span></code> component does not use this input, but if the
+IRQ0 output is connected to a GPIO and that GPIO is <em>not</em> configured
+as an <code class="docutils literal notranslate"><span class="pre">input</span></code>, the chip will produce excessive heat and its
+lifetime could be shortened. The simplest way to ensure that the
+GPIO pin is properly connected is to supply it here, but if you wish
+to configure it elsewhere in your configuration that is a reasonable
+alternative.</p></li>
+<li><p><strong>reset_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>):
+The GPIO pin that the ADE7880’s RESET input is connected to, if
+any. If this pin is configured, the <code class="docutils literal notranslate"><span class="pre">ade7880</span></code> component will use
+it to initiate a ‘hardware reset’ of the chip when needed; if this
+pin is not configured, the component will attempt to initiate a
+‘software reset’ of the chip when needed, but this could fail if the
+chip is not responding properly to the I2C bus.</p></li>
+<li><p><strong>frequency</strong> (<em>Optional</em>, string): The AC line frequency of the
+supply voltage. The supported range is <code class="docutils literal notranslate"><span class="pre">45Hz</span></code> to
+<code class="docutils literal notranslate"><span class="pre">65Hz</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">50Hz</span></code>.</p></li>
+<li><p><strong>phase_a</strong> (<em>Optional</em>): The configuration variables for the ‘A’
+phase inputs of the chip. Refer to the configuration examples below
+for the <cite>simple</cite> and <cite>detailed</cite> sensor configuration options.</p>
+<ul>
+<li><p><strong>name</strong> (<em>Optional</em>, string): The name of the phase, which will
+be used a prefix in the names of all of the phase’s sensors.</p></li>
+<li><p><strong>voltage</strong> (instantaneous) (<em>Optional</em>): Report the RMS voltage
+value of this phase in volts (V). In detailed configuration mode,
+all options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a> are supported.</p></li>
+<li><p><strong>current</strong> (instantaneous) (<em>Optional</em>): Report the RMS current
+value of this phase in amperes (A). In detailed configuration
+mode, all options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a> are
+supported.</p></li>
+<li><p><strong>active_power</strong> (instantaneous) (<em>Optional</em>): Report the active
+(consumed) power value of this phase in watts (W). In detailed
+configuration mode, all options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>
+are supported.</p></li>
+<li><p><strong>apparent_power</strong> (instantaneous) (<em>Optional</em>): Report the
+apparent (voltage multiplied by current) power value of this phase
+in volt-amperes (VA). In detailed configuration mode, all options
+from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a> are supported.</p></li>
+<li><p><strong>power_factor</strong> (instantaneous) (<em>Optional</em>): Report the power
+factor value of this phase as a percentage (%). In detailed
+configuration mode, all options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>
+are supported.</p></li>
+<li><p><strong>forward_active_energy</strong> (accumulated) (<em>Optional</em>): Report the
+forward active energy value of this phase in watt-hours (Wh). In
+detailed configuration mode, all options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a> are supported.</p></li>
+<li><p><strong>reverse_active_energy</strong> (accumulated) (<em>Optional</em>): Report the
+reverse active energy value of this phase in
+volt-ampere-reactive-hours (VARh). In detailed configuration mode,
+all options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a> are supported.</p></li>
+<li><p><strong>calibration</strong> (<strong>Required</strong>): The calibration values necessary
+for this phase’s sensors to report correct values.</p>
+<ul>
+<li><p><strong>current_gain</strong> (<strong>Required</strong>, integer): The value for the
+<code class="docutils literal notranslate"><span class="pre">AIGAIN</span></code> calibration register.</p></li>
+<li><p><strong>voltage_gain</strong> (<strong>Required</strong>, integer): The value for the
+<code class="docutils literal notranslate"><span class="pre">AVGAIN</span></code> calibration register.</p></li>
+<li><p><strong>power_gain</strong> (<strong>Required</strong>, integer): The value for the
+<code class="docutils literal notranslate"><span class="pre">APGAIN</span></code> calibration register.</p></li>
+<li><p><strong>phase_angle</strong> (<strong>Required</strong>, integer): The value for the
+<code class="docutils literal notranslate"><span class="pre">APHCAL</span></code> calibration register.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>phase_b</strong> (<em>Optional</em>): The configuration variables for the ‘B’
+phase inputs of the chip. Identical to <code class="docutils literal notranslate"><span class="pre">phase_a</span></code>.</p></li>
+<li><p><strong>phase_c</strong> (<em>Optional</em>): The configuration variables for the ‘C’
+phase inputs of the chip. Identical to <code class="docutils literal notranslate"><span class="pre">phase_a</span></code>.</p></li>
+<li><p><strong>neutral</strong> (<em>Optional</em>): The configuration variables for the
+‘neutral’ phase of the chip.</p>
+<ul>
+<li><p><strong>name</strong> (<em>Optional</em>, string): The name of the phase, which will
+be used a prefix in the names of all of the phase’s sensors.</p></li>
+<li><p><strong>current</strong> (instantaneous) (<strong>Required</strong>): Report the RMS current
+value of the neutral in amperes (A). In detailed configuration
+mode, all options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a> are
+supported.</p></li>
+<li><p><strong>calibration</strong> (<strong>Required</strong>): The calibration values necessary
+for this phase’s sensors to report correct values.</p>
+<ul>
+<li><p><strong>current_gain</strong> (<strong>Required</strong>, integer): The value for the
+<code class="docutils literal notranslate"><span class="pre">NIGAIN</span></code> calibration register.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval
+to report the sensor values. Defaults to <code class="docutils literal notranslate"><span class="pre">60s</span></code>.</p></li>
+<li><p><strong>i2c_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Specify the ID of the
+<a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I2C Component</span></a> if your configuration includes multiple
+I2C buses.</p></li>
+</ul>
+</section>
+<section id="calibration">
+<h2>Calibration<a class="headerlink" href="#calibration" title="Permalink to this heading">¶</a></h2>
+<p>These sensors needs calibration to report correct values. For the
+Shelly 3EM and 3EM Pro devices, the calibration is performed during
+manufacturing, and the calibration data is included in the firmware
+stored in the device. See the <a class="reference external" href="https://devices.esphome.io/devices/Shelly-3EM">Shelly 3EM</a> section of the ESPHome
+Devices site for details on how to obtain the calibration data for a
+3EM device.</p>
+</section>
+<section id="configuration-examples">
+<h2>Configuration Examples<a class="headerlink" href="#configuration-examples" title="Permalink to this heading">¶</a></h2>
+<p>There are two sensor configuration modes supported: <em>simple</em> and
+<em>detailed</em>. The mode can be chosen for each sensor indepedently from
+all other sensors.</p>
+<p>The <em>simple</em> mode is useful when you have no need to provide IDs for
+sensors, or to override any of the default sensor settings (unit of
+measurement, device class, state class, decimal accuracy). The value
+provided for each sensor variable will be the sensor’s name
+(optionally prefixed with the phase name, if it has been
+configured).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example simple sensor configuration mode</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ade7880</span>
+<span class="w">    </span><span class="nt">irq0_pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">irq1_pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">phase_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Room Heater</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Voltage</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Current</span>
+<span class="w">      </span><span class="nt">active_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Active Power</span>
+<span class="w">      </span><span class="nt">power_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Power Factor</span>
+<span class="w">      </span><span class="nt">forward_active_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Forward Active Energy</span>
+<span class="w">      </span><span class="nt">reverse_active_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reverse Active Energy</span>
+<span class="w">      </span><span class="nt">calibration</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">current_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3116628</span>
+<span class="w">        </span><span class="nt">voltage_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-757178</span>
+<span class="w">        </span><span class="nt">power_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1344457</span>
+<span class="w">        </span><span class="nt">phase_angle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">188</span>
+</pre></div>
+</div>
+<p>Because the phase name ‘Room Heater’ was configured, the resulting
+names for the various sensors will be ‘Room Heater Voltage’, ‘Room
+Heater Current’, etc.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example detailed sensor configuration mode</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ade7880</span>
+<span class="w">    </span><span class="nt">irq0_pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">irq1_pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">phase_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Voltage</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Current</span>
+<span class="w">        </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">      </span><span class="nt">active_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Active Power</span>
+<span class="w">      </span><span class="nt">power_factor</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ade_power_factor</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Power Factor</span>
+<span class="w">      </span><span class="nt">forward_active_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Forward Active Energy</span>
+<span class="w">      </span><span class="nt">reverse_active_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reverse Active Energy</span>
+<span class="w">      </span><span class="nt">calibration</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">current_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3116628</span>
+<span class="w">        </span><span class="nt">voltage_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-757178</span>
+<span class="w">        </span><span class="nt">power_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1344457</span>
+<span class="w">        </span><span class="nt">phase_angle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">188</span>
+</pre></div>
+</div>
+<p>In this example, the <code class="docutils literal notranslate"><span class="pre">accuracy_decimals</span></code> variable for the
+<code class="docutils literal notranslate"><span class="pre">current</span></code> sensor has been specified (overriding the default), and an
+<code class="docutils literal notranslate"><span class="pre">ID</span></code> has been specified for the <code class="docutils literal notranslate"><span class="pre">power_factor</span></code> sensor. The
+remaining sensors for the ‘A’ phase are configured using ‘simple’
+configuration mode.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example full platform configuration</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ade7880</span>
+<span class="w">    </span><span class="nt">irq0_pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">irq1_pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60Hz</span>
+<span class="w">    </span><span class="nt">phase_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Phase A</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Voltage</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Current</span>
+<span class="w">      </span><span class="nt">active_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Active Power</span>
+<span class="w">      </span><span class="nt">power_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Power Factor</span>
+<span class="w">      </span><span class="nt">forward_active_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Forward Active Energy</span>
+<span class="w">      </span><span class="nt">reverse_active_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reverse Active Energy</span>
+<span class="w">      </span><span class="nt">calibration</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">current_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3116628</span>
+<span class="w">        </span><span class="nt">voltage_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-757178</span>
+<span class="w">        </span><span class="nt">power_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1344457</span>
+<span class="w">        </span><span class="nt">phase_angle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">188</span>
+<span class="w">    </span><span class="nt">phase_b</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Phase B</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Voltage</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Current</span>
+<span class="w">      </span><span class="nt">active_power:</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Active Power</span>
+<span class="w">      </span><span class="nt">power_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Power Factor</span>
+<span class="w">      </span><span class="nt">forward_active_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Forward Active Energy</span>
+<span class="w">      </span><span class="nt">reverse_active_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reverse Active Energy</span>
+<span class="w">      </span><span class="nt">calibration</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">current_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3133655</span>
+<span class="w">        </span><span class="nt">voltage_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-755235</span>
+<span class="w">        </span><span class="nt">power_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1345638</span>
+<span class="w">        </span><span class="nt">phase_angle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">188</span>
+<span class="w">    </span><span class="nt">phase_c</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Phase C</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Voltage</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Current</span>
+<span class="w">      </span><span class="nt">active_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Active Power</span>
+<span class="w">      </span><span class="nt">power_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Power Factor</span>
+<span class="w">      </span><span class="nt">forward_active_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Forward Active Energy</span>
+<span class="w">      </span><span class="nt">reverse_active_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reverse Active Energy</span>
+<span class="w">      </span><span class="nt">calibration</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">current_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3111158</span>
+<span class="w">        </span><span class="nt">voltage_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-743813</span>
+<span class="w">        </span><span class="nt">power_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1351437</span>
+<span class="w">        </span><span class="nt">phase_angle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">180</span>
+<span class="w">    </span><span class="nt">neutral</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test 3 Unused</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Current</span>
+<span class="w">      </span><span class="nt">calibration</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">current_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3011156</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference external" href="/api/ade7880_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/ade7880.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

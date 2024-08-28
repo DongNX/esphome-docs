@@ -1,0 +1,1115 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up the display component.">
+<meta itemprop="name" content="Display Component">
+<meta itemprop="description" content="Instructions for setting up the display component.">
+<meta itemprop="image" content="https://esphome.io/_images/folder-open.png">
+<meta name="twitter:title" content="Display Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/folder-open.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up the display component.">
+<meta property="og:title" content="Display Component">
+<meta property="og:image" content="https://esphome.io/_images/folder-open.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up the display component.">
+
+    <title>Display Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/display/index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Addressable Light" href="addressable_light.html" />
+    <link rel="prev" title="Template Event" href="../event/template.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Display Component</a><ul>
+<li><a class="reference internal" href="#display-rendering-engine">Display Rendering Engine</a></li>
+<li><a class="reference internal" href="#basic-shapes">Basic Shapes</a></li>
+<li><a class="reference internal" href="#drawing-static-text">Drawing Static Text</a></li>
+<li><a class="reference internal" href="#formatted-text">Formatted Text</a></li>
+<li><a class="reference internal" href="#displaying-time">Displaying Time</a></li>
+<li><a class="reference internal" href="#screen-clipping">Screen Clipping</a></li>
+<li><a class="reference internal" href="#color">Color</a></li>
+<li><a class="reference internal" href="#graph-component">Graph Component</a></li>
+<li><a class="reference internal" href="#qr-code-component">QR Code Component</a></li>
+<li><a class="reference internal" href="#images">Images</a></li>
+<li><a class="reference internal" href="#animation">Animation</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#actions">Actions:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#display-pages">Display Pages</a></li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li><a class="reference internal" href="#using-the-color-test-card">Using the Color Test Card</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li>Display Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="display-component">
+<h1>Display Component<a class="headerlink" href="#display-component" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">display</span></code> component houses ESPHome’s powerful rendering and display
+engine. Fundamentally, there are these types of displays:</p>
+<ul class="simple">
+<li><p>Text based displays like <a class="reference internal" href="max7219.html"><span class="doc">7-Segment displays</span></a> or
+<a class="reference internal" href="lcd_display.html"><span class="doc">LCD displays</span></a>.</p></li>
+<li><p>Graphical serial displays like <a class="reference internal" href="nextion.html"><span class="doc">Nextion TFT LCD Display</span></a> that have their own processors for rendering.</p></li>
+<li><p>Graphical binary displays which can toggle ON/OFF any pixel, like <a class="reference internal" href="waveshare_epaper.html"><span class="doc">E-Paper</span></a>,
+<a class="reference internal" href="ssd1306.html"><span class="doc">OLED</span></a> or <a class="reference internal" href="ili9xxx.html"><span class="doc">TFT</span></a> displays.</p></li>
+</ul>
+<p>For the last type, ESPHome has a powerful rendering engine that can do
+many things like draw some basic shapes, print text with any font you want, or even show images.</p>
+<p>To achieve all this flexibility displays tie in directly into ESPHome’s <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda system</span></a>.
+So when you want to write some text or sensor values to the screen you will be writing in C++ code
+using an API that is designed to</p>
+<ul class="simple">
+<li><p>be simple and to be used without programming experience</p></li>
+<li><p>but also be flexible enough to work with more complex tasks like displaying an analog clock.</p></li>
+</ul>
+<section id="display-rendering-engine">
+<span id="display-engine"></span><h2>Display Rendering Engine<a class="headerlink" href="#display-rendering-engine" title="Permalink to this heading">¶</a></h2>
+<p>In this section we will be discussing how to use ESPHome’s display rendering engine from ESPHome
+and some basic commands. Please note that this only applies to displays that can control each pixel
+individually.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Display hardware is complex and sometimes doesn’t behave as expected. If you’re having trouble with your display,
+please see <a class="reference internal" href="#troubleshooting"><span class="std std-ref">Troubleshooting</span></a> below.</p>
+</div>
+<p>So, first a few basics: When setting up a display platform in ESPHome there will be a configuration
+option called <code class="docutils literal notranslate"><span class="pre">lambda:</span></code> which will be called every time ESPHome wants to re-render the display.
+In each cycle, the display is automatically cleared before the lambda is executed. You can disable
+this behavior by setting <code class="docutils literal notranslate"><span class="pre">auto_clear_enabled:</span> <span class="pre">false</span></code>.
+In the lambda, you can write code like in any <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a> in ESPHome. Display
+lambdas are additionally passed a variable called <code class="docutils literal notranslate"><span class="pre">it</span></code> which represents the rendering engine object.</p>
+<figure class="align-center">
+<img alt="../../_images/display_rendering_line.png" src="../../_images/display_rendering_line.png" />
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Write your display rendering code here</span>
+
+<span class="w">      </span><span class="no">// For example, draw a line from [x=0,y=0] to [x=50,y=50]</span>
+<span class="w">      </span><span class="no">it.line(0, 0, 50, 50);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Lambdas are essentially just a lightly modified version of C++. So don’t forget to end each line
+with a semicolon (<code class="docutils literal notranslate"><span class="pre">;</span></code>). Otherwise you will be greeted by a long error message at the compilation stage.</p>
+</div>
+<p>If you compile and upload the configuration above, you should see a black (or white, depending on the display)
+line which starts at the top left and goes a few pixels down at a 45° angle. (If it’s in another corner, use the
+<code class="docutils literal notranslate"><span class="pre">rotation:</span></code> option to rotate the display to your liking)</p>
+<p>This already highlights one of the things you must learn before diving into writing your own custom display code:
+The <strong>top left</strong> is always the origin of the pixel coordinate system. Also, all points in this coordinate system
+are a pair of integers like <code class="docutils literal notranslate"><span class="pre">50,</span> <span class="pre">50</span></code> which represent the shift to the right and shift downwards. So, in other words,
+x always represents the horizontal axis (width) and y the vertical axis (height). And the convention in
+the rendering engine is always first specify the <code class="docutils literal notranslate"><span class="pre">x</span></code> coordinate and then the <code class="docutils literal notranslate"><span class="pre">y</span></code> coordinate.</p>
+</section>
+<section id="basic-shapes">
+<h2>Basic Shapes<a class="headerlink" href="#basic-shapes" title="Permalink to this heading">¶</a></h2>
+<p>Now that you know a bit more about ESPHome’s coordinate system, let’s draw some basic shapes like lines, rectangles, circles or even polygons:</p>
+<figure class="align-center">
+<img alt="../../_images/display_rendering_shapes.png" src="../../_images/display_rendering_shapes.png" />
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Draw a line from [0,0] to [100,50]</span>
+<span class="w">      </span><span class="no">it.line(0, 0, 100, 50);</span>
+<span class="w">      </span><span class="no">// Draw the outline of a rectangle with the top left at [5,20], a width of 30 and a height of 42</span>
+<span class="w">      </span><span class="no">it.rectangle(5, 20, 30, 42);</span>
+<span class="w">      </span><span class="no">// Draw the same rectangle a few pixels apart, but this time filled</span>
+<span class="w">      </span><span class="no">it.filled_rectangle(40, 40, 30, 42);</span>
+
+<span class="w">      </span><span class="no">// Circles! Let&#39;s draw one with the center at [20,40] and a radius of 10</span>
+<span class="w">      </span><span class="no">it.circle(20, 40, 10);</span>
+<span class="w">      </span><span class="no">// ... and the same thing filled again</span>
+<span class="w">      </span><span class="no">it.filled_circle(20, 75, 10);</span>
+
+<span class="w">      </span><span class="no">// Triangles... Let&#39;s draw the outline of a triangle from the [x,y] coordinates of its three points</span>
+<span class="w">      </span><span class="no">// [25,5], [100,5], [80,25]</span>
+<span class="w">      </span><span class="no">it.triangle(25, 5, 100, 5, 80, 25);</span>
+<span class="w">      </span><span class="no">// and a filled triangle !</span>
+<span class="w">      </span><span class="no">it.filled_triangle(115, 5, 95, 25, 125, 70);</span>
+
+<span class="w">      </span><span class="no">// Regular Polygons? Let&#39;s draw a filled, pointy-topped hexagon inscribed in a circle</span>
+<span class="w">      </span><span class="no">// centered on [170,45] with a radius of 20</span>
+<span class="w">      </span><span class="no">it.filled_regular_polygon(170, 45, 20, EDGES_HEXAGON);</span>
+<span class="w">      </span><span class="no">// and the outline of flat-topped octagon around it!</span>
+<span class="w">      </span><span class="no">it.regular_polygon(170, 45, 40, EDGES_OCTAGON, VARIATION_FLAT_TOP);</span>
+<span class="w">      </span><span class="no">// Need to rotate the polygon, or retrieve the coordinates of its vertices? Check the API!</span>
+</pre></div>
+</div>
+<p>All the above methods can optionally also be called with an argument at the end which specifies in which
+color to draw. For monochrome displays, only <code class="docutils literal notranslate"><span class="pre">COLOR_ON</span></code> (the default if color is not given) and <code class="docutils literal notranslate"><span class="pre">COLOR_OFF</span></code> are supported.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Turn the whole display on</span>
+<span class="w">      </span><span class="no">it.fill(COLOR_ON);</span>
+<span class="w">      </span><span class="no">// Turn the whole display off</span>
+<span class="w">      </span><span class="no">it.fill(COLOR_OFF);</span>
+
+<span class="w">      </span><span class="no">// Turn a single pixel off at [50,60]</span>
+<span class="w">      </span><span class="no">it.draw_pixel_at(50, 60, COLOR_OFF);</span>
+</pre></div>
+</div>
+<p>For color displays (e.g. TFT displays), you can use the Color class.</p>
+<figure class="align-center">
+<img alt="../../_images/display_rendering_colors.png" src="../../_images/display_rendering_colors.png" />
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">auto black = Color(0, 0, 0);</span>
+<span class="w">      </span><span class="no">auto red = Color(255, 0, 0);</span>
+<span class="w">      </span><span class="no">auto green = Color(0, 255, 0);</span>
+<span class="w">      </span><span class="no">auto blue = Color(0, 0, 255);</span>
+<span class="w">      </span><span class="no">auto white = Color(255, 255, 255);</span>
+<span class="w">      </span><span class="no">it.filled_circle(20, 32, 15, black);</span>
+<span class="w">      </span><span class="no">it.filled_circle(40, 32, 15, red);</span>
+<span class="w">      </span><span class="no">it.filled_circle(60, 32, 15, green);</span>
+<span class="w">      </span><span class="no">it.filled_circle(80, 32, 15, blue);</span>
+<span class="w">      </span><span class="no">it.filled_circle(100, 32, 15, white);</span>
+</pre></div>
+</div>
+<p>Additionally, you have access to two helper methods which will fetch the width and height of the display:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Draw a circle in the middle of the display</span>
+<span class="w">      </span><span class="no">it.filled_circle(it.get_width() / 2, it.get_height() / 2, 20);</span>
+
+<span class="w">      </span><span class="no">// Turn off bottom half of the screen</span>
+<span class="w">      </span><span class="no">it.filled_rectangle(0, it.get_height()/2, it.get_width(), it.get_height()/2, COLOR_OFF);</span>
+</pre></div>
+</div>
+<p>You can view the full API documentation for the rendering engine in the “API Reference” in the See Also section.</p>
+</section>
+<section id="drawing-static-text">
+<span id="display-static-text"></span><h2>Drawing Static Text<a class="headerlink" href="#drawing-static-text" title="Permalink to this heading">¶</a></h2>
+<p>To be able to display text, you need to prepare some fonts. ESPHome’s <a class="reference internal" href="fonts.html#display-fonts"><span class="std std-ref">font renderer</span></a> allows you to use OpenType/TrueType/Bitmap fonts for your texts. This is very flexiblle because you can prepare various sets of fonts at different sizes with a different number of glyphs which is extremely convenient when we’re talking about flash space.</p>
+<p>In your display code, you can render static text by referencing the font and just entering your string enclosed in double quotes:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Print the string &quot;Hello World!&quot; at [0,10]</span>
+<span class="w">      </span><span class="no">it.print(0, 10, id(my_font), &quot;Hello World!&quot;);</span>
+</pre></div>
+</div>
+<p>By default, ESPHome will <em>align</em> the text at the top left. That means if you enter the coordinates
+<code class="docutils literal notranslate"><span class="pre">[0,10]</span></code> for your text, the top left of the text will be at <code class="docutils literal notranslate"><span class="pre">[0,10]</span></code>. If you want to draw some
+text at the right side of the display, it is however sometimes useful to choose a different <strong>text alignment</strong>.
+When you enter <code class="docutils literal notranslate"><span class="pre">[0,10]</span></code> you’re really telling ESPHome that it should position the <strong>anchor point</strong> of the text
+at <code class="docutils literal notranslate"><span class="pre">[0,10]</span></code>. When using a different alignment, like <code class="docutils literal notranslate"><span class="pre">TOP_RIGHT</span></code>, the text will be positioned left of the anchor
+pointed, so that, as the name implies, the anchor point is a the <em>top right</em> corner of the text.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Aligned on left by default</span>
+<span class="w">      </span><span class="no">it.print(0, 0, id(my_font), &quot;Left aligned&quot;);</span>
+
+<span class="w">      </span><span class="no">// Aligned on right edge</span>
+<span class="w">      </span><span class="no">it.print(it.get_width(), 0, id(my_font), TextAlign::TOP_RIGHT, &quot;Right aligned&quot;);</span>
+</pre></div>
+</div>
+<p>As with basic shapes, you can also specify a color for the text:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Syntax is always: it.print(&lt;x&gt;, &lt;y&gt;, &lt;font&gt;, [color=COLOR_ON], [align=TextAlign::TOP_LEFT], &lt;text&gt;);</span>
+<span class="w">      </span><span class="no">it.print(0, 0, id(my_font), COLOR_ON, &quot;Left aligned&quot;);</span>
+</pre></div>
+</div>
+<p>In case of fonts rendered at higher bit depths, the background color has to be specified after the text in order for antialiasing to work:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Syntax is always: it.print(&lt;x&gt;, &lt;y&gt;, &lt;font&gt;, [color=COLOR_ON], [align], &lt;text&gt;, [color=COLOR_OFF]);</span>
+<span class="w">      </span><span class="no">it.print(0, 0, id(my_font_with_icons), COLOR_ON, TextAlign::CENTER, &quot;Just\U000f05d4here. Already\U000F02D1this.&quot;, COLOR_OFF);</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<img alt="../../_images/display_rendering_text.png" src="../../_images/display_rendering_text.png" />
+</figure>
+</section>
+<section id="formatted-text">
+<span id="display-printf"></span><h2>Formatted Text<a class="headerlink" href="#formatted-text" title="Permalink to this heading">¶</a></h2>
+<p>Static text by itself is not too impressive. What we really want is to display <em>dynamic</em> content like sensor values
+on the display!. That’s where <code class="docutils literal notranslate"><span class="pre">printf</span></code> comes in. <code class="docutils literal notranslate"><span class="pre">printf</span></code> is a formatting engine from the C era and ESPHome
+chose to use because … well, I’m too lazy to create a fully-fledged format engine where the existing stuff
+is way better documented :)</p>
+<p><code class="docutils literal notranslate"><span class="pre">printf</span></code> can do way more stuff than you will probably ever need, but it’s also quite simple for the basic stuff.
+For example, a printf call can look like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_sensor</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.printf(0, 0, id(my_font), &quot;The sensor value is: %.1f&quot;, id(my_sensor).state);</span>
+<span class="w">      </span><span class="no">// If the sensor has the value 30.02, the result will be: &quot;The sensor value is: 30.0&quot;</span>
+</pre></div>
+</div>
+<p>As you can see, when you call <code class="docutils literal notranslate"><span class="pre">printf</span></code> most of the string is printed as-is, but when this weird percent sign with some
+stuff after it is encountered, it is magically replaced by the argument after the format (here <code class="docutils literal notranslate"><span class="pre">id(my_sensor).state</span></code>).</p>
+<p>Every time you type a percent sign <code class="docutils literal notranslate"><span class="pre">%</span></code> in a printf format string, it will treat the following letters as a format tag
+until a so-called “specifier” is encountered (in this case <code class="docutils literal notranslate"><span class="pre">f</span></code>). You can read more about it
+<a class="reference external" href="https://www.tutorialspoint.com/c_standard_library/c_function_printf.htm">here</a>,
+but for ESPHome there are really just a few things you need to know.</p>
+<p>Let’s break <code class="docutils literal notranslate"><span class="pre">%.1f</span></code> down:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">%</span></code> - initiate the format string</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.1</span></code> - round the decimal number to <code class="docutils literal notranslate"><span class="pre">1</span></code> digits after the decimal point.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code> - the specifier which tells printf the data type of the argument. Here it is a f(loat).</p></li>
+</ul>
+<p>For example, if you would like to print a sensor value with two digits of accuracy, you would write <code class="docutils literal notranslate"><span class="pre">%.2f</span></code> and with
+zero digits of accuracy (without a decimal) <code class="docutils literal notranslate"><span class="pre">%.0f</span></code>.</p>
+<p>Another interesting format string is <code class="docutils literal notranslate"><span class="pre">%7.2f</span></code>, which would become the right-justified string
+<code class="docutils literal notranslate"><span class="pre">&quot;</span>&#160; <span class="pre">20.51&quot;</span></code> for a value of 20.506.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">%</span></code> - initiate the format</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">7</span></code> - means that the number will be right-justified and be padded on the left by spaces if
+the result would be shorter than 7 characters long.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.2</span></code> - round the decimal number to <code class="docutils literal notranslate"><span class="pre">2</span></code> digits after the decimal point.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code> - specifier: f(loat).</p></li>
+</ul>
+<p>You can even have as many formatted items as you want in a single printf call. Just make sure the put the
+arguments after the format string in the right order.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// %% - literal % sign</span>
+<span class="w">      </span><span class="no">it.printf(0, 0, id(my_font), &quot;Temperature: %.1f°C, Humidity: %.1f%%&quot;, id(temperature).state, id(humidity).state);</span>
+</pre></div>
+</div>
+<p>To display a text string from a <code class="docutils literal notranslate"><span class="pre">text_sensor</span></code>, append <code class="docutils literal notranslate"><span class="pre">.c_str()</span></code> to the end of your variable.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.printf(0, 0, id(my_font), &quot;Text to follow: %s&quot;, id(template_text).state.c_str());</span>
+</pre></div>
+</div>
+<p>When using anti-aliased fonts you will probably need to specify the color to draw the characters, and the background
+color to mix in for anti-aliasing. This requires the full version of <cite>printf</cite>, e.g.:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">it.printf(10, 100, id(roboto), Color(0x123456), COLOR_OFF, display::TextAlign::BASELINE, &quot;%f&quot;, id(heap_free).state);</span>
+</pre></div>
+</div>
+<p>The last printf tip for use in displays I will discuss here is how to display binary sensor values. You
+<em>could</em> of course just check the state with an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement as the first few lines in the example below, but if
+you want to be efficient you can use an <em>inline if</em> too. With the <code class="docutils literal notranslate"><span class="pre">%s</span></code> print specifier you can tell it to
+use any string you pass it, like <code class="docutils literal notranslate"><span class="pre">&quot;ON&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;OFF&quot;</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_binary_sensor</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">if (id(my_binary_sensor).state) {</span>
+<span class="w">        </span><span class="no">it.print(0, 0, id(my_font), &quot;state: ON&quot;);</span>
+<span class="w">      </span><span class="no">} else {</span>
+<span class="w">        </span><span class="no">it.print(0, 0, id(my_font), &quot;state: OFF&quot;);</span>
+<span class="w">      </span><span class="no">}</span>
+<span class="w">      </span><span class="no">// Shorthand:</span>
+<span class="w">      </span><span class="no">it.printf(0, 0, id(my_font), &quot;State: %s&quot;, id(my_binary_sensor).state ? &quot;ON&quot; : &quot;OFF&quot;);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For displaying external data on the display, for example data from your Home Assistant instance,
+you can use the <a class="reference internal" href="../text_sensor/mqtt_subscribe.html"><span class="doc">MQTT Subscribe Text Sensor</span></a> (see the example there for more information).</p>
+</div>
+</section>
+<section id="displaying-time">
+<span id="display-strftime"></span><h2>Displaying Time<a class="headerlink" href="#displaying-time" title="Permalink to this heading">¶</a></h2>
+<p>You can display current time using a time component. Please see the example <a class="reference internal" href="../time/index.html#strftime"><span class="std std-ref">here</span></a>.</p>
+</section>
+<section id="screen-clipping">
+<span id="clipping"></span><h2>Screen Clipping<a class="headerlink" href="#screen-clipping" title="Permalink to this heading">¶</a></h2>
+<p>Screen clipping is a new set of methods since version 2023.2.0 of esphome. It could be useful when you just want to show
+a part of an image or make sure that what you draw on the screen does not go outside a specific region on the screen.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">start_clipping(left,</span> <span class="pre">top,</span> <span class="pre">right,</span> <span class="pre">bottom);</span></code> start you the clipping process and when you are done drawing in that region
+you can stop the clipping process with <code class="docutils literal notranslate"><span class="pre">end_clipping();</span></code> . You can nest as many <code class="docutils literal notranslate"><span class="pre">start_clipping();</span></code> as you want as long
+you end them as many times as well.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_binary_sensor</span>
+
+<span class="nt">color</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_red</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">if (id(my_binary_sensor).state) {</span>
+<span class="w">        </span><span class="no">it.print(0, 0, id(my_font), &quot;state: ON&quot;);</span>
+<span class="w">      </span><span class="no">} else {</span>
+<span class="w">        </span><span class="no">it.print(0, 0, id(my_font), &quot;state: OFF&quot;);</span>
+<span class="w">      </span><span class="no">}</span>
+<span class="w">      </span><span class="no">// Shorthand:</span>
+<span class="w">      </span><span class="no">it.start_clipping(40,0,140,20);</span>
+<span class="w">      </span><span class="no">it.printf(0, 0, id(my_font), id(my_red), &quot;State: %s&quot;, id(my_binary_sensor).state ? &quot;ON&quot; : &quot;OFF&quot;);</span>
+<span class="w">      </span><span class="no">it.end_clipping();</span>
+</pre></div>
+</div>
+<p>After you started clipping you can manipulate the region with <code class="docutils literal notranslate"><span class="pre">extend_clipping(left,</span> <span class="pre">top,</span> <span class="pre">right,</span> <span class="pre">bottom);</span></code>
+and <code class="docutils literal notranslate"><span class="pre">shrink_clipping(left,</span> <span class="pre">top,</span> <span class="pre">right,</span> <span class="pre">bottom);</span></code> within previous set clipping region.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">get_clipping();</span></code> you get a <code class="docutils literal notranslate"><span class="pre">Rect</span></code> object back with the latest set clipping region.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Rect</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; X/Left coordinate</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; Y/Top coordinate</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">w</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; Width</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">h</span><span class="p">;</span><span class="w">  </span><span class="c1">///&lt; Height</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="nf">x2</span><span class="p">();</span><span class="w">  </span><span class="c1">///&lt; Right coordinate</span>
+<span class="w">    </span><span class="kt">int16_t</span><span class="w"> </span><span class="nf">y2</span><span class="p">();</span><span class="w">  </span><span class="c1">///&lt; bottom coordinate</span>
+<span class="w">  </span><span class="p">};</span>
+</pre></div>
+</div>
+<p>With <code class="docutils literal notranslate"><span class="pre">is_clipping();</span></code> tells you if clipping is activated.</p>
+</section>
+<section id="color">
+<span id="config-color"></span><h2>Color<a class="headerlink" href="#color" title="Permalink to this heading">¶</a></h2>
+<p>When using RGB-capable displays in ESPHome you may wish to use custom colors.
+A <code class="docutils literal notranslate"><span class="pre">color</span></code> component exists for just this purpose:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">color</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_light_red</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20%</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25%</span>
+<span class="w">    </span><span class="nt">white</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+</pre></div>
+</div>
+<p>Alternatively, you can use <code class="docutils literal notranslate"><span class="pre">&lt;color&gt;_int</span></code> to specify the color as an int value:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">color</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_light_red</span>
+<span class="w">    </span><span class="nt">red_int</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span>
+<span class="w">    </span><span class="nt">green_int</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">51</span>
+<span class="w">    </span><span class="nt">blue_int</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span>
+<span class="w">    </span><span class="nt">white_int</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+<p>Or, if you are more comforatble with hex values, you can use <code class="docutils literal notranslate"><span class="pre">hex</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">color</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_light_red</span>
+<span class="w">    </span><span class="nt">hex</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FF3340</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>red</strong> (<em>Optional</em>, percentage): The percentage of the red component. Defaults to <code class="docutils literal notranslate"><span class="pre">100%</span></code>.</p></li>
+<li><p><strong>red_int</strong> (<em>Optional</em>, integer): The brightness of the red component on a scale of <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">255</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">255</span></code>.</p></li>
+<li><p><strong>green</strong> (<em>Optional</em>, percentage): The percentage of the green component. Defaults to <code class="docutils literal notranslate"><span class="pre">100%</span></code>.</p></li>
+<li><p><strong>green_int</strong> (<em>Optional</em>, integer): The brightness of the green component on a scale of <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">255</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">255</span></code>.</p></li>
+<li><p><strong>blue</strong> (<em>Optional</em>, percentage): The percentage of the blue component. Defaults to <code class="docutils literal notranslate"><span class="pre">100%</span></code>.</p></li>
+<li><p><strong>blue_int</strong> (<em>Optional</em>, integer): The brightness of the blue component on a scale of <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">255</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">255</span></code>.</p></li>
+<li><p><strong>white</strong> (<em>Optional</em>, percentage): The percentage of the white component. Defaults to <code class="docutils literal notranslate"><span class="pre">100%</span></code>.</p></li>
+<li><p><strong>white_int</strong> (<em>Optional</em>, integer): The brightness of the white component on a scale of <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">255</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">255</span></code>.</p></li>
+<li><p><strong>hex</strong> (<em>Optional</em>, string): The color in hexadecimal representation. Defaults to <code class="docutils literal notranslate"><span class="pre">FFFFFF</span></code>.</p></li>
+</ul>
+<p>RGB displays use red, green, and blue, while grayscale displays may use white.</p>
+</section>
+<section id="graph-component">
+<span id="display-graphs"></span><h2>Graph Component<a class="headerlink" href="#graph-component" title="Permalink to this heading">¶</a></h2>
+<p>You can display a graph of a sensor value(s) using this component. The states used for the graph are stored in
+memory at the time the sensor updates and will be lost when the device reboots.</p>
+<p>Examples:</p>
+<figure class="align-center">
+<img alt="../../_images/display_rendering_graph.png" src="../../_images/display_rendering_graph.png" />
+</figure>
+<p>Graph component with options for grids, border and line-types.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">graph</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Show bare-minimum auto-ranged graph</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">single_temperature_graph</span>
+<span class="w">    </span><span class="nt">sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_temperature</span>
+<span class="w">    </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1h</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">151</span>
+<span class="w">    </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">51</span>
+<span class="w">  </span><span class="c1"># Show multi-trace graph</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">multi_temperature_graph</span>
+<span class="w">    </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1h</span>
+<span class="w">    </span><span class="nt">x_grid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10min</span>
+<span class="w">    </span><span class="nt">y_grid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w">     </span><span class="c1"># degC/div</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">151</span>
+<span class="w">    </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">51</span>
+<span class="w">    </span><span class="nt">traces</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_inside_temperature</span>
+<span class="w">        </span><span class="nt">line_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DASHED</span>
+<span class="w">        </span><span class="nt">line_thickness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_red</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_outside_temperature</span>
+<span class="w">        </span><span class="nt">line_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SOLID</span>
+<span class="w">        </span><span class="nt">continuous</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">line_thickness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_blue</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_beer_temperature</span>
+<span class="w">        </span><span class="nt">line_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DOTTED</span>
+<span class="w">        </span><span class="nt">line_thickness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_green</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID with which you will be able to reference the graph later
+in your display code.</p></li>
+<li><p><strong>width</strong> (<strong>Required</strong>, int): The graph width in pixels</p></li>
+<li><p><strong>height</strong> (<strong>Required</strong>, int): The graph height in pixels</p></li>
+<li><p><strong>duration</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The total graph history duration.</p></li>
+<li><p><strong>border</strong> (<em>Optional</em>, boolean): Specifies if a border will be drawn around the graph. Default is True.</p></li>
+<li><p><strong>x_grid</strong> (<em>Optional</em>): Specifies the time per division. If not specified, no vertical grid will be drawn.</p></li>
+<li><p><strong>y_grid</strong> (<em>Optional</em>, float): Specifies the number of units per division. If not specified, no horizontal grid will be drawn.</p></li>
+<li><p><strong>max_range</strong> (<em>Optional</em>): Specifies the maximum Y-axis range.</p></li>
+<li><p><strong>min_range</strong> (<em>Optional</em>): Specifies the minimum Y-axis range.</p></li>
+<li><p><strong>max_value</strong> (<em>Optional</em>): Specifies the maximum Y-axis value.</p></li>
+<li><p><strong>min_value</strong> (<em>Optional</em>): Specifies the minimum Y-axis value.</p></li>
+<li><p><strong>traces</strong> (<em>Optional</em>): Use this to specify more than a single trace.</p></li>
+</ul>
+<p>Trace specific fields:</p>
+<ul class="simple">
+<li><p><strong>sensor</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The sensor value to plot</p></li>
+<li><p><strong>line_thickness</strong> (<em>Optional</em>): Defaults to 3</p></li>
+<li><p><strong>line_type</strong> (<em>Optional</em>): Specifies the plot line-type. Can be one of the following: <code class="docutils literal notranslate"><span class="pre">SOLID</span></code>, <code class="docutils literal notranslate"><span class="pre">DOTTED</span></code>, <code class="docutils literal notranslate"><span class="pre">DASHED</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">SOLID</span></code>.</p></li>
+<li><p><strong>continuous</strong> (<em>Optional</em>): connects the individual points to make a continuous line.  Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>color</strong> (<em>Optional</em>): Sets the color of the sensor trace.</p></li>
+</ul>
+<p>And then later in code:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">pages</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">page1</span>
+<span class="w">        </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">// Draw the graph at position [x=10,y=20]</span>
+<span class="w">          </span><span class="no">it.graph(10, 20, id(single_temperature_graph));</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">page2</span>
+<span class="w">        </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">// Draw the graph at position [x=10,y=20]</span>
+<span class="w">          </span><span class="no">it.graph(10, 20, id(multi_temperature_graph), my_yellow);</span>
+
+<span class="nt">color</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_red</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_green</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_blue</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_yellow</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here are some things to note:
+- Setting <code class="docutils literal notranslate"><span class="pre">y_grid</span></code> will expand any specified range to the nearest multiple of grid spacings.
+- Axis labels are currently not possible without manually placing them.
+- The grid and border color is set with it.graph(), while the traces are defined separately.</p>
+</div>
+</section>
+<section id="qr-code-component">
+<span id="display-qrcode"></span><h2>QR Code Component<a class="headerlink" href="#qr-code-component" title="Permalink to this heading">¶</a></h2>
+<p>Use this component to generate a QR-code containing a string on the device, which can then be drawn on compatible displays.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">qr_code</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">homepage_qr</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.io</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID with which you will be able to reference the QR-code later
+in your display code.</p></li>
+<li><p><strong>value</strong> (<strong>Required</strong>, string): The string which you want to encode in the QR-code.</p></li>
+<li><p><strong>ecc</strong> (<em>Optional</em>, string): The error correction code level you want to use. Defaults to <code class="docutils literal notranslate"><span class="pre">LOW</span></code>. You can use one of the following values:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">LOW</span></code>: The QR Code can tolerate about 7% erroneous codewords</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MEDIUM</span></code>: The QR Code can tolerate about 15% erroneous codewords</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QUARTILE</span></code>: The QR Code can tolerate about 25% erroneous codewords</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HIGH</span></code>: The QR Code can tolerate about 30% erroneous codewords</p></li>
+</ul>
+</li>
+</ul>
+<p>To draw the QR-code, call the <code class="docutils literal notranslate"><span class="pre">it.qr_code</span></code> function from your render lambda:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">pages</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">page1</span>
+<span class="w">        </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">// Draw the QR-code at position [x=50,y=0] with white color and a 2x scale</span>
+<span class="w">          </span><span class="no">it.qr_code(50, 0, id(homepage_qr), Color(255,255,255), 2);</span>
+
+<span class="w">          </span><span class="no">// Draw the QR-code in the center of the screen with white color and a 2x scale</span>
+<span class="w">          </span><span class="no">auto size = id(homepage_qr).get_size() * 2; // Multiply by scale</span>
+<span class="w">          </span><span class="no">auto x = (it.get_width() / 2) - (size / 2);</span>
+<span class="w">          </span><span class="no">auto y = (it.get_height() / 2) - (size / 2);</span>
+<span class="w">          </span><span class="no">it.qr_code(x, y, id(homepage_qr), Color(255,255,255), 2);</span>
+</pre></div>
+</div>
+</section>
+<section id="images">
+<span id="display-image"></span><h2>Images<a class="headerlink" href="#images" title="Permalink to this heading">¶</a></h2>
+<p>Use this component to store graphical images on the device, you can then draw the images on compatible displays.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;image.png&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_image</span>
+<span class="w">    </span><span class="nt">resize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100x100</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:alert-outline</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alert</span>
+<span class="w">    </span><span class="nt">resize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80x80</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://esphome.io/_images/logo.png</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome_logo</span>
+<span class="w">    </span><span class="nt">resize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200x162</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>file</strong> (<strong>Required</strong>, string):</p>
+<ul>
+<li><p><strong>Local files</strong>: The path (relative to where the .yaml file is) of the image file.</p></li>
+<li><p><strong>Material Design Icons</strong>: Specify the <a class="reference external" href="https://pictogrammers.com/library/mdi/">Material Design Icon</a>
+id in the format <code class="docutils literal notranslate"><span class="pre">mdi:icon-name</span></code>, and that icon will automatically be downloaded and added to the configuration.</p></li>
+<li><p><strong>Remote files</strong>: The URL of the image file.</p></li>
+</ul>
+</li>
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID with which you will be able to reference the image later
+in your display code.</p></li>
+<li><p><strong>resize</strong> (<em>Optional</em>, string): If set, this will resize the image to fit inside the given dimensions <code class="docutils literal notranslate"><span class="pre">WIDTHxHEIGHT</span></code>
+and preserve the aspect ratio.</p></li>
+<li><p><strong>type</strong> (<em>Optional</em>): Specifies how to encode image internally. Defaults to <code class="docutils literal notranslate"><span class="pre">BINARY</span></code> for local images and <code class="docutils literal notranslate"><span class="pre">TRANSPARENT_BINARY</span></code> for MDIs.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">BINARY</span></code>: Two colors, suitable for 1 color displays or 2 color image in color displays. Uses 1 bit
+per pixel, 8 pixels per byte.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TRANSPARENT_BINARY</span></code>: One color, any pixel that is fully transparent will not be drawn, and any other pixel
+will be the on color. Uses 1 bit per pixel, 8 pixels per byte.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GRAYSCALE</span></code>: Full scale grey. Uses 8 bits per pixel, 1 pixel per byte.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RGB565</span></code>: Lossy RGB color stored. Uses 2 bytes per pixel.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RGB24</span></code>: Full RGB color stored. Uses 3 bytes per pixel.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RGBA</span></code>: Full RGB color stored. Uses 4 bytes per pixel. Any pixel with an alpha value &lt; 127 will not be drawn.</p></li>
+</ul>
+</li>
+<li><p><strong>use_transparency</strong> (<em>Optional</em>): If set the alpha channel of the input image will be taken into account, and pixels with alpha &lt; 127 will not be drawn. For image types without explicit alpha channel, the color (0, 0, 1) (very dark blue) will be mapped to black, to be able to store transparency information within the image. Explicitly transparent types (<code class="docutils literal notranslate"><span class="pre">TRANSPARENT_BINARY</span></code> and <code class="docutils literal notranslate"><span class="pre">RGBA</span></code>) default to <code class="docutils literal notranslate"><span class="pre">True</span></code> and cannot be set to <code class="docutils literal notranslate"><span class="pre">False</span></code>; other types default to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>dither</strong> (<em>Optional</em>): Specifies which dither method used to process the image, only used in GRAYSCALE and BINARY type image. Defaults to <code class="docutils literal notranslate"><span class="pre">NONE</span></code>. You can read more about it <a class="reference external" href="https://pillow.readthedocs.io/en/stable/reference/Image.html?highlight=Dither#PIL.Image.Image.convert">here</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Dither">here</a>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code>: Every pixel convert to its nearest color.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FLOYDSTEINBERG</span></code>: Uses Floyd-Steinberg dither to approximate the original image luminosity levels.</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To use images you will need to have the python <code class="docutils literal notranslate"><span class="pre">pillow</span></code> package installed.
+If you’re running this as a Home Assistant add-on or with the official ESPHome docker image, it should already be
+installed. Otherwise you need to install it using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pillow</span></code>.
+Additionally, if you want to use SVG images (including MDI images), you will additionally need to have the python <code class="docutils literal notranslate"><span class="pre">cairosvg</span></code> package installed.
+If you’re running this as a Home Assistant add-on or with the official ESPHome docker image, it should also already be
+installed. Otherwise you need to install it using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">cairosvg</span></code>.</p>
+</div>
+<p>And then later in code:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Draw the image my_image at position [x=0,y=0]</span>
+<span class="w">      </span><span class="no">it.image(0, 0, id(my_image));</span>
+</pre></div>
+</div>
+<p>By default, ESPHome will <em>align</em> the image at the top left. That means if you enter the coordinates
+<code class="docutils literal notranslate"><span class="pre">[0,10]</span></code> for your image, the top left of the image will be at <code class="docutils literal notranslate"><span class="pre">[0,10]</span></code>. If you want to draw some
+image at the right side of the display, it is however sometimes useful to choose a different <strong>image alignment</strong>.
+When you enter <code class="docutils literal notranslate"><span class="pre">[0,10]</span></code> you’re really telling ESPHome that it should position the <strong>anchor point</strong> of the image
+at <code class="docutils literal notranslate"><span class="pre">[0,10]</span></code>. When using a different alignment, like <code class="docutils literal notranslate"><span class="pre">TOP_RIGHT</span></code>, the image will be positioned left of the anchor
+pointed, so that, as the name implies, the anchor point is a the <em>top right</em> corner of the image.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Aligned on left by default</span>
+<span class="w">      </span><span class="no">it.image(0, 0, id(my_image));</span>
+
+<span class="w">      </span><span class="no">// Aligned on right edge</span>
+<span class="w">      </span><span class="no">it.image(it.get_width(), 0, id(my_image), ImageAlign::TOP_RIGHT);</span>
+</pre></div>
+</div>
+<p>For binary images the <code class="docutils literal notranslate"><span class="pre">image</span></code> method accepts two additional color parameters which can
+be supplied to modify the color used to represent the on and off bits respectively. e.g.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Draw the image my_image at position [x=0,y=0]</span>
+<span class="w">      </span><span class="no">// with front color red and back color blue</span>
+<span class="w">      </span><span class="no">it.image(0, 0, id(my_image), id(red), id(blue));</span>
+
+<span class="w">      </span><span class="no">// Aligned on right edge</span>
+<span class="w">      </span><span class="no">it.image(it.get_width(), 0, id(my_image), ImageAlign::TOP_RIGHT, id(red), id(blue));</span>
+</pre></div>
+</div>
+<p>You can also use this to invert images in two colors display, use <code class="docutils literal notranslate"><span class="pre">COLOR_OFF</span></code> then <code class="docutils literal notranslate"><span class="pre">COLOR_ON</span></code>
+as the additional parameters.</p>
+</section>
+<section id="animation">
+<h2>Animation<a class="headerlink" href="#animation" title="Permalink to this heading">¶</a></h2>
+<p>Allows to use animated images on displays. Animation inherits all options from the image component.
+It adds additional lambda methods: <code class="docutils literal notranslate"><span class="pre">next_frame()</span></code>, <code class="docutils literal notranslate"><span class="pre">prev_frame()</span></code> and <code class="docutils literal notranslate"><span class="pre">set_frame()</span></code> to change the shown picture of a gif.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">animation</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;animation.gif&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_animation</span>
+<span class="w">    </span><span class="nt">resize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100x100</span>
+</pre></div>
+</div>
+<p>The animation can be rendered just like the image component with the <code class="docutils literal notranslate"><span class="pre">image()</span></code> function of the display component.</p>
+<p>To show the next frame of the animation call <code class="docutils literal notranslate"><span class="pre">id(my_animation).next_frame()</span></code>, to show the previous picture use <code class="docutils literal notranslate"><span class="pre">id(my_animation).prev_frame()</span></code>. To show a specific picture use <code class="docutils literal notranslate"><span class="pre">id(my_animation).set_frame(int</span> <span class="pre">frame)</span></code>.
+This can be combined with all Lambdas:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">//Ingress shown animation Frame.</span>
+<span class="w">      </span><span class="no">id(my_animation).next_frame();</span>
+<span class="w">      </span><span class="no">// Draw the animation my_animation at position [x=0,y=0]</span>
+<span class="w">      </span><span class="no">it.image(0, 0, id(my_animation), COLOR_ON, COLOR_OFF);</span>
+</pre></div>
+</div>
+<p>Additionally, you can use the <code class="docutils literal notranslate"><span class="pre">animation.next_frame</span></code>, <code class="docutils literal notranslate"><span class="pre">animation.prev_frame</span></code> or <code class="docutils literal notranslate"><span class="pre">animation.set_frame</span></code> actions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To draw the next animation independent of Display draw cycle use an interval:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">interval</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">then</span><span class="p p-Indicator">:</span>
+<span class="w">        </span><span class="nt">animation.next_frame</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_animation</span>
+</pre></div>
+</div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>file</strong> (<strong>Required</strong>, string): The path (relative to where the .yaml file is) of the gif file.</p></li>
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID with which you will be able to reference the animation later
+in your display code.</p></li>
+<li><p><strong>resize</strong> (<em>Optional</em>, string): If set, this will resize all the frames to fit inside the given dimensions <code class="docutils literal notranslate"><span class="pre">WIDTHxHEIGHT</span></code>
+and preserve the aspect ratio.</p></li>
+<li><p><strong>type</strong> (<em>Optional</em>): Specifies how to encode each frame internally. Defaults to <code class="docutils literal notranslate"><span class="pre">BINARY</span></code>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">BINARY</span></code>: Two colors, suitable for 1 color displays or 2 color image in color displays. Uses 1 bit
+per pixel, 8 pixels per byte.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TRANSPARENT_BINARY</span></code>: One color, any pixel that is fully transparent will not be drawn, and any other pixel
+will be the on color. Uses 1 bit per pixel, 8 pixels per byte.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GRAYSCALE</span></code>: Full scale grey. Uses 8 bits per pixel, 1 pixel per byte.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RGB565</span></code>: Lossy RGB color stored. Uses 2 bytes per pixel.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RGB24</span></code>: Full RGB color stored. Uses 3 bytes per pixel.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RGBA</span></code>: Full RGB color stored. Uses 4 bytes per pixel. Any pixel with an alpha value &lt; 127 will not be drawn.</p></li>
+</ul>
+</li>
+<li><p><strong>use_transparency</strong> (<em>Optional</em>): If set the alpha channel of the input image will be taken into account, and pixels with alpha &lt; 127 will not be drawn. For image types without explicit alpha channel, the color (0, 0, 1) (very dark blue) will be mapped to black, to be able to store transparency information within the image. Explicitly transparent types (<code class="docutils literal notranslate"><span class="pre">TRANSPARENT_BINARY</span></code> and <code class="docutils literal notranslate"><span class="pre">RGBA</span></code>) default to <code class="docutils literal notranslate"><span class="pre">True</span></code> and cannot be set to <code class="docutils literal notranslate"><span class="pre">False</span></code>; other types default to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>loop</strong> (<em>Optional</em>): If you want to loop over a subset of your animation (e.g. a fire animation where the fire “starts”, then “burns” and “dies”) you can specify some frames to loop over.</p>
+<ul>
+<li><p><strong>start_frame</strong> (<em>Optional</em>, int): The frame to loop back to when <code class="docutils literal notranslate"><span class="pre">end_frame</span></code> is reached. Defaults to the first frame in the animation.</p></li>
+<li><p><strong>end_frame</strong> (<em>Optional</em>, int): The last frame to show in the loop; when this frame is reached it will loop back to <code class="docutils literal notranslate"><span class="pre">start_frame</span></code>. Defaults to the last frame in the animation.</p></li>
+<li><p><strong>repeat</strong> (<em>Optional</em>, int): Specifies how many times the loop will run. When the count is reached, the animation will continue with the next frame after <code class="docutils literal notranslate"><span class="pre">end_frame</span></code>, or restart from the beginning if <code class="docutils literal notranslate"><span class="pre">end_frame</span></code> was the last frame. Defaults to “loop forever”.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="actions">
+<h3>Actions:<a class="headerlink" href="#actions" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>animation.next_frame</strong>: Moves the animation to the next frame. This is equivalent to the <code class="docutils literal notranslate"><span class="pre">id(my_animation).next_frame();</span></code> lambda call.</p>
+<ul>
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the animation to animate.</p></li>
+</ul>
+</li>
+<li><p><strong>animation.prev_frame</strong>: Moves the animation to the previous frame. This is equivalent to the <code class="docutils literal notranslate"><span class="pre">id(my_animation).prev_frame();</span></code> lambda call.</p>
+<ul>
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the animation to animate.</p></li>
+</ul>
+</li>
+<li><p><strong>animation.set_frame</strong>: Moves the animation to a specific frame. This is equivalent to the <code class="docutils literal notranslate"><span class="pre">id(my_animation).set_frame(frame);</span></code> lambda call.</p>
+<ul>
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the animation to animate.</p></li>
+<li><p><strong>frame</strong> (<strong>Required</strong>, int): The frame index to show next.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="display-pages">
+<span id="id1"></span><h2>Display Pages<a class="headerlink" href="#display-pages" title="Permalink to this heading">¶</a></h2>
+<p>Certain display types also allow you to show “pages”. With pages you can create drawing lambdas
+that you can switch between. For example with pages you can set up 3 screens, each with
+different content, and switch between them on a timer.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display</span>
+<span class="w">    </span><span class="nt">pages</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">page1</span>
+<span class="w">        </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">it.print(0, 10, id(my_font), &quot;This is page 1!&quot;);</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">page2</span>
+<span class="w">        </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">it.print(0, 10, id(my_font), &quot;This is page 2!&quot;);</span>
+</pre></div>
+</div>
+<p>You can then switch between these with three different actions:</p>
+<p><strong>show_next</strong> / <strong>show_previous</strong>: Shows the next or previous page, wraps around at the end.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display.page.show_next</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display.page.show_previous</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display</span>
+
+<span class="c1"># For example cycle through pages on a timer</span>
+<span class="nt">interval</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display.page.show_next</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">component.update</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display</span>
+</pre></div>
+</div>
+<p><strong>display.page.show</strong>: Show a specific page</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display.page.show</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">page1</span>
+
+<span class="w">  </span><span class="c1"># Templated</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display.page.show</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">if (id(my_binary_sensor).state) {</span>
+<span class="w">        </span><span class="no">return id(page1);</span>
+<span class="w">      </span><span class="no">} else {</span>
+<span class="w">        </span><span class="no">return id(page2);</span>
+<span class="w">      </span><span class="no">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To trigger a redraw right after the page show use a <a class="reference internal" href="../../guides/automations.html#component-update-action"><span class="std std-ref">component.update</span></a>
+action:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># For example cycle through pages on a timer</span>
+<span class="nt">interval</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display.page.show_next</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">component.update</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display</span>
+</pre></div>
+</div>
+</div>
+<p id="display-is-displaying-page-condition"><strong>display.is_displaying_page</strong>: This condition returns true while the specified page is being shown.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In some trigger:</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">display.is_displaying_page</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">page1</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">display.is_displaying_page</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display</span>
+<span class="w">          </span><span class="nt">page_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">page2</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+<p id="display-on-page-change-trigger"><strong>on_page_change</strong>: This automation will be triggered when the page that is shown changes.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_page_change</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">page1</span>
+<span class="w">        </span><span class="nt">to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">page2</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">            </span><span class="no">ESP_LOGD(&quot;display&quot;, &quot;Page changed from 1 to 2&quot;);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>from</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): A page id. If set the automation is only triggered if changing from this page. Defaults to all pages.</p></li>
+<li><p><strong>to</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): A page id. If set the automation is only triggered if changing to this page. Defaults to all pages.</p></li>
+</ul>
+<p>Additionally the old page will be given as the variable <code class="docutils literal notranslate"><span class="pre">from</span></code> and the new one as the variable <code class="docutils literal notranslate"><span class="pre">to</span></code>.</p>
+</section>
+<section id="troubleshooting">
+<span id="id2"></span><h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="using-the-color-test-card">
+<h2>Using the Color Test Card<a class="headerlink" href="#using-the-color-test-card" title="Permalink to this heading">¶</a></h2>
+<p>If you’re experiencing issues with your color display, the <code class="docutils literal notranslate"><span class="pre">show_test_card:</span> <span class="pre">true</span></code> option can help you to identify what might be wrong.</p>
+<ul class="simple">
+<li><p>It will show bars for Red, Green and Blue, graduating to black and white.</p></li>
+<li><p>Together with that it will show the letters “<strong>R</strong>”, “<strong>G</strong>” and “<strong>B</strong>” to validate the display geometry.</p></li>
+<li><p>There will be a rectangle around the corners of the display with a marker at the 0,0 corner which should be at the top left of the screen.</p></li>
+</ul>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/test_card.jpg"><img alt="../../_images/test_card.jpg" src="../../_images/test_card.jpg" style="width: 50.0%;" /></a>
+</figure>
+<p>When all points above are shown correctly then the display is working as expected.
+To help the graphics display team determine the best way to help you, <strong>a picture of the result of this option is very helpful.</strong></p>
+<p>Should you <a class="reference external" href="https://github.com/esphome/issues/issues">create an issue</a> in GitHub regarding your display, please
+be sure to <strong>include a link to where you purchased the display</strong> so that we can validate the configuration you’ve used.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For displays in 8 bit mode you will see distinct color blocks rather than a smooth gradient.</p>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/api/display__buffer_8h.html">API Reference</a></p></li>
+<li><p><a class="reference internal" href="fonts.html#display-fonts"><span class="std std-ref">Fonts</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/display/index.rst">Edit this page on GitHub</a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="addressable_light.html">Addressable Light</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digo.html">DIGO 7-Segment Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fonts.html">Font Renderer Component</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ili9xxx.html">ILI9xxx TFT LCD Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inkplate6.html">Inkplate 6, 10 and 6 Plus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lcd_display.html">Character-Based LCD Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="max7219.html">MAX7219 7-Segment Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="max7219digit.html">MAX7219 Digit Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nextion.html">Nextion TFT LCD Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pcd8544.html">PCD 8544 Display (Nokia 5110/3310)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pvvx_mithermometer.html">PVVX MiThermometer Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qspi_amoled.html">Quad SPI AMOLED Displays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpi_dpi_rgb.html">RPI_DPI_RGB Display Driver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssd1306.html">SSD1306 OLED Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssd1322.html">SSD1322 OLED Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssd1325.html">SSD1325/7 OLED Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssd1327.html">SSD1327 OLED Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssd1331.html">SSD1331 OLED Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssd1351.html">SSD1351 OLED Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="st7567.html">ST7567 LCD Graphic Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="st7701s.html">ST7701S Display Driver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="st7735.html">ST7735 Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="st7789v.html">ST7789V TFT LCD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="st7920.html">ST7920 LCD Graphic Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tm1621.html">TM1621 LCD Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tm1637.html">TM1637 7-Segment Display</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tm1638.html">TM1638 7 Segment Display Keypad &amp; LED Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="waveshare_epaper.html">Waveshare E-Paper Display</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

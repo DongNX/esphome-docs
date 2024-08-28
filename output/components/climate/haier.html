@@ -1,0 +1,518 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Haier climate devices.">
+<meta itemprop="name" content="Haier Climate">
+<meta itemprop="description" content="Instructions for setting up Haier climate devices.">
+<meta itemprop="image" content="https://esphome.io/_images/air-conditioner.png">
+<meta name="twitter:title" content="Haier Climate">
+<meta name="twitter:image:src" content="https://esphome.io/_images/air-conditioner.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Haier climate devices.">
+<meta property="og:title" content="Haier Climate">
+<meta property="og:image" content="https://esphome.io/_images/air-conditioner.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Haier climate devices.">
+
+    <title>Haier Climate &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/climate/haier.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Midea Air Conditioner" href="midea.html" />
+    <link rel="prev" title="Custom Climate" href="custom.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Haier Climate</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#automations">Automations</a><ul>
+<li><a class="reference internal" href="#on-alarm-start-trigger"><code class="docutils literal notranslate"><span class="pre">on_alarm_start</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-alarm-end-trigger"><code class="docutils literal notranslate"><span class="pre">on_alarm_end</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#climate-haier-power-on-action"><code class="docutils literal notranslate"><span class="pre">climate.haier.power_on</span></code> Action</a></li>
+<li><a class="reference internal" href="#climate-haier-power-off-action"><code class="docutils literal notranslate"><span class="pre">climate.haier.power_off</span></code> Action</a></li>
+<li><a class="reference internal" href="#climate-haier-power-toggle-action"><code class="docutils literal notranslate"><span class="pre">climate.haier.power_toggle</span></code> Action</a></li>
+<li><a class="reference internal" href="#climate-haier-display-on-action"><code class="docutils literal notranslate"><span class="pre">climate.haier.display_on</span></code> Action</a></li>
+<li><a class="reference internal" href="#climate-haier-display-off-action"><code class="docutils literal notranslate"><span class="pre">climate.haier.display_off</span></code> Action</a></li>
+<li><a class="reference internal" href="#climate-haier-health-on-action"><code class="docutils literal notranslate"><span class="pre">climate.haier.health_on</span></code> Action</a></li>
+<li><a class="reference internal" href="#climate-haier-health-off-action"><code class="docutils literal notranslate"><span class="pre">climate.haier.health_off</span></code> Action</a></li>
+<li><a class="reference internal" href="#climate-haier-beeper-on-action"><code class="docutils literal notranslate"><span class="pre">climate.haier.beeper_on</span></code> Action</a></li>
+<li><a class="reference internal" href="#climate-haier-beeper-off-action"><code class="docutils literal notranslate"><span class="pre">climate.haier.beeper_off</span></code> Action</a></li>
+<li><a class="reference internal" href="#climate-haier-set-vertical-airflow-action"><code class="docutils literal notranslate"><span class="pre">climate.haier.set_vertical_airflow</span></code> Action</a></li>
+<li><a class="reference internal" href="#climate-haier-set-horizontal-airflow-action"><code class="docutils literal notranslate"><span class="pre">climate.haier.set_horizontal_airflow</span></code> Action</a></li>
+<li><a class="reference internal" href="#climate-haier-start-self-cleaning-action"><code class="docutils literal notranslate"><span class="pre">climate.haier.start_self_cleaning</span></code> Action</a></li>
+<li><a class="reference internal" href="#climate-haier-start-steri-cleaning-action"><code class="docutils literal notranslate"><span class="pre">climate.haier.start_steri_cleaning</span></code> Action</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Climate Component</a> ➔</li>
+      <li>Haier Climate</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="haier-climate">
+<h1>Haier Climate<a class="headerlink" href="#haier-climate" title="Permalink to this heading">¶</a></h1>
+<p>This is an implementation of the ESPHome component to control HVAC on the base of the SmartAir2 and hOn Haier protocols (AC that is controlled by the hOn or SmartAir2 application).</p>
+<p>There are two versions of the Haier protocol: the older version uses an application called SmartAir2 while the newer version uses an application called hOn. Both protocols are compatible on the transport level but utilize different commands to control appliances.</p>
+<p>Older Haier models controlled by the SmartAir2 application are using the KZW-W002 module. This module can’t be reused, and you need to replace it with an ESP or RPI Pico W module. The USB connector on the board doesn’t support the USB protocol. It is a UART port that just uses a USB connector. To connect the ESP board to your AC you can cut a USB type A cable and connect wires to the climate connector.</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Haier UART pinout</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Board</p></th>
+<th class="head"><p>USB</p></th>
+<th class="head"><p>Wire color</p></th>
+<th class="head"><p>ESP8266</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>5V</p></td>
+<td><p>VCC</p></td>
+<td><p>red</p></td>
+<td><p>5V</p></td>
+</tr>
+<tr class="row-odd"><td><p>GND</p></td>
+<td><p>GND</p></td>
+<td><p>black</p></td>
+<td><p>GND</p></td>
+</tr>
+<tr class="row-even"><td><p>TX</p></td>
+<td><p>DATA+</p></td>
+<td><p>green</p></td>
+<td><p>RX</p></td>
+</tr>
+<tr class="row-odd"><td><p>RX</p></td>
+<td><p>DATA-</p></td>
+<td><p>white</p></td>
+<td><p>TX</p></td>
+</tr>
+</tbody>
+</table>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/usb_pinout.png"><img alt="../../_images/usb_pinout.png" src="../../_images/usb_pinout.png" style="width: 70.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">KZW-W002 module pinout</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Newer Haier models using a module called ESP32-for-Haier. It is an ESP32 single-core board with an ESP32-S0WD chip. In some cases, you can reuse this module and flash it with ESPHome, but some new modules don’t support this. They look the same but have encryption enabled.</p>
+<p><strong>Warning!</strong> The new generation of ESP32-Haier devices has encryption enabled, so they can only be flashed with firmware that is signed with a private key. There is no way to make them work with ESPHome, so if you try to do it, the board will get into a boot loop with the error <code class="docutils literal notranslate"><span class="pre">rst:0x10</span> <span class="pre">(RTCWDT_RTC_RESET),boot:0x13</span> <span class="pre">(SPI_FAST_FLASH_BOOT)</span></code> The only way to recover this board is to flash it with the original image. So before starting your experiments make a backup image.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../../_images/haier_pinout.jpg"><img alt="../../_images/haier_pinout.jpg" src="../../_images/haier_pinout.jpg" style="width: 70.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">ESP32-for-Haier UART0 pinout</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Also, you can use any other ESP32, ESP8266, or an RPI pico W board. In this case, you will need to cut the original wire or make a connector yourself (the board has a JST SM04B-GHS-TB connector)</p>
+<p>This component requires a <a class="reference internal" href="../uart.html#uart"><span class="std std-ref">UART Bus</span></a> to be setup.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">haier</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">haier_ac</span>
+<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hOn</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Haier AC</span>
+<span class="w">    </span><span class="nt">uart_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ac_port</span>
+<span class="w">    </span><span class="nt">wifi_signal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">beeper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">display</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">visual</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">min_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16 °C</span>
+<span class="w">      </span><span class="nt">max_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30 °C</span>
+<span class="w">      </span><span class="nt">temperature_step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1 °C</span>
+<span class="w">    </span><span class="nt">supported_modes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;OFF&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HEAT_COOL</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">COOL</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HEAT</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DRY</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FAN_ONLY</span>
+<span class="w">    </span><span class="nt">supported_swing_modes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;OFF&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VERTICAL</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HORIZONTAL</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BOTH</span>
+<span class="w">  </span><span class="nt">supported_presets</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWAY</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECO</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BOOST</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SLEEP</span>
+<span class="w">  </span><span class="nt">on_alarm_start</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WARN</span>
+<span class="w">          </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">activated.</span><span class="nv"> </span><span class="s">Code:</span><span class="nv"> </span><span class="s">%d.</span><span class="nv"> </span><span class="s">Message:</span><span class="nv"> </span><span class="s">\&quot;%s\&quot;&quot;</span>
+<span class="w">          </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">code</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">message</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">on_alarm_end</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span>
+<span class="w">          </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">deactivated.</span><span class="nv"> </span><span class="s">Code:</span><span class="nv"> </span><span class="s">%d.</span><span class="nv"> </span><span class="s">Message:</span><span class="nv"> </span><span class="s">\&quot;%s\&quot;&quot;</span>
+<span class="w">          </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">code</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">message</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>uart_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): ID of the UART port to communicate with AC.</p></li>
+<li><p><strong>protocol</strong> (<em>Optional</em>, string): Defines communication protocol with AC. Possible values: hon or smartair2. The default value is smartair2.</p></li>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the climate device.</p></li>
+<li><p><strong>wifi_signal</strong> (<em>Optional</em>, boolean): If true - send wifi signal level to AC.</p></li>
+<li><p><strong>answer_timeout</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Responce timeout. The default value is 200ms.</p></li>
+<li><p><strong>alternative_swing_control</strong> (<em>Optional</em>, boolean): (supported by smartAir2 only) If true - use alternative values to control swing mode. Use only if the original control method is not working for your AC.</p></li>
+<li><p><strong>control_packet_size</strong> (<em>Optional</em>, int): (supported only by hOn) Define the size of the control packet. Can help with some newer models of ACs that use bigger packets. The default value: 10.</p></li>
+<li><p><strong>control_method</strong> (<em>Optional</em>, list): (supported only by hOn) Defines control method (should be supported by AC). Supported values: MONITOR_ONLY - no control, just monitor status, SET_GROUP_PARAMETERS - set all AC parameters with one command (default method), SET_SINGLE_PARAMETER - set each parameter individually (this method is supported by some new ceiling ACs like AD71S2SM3FA)</p></li>
+<li><p><strong>display</strong> (<em>Optional</em>, boolean): Can be used to set the AC display off.</p></li>
+<li><p><strong>beeper</strong> (<em>Optional</em>, boolean): Can be used to disable beeping on commands from AC. Supported only by hOn protocol.</p></li>
+<li><p><strong>supported_modes</strong> (<em>Optional</em>, list): Can be used to disable some of AC modes. Possible values: ‘OFF’, HEAT_COOL, COOL, HEAT, DRY, FAN_ONLY</p></li>
+<li><p><strong>supported_swing_modes</strong> (<em>Optional</em>, list): Can be used to disable some swing modes if your AC does not support it. Possible values: ‘OFF’, VERTICAL, HORIZONTAL, BOTH</p></li>
+<li><p><strong>supported_presets</strong> (<em>Optional</em>, list): Can be used to disable some presets. Possible values for smartair2 are: AWAY, BOOST, COMFORT. Possible values for hOn are: AWAY, ECO, BOOST, SLEEP. AWAY preset can be enabled only in HEAT mode, it is disabled by default</p></li>
+<li><p><strong>on_alarm_start</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): (supported only by hOn) Automation to perform when AC activates a new alarm. See <a class="reference internal" href="#haier-on-alarm-start"><span class="std std-ref">on_alarm_start Trigger</span></a></p></li>
+<li><p><strong>on_alarm_end</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): (supported only by hOn) Automation to perform when AC deactivates a new alarm. See <a class="reference internal" href="#haier-on-alarm-end"><span class="std std-ref">on_alarm_end Trigger</span></a></p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-climate"><span class="std std-ref">Climate</span></a>.</p></li>
+</ul>
+</section>
+<section id="automations">
+<h2>Automations<a class="headerlink" href="#automations" title="Permalink to this heading">¶</a></h2>
+<section id="on-alarm-start-trigger">
+<span id="haier-on-alarm-start"></span><h3><code class="docutils literal notranslate"><span class="pre">on_alarm_start</span></code> Trigger<a class="headerlink" href="#on-alarm-start-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when a new alarm is activated by AC. The error code of the alarm will be given in the variable “code” (type uint8_t), error message in the variable “message” (type char*). Those variables can be used in <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hOn</span>
+<span class="w">    </span><span class="nt">on_alarm_start</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WARN</span>
+<span class="w">            </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">activated.</span><span class="nv"> </span><span class="s">Code:</span><span class="nv"> </span><span class="s">%d.</span><span class="nv"> </span><span class="s">Message:</span><span class="nv"> </span><span class="s">\&quot;%s\&quot;&quot;</span>
+<span class="w">            </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">code</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">message</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="on-alarm-end-trigger">
+<span id="haier-on-alarm-end"></span><h3><code class="docutils literal notranslate"><span class="pre">on_alarm_end</span></code> Trigger<a class="headerlink" href="#on-alarm-end-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when a previously activated alarm is deactivated by AC. The error code of the alarm will be given in the variable “code” (type uint8_t), error message in the variable “message” (type char*). Those variables can be used in <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hOn</span>
+<span class="w">    </span><span class="nt">on_alarm_end</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span>
+<span class="w">            </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">deactivated.</span><span class="nv"> </span><span class="s">Code:</span><span class="nv"> </span><span class="s">%d.</span><span class="nv"> </span><span class="s">Message:</span><span class="nv"> </span><span class="s">\&quot;%s\&quot;&quot;</span>
+<span class="w">            </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">code</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">message</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-haier-power-on-action">
+<h3><code class="docutils literal notranslate"><span class="pre">climate.haier.power_on</span></code> Action<a class="headerlink" href="#climate-haier-power-on-action" title="Permalink to this heading">¶</a></h3>
+<p>This action turns AC power on.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">climate.haier.power_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_id</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-haier-power-off-action">
+<h3><code class="docutils literal notranslate"><span class="pre">climate.haier.power_off</span></code> Action<a class="headerlink" href="#climate-haier-power-off-action" title="Permalink to this heading">¶</a></h3>
+<p>This action turns AC power off</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">climate.haier.power_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_id</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-haier-power-toggle-action">
+<h3><code class="docutils literal notranslate"><span class="pre">climate.haier.power_toggle</span></code> Action<a class="headerlink" href="#climate-haier-power-toggle-action" title="Permalink to this heading">¶</a></h3>
+<p>This action toggles AC power</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">climate.haier.power_toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_id</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-haier-display-on-action">
+<h3><code class="docutils literal notranslate"><span class="pre">climate.haier.display_on</span></code> Action<a class="headerlink" href="#climate-haier-display-on-action" title="Permalink to this heading">¶</a></h3>
+<p>This action turns the AC display on</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">climate.haier.display_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_id</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-haier-display-off-action">
+<h3><code class="docutils literal notranslate"><span class="pre">climate.haier.display_off</span></code> Action<a class="headerlink" href="#climate-haier-display-off-action" title="Permalink to this heading">¶</a></h3>
+<p>This action turns the AC display off</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">climate.haier.display_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_id</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-haier-health-on-action">
+<h3><code class="docutils literal notranslate"><span class="pre">climate.haier.health_on</span></code> Action<a class="headerlink" href="#climate-haier-health-on-action" title="Permalink to this heading">¶</a></h3>
+<p>Turn on health mode (<a class="reference external" href="https://www.haierhvac.eu/en/node/1809">UV light sterilization</a>)</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">climate.haier.health_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_id</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-haier-health-off-action">
+<h3><code class="docutils literal notranslate"><span class="pre">climate.haier.health_off</span></code> Action<a class="headerlink" href="#climate-haier-health-off-action" title="Permalink to this heading">¶</a></h3>
+<p>Turn off health mode</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">climate.haier.health_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_id</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-haier-beeper-on-action">
+<h3><code class="docutils literal notranslate"><span class="pre">climate.haier.beeper_on</span></code> Action<a class="headerlink" href="#climate-haier-beeper-on-action" title="Permalink to this heading">¶</a></h3>
+<p>(supported only by hOn) This action enables beep feedback on every command sent to AC</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">climate.haier.beeper_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_id</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-haier-beeper-off-action">
+<h3><code class="docutils literal notranslate"><span class="pre">climate.haier.beeper_off</span></code> Action<a class="headerlink" href="#climate-haier-beeper-off-action" title="Permalink to this heading">¶</a></h3>
+<p>(supported only by hOn) This action disables beep feedback on every command sent to AC (keep in mind that this will not work for IR remote commands)</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">climate.haier.beeper_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_id</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-haier-set-vertical-airflow-action">
+<h3><code class="docutils literal notranslate"><span class="pre">climate.haier.set_vertical_airflow</span></code> Action<a class="headerlink" href="#climate-haier-set-vertical-airflow-action" title="Permalink to this heading">¶</a></h3>
+<p>(supported only by hOn) Set direction for vertical airflow if the vertical swing is disabled. Possible values: Health_Up, Max_Up, Up, Center, Down, Health_Down.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">climate.haier.set_vertical_airflow</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_id</span>
+<span class="w">      </span><span class="nt">vertical_airflow</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Up</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-haier-set-horizontal-airflow-action">
+<h3><code class="docutils literal notranslate"><span class="pre">climate.haier.set_horizontal_airflow</span></code> Action<a class="headerlink" href="#climate-haier-set-horizontal-airflow-action" title="Permalink to this heading">¶</a></h3>
+<p>(supported only by hOn) Set direction for horizontal airflow if the horizontal swing is disabled. Possible values: Max_Left, Left, Center, Right, Max_Right.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">climate.haier.set_horizontal_airflow</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_id</span>
+<span class="w">      </span><span class="nt">vertical_airflow</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Right</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-haier-start-self-cleaning-action">
+<h3><code class="docutils literal notranslate"><span class="pre">climate.haier.start_self_cleaning</span></code> Action<a class="headerlink" href="#climate-haier-start-self-cleaning-action" title="Permalink to this heading">¶</a></h3>
+<p>(supported only by hOn) Start <a class="reference external" href="https://www.haier.com/in/blogs/beat-the-summer-heat-with-haier-self-cleaning-ac.shtml">self-cleaning</a></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">climate.haier.start_self_cleaning</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_id</span>
+</pre></div>
+</div>
+</section>
+<section id="climate-haier-start-steri-cleaning-action">
+<h3><code class="docutils literal notranslate"><span class="pre">climate.haier.start_steri_cleaning</span></code> Action<a class="headerlink" href="#climate-haier-start-steri-cleaning-action" title="Permalink to this heading">¶</a></h3>
+<p>(supported only by hOn) Start 56°C steri-cleaning</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">climate.haier.start_steri_cleaning</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_id</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/paveldn/haier-esphome">haier-esphome</a></p></li>
+<li><p><a class="reference internal" href="../sensor/haier.html"><span class="doc">Haier Climate Sensors</span></a></p></li>
+<li><p><a class="reference internal" href="../binary_sensor/haier.html"><span class="doc">Haier Climate Binary Sensors</span></a></p></li>
+<li><p><a class="reference internal" href="index.html"><span class="doc">Climate Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/haier_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/climate/haier.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,415 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Over-The-Air (OTA) updates for ESPs to upload firmwares remotely.">
+<meta itemprop="name" content="OTA Update Component">
+<meta itemprop="description" content="Instructions for setting up Over-The-Air (OTA) updates for ESPs to upload firmwares remotely.">
+<meta itemprop="image" content="https://esphome.io/_images/system-update.png">
+<meta name="twitter:title" content="OTA Update Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/system-update.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Over-The-Air (OTA) updates for ESPs to upload firmwares remotely.">
+<meta property="og:title" content="OTA Update Component">
+<meta property="og:image" content="https://esphome.io/_images/system-update.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Over-The-Air (OTA) updates for ESPs to upload firmwares remotely.">
+
+    <title>OTA Update Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/ota.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PCA6416A I/O Expander" href="pca6416a.html" />
+    <link rel="prev" title="Network component" href="network.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">OTA Update Component</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#ota-automation">OTA Automation</a><ul>
+<li><a class="reference internal" href="#on-begin"><code class="docutils literal notranslate"><span class="pre">on_begin</span></code></a></li>
+<li><a class="reference internal" href="#on-progress"><code class="docutils literal notranslate"><span class="pre">on_progress</span></code></a></li>
+<li><a class="reference internal" href="#on-end"><code class="docutils literal notranslate"><span class="pre">on_end</span></code></a></li>
+<li><a class="reference internal" href="#on-error"><code class="docutils literal notranslate"><span class="pre">on_error</span></code></a></li>
+<li><a class="reference internal" href="#on-state-change"><code class="docutils literal notranslate"><span class="pre">on_state_change</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#updating-the-password">Updating the password:</a><ul>
+<li><a class="reference internal" href="#changing-an-existing-password">Changing an existing password:</a></li>
+<li><a class="reference internal" href="#adding-a-password">Adding a password:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>OTA Update Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="ota-update-component">
+<h1>OTA Update Component<a class="headerlink" href="#ota-update-component" title="Permalink to this heading">¶</a></h1>
+<p id="config-ota">With the OTA (Over The Air) update component you can upload your
+firmware binaries to your node without having to use a USB cable for
+uploads. ESPHome natively supports this through its <code class="docutils literal notranslate"><span class="pre">run</span></code> and
+<code class="docutils literal notranslate"><span class="pre">upload</span></code> helper scripts.</p>
+<p>ESPHome also has an “OTA safe mode”. If for some reason your
+node gets into a boot loop, ESPHome will automatically try to detect
+this and will go over into a safe mode after the configured unsuccessful boot
+attempts (Defaults to <code class="docutils literal notranslate"><span class="pre">10</span></code>). In that mode, all components are disabled and only Serial
+Logging + Network(WiFi or Ethernet) + OTA are initialized, so that you can upload a new
+binary. You can trigger entering safe mode by either configuring a dedicated button or
+switch to do that or by pressing the reset button on the board for <code class="docutils literal notranslate"><span class="pre">num_attempts</span></code> times.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">ota</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">safe_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ota_password</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>safe_mode</strong> (<em>Optional</em>, boolean): Whether to enable safe mode.
+Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><strong>password</strong> (<em>Optional</em>, string): The password to use for updates.</p></li>
+<li><p><strong>port</strong> (<em>Optional</em>, int): The port to use for OTA updates.
+Defaults:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">3232</span></code> for the ESP32</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">8266</span></code> for the ESP8266</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2040</span></code> for the RP2040</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">8892</span></code> for Beken chips</p></li>
+</ul>
+</li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>reboot_timeout</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The amount of time to wait before rebooting when in
+safe mode. Defaults to <code class="docutils literal notranslate"><span class="pre">5min</span></code>.</p></li>
+<li><p><strong>num_attempts</strong> (<em>Optional</em>, int): The number of attempts to wait before entering safe mode. Defaults to <code class="docutils literal notranslate"><span class="pre">10</span></code>.</p></li>
+<li><p><strong>on_begin</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be
+performed when an OTA update is started. See <a class="reference internal" href="#ota-on-begin"><span class="std std-ref">on_begin</span></a>.</p></li>
+<li><p><strong>on_progress</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be
+performed (multiple times) during an OTA update. See <a class="reference internal" href="#ota-on-progress"><span class="std std-ref">on_progress</span></a>.</p></li>
+<li><p><strong>on_end</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be
+performed after a successful OTA update. See <a class="reference internal" href="#ota-on-end"><span class="std std-ref">on_end</span></a>.</p></li>
+<li><p><strong>on_error</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be
+performed after a failed OTA update. See <a class="reference internal" href="#ota-on-error"><span class="std std-ref">on_error</span></a>.</p></li>
+<li><p><strong>on_state_change</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be
+performed when an OTA update state change happens. See <a class="reference internal" href="#ota-on-state-change"><span class="std std-ref">on_state_change</span></a>.</p></li>
+<li><p><strong>version</strong> (<em>Optional</em>, int): Version of OTA protocol to use. Version 2 is more stable.
+To downgrade to legacy ESPHome, the device should be updated with OTA version 1 first.
+Defaults to <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please be aware that ESP8266 modules must be reset after a serial
+upload before OTA can work.
+When you are trying to conduct an OTA update and receive an error message
+<code class="docutils literal notranslate"><span class="pre">Bad</span> <span class="pre">Answer:</span> <span class="pre">ERR:</span> <span class="pre">ERROR[11]:</span> <span class="pre">Invalid</span> <span class="pre">bootstrapping</span></code> the reason is
+very likely that power-cycling the ESP module is required once after
+the serial upload.</p>
+</div>
+</section>
+<section id="ota-automation">
+<h2>OTA Automation<a class="headerlink" href="#ota-automation" title="Permalink to this heading">¶</a></h2>
+<p>The OTA component provides various automations that can be used to provide feedback
+during an OTA update. There are a few things to consider when making use of the
+provided automation triggers:</p>
+<ul class="simple">
+<li><p>An OTA update blocks the main loop during its operation. This means that you
+won’t be able to represent state changes using components that update their
+output only from within their <code class="docutils literal notranslate"><span class="pre">loop()</span></code> method. Explained differently: if you
+try to display the OTA progress using component X, but the update only appears
+after the OTA update finished, then component X cannot be used for providing
+OTA update feedback.</p></li>
+<li><p>Make sure that your automation actions do not take too much time, to prevent
+them from blocking the OTA update code for too long.</p></li>
+</ul>
+<section id="on-begin">
+<span id="ota-on-begin"></span><h3><code class="docutils literal notranslate"><span class="pre">on_begin</span></code><a class="headerlink" href="#on-begin" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when an OTA update is started.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ota</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_begin</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;OTA</span><span class="nv"> </span><span class="s">start&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-progress">
+<span id="ota-on-progress"></span><h3><code class="docutils literal notranslate"><span class="pre">on_progress</span></code><a class="headerlink" href="#on-progress" title="Permalink to this heading">¶</a></h3>
+<p>Using this automation, it is possible to report on the OTA update progress.
+It will be triggered multiple times during the OTA update. You can get the actual
+progress percentage (a value between 0 and 100) from the trigger with variable <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ota</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_progress</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;OTA</span><span class="nv"> </span><span class="s">progress</span><span class="nv"> </span><span class="s">%0.1f%%&quot;</span>
+<span class="w">          </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;x&quot;</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="on-end">
+<span id="ota-on-end"></span><h3><code class="docutils literal notranslate"><span class="pre">on_end</span></code><a class="headerlink" href="#on-end" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when an OTA update has completed successfully,
+right before the device is rebooted.</p>
+<p>Because the update has completed, you can safely use an automation action that
+takes some time to complete. This can for example be useful if you want to flash
+a LED or so, in which case a pause would be required to make the LED light up
+for long enough, before the reboot turns it off.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ota</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_end</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;OTA</span><span class="nv"> </span><span class="s">end&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-error">
+<span id="ota-on-error"></span><h3><code class="docutils literal notranslate"><span class="pre">on_error</span></code><a class="headerlink" href="#on-error" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when an OTA update has failed. You can get
+the internal error code with variable <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<p>Just like for <a class="reference internal" href="#ota-on-end"><span class="std std-ref">on_end</span></a>, you can safely use an automation that
+takes some time to complete, because the OTA update is no longer busy.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ota</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_error</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;OTA</span><span class="nv"> </span><span class="s">update</span><span class="nv"> </span><span class="s">error</span><span class="nv"> </span><span class="s">%d&quot;</span>
+<span class="w">          </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;x&quot;</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="on-state-change">
+<span id="ota-on-state-change"></span><h3><code class="docutils literal notranslate"><span class="pre">on_state_change</span></code><a class="headerlink" href="#on-state-change" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered on every state change. You can get the actual
+state with variable <code class="docutils literal notranslate"><span class="pre">state</span></code>, which will contain one of values for the OTAState
+enum. These values are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ota::OTA_STARTED</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ota::OTA_IN_PROGRESS</span></code> (will be called multiple times during the update)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ota::OTA_COMPLETED</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ota::OTA_ERROR</span></code></p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ota</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_state_change</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return state == ota::OTA_STARTED;</span>
+<span class="w">          </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;OTA</span><span class="nv"> </span><span class="s">start&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="updating-the-password">
+<h2>Updating the password:<a class="headerlink" href="#updating-the-password" title="Permalink to this heading">¶</a></h2>
+<section id="changing-an-existing-password">
+<h3>Changing an existing password:<a class="headerlink" href="#changing-an-existing-password" title="Permalink to this heading">¶</a></h3>
+<p>Since the password is used both for compiling and uploading the regular <code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">&lt;file&gt;</span> <span class="pre">run</span></code>
+won’t work of course. This issue can be worked around by executing the operations separately
+through an <code class="docutils literal notranslate"><span class="pre">on_boot</span></code> trigger:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_boot</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">id(my_ota).set_auth_password(&quot;New password&quot;);</span>
+<span class="nt">ota</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Old</span><span class="nv"> </span><span class="s">password&quot;</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_ota</span>
+</pre></div>
+</div>
+</section>
+<section id="adding-a-password">
+<h3>Adding a password:<a class="headerlink" href="#adding-a-password" title="Permalink to this heading">¶</a></h3>
+<p>If OTA is already enabled without a password, simply add a <code class="docutils literal notranslate"><span class="pre">password:</span></code> line to the existing
+<code class="docutils literal notranslate"><span class="pre">ota:</span></code> config block.</p>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/api/ota__component_8h.html">API Reference</a></p></li>
+<li><p><a class="reference internal" href="button/safe_mode.html"><span class="doc">Safe Mode Button</span></a></p></li>
+<li><p><a class="reference internal" href="switch/safe_mode.html"><span class="doc">Safe Mode Switch</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/ota.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

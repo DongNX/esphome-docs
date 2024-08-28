@@ -1,0 +1,409 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up quad SPI AMOLED displays.">
+<meta itemprop="name" content="Quad SPI AMOLED Displays">
+<meta itemprop="description" content="Instructions for setting up quad SPI AMOLED displays.">
+<meta itemprop="image" content="https://esphome.io/_images/t4-s3.jpg">
+<meta name="twitter:title" content="Quad SPI AMOLED Displays">
+<meta name="twitter:image:src" content="https://esphome.io/_images/t4-s3.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up quad SPI AMOLED displays.">
+<meta property="og:title" content="Quad SPI AMOLED Displays">
+<meta property="og:image" content="https://esphome.io/_images/t4-s3.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up quad SPI AMOLED displays.">
+
+    <title>Quad SPI AMOLED Displays &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/display/qspi_amoled.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="RPI_DPI_RGB Display Driver" href="rpi_dpi_rgb.html" />
+    <link rel="prev" title="PVVX MiThermometer Display" href="pvvx_mithermometer.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Quad SPI AMOLED Displays</a><ul>
+<li><a class="reference internal" href="#models">Models</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-configurations">Example configurations</a><ul>
+<li><a class="reference internal" href="#lilygo-t4-s3">Lilygo T4-S3</a></li>
+<li><a class="reference internal" href="#lilygo-t-display-s3-amoled">Lilygo T-Display S3 AMOLED</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Display Component</a> ➔</li>
+      <li>Quad SPI AMOLED Displays</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="quad-spi-amoled-displays">
+<h1>Quad SPI AMOLED Displays<a class="headerlink" href="#quad-spi-amoled-displays" title="Permalink to this heading">¶</a></h1>
+<section id="models">
+<span id="qspi-amoled"></span><h2>Models<a class="headerlink" href="#models" title="Permalink to this heading">¶</a></h2>
+<p>This display driver supports AMOLED displays with quad SPI interfaces.</p>
+<p>This driver has been tested with the following displays:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Lilygo T4-S3</p></li>
+<li><p>Lilygo T-Display S3 AMOLED</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
+<p>This component requires an ESP32 and the use of
+ESP-IDF. PSRAM is a requirement due to the size of the display buffer. A <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">quad SPI bus</span></a> interface must be configured.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/t4-s3.jpg"><img alt="../../_images/t4-s3.jpg" src="../../_images/t4-s3.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Lilygo T4-S3</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/t-display-amoled.jpg"><img alt="../../_images/t-display-amoled.jpg" src="../../_images/t-display-amoled.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Lilygo T-Display S3 AMOLED</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example minimal configuration entry</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qspi_amoled</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RM690B0</span>
+<span class="w">    </span><span class="nt">data_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80MHz</span>
+<span class="w">    </span><span class="nt">spi_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mode0</span>
+<span class="w">    </span><span class="nt">dimensions</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">450</span>
+<span class="w">      </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">600</span>
+<span class="w">      </span><span class="nt">offset_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+<span class="w">    </span><span class="nt">color_order</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rgb</span>
+<span class="w">    </span><span class="nt">invert_colors</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">brightness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">enable_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><p><strong>model</strong> (<strong>Required</strong>): One of <code class="docutils literal notranslate"><span class="pre">RM67162</span></code> or <code class="docutils literal notranslate"><span class="pre">RM690B0</span></code>.</p></li>
+<li><p><strong>cs_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The chip select pin.</p></li>
+<li><p><strong>reset_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The RESET pin.</p></li>
+<li><p><strong>enable_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The display enable pin.</p></li>
+<li><p><strong>brightness</strong> (<em>Optional</em>, int): A brightness value in the range 0-255</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to re-draw the screen. Defaults to <code class="docutils literal notranslate"><span class="pre">5s</span></code>.</p></li>
+<li><p><strong>auto_clear_enabled</strong> (<em>Optional</em>, boolean): Whether to automatically clear the display in each loop (‘’true’’, default),
+or to keep the existing display content (must overwrite explicitly, e.g., only on data change).</p></li>
+<li><p><strong>pages</strong> (<em>Optional</em>, list): Show pages instead of a single lambda. See <a class="reference internal" href="index.html#display-pages"><span class="std std-ref">Display Pages</span></a>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>color_order</strong> (<em>Optional</em>): Should be one of <code class="docutils literal notranslate"><span class="pre">rgb</span></code> (default) or <code class="docutils literal notranslate"><span class="pre">bgr</span></code>.</p></li>
+<li><dl class="simple">
+<dt><strong>dimensions</strong> (<strong>Required</strong>): Dimensions of the screen, specified either as <em>width</em> <strong>x</strong> <em>height</em> (e.g <code class="docutils literal notranslate"><span class="pre">320x240</span></code>) or with separate config keys.</dt><dd><ul class="simple">
+<li><p><strong>height</strong> (<strong>Required</strong>, int): Specifies height of display in pixels.</p></li>
+<li><p><strong>width</strong> (<strong>Required</strong>, int): Specifies width of display.</p></li>
+<li><p><strong>offset_width</strong> (<em>Optional</em>, int): Specify an offset for the x-direction of the display, typically used when a display is smaller than the maximum supported by the driver chip. Default is 0</p></li>
+<li><p><strong>offset_height</strong> (<em>Optional</em>, int): Specify an offset for the y-direction of the display. Default is 0.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><strong>rotation</strong> (<em>Optional</em>): Rotate the display presentation in software. Choose one of <code class="docutils literal notranslate"><span class="pre">0°</span></code>, <code class="docutils literal notranslate"><span class="pre">90°</span></code>, <code class="docutils literal notranslate"><span class="pre">180°</span></code>, or <code class="docutils literal notranslate"><span class="pre">270°</span></code>.</p></li>
+<li><p><strong>transform</strong> (<em>Optional</em>): Transform the display presentation using hardware. All defaults are <code class="docutils literal notranslate"><span class="pre">false</span></code>. This option cannot be used with <code class="docutils literal notranslate"><span class="pre">rotation</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>swap_xy</strong> (<em>Optional</em>, boolean): If true, exchange the x and y axes.</p></li>
+<li><p><strong>mirror_x</strong> (<em>Optional</em>, boolean): If true, mirror the x axis.</p></li>
+<li><p><strong>mirror_y</strong> (<em>Optional</em>, boolean): If true, mirror the y axis.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>data_rate</strong> (<em>Optional</em>): Set the data rate of the SPI interface to the display. One of <code class="docutils literal notranslate"><span class="pre">80MHz</span></code>, <code class="docutils literal notranslate"><span class="pre">40MHz</span></code>, <code class="docutils literal notranslate"><span class="pre">20MHz</span></code>, <code class="docutils literal notranslate"><span class="pre">10MHz</span></code> (default), <code class="docutils literal notranslate"><span class="pre">5MHz</span></code>, <code class="docutils literal notranslate"><span class="pre">2MHz</span></code> or  <code class="docutils literal notranslate"><span class="pre">1MHz</span></code>.</p></li>
+<li><p><strong>spi_mode</strong> (<em>Optional</em>): Set the mode for the SPI interface to the display. Default is <code class="docutils literal notranslate"><span class="pre">MODE0</span></code>.</p></li>
+<li><p><strong>invert_colors</strong> (<em>Optional</em>): With this boolean option you can invert the display colors.</p></li>
+<li><p><strong>lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>): The lambda to use for rendering the content on the display.
+See <a class="reference internal" href="index.html#display-engine"><span class="std std-ref">Display Rendering Engine</span></a> for more information.</p></li>
+</ul>
+</section>
+</section>
+<section id="example-configurations">
+<h2>Example configurations<a class="headerlink" href="#example-configurations" title="Permalink to this heading">¶</a></h2>
+<section id="lilygo-t4-s3">
+<h3>Lilygo T4-S3<a class="headerlink" href="#lilygo-t4-s3" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">spi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quad_spi</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quad</span>
+<span class="w">  </span><span class="nt">clk_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span>
+<span class="w">  </span><span class="nt">data_pins</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">14</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">16</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">12</span><span class="p p-Indicator">]</span>
+
+<span class="nt">i2c</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+<span class="w">  </span><span class="nt">scl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
+
+<span class="nt">touchscreen</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cst226</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_touchscreen</span>
+<span class="w">    </span><span class="nt">interrupt_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">17</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qspi_amoled</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RM690B0</span>
+<span class="w">    </span><span class="nt">data_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80MHz</span>
+<span class="w">    </span><span class="nt">spi_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mode0</span>
+<span class="w">    </span><span class="nt">dimensions</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">450</span>
+<span class="w">      </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">600</span>
+<span class="w">      </span><span class="nt">offset_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+<span class="w">    </span><span class="nt">color_order</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rgb</span>
+<span class="w">    </span><span class="nt">invert_colors</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">brightness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">13</span>
+<span class="w">    </span><span class="nt">enable_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">never</span>
+<span class="w">    </span><span class="nt">auto_clear_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">psram</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">octal</span>
+<span class="w">  </span><span class="nt">speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80MHz</span>
+</pre></div>
+</div>
+</section>
+<section id="lilygo-t-display-s3-amoled">
+<h3>Lilygo T-Display S3 AMOLED<a class="headerlink" href="#lilygo-t-display-s3-amoled" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">spi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quad_spi</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quad</span>
+<span class="w">  </span><span class="nt">clk_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">47</span>
+<span class="w">  </span><span class="nt">data_pins</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">18</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">48</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+
+<span class="nt">i2c</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">scl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+
+<span class="nt">touchscreen</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cst816</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_touchscreen</span>
+<span class="w">    </span><span class="nt">interrupt_pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">21</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qspi_amoled</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RM67162</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main_lcd</span>
+<span class="w">    </span><span class="nt">dimensions</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">240</span>
+<span class="w">      </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">536</span>
+<span class="w">    </span><span class="nt">transform</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">mirror_x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">swap_xy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">color_order</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rgb</span>
+<span class="w">    </span><span class="nt">brightness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">17</span>
+<span class="w">    </span><span class="nt">enable_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">38</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Display Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/qspi__amoled_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/display/qspi_amoled.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

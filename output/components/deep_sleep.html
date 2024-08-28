@@ -1,0 +1,412 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up the deep sleep support for minimizing power consumption on ESPs.">
+<meta itemprop="name" content="Deep Sleep Component">
+<meta itemprop="description" content="Instructions for setting up the deep sleep support for minimizing power consumption on ESPs.">
+<meta itemprop="image" content="https://esphome.io/_images/hotel.png">
+<meta name="twitter:title" content="Deep Sleep Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/hotel.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up the deep sleep support for minimizing power consumption on ESPs.">
+<meta property="og:title" content="Deep Sleep Component">
+<meta property="og:image" content="https://esphome.io/_images/hotel.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up the deep sleep support for minimizing power consumption on ESPs.">
+
+    <title>Deep Sleep Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/deep_sleep.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Demo Component" href="demo.html" />
+    <link rel="prev" title="Debug Component" href="debug.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Deep Sleep Component</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#esp32-wakeup-pin-mode">ESP32 Wakeup Pin Mode</a></li>
+<li><a class="reference internal" href="#esp32-wakeup-cause">ESP32 Wakeup Cause</a></li>
+<li><a class="reference internal" href="#deep-sleep-enter-action"><code class="docutils literal notranslate"><span class="pre">deep_sleep.enter</span></code> Action</a></li>
+<li><a class="reference internal" href="#deep-sleep-prevent-action"><code class="docutils literal notranslate"><span class="pre">deep_sleep.prevent</span></code> Action</a></li>
+<li><a class="reference internal" href="#deep-sleep-allow-action"><code class="docutils literal notranslate"><span class="pre">deep_sleep.allow</span></code> Action</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>Deep Sleep Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="deep-sleep-component">
+<span id="id1"></span><h1>Deep Sleep Component<a class="headerlink" href="#deep-sleep-component" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">deep_sleep</span></code> component can be used to automatically enter a deep sleep mode on the
+ESP8266/ESP32 after a certain amount of time. This is especially useful with nodes that operate
+on batteries and therefore need to conserve as much energy as possible.</p>
+<p>To use <code class="docutils literal notranslate"><span class="pre">deep_sleep</span></code> first specify how long the node should be active, i.e. how long it should
+check sensor values and report them, using the <code class="docutils literal notranslate"><span class="pre">run_duration</span></code> option.</p>
+<p>Next, tell the node how it should wakeup. On the ESP8266, you can only put the node into deep sleep
+for a duration using <code class="docutils literal notranslate"><span class="pre">sleep_duration</span></code>, note that on the ESP8266 <code class="docutils literal notranslate"><span class="pre">GPIO16</span></code> must be connected to
+the <code class="docutils literal notranslate"><span class="pre">RST</span></code> pin so that it will wake up again. On the ESP32, you additionally have the option
+to wake up on any RTC pin (<code class="docutils literal notranslate"><span class="pre">GPIO0</span></code>, <code class="docutils literal notranslate"><span class="pre">GPIO2</span></code>, <code class="docutils literal notranslate"><span class="pre">GPIO4</span></code>, <code class="docutils literal notranslate"><span class="pre">GPIO12</span></code>, <code class="docutils literal notranslate"><span class="pre">GPIO13</span></code>, <code class="docutils literal notranslate"><span class="pre">GPIO14</span></code>,
+<code class="docutils literal notranslate"><span class="pre">GPIO15</span></code>, <code class="docutils literal notranslate"><span class="pre">GPIO25</span></code>, <code class="docutils literal notranslate"><span class="pre">GPIO26</span></code>, <code class="docutils literal notranslate"><span class="pre">GPIO27</span></code>, <code class="docutils literal notranslate"><span class="pre">GPIO32</span></code>, <code class="docutils literal notranslate"><span class="pre">GPIO39</span></code>).</p>
+<p>While in deep sleep mode, the node will not do any work and not respond to any network traffic,
+even Over The Air updates. If the device’s entities are appearing as <strong>Unavailable</strong> while your device is actively
+sleeping, this component was likely added after the device was added to Home Assistant. To prevent this behavior,
+you can remove and re-add the device in Home Assistant.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">deep_sleep</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">run_duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">  </span><span class="nt">sleep_duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10min</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some ESP8266s have an onboard USB chip (e.g. D1 mini) on the chips’ control line that is connected to the RST pin. This enables the flasher to reboot the ESP when required. This may interfere with deep sleep on some devices and prevent the ESP from waking when it’s powered through its USB connector. Powering the ESP from a separate 3.3V source connected to the 3.3V pin and GND will solve this issue. In these cases, using a USB to TTL adapter will allow you to log ESP activity.</p>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><strong>run_duration</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The time duration the node should be active, i.e. run code.</p>
+<p>Only on ESP32, instead of time, it is possible to specify run duration according to the wakeup reason from deep-sleep:</p>
+<ul class="simple">
+<li><p><strong>default</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): default run duration for timer wakeup and any unspecified wakeup reason.</p></li>
+<li><p><strong>gpio_wakeup_reason</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): run duration if woken up by GPIO.</p></li>
+<li><p><strong>touch_wakeup_reason</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): run duration if woken up by touch.</p></li>
+</ul>
+</li>
+<li><p><strong>sleep_duration</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The time duration to stay in deep sleep mode.</p></li>
+<li><p><strong>touch_wakeup</strong> (<em>Optional</em>, boolean): Only on ESP32. Use a touch event to wakeup from deep sleep. To be able
+to wakeup from a touch event, <a class="reference internal" href="binary_sensor/esp32_touch.html#esp32-touch-binary-sensor"><span class="std std-ref">Binary Sensor</span></a> must be configured properly.</p></li>
+<li><p><strong>wakeup_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): Only on ESP32. A pin to wake up to once
+in deep sleep mode. Use the inverted property to wake up to LOW signals.</p></li>
+<li><p><strong>wakeup_pin_mode</strong> (<em>Optional</em>): Only on ESP32. Specify how to handle waking up from a <code class="docutils literal notranslate"><span class="pre">wakeup_pin</span></code> if
+the wakeup pin is already in the state with which it would wake up when attempting to enter deep sleep.
+See <a class="reference internal" href="#deep-sleep-esp32-wakeup-pin-mode"><span class="std std-ref">ESP32 Wakeup Pin Mode</span></a>. Defaults to <code class="docutils literal notranslate"><span class="pre">IGNORE</span></code></p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+</ul>
+<p>Advanced features:</p>
+<ul class="simple">
+<li><p><strong>esp32_ext1_wakeup</strong> (<em>Optional</em>): Use the EXT1 wakeup source of the ESP32 to wake from deep sleep to
+wake up on multiple pins. This cannot be used together with wakeup pin.</p>
+<ul>
+<li><p><strong>pins</strong> (<strong>Required</strong>, list of pin numbers): The pins to wake up on.</p></li>
+<li><p><strong>mode</strong> (<strong>Required</strong>): The mode to use for the wakeup source. Must be one of <code class="docutils literal notranslate"><span class="pre">ALL_LOW</span></code> (wake up when
+all pins go LOW) or <code class="docutils literal notranslate"><span class="pre">ANY_HIGH</span></code> (wake up when any pin goes HIGH).</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only one deep sleep component may be configured.</p>
+</div>
+</section>
+<section id="esp32-wakeup-pin-mode">
+<span id="deep-sleep-esp32-wakeup-pin-mode"></span><h2>ESP32 Wakeup Pin Mode<a class="headerlink" href="#esp32-wakeup-pin-mode" title="Permalink to this heading">¶</a></h2>
+<p>On the ESP32, you have the option of waking up on any RTC pin. However, there’s one scenario that you need
+to tell ESPHome how to handle: What if the wakeup pin is already in the state with which it would wake up
+when the deep sleep should start? There are three ways of handling this using the <code class="docutils literal notranslate"><span class="pre">wakeup_pin_mode</span></code> option:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">IGNORE</span></code> (Default): Ignore the fact that we will immediately exit the deep sleep mode because the wakeup
+pin is already active.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KEEP_AWAKE</span></code>: Keep the ESP32 awake while the wakeup pin is still active. Or in other words: defer the
+activation of the deep sleep until the wakeup pin is no longer active.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INVERT_WAKEUP</span></code>: When deep sleep was set up to wake up on a HIGH signal, but the wakeup pin is already HIGH,
+then re-configure deep sleep to wake up on a LOW signal and vice versa. Useful in situations when you want to
+use observe the state changes of a pin using deep sleep and the ON/OFF values last longer.</p></li>
+</ul>
+</section>
+<section id="esp32-wakeup-cause">
+<h2>ESP32 Wakeup Cause<a class="headerlink" href="#esp32-wakeup-cause" title="Permalink to this heading">¶</a></h2>
+<p>On the ESP32, the <code class="docutils literal notranslate"><span class="pre">esp_sleep_get_wakeup_cause()</span></code> function can be used to check which wakeup source has triggered
+wakeup from sleep mode.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Wakeup</span><span class="nv"> </span><span class="s">Cause&quot;</span>
+<span class="w">    </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return esp_sleep_get_wakeup_cause();</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>The following integers are the wakeup causes:</dt><dd><ul class="simple">
+<li><p><strong>0</strong> - <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_UNDEFINED</span></code>: In case of deep sleep, reset was not caused by exit from deep sleep</p></li>
+<li><p><strong>1</strong> - <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_ALL</span></code>: Not a wakeup cause, used to disable all wakeup sources with esp_sleep_disable_wakeup_source</p></li>
+<li><p><strong>2</strong> - <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_EXT0</span></code>: Wakeup caused by external signal using RTC_IO</p></li>
+<li><p><strong>3</strong> - <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_EXT1</span></code>: Wakeup caused by external signal using RTC_CNTL</p></li>
+<li><p><strong>4</strong> - <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_TIMER</span></code>: Wakeup caused by timer</p></li>
+<li><p><strong>5</strong> - <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_TOUCHPAD</span></code>: Wakeup caused by touchpad</p></li>
+<li><p><strong>6</strong> - <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_ULP</span></code>: Wakeup caused by ULP program</p></li>
+<li><p><strong>7</strong> - <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_GPIO</span></code>: Wakeup caused by GPIO (light sleep only on ESP32, S2 and S3)</p></li>
+<li><p><strong>8</strong> - <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_UART</span></code>: Wakeup caused by UART (light sleep only)</p></li>
+<li><p><strong>9</strong> - <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_WIFI</span></code>: Wakeup caused by WIFI (light sleep only)</p></li>
+<li><p><strong>10</strong> - <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_COCPU</span></code>: Wakeup caused by COCPU int</p></li>
+<li><p><strong>11</strong> - <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_COCPU_TRAP_TRIG</span></code>: Wakeup caused by COCPU crash</p></li>
+<li><p><strong>12</strong> - <code class="docutils literal notranslate"><span class="pre">ESP_SLEEP_WAKEUP_BT</span></code>: Wakeup caused by BT (light sleep only)</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="deep-sleep-enter-action">
+<span id="id2"></span><h2><code class="docutils literal notranslate"><span class="pre">deep_sleep.enter</span></code> Action<a class="headerlink" href="#deep-sleep-enter-action" title="Permalink to this heading">¶</a></h2>
+<p>This action makes the given deep sleep component enter deep sleep immediately.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">deep_sleep.enter</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deep_sleep_1</span>
+<span class="w">        </span><span class="nt">sleep_duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20min</span>
+
+
+<span class="c1"># ESP32 can sleep until a specific time of day.</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">deep_sleep.enter</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deep_sleep_1</span>
+<span class="w">        </span><span class="nt">until</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;16:00:00&quot;</span>
+<span class="w">        </span><span class="nt">time_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sntp_id</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>sleep_duration</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The time duration to stay in deep sleep mode.</p></li>
+<li><p><strong>until</strong> (<em>Optional</em>, string): The time of day to wake up. Only on ESP32.</p></li>
+<li><p><strong>time_id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the time component to use for the <code class="docutils literal notranslate"><span class="pre">until</span></code> option. Only on ESP32.</p></li>
+</ul>
+</section>
+<section id="deep-sleep-prevent-action">
+<span id="id3"></span><h2><code class="docutils literal notranslate"><span class="pre">deep_sleep.prevent</span></code> Action<a class="headerlink" href="#deep-sleep-prevent-action" title="Permalink to this heading">¶</a></h2>
+<p>This action prevents the given deep sleep component from entering deep sleep.
+Useful for keeping the ESP active during data transfer or OTA updating (See note below for more information).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">deep_sleep.prevent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deep_sleep_1</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For example, if you want to upload a binary via OTA with deep sleep mode it can be difficult to
+catch the ESP being active.</p>
+<p>You can use this automation to automatically prevent deep sleep when a MQTT message on the topic
+<code class="docutils literal notranslate"><span class="pre">livingroom/ota_mode</span></code> is received. Then, to do the OTA update, just
+use a MQTT client to publish a retained MQTT message described below. When the node wakes up again
+it will no longer enter deep sleep mode and you can upload your OTA update.</p>
+<p>Remember to turn “OTA mode” off again after the OTA update by sending a MQTT message with the payload
+<code class="docutils literal notranslate"><span class="pre">OFF</span></code>. To enter the deep sleep again after the OTA update send a message on the topic <code class="docutils literal notranslate"><span class="pre">livingroom/sleep_mode</span></code>
+with payload <code class="docutils literal notranslate"><span class="pre">ON</span></code>. Deep sleep will start immediately. Don’t forget to delete the payload before the node
+wakes up again.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">deep_sleep</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deep_sleep_1</span>
+<span class="nt">mqtt</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_message</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">livingroom/ota_mode</span>
+<span class="w">      </span><span class="nt">payload</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ON&#39;</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">deep_sleep.prevent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deep_sleep_1</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">livingroom/sleep_mode</span>
+<span class="w">      </span><span class="nt">payload</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ON&#39;</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">deep_sleep.enter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deep_sleep_1</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="deep-sleep-allow-action">
+<span id="id4"></span><h2><code class="docutils literal notranslate"><span class="pre">deep_sleep.allow</span></code> Action<a class="headerlink" href="#deep-sleep-allow-action" title="Permalink to this heading">¶</a></h2>
+<p>This action allows the given deep sleep component to enter deep sleep, after previously being prevented.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">deep_sleep.allow</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deep_sleep_1</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="switch/shutdown.html"><span class="doc">Shutdown Switch</span></a></p></li>
+<li><p><a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automations and Templates</span></a></p></li>
+<li><p><a class="reference external" href="/api/deep__sleep__component_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/deep_sleep.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

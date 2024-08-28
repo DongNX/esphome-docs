@@ -1,0 +1,1195 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up switches that send out pre-defined sequences of IR or RF signals">
+<meta name="keywords" content="Infrared, IR, RF, Remote, TX">
+<meta itemprop="name" content="Remote Transmitter">
+<meta itemprop="description" content="Instructions for setting up switches that send out pre-defined sequences of IR or RF signals">
+<meta itemprop="image" content="https://esphome.io/_images/remote.png">
+<meta name="twitter:title" content="Remote Transmitter">
+<meta name="twitter:image:src" content="https://esphome.io/_images/remote.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up switches that send out pre-defined sequences of IR or RF signals">
+<meta property="og:title" content="Remote Transmitter">
+<meta property="og:image" content="https://esphome.io/_images/remote.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up switches that send out pre-defined sequences of IR or RF signals">
+
+    <title>Remote Transmitter &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/remote_transmitter.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RF Bridge Component" href="rf_bridge.html" />
+    <link rel="prev" title="Remote Receiver" href="remote_receiver.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Remote Transmitter</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#remote-transmitter-actions">Remote Transmitter Actions</a><ul>
+<li><a class="reference internal" href="#remote-transmitter-transmit-abbwelcome-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_abbwelcome</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-aeha-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_aeha</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-byronsx-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_byronsx</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-canalsat-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_canalsat</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-canalsatld-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_canalsatld</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-coolix-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_coolix</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-dish-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_dish</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-dooya-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_dooya</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-drayton-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_drayton</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-jvc-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_jvc</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-keeloq-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_keeloq</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-haier-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_haier</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-lg-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_lg</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-magiquest-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_magiquest</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-midea-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_midea</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-nec-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_nec</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-nexa-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_nexa</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-panasonic-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_panasonic</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-pioneer-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_pioneer</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-pronto-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_pronto</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-raw-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_raw</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-rc5-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc5</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-rc6-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc6</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-rc-switch-raw-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc_switch_raw</span></code> Action</a><ul>
+<li><a class="reference internal" href="#rc-switch-protocol">RC Switch Protocol</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-rc-switch-type-a-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc_switch_type_a</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-rc-switch-type-b-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc_switch_type_b</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-rc-switch-type-c-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc_switch_type_c</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-rc-switch-type-d-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc_switch_type_d</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-roomba-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_roomba</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-samsung-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_samsung</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-samsung36-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_samsung36</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-sony-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_sony</span></code> Action</a></li>
+<li><a class="reference internal" href="#remote-transmitter-transmit-toshiba-ac-action"><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_toshiba_ac</span></code> Action</a></li>
+<li><a class="reference internal" href="#lambda-calls">Lambda calls</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setting-up-infrared-devices">Setting up Infrared Devices</a></li>
+<li><a class="reference internal" href="#setting-up-rf-devices">Setting Up RF Devices</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>Remote Transmitter</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="remote-transmitter">
+<h1>Remote Transmitter<a class="headerlink" href="#remote-transmitter" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">remote_transmitter</span></code> component lets you send digital packets to control
+devices in your home. For example this includes infrared data or 433MHz RF signals.</p>
+<p>First, you need to setup a global hub that specifies which pin your remote
+sender is connected to. Then you can use the available actions to send encoded
+remote signals.</p>
+<p><strong>See</strong> <a class="reference internal" href="#remote-setting-up-infrared"><span class="std std-ref">Setting up Infrared Devices</span></a> <strong>and</strong> <a class="reference internal" href="#remote-setting-up-rf"><span class="std std-ref">Setting Up RF Devices</span></a> <strong>for set up guides.</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This component is more accurate on the ESP32, since that chipset has a dedicated
+peripheral for sending exact signal sequences.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">remote_transmitter</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">carrier_duty_percent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50%</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><strong>pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The pin to transmit the remote signal on.</p></li>
+<li><p><strong>carrier_duty_percent</strong> (<em>Optional</em>, int): How much of the time the remote is on. For example, infrared
+protocols modulate the signal using a carrier signal. Set this to <code class="docutils literal notranslate"><span class="pre">50%</span></code> if you’re working with IR LEDs and to
+<code class="docutils literal notranslate"><span class="pre">100%</span></code> if working with other things like 433MHz transmitters.</p></li>
+<li><p><strong>rmt_channel</strong> (<em>Optional</em>, int): The RMT channel to use. Only on <strong>esp32</strong>.
+The following ESP32 variants have these channels available:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ESP32 Variant</p></th>
+<th class="head"><p>Channels</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ESP32</p></td>
+<td><p>0, 1, 2, 3, 4, 5, 6, 7</p></td>
+</tr>
+<tr class="row-odd"><td><p>ESP32-S2</p></td>
+<td><p>0, 1, 2, 3</p></td>
+</tr>
+<tr class="row-even"><td><p>ESP32-S3</p></td>
+<td><p>0, 1, 2, 3</p></td>
+</tr>
+<tr class="row-odd"><td><p>ESP32-C3</p></td>
+<td><p>0, 1</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify
+the ID used for code generation. Use this if you have multiple remote transmitters.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-actions">
+<span id="remote-transmitter-transmit-action"></span><h2>Remote Transmitter Actions<a class="headerlink" href="#remote-transmitter-actions" title="Permalink to this heading">¶</a></h2>
+<p>Remote transmitters support a number of <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">actions</span></a> that can be used
+to send remote codes. All supported protocols are listed below. All actions additionally
+have these configuration variables:</p>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>repeat</strong> (<em>Optional</em>): Optionally set the code to be repeated a number of times.
+Defaults to sending the code only once.</p>
+<ul>
+<li><p><strong>times</strong> (int): The number of times to repeat the code.</p></li>
+<li><p><strong>wait_time</strong> (<a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The time to wait between repeats.</p></li>
+</ul>
+</li>
+<li><p><strong>transmitter_id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The remote transmitter to send the
+remote code with. Defaults to the first one defined in the configuration.</p></li>
+</ul>
+<p>If you’re looking for the same functionality as is default in the <code class="docutils literal notranslate"><span class="pre">rpi_rf</span></code> integration in
+Home Assistant, you’ll want to set the <strong>times</strong> to 10 and the <strong>wait_time</strong> to 0s.</p>
+<section id="remote-transmitter-transmit-abbwelcome-action">
+<span id="remote-transmitter-transmit-abbwelcome"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_abbwelcome</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-abbwelcome-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a ABB-Welcome message to the intercom bus. The
+message type, addresses, address length and data can vary a lot between ABB-Welcome
+systems. Please refer to the received messages while performing actions like ringing a
+doorbell or opening a door.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_abbwelcome</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">source_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x1001</span><span class="w"> </span><span class="c1"># your indoor station address</span>
+<span class="w">      </span><span class="nt">destination_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x4001</span><span class="w"> </span><span class="c1"># door address</span>
+<span class="w">      </span><span class="nt">three_byte_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># address length of your system</span>
+<span class="w">      </span><span class="nt">message_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x0d</span><span class="w"> </span><span class="c1"># unlock door, on some systems 0x0e is used instead</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0xab</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xcd</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xef</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># message data, see receiver dump</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>source_address</strong> (<strong>Required</strong>, int):The source address to send the command from,
+see received messages for more info. For indoor stations the last byte of the address
+represents the apartment number set by the dials on the back of the indoor station and is
+transmitted in hexadecimal format.</p></li>
+<li><p><strong>destination_address</strong> (<strong>Required</strong>, int): The destination address to send the command to,
+see received messages for more info.</p></li>
+<li><p><strong>three_byte_address</strong> (<strong>Required</strong>, int): The destination address to send the command to,
+see received messages for more info.</p></li>
+<li><p><strong>three_byte_address</strong> (<strong>Optional</strong>, boolean): The length of the source and destination address. <code class="docutils literal notranslate"><span class="pre">false</span></code>
+means two bytes and <code class="docutils literal notranslate"><span class="pre">true</span></code> means three bytes. Please check the received messages to see which address length
+is used by your system. For example, <code class="docutils literal notranslate"><span class="pre">[XXXX</span> <span class="pre">&gt;</span> <span class="pre">XXXX]</span></code> appears in the receiver log for two byte addresses and
+<code class="docutils literal notranslate"><span class="pre">[XXXXXX</span> <span class="pre">&gt;</span> <span class="pre">XXXXXX]</span></code> for three byte addresses. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>retransmission</strong> (<strong>Optional</strong>, boolean): Should only be <code class="docutils literal notranslate"><span class="pre">true</span></code> if this message has been transmitted
+before with the same <code class="docutils literal notranslate"><span class="pre">message_id</span></code>. Typically, messages are transmitted up to three times with a 1 second
+interval if no reply is received. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>message_type</strong> (<strong>Required</strong>, int): The message type, see dumper output for more info.
+The highest bit indicates a reply.</p></li>
+<li><p><strong>message_id</strong> (<strong>Optional</strong>, int): The message ID, see dumper output for more info.
+Defaults to a randomly generated ID if this message is not a reply or retransmission.</p></li>
+<li><p><strong>data</strong> (<strong>Optional</strong>, 0-7 bytes list): The code to send.
+Usually you only need to copy this directly from the dumper output. Defaults to <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ABB-Welcome messages are sent over the two-wire bus of your intercom system.
+A custom receiver and transmitter circuit is required.
+<a class="reference external" href="https://github.com/Mat931/esp32-doorbell-bus-interface">More info</a></p>
+</div>
+</section>
+<section id="remote-transmitter-transmit-aeha-action">
+<span id="remote-transmitter-transmit-aeha"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_aeha</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-aeha-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a AEHA code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_aeha</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x1FEF</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0x1F</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x3E</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x06</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x5F</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address to send the command to, see dumper output for more details.</p></li>
+<li><p><strong>data</strong> (<strong>Required</strong>, list): The command to send, A length of 2-35 bytes can be specified for one packet.</p></li>
+</ul>
+<p>AEHA refers to the Association for Electric Home Appliances in Japan, a format used by Panasonic and many other companies.</p>
+</section>
+<section id="remote-transmitter-transmit-byronsx-action">
+<span id="remote-transmitter-transmit-byronsx"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_byronsx</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-byronsx-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a Byron Doorbell RF protocol code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_byronsx</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0x4f&#39;</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0x2&#39;</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The 8-bit ID to send, see dumper output for more info.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The command to send, see dumper output for more info.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>… _remote_transmitter-transmit_canalsat:</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-canalsat-action">
+<h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_canalsat</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-canalsat-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a CanalSat infrared remote code to a remote transmitter.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The CanalSat and CanalSatLD protocols use a higher carrier frequency (56khz) and are very similar.
+Depending on the hardware used they may interfere with each other when enabled simultaneously.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_canalsat</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x25</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x00</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x02</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>device</strong> (<strong>Required</strong>, int): The device to send to, see dumper output for more details.</p></li>
+<li><p><strong>address</strong> (<em>Optional</em>, int): The address (or subdevice) to send to, see dumper output for more details. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The command to send.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-canalsatld-action">
+<span id="remote-transmitter-transmit-canalsatld"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_canalsatld</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-canalsatld-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a CanalSatLD infrared remote code to a remote transmitter.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The CanalSat and CanalSatLD protocols use a higher carrier frequency (56khz) and are very similar.
+Depending on the hardware used they may interfere with each other when enabled simultaneously.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_canalsatld</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x25</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x00</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x02</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>device</strong> (<strong>Required</strong>, int): The device to send to, see dumper output for more details.</p></li>
+<li><p><strong>address</strong> (<em>Optional</em>, int): The address (or subdevice) to send to, see dumper output for more details. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The command to send.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-coolix-action">
+<span id="remote-transmitter-transmit-coolix"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_coolix</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-coolix-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends one or two (stricted or not) 24-bit Coolix infrared remote codes to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_coolix</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">first</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xB23FE4</span>
+<span class="w">      </span><span class="nt">second</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xB23FE4</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>first</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>, uint32_t): The first 24-bit Coolix code to send, see dumper output for more info.</p></li>
+<li><p><strong>second</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>, uint32_t): The second 24-bit Coolix code to send, see dumper output for more info.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-dish-action">
+<span id="remote-transmitter-transmit-dish"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_dish</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-dish-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a Dish Network infrared remote code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_dish</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>address</strong> (<em>Optional</em>, int): The number of the receiver to target, between 1 and 16 inclusive. Defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The command to send, between 0 and 63 inclusive.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+<p>You can find a list of commands in the <a class="reference external" href="https://sourceforge.net/p/lirc-remotes/code/ci/master/tree/remotes/dishnet/Dish_Network.lircd.conf">LIRC project</a>.</p>
+</section>
+<section id="remote-transmitter-transmit-dooya-action">
+<span id="remote-transmitter-transmit-dooya"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_dooya</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-dooya-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a Dooya RF remote code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_dooya</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x001612E5</span>
+<span class="w">      </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">142</span>
+<span class="w">      </span><span class="nt">button</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+<span class="w">      </span><span class="nt">check</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, int): The 24-bit ID to send. Each remote has a unique one.</p></li>
+<li><p><strong>channel</strong> (<strong>Required</strong>, int): The 8-bit channel to send, between 0 and 255 inclusive.</p></li>
+<li><p><strong>button</strong> (<strong>Required</strong>, int): The 4-bit button to send, between 0 and 15 inclusive.</p></li>
+<li><p><strong>check</strong> (<strong>Required</strong>, int): The 4-bit check to send. Includes an indication that a button is being held down. See dumper output for more info.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-drayton-action">
+<span id="remote-transmitter-transmit-drayton"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_drayton</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-drayton-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a Draton Digistat RF remote code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_drayton</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0x6180&#39;</span>
+<span class="w">      </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0x12&#39;</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0x02&#39;</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The 16-bit ID to send, see dumper output for more info.</p></li>
+<li><p><strong>channel</strong> (<strong>Required</strong>, int): The switch/channel to send, between 0 and 127 inclusive.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The command to send, between 0 and 63 inclusive.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-jvc-action">
+<span id="remote-transmitter-transmit-jvc"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_jvc</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-jvc-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a JVC infrared remote code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_jvc</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x1234</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>data</strong> (<strong>Required</strong>, int): The JVC code to send, see dumper output for more info.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-keeloq-action">
+<span id="remote-transmitter-transmit-keeloq"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_keeloq</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-keeloq-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends KeeLoq RF remote code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_keeloq</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0x57ffe7b&#39;</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0x02&#39;</span>
+<span class="w">      </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0xd19ef0a9&#39;</span>
+<span class="w">      </span><span class="nt">repeat</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">times</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">        </span><span class="nt">wait_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15ms</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The 32-bit address to send, see dumper output for more info.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The 4 bit command/button code to send, see dumper output for more info.</p></li>
+<li><p><strong>code</strong> (<strong>Optional</strong>, int): The 32 bit encrypted field to send. Defaults to all zeros.</p></li>
+<li><p><strong>level</strong> (<strong>Optional</strong>, boolean): Low battery level status bit. Defaults to false.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+<li><p>A repeat <strong>wait_time</strong> of 15ms as shown replicates the repetition of an HCS301.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-haier-action">
+<span id="remote-transmitter-transmit-haier"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_haier</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-haier-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a 104-bit Haier code to a remote transmitter. 8-bits of checksum added automatically.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_haier</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0xA6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xDA</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x40</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x40</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x80</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x05</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>code</strong> (<strong>Required</strong>, list): The 13 byte Haier code to send.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-lg-action">
+<span id="remote-transmitter-transmit-lg"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_lg</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-lg-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends an LG infrared remote code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_lg</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x20DF10EF</span><span class="w"> </span><span class="c1"># power on/off</span>
+<span class="w">      </span><span class="nt">nbits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>data</strong> (<strong>Required</strong>, int): The LG code to send, see dumper output for more info.</p></li>
+<li><p><strong>nbits</strong> (<em>Optional</em>, int): The number of bits to send. Defaults to <code class="docutils literal notranslate"><span class="pre">28</span></code>.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-magiquest-action">
+<span id="remote-transmitter-transmit-magiquest"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_magiquest</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-magiquest-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a MagiQuest wand code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_magiquest</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">wand_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x01234567</span>
+<span class="w">      </span><span class="nt">magnitude</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x080C</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>wand_id</strong> (<strong>Required</strong>, int): The wand ID to send, as a hex integer.  See the dumper output for your wand ID.</p></li>
+<li><p><strong>magnitude</strong> (<em>Optional</em>, int): The magnitude of swishes and swirls of the want to transmit.  See the dumper output for examples.  If omitted, sends 0xFFFF (which the real wand never uses).</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-midea-action">
+<span id="remote-transmitter-transmit-midea"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_midea</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-midea-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a 40-bit Midea code to a remote transmitter. 8-bits of checksum added automatically.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_midea</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0xA2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x08</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xFF</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xFF</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xFF</span><span class="p p-Indicator">]</span>
+
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_midea</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">// Send a FollowMe code with the current temperature.</span>
+<span class="w">        </span><span class="no">return {0xA4, 0x82, 0x48, 0x7F, (uint8_t)(id(temp_sensor).state + 1)};</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>code</strong> (<strong>Required</strong>, list, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The 40-bit Midea code to send as a list of hex or integers.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-nec-action">
+<h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_nec</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-nec-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends an NEC infrared remote code to a remote transmitter.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In version 2021.12, the order of transferring bits was corrected from MSB to LSB in accordance with the NEC standard.
+Therefore, if the configuration file has come from an earlier version of ESPhome, it is necessary to reverse the order of the address and command bits when moving to 2021.12 or above.
+For example, address: 0x84ED, command: 0x13EC becomes 0xB721 and 0x37C8 respectively.
+Additionally, ESPHome does not automatically generate parity bits or pad values to 2 bytes.
+So, in order to send command 0x0, you need to use 0xFF00 (0x00 being the command and 0xFF being the logical inverse).</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_nec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x1234</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x78AB</span>
+<span class="w">      </span><span class="nt">command_repeats</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The 16-bit address to send, see dumper output for more details.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The 16-bit NEC command to send.</p></li>
+<li><p><strong>command_repeats</strong> (<em>Optional</em>, int): The number of times the command bytes are sent in one transmission. Defaults to <cite>1</cite>.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-nexa-action">
+<h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_nexa</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-nexa-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> a Nexa RF remote code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_nexa</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x38DDB4A</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">      </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span>
+<span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>device</strong> (<strong>Required</strong>, int): The Nexa device code to send, see dumper output for more info.</p></li>
+<li><p><strong>state</strong> (<strong>Required</strong>, int): The Nexa state code to send (0-OFF, 1-ON, 2-DIMMER LEVEL), see dumper output for more info.</p></li>
+<li><p><strong>group</strong> (<strong>Required</strong>, int): The Nexa group code to send, see dumper output for more info.</p></li>
+<li><p><strong>channel</strong> (<strong>Required</strong>, int): The Nexa channel code to send, see dumper output for more info.</p></li>
+<li><p><strong>level</strong> (<strong>Required</strong>, int): The Nexa level code to send, see dumper output for more info.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-panasonic-action">
+<span id="remote-transmitter-transmit-panasonic"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_panasonic</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-panasonic-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a Panasonic infrared remote code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_panasonic</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x1FEF</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x1F3E065F</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address to send the command to, see dumper output for more details.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The command to send.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-pioneer-action">
+<span id="remote-transmitter-transmit-pioneer"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_pioneer</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-pioneer-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a Pioneer infrared remote code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_pioneer</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">rc_code_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xA556</span>
+<span class="w">      </span><span class="nt">rc_code_2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xA506</span>
+<span class="w">      </span><span class="nt">repeat</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">times</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>rc_code_1</strong> (<strong>Required</strong>, int): The remote control code to send, see dumper output for more details.</p></li>
+<li><p><strong>rc_code_2</strong> (<em>Optional</em>, int): The secondary remote control code to send; some codes are sent in
+two parts.</p></li>
+<li><p>Note that <code class="docutils literal notranslate"><span class="pre">repeat</span></code> is still optional, however <strong>Pioneer devices may require that a given code is
+received multiple times before they will act on it.</strong> Add this if your device does not respond to
+commands sent with this action.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+<p>At the time this action was created, Pioneer maintained listings of IR codes used for their devices
+<a class="reference external" href="https://www.pioneerelectronics.com/PUSA/Support/Home-Entertainment-Custom-Install/IR+Codes">here</a>.
+If unable to find your specific device in the documentation, find a device in the same class; the codes
+are largely shared among devices within a given class.</p>
+</section>
+<section id="remote-transmitter-transmit-pronto-action">
+<span id="remote-transmitter-transmit-pronto"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_pronto</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-pronto-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a raw code to a remote transmitter specified in Pronto format.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_pronto</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0000</span><span class="nv"> </span><span class="s">006D</span><span class="nv"> </span><span class="s">0010</span><span class="nv"> </span><span class="s">0000</span><span class="nv"> </span><span class="s">0008</span><span class="nv"> </span><span class="s">0020</span><span class="nv"> </span><span class="s">0008</span><span class="nv"> </span><span class="s">0046</span><span class="nv"> </span><span class="s">000A</span><span class="nv"> </span><span class="s">0020</span><span class="nv"> </span><span class="s">0008</span><span class="nv"> </span><span class="s">0020</span><span class="nv"> </span><span class="s">0008</span><span class="nv"> </span><span class="s">001E</span><span class="nv"> </span><span class="s">000A</span><span class="nv"> </span><span class="s">001E</span><span class="nv"> </span><span class="s">000A</span><span class="nv"> </span><span class="s">0046</span><span class="nv"> </span><span class="s">000A</span><span class="nv"> </span><span class="s">001E</span><span class="nv"> </span><span class="s">0008</span><span class="nv"> </span><span class="s">0020</span><span class="nv"> </span><span class="s">0008</span><span class="nv"> </span><span class="s">0020</span><span class="nv"> </span><span class="s">0008</span><span class="nv"> </span><span class="s">0046</span><span class="nv"> </span><span class="s">000A</span><span class="nv"> </span><span class="s">0046</span><span class="nv"> </span><span class="s">000A</span><span class="nv"> </span><span class="s">0046</span><span class="nv"> </span><span class="s">000A</span><span class="nv"> </span><span class="s">001E</span><span class="nv"> </span><span class="s">000A</span><span class="nv"> </span><span class="s">001E</span><span class="nv"> </span><span class="s">0008</span><span class="nv"> </span><span class="s">06C3&quot;</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>data</strong> (<strong>Required</strong>, string): The raw code to send specified as a string.
+A lot of remote control Pronto codes can be found on <a class="reference external" href="http://remotecentral.com">http://remotecentral.com</a></p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-raw-action">
+<span id="remote-transmitter-transmit-raw"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_raw</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-raw-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a raw code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_raw</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">4088</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1542</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">513</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-509</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1020</span><span class="p p-Indicator">,</span>
+<span class="w">             </span><span class="nv">-1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1022</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-509</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-509</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span>
+<span class="w">             </span><span class="nv">1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-508</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1022</span><span class="p p-Indicator">,</span>
+<span class="w">             </span><span class="nv">-1021</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1022</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1019</span><span class="p p-Indicator">,</span>
+<span class="w">             </span><span class="nv">-1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1018</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1022</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1021</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1020</span><span class="p p-Indicator">,</span>
+<span class="w">             </span><span class="nv">-511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1023</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-508</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-511</span><span class="p p-Indicator">,</span>
+<span class="w">             </span><span class="nv">512</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-509</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>code</strong> (<strong>Required</strong>, list): The raw code to send as a list of integers.
+Positive numbers represent a digital high signal and negative numbers a digital low signal.
+The number itself encodes how long the signal should last (in microseconds).</p></li>
+<li><p><strong>carrier_frequency</strong> (<em>Optional</em>, float): Optionally set a frequency to send the signal
+with for infrared signals. Defaults to <code class="docutils literal notranslate"><span class="pre">0Hz</span></code>.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-rc5-action">
+<span id="remote-transmitter-transmit-rc5"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc5</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-rc5-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends an RC5 infrared remote code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_rc5</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x1F</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x3F</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address to send, see dumper output for more details.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The RC5 command to send.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-rc6-action">
+<span id="remote-transmitter-transmit-rc6"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc6</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-rc6-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends an RC6 infrared remote code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_rc6</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x1F</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x3F</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address to send, see dumper output for more details.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The RC6 command to send.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-rc-switch-raw-action">
+<span id="remote-transmitter-transmit-rc-switch-raw"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc_switch_raw</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-rc-switch-raw-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a raw RC-Switch code to a
+remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_rc_switch_raw</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;001010011001111101011011&#39;</span>
+<span class="w">      </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>code</strong> (<strong>Required</strong>, string): The raw code to send, copy this from the dump output.</p></li>
+<li><p><strong>protocol</strong> (<em>Optional</em>): The RC Switch protocol to use, see <a class="reference internal" href="#remote-transmitter-rc-switch-protocol"><span class="std std-ref">RC Switch Protocol</span></a>
+for more information.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+<section id="rc-switch-protocol">
+<span id="remote-transmitter-rc-switch-protocol"></span><h4>RC Switch Protocol<a class="headerlink" href="#rc-switch-protocol" title="Permalink to this heading">¶</a></h4>
+<p>All RC Switch <code class="docutils literal notranslate"><span class="pre">protocol</span></code> settings have these settings:</p>
+<ul class="simple">
+<li><p>Either the value is an integer, then the inbuilt protocol definition with the given number
+is used.</p></li>
+<li><p>Or a key-value mapping is given, then there are these settings:</p>
+<ul>
+<li><p><strong>pulse_length</strong> (<strong>Required</strong>, int): The pulse length of the protocol - how many microseconds
+one pulse should last for.</p></li>
+<li><p><strong>sync</strong> (<em>Optional</em>): The number of high/low pulses for the sync header, defaults to <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">31]</span></code></p></li>
+<li><p><strong>zero</strong> (<em>Optional</em>): The number of high/low pulses for a zero bit, defaults to <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">3]</span></code></p></li>
+<li><p><strong>one</strong> (<em>Optional</em>): The number of high/low pulses for a one bit, defaults to <code class="docutils literal notranslate"><span class="pre">[3,</span> <span class="pre">1]</span></code></p></li>
+<li><p><strong>inverted</strong> (<em>Optional</em>, boolean): If this protocol is inverted. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="remote-transmitter-transmit-rc-switch-type-a-action">
+<span id="remote-transmitter-transmit-rc-switch-type-a"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc_switch_type_a</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-rc-switch-type-a-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a type A RC-Switch code to a
+remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_rc_switch_type_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;01001&#39;</span>
+<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;10110&#39;</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">off</span>
+<span class="w">      </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>group</strong> (<strong>Required</strong>, string): The group to send the command to.</p></li>
+<li><p><strong>device</strong> (<strong>Required</strong>, string): The device in the group to send the command to.</p></li>
+<li><p><strong>state</strong> (<strong>Required</strong>, boolean): The on/off state to send.</p></li>
+<li><p><strong>protocol</strong> (<em>Optional</em>): The RC Switch protocol to use, see <a class="reference internal" href="#remote-transmitter-rc-switch-protocol"><span class="std std-ref">RC Switch Protocol</span></a>
+for more information.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-rc-switch-type-b-action">
+<span id="remote-transmitter-transmit-rc-switch-type-b"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc_switch_type_b</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-rc-switch-type-b-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a type B RC-Switch code to a
+remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_rc_switch_type_b</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0100&#39;</span>
+<span class="w">      </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1011&#39;</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">off</span>
+<span class="w">      </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address to send the command to.</p></li>
+<li><p><strong>channel</strong> (<strong>Required</strong>, int): The channel to send the command to.</p></li>
+<li><p><strong>state</strong> (<strong>Required</strong>, boolean): The on/off state to send.</p></li>
+<li><p><strong>protocol</strong> (<em>Optional</em>): The RC Switch protocol to use, see <a class="reference internal" href="#remote-transmitter-rc-switch-protocol"><span class="std std-ref">RC Switch Protocol</span></a>
+for more information.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-rc-switch-type-c-action">
+<span id="remote-transmitter-transmit-rc-switch-type-c"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc_switch_type_c</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-rc-switch-type-c-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a type C RC-Switch code to a
+remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_rc_switch_type_c</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">family</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;C&#39;</span>
+<span class="w">      </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">off</span>
+<span class="w">      </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>family</strong> (<strong>Required</strong>, string): The family to send the command to. Range is <code class="docutils literal notranslate"><span class="pre">a</span></code> to <code class="docutils literal notranslate"><span class="pre">p</span></code>.</p></li>
+<li><p><strong>group</strong> (<strong>Required</strong>, int): The group to send the command to. Range is 1 to 4.</p></li>
+<li><p><strong>device</strong> (<strong>Required</strong>, int): The device to send the command to. Range is 1 to 4.</p></li>
+<li><p><strong>state</strong> (<strong>Required</strong>, boolean): The on/off state to send.</p></li>
+<li><p><strong>protocol</strong> (<em>Optional</em>): The RC Switch protocol to use, see <a class="reference internal" href="#remote-transmitter-rc-switch-protocol"><span class="std std-ref">RC Switch Protocol</span></a>
+for more information.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-rc-switch-type-d-action">
+<span id="remote-transmitter-transmit-rc-switch-type-d"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_rc_switch_type_d</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-rc-switch-type-d-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a type D RC-Switch code to a
+remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_rc_switch_type_d</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;c&#39;</span>
+<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">off</span>
+<span class="w">      </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>group</strong> (<strong>Required</strong>, int): The group to send the command to. Range is 1 to 4.</p></li>
+<li><p><strong>device</strong> (<strong>Required</strong>, int): The device to send the command to. Range is 1 to 3.</p></li>
+<li><p><strong>state</strong> (<strong>Required</strong>, boolean): The on/off state to send.</p></li>
+<li><p><strong>protocol</strong> (<em>Optional</em>): The RC Switch protocol to use, see <a class="reference internal" href="#remote-transmitter-rc-switch-protocol"><span class="std std-ref">RC Switch Protocol</span></a>
+for more information.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-roomba-action">
+<span id="remote-transmitter-transmit-roomba"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_roomba</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-roomba-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a Roomba infrared remote code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_roomba</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x88</span><span class="w">  </span><span class="c1"># clean</span>
+<span class="w">      </span><span class="nt">repeat</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">times</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">        </span><span class="nt">wait_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">17ms</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>data</strong> (<strong>Required</strong>, int): The Roomba code to send, see dumper output for more info.</p></li>
+<li><p>Note that <code class="docutils literal notranslate"><span class="pre">repeat</span></code> is still optional, however <strong>Roomba vacuums require that a given code is received at least three times before they will act on it.</strong> If your Roomba still does not respond to sent command increase this value.</p></li>
+<li><p>Note that <code class="docutils literal notranslate"><span class="pre">wait_time</span></code> is still optional; it will even work without this parameter, but Roomba Remote uses this 17 ms wait time between sent commands.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-samsung-action">
+<span id="remote-transmitter-transmit-samsung"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_samsung</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-samsung-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a Samsung infrared remote code to a remote transmitter.
+It transmits codes up to 64 bits in length in a single packet.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_samsung</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x1FEF05E4</span>
+<span class="w">  </span><span class="c1"># additional example for 48-bit codes:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_samsung</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xB946F50A09F6</span>
+<span class="w">      </span><span class="nt">nbits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">48</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>data</strong> (<strong>Required</strong>, int): The data to send, see dumper output for more details.</p></li>
+<li><p><strong>nbits</strong> (<em>Optional</em>, int): The number of bits to send. Defaults to <code class="docutils literal notranslate"><span class="pre">32</span></code>.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-samsung36-action">
+<span id="remote-transmitter-transmit-samsung36"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_samsung36</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-samsung36-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a Samsung36 infrared remote code to a remote transmitter.
+It transmits the <code class="docutils literal notranslate"><span class="pre">address</span></code> and <code class="docutils literal notranslate"><span class="pre">command</span></code> in two packets separated by a “space”.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_samsung36</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x0400</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x000E00FF</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address to send, see dumper output for more details.</p></li>
+<li><p><strong>command</strong> (<strong>Required</strong>, int): The Samsung36 command to send, see dumper output for more details.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-sony-action">
+<span id="remote-transmitter-transmit-sony"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_sony</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-sony-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> a Sony infrared remote code to a remote transmitter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_sony</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x123</span>
+<span class="w">      </span><span class="nt">nbits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>data</strong> (<strong>Required</strong>, int): The Sony code to send, see dumper output for more info.</p></li>
+<li><p><strong>nbits</strong> (<em>Optional</em>, int): The number of bits to send. Defaults to <code class="docutils literal notranslate"><span class="pre">12</span></code>.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="remote-transmitter-transmit-toshiba-ac-action">
+<span id="remote-transmitter-transmit-toshiba-ac"></span><h3><code class="docutils literal notranslate"><span class="pre">remote_transmitter.transmit_toshiba_ac</span></code> Action<a class="headerlink" href="#remote-transmitter-transmit-toshiba-ac-action" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">action</span></a> sends a Toshiba AC infrared remote code to a remote transmitter.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This action transmits codes using the new(er) Toshiba AC protocol and likely will not work with older units.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_toshiba_ac</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">rc_code_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xB24DBF4040BF</span>
+<span class="w">      </span><span class="nt">rc_code_2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xD5660001003C</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>rc_code_1</strong> (<strong>Required</strong>, int): The remote control code to send, see dumper output for more details.</p></li>
+<li><p><strong>rc_code_2</strong> (<em>Optional</em>, int): The secondary remote control code to send; some codes are sent in
+two parts.</p></li>
+<li><p>All other options from <a class="reference internal" href="#remote-transmitter-transmit-action"><span class="std std-ref">Remote Transmitter Actions</span></a>.</p></li>
+</ul>
+</section>
+<section id="lambda-calls">
+<h3>Lambda calls<a class="headerlink" href="#lambda-calls" title="Permalink to this heading">¶</a></h3>
+<p>Actions may also be called from <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>. The <code class="docutils literal notranslate"><span class="pre">.transmit()</span></code> call can be populated with
+encoded data for a specific protocol by following the example below.
+See the full API Reference for more info.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">.transmit()</span></code>: Transmit an IR code using the remote transmitter.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Example - transmit using the Pioneer protocol</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">call</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">my_transmitter</span><span class="p">).</span><span class="n">transmit</span><span class="p">();</span>
+<span class="n">esphome</span><span class="o">::</span><span class="n">remote_base</span><span class="o">::</span><span class="n">PioneerData</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">rc_code_1</span><span class="p">,</span><span class="w"> </span><span class="n">rc_code_2</span><span class="w"> </span><span class="p">};</span>
+<span class="n">esphome</span><span class="o">::</span><span class="n">remote_base</span><span class="o">::</span><span class="n">PioneerProtocol</span><span class="p">().</span><span class="n">encode</span><span class="p">(</span><span class="n">call</span><span class="p">.</span><span class="n">get_data</span><span class="p">(),</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
+<span class="n">call</span><span class="p">.</span><span class="n">set_send_times</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">call</span><span class="p">.</span><span class="n">perform</span><span class="p">();</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="setting-up-infrared-devices">
+<span id="remote-setting-up-infrared"></span><h2>Setting up Infrared Devices<a class="headerlink" href="#setting-up-infrared-devices" title="Permalink to this heading">¶</a></h2>
+<p>In this guide an infrared device will be set up with ESPHome. First, the remote code
+will be captured with an IR receiver module (like <a class="reference external" href="https://www.sparkfun.com/products/10266">this one</a>).
+We will use ESPHome’s dumping ability to output the decoded remote code directly.</p>
+<p>Then we will set up a new remote transmitter with an infrared LED (like
+<a class="reference external" href="https://learn.sparkfun.com/tutorials/ir-communication/all">this one</a>) to transmit the
+code when a switch is triggered.</p>
+<p>First, connect the infrared receiver module to a pin on your board and set up a
+remote_receiver instance:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">remote_receiver</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">dump</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all</span>
+</pre></div>
+</div>
+<p>Compile and upload the code. While viewing the log output from the ESP,
+press a button on an infrared remote you want to capture (one at a time).</p>
+<p>You should see log output like below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># If the codec is known:
+[D][remote.panasonic] Received Panasonic: address=0x4004 command=0x8140DFA2
+
+# Or raw output if it&#39;s not known yet
+# The values may fluctuate a bit, but as long as they&#39;re similar it&#39;s ok
+[D][remote.raw] Received Raw: 4088, -1542, 1019, -510, 513, -1019, 510, -509, 511, -510, 1020,
+[D][remote.raw]   -1020, 1022, -1019, 510, -509, 511, -510, 511, -509, 511, -510,
+[D][remote.raw]   1020, -1019, 510, -511, 1020, -510, 512, -508, 510, -1020, 1022
+</pre></div>
+</div>
+<p>If the codec is already implemented in ESPHome, you will see the decoded value directly -
+otherwise you will see the raw data dump (which you can use just as well). You have
+just successfully captured your first infrared code.</p>
+<p>Now let’s use this information to emulate a button press from the ESP. First, wire up the
+IR diode to a new pin on the ESP and configure a global <code class="docutils literal notranslate"><span class="pre">remote_transmitter</span></code> instance:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">remote_transmitter</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="c1"># Infrared remotes use a 50% carrier signal</span>
+<span class="w">  </span><span class="nt">carrier_duty_percent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50%</span>
+</pre></div>
+</div>
+<p>This will allow us to send any data we want via the IR LED. To replicate the codes we decoded
+earlier, create a new template switch that sends the infrared code when triggered:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Panasonic Power Button</span>
+<span class="w">    </span><span class="nt">turn_on_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_panasonic</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x4004</span>
+<span class="w">          </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x8140DFA2</span>
+
+<span class="c1"># Or for raw code</span>
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Raw Code Power Button</span>
+<span class="w">    </span><span class="nt">turn_on_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_raw</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">carrier_frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">38kHz</span>
+<span class="w">          </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">4088</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1542</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">513</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-509</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1020</span><span class="p p-Indicator">,</span>
+<span class="w">                 </span><span class="nv">-1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1022</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-509</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-509</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span>
+<span class="w">                 </span><span class="nv">1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-508</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1022</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>Recompile again, when you power up the device the next time you will see a new switch
+in the frontend. Click on it and you should see the remote signal being transmitted. Done!</p>
+</section>
+<section id="setting-up-rf-devices">
+<span id="remote-setting-up-rf"></span><h2>Setting Up RF Devices<a class="headerlink" href="#setting-up-rf-devices" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">remote_transmitter</span></code> and <code class="docutils literal notranslate"><span class="pre">remote_receiver</span></code> components can also be used to send
+and receive 433MHz RF signals. This guide will discuss setting up a 433MHz receiver to
+capture a device’s remote codes. After that we will set up a 433MHz transmitter to replicate
+the remote code with the press of a switch in the frontend.</p>
+<p>First, connect the RF module to a pin on the ESP and set up a remote_receiver instance:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">remote_receiver</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">dump</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all</span>
+<span class="w">  </span><span class="c1"># Settings to optimize recognition of RF devices</span>
+<span class="w">  </span><span class="nt">tolerance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50%</span>
+<span class="w">  </span><span class="nt">filter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">250us</span>
+<span class="w">  </span><span class="nt">idle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4ms</span>
+<span class="w">  </span><span class="nt">buffer_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2kb</span>
+</pre></div>
+</div>
+<p>Compile and upload the code. While viewing the log output from the ESP,
+press a button on an RF remote you want to capture (one at a time).</p>
+<p>You should see log output like below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># If the codec is known:
+[D][remote.rc_switch] Received RCSwitch: protocol=2 data=&#39;100010000000000010111110&#39;
+
+# Or raw output if it&#39;s not known yet
+# The values may fluctuate a bit, but as long as they&#39;re similar it&#39;s ok
+[D][remote.raw] Received Raw: 4088, -1542, 1019, -510, 513, -1019, 510, -509, 511, -510, 1020,
+[D][remote.raw]   -1020, 1022, -1019, 510, -509, 511, -510, 511, -509, 511, -510,
+[D][remote.raw]   1020, -1019, 510, -511, 1020, -510, 512, -508, 510, -1020, 1022
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the log output is flooded with “Received Raw” messages, you can also disable raw
+remote code reporting and rely on rc_switch to decode the values.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">remote_receiver</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">dump</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rc_switch</span>
+<span class="w">  </span><span class="nt">tolerance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50%</span>
+<span class="w">  </span><span class="nt">filter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">250us</span>
+<span class="w">  </span><span class="nt">idle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4ms</span>
+<span class="w">  </span><span class="nt">buffer_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2kb</span>
+</pre></div>
+</div>
+</div>
+<p>If the codec is already implemented in ESPHome, you will see the decoded value directly -
+otherwise you will see the raw data dump (which you can use just as well). You have
+just successfully captured your first RF code.</p>
+<p>Now let’s use this information to emulate a button press from the ESP. First, wire up the
+RF transmitter to a new pin on the ESP and configure a global <code class="docutils literal notranslate"><span class="pre">remote_transmitter</span></code> instance:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">remote_transmitter</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="c1"># RF uses a 100% carrier signal</span>
+<span class="w">  </span><span class="nt">carrier_duty_percent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+</pre></div>
+</div>
+<p>This will allow us to send any data we want via the RF transmitter. To replicate the codes we decoded
+earlier, create a new template switch that sends the RF code when triggered:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RF Power Button</span>
+<span class="w">    </span><span class="nt">optimistic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">turn_on_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_rc_switch_raw</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;100010000000000010111110&#39;</span>
+<span class="w">          </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">          </span><span class="nt">repeat</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">times</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">            </span><span class="nt">wait_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0s</span>
+
+
+<span class="c1"># Or for raw code</span>
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Raw Code Power Button</span>
+<span class="w">    </span><span class="nt">turn_on_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">remote_transmitter.transmit_raw</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">4088</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1542</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">513</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-509</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1020</span><span class="p p-Indicator">,</span>
+<span class="w">                 </span><span class="nv">-1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1022</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-509</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-509</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span>
+<span class="w">                 </span><span class="nv">1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1019</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-511</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-508</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1020</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1022</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>Recompile again, when you power up the device the next time you will see a new switch
+in the frontend. Click on it and you should see the remote signal being transmitted. Done!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some devices require that the transmitted code be repeated for the signal to be picked up
+as valid. Also the interval between repetitions can be important. Check that the pace of
+repetition logs are consistent between the remote controller and the transmitter node.
+You can adjust the <code class="docutils literal notranslate"><span class="pre">repeat:</span></code> settings accordingly.</p>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Components</span></a></p></li>
+<li><p><a class="reference internal" href="remote_receiver.html"><span class="doc">Remote Receiver</span></a></p></li>
+<li><p><a class="reference internal" href="../cookbook/lambda_magic.html#lambda-magic-rf-queues"><span class="std std-ref">Delaying Remote Transmissions</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/sui77/rc-switch">RCSwitch</a> by <a class="reference external" href="https://github.com/sui77">Suat Özgür</a></p></li>
+<li><p><a class="reference external" href="https://github.com/markszabo/IRremoteESP8266/">IRRemoteESP8266</a> by <a class="reference external" href="https://github.com/markszabo">Mark Szabo-Simon</a></p></li>
+<li><p><a class="reference external" href="/api/remote__transmitter_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/remote_transmitter.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

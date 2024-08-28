@@ -1,0 +1,600 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up ST7789V TFT LCD display drivers.">
+<meta itemprop="name" content="ST7789V TFT LCD">
+<meta itemprop="description" content="Instructions for setting up ST7789V TFT LCD display drivers.">
+<meta itemprop="image" content="https://esphome.io/_images/st7789v.jpg">
+<meta name="twitter:title" content="ST7789V TFT LCD">
+<meta name="twitter:image:src" content="https://esphome.io/_images/st7789v.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up ST7789V TFT LCD display drivers.">
+<meta property="og:title" content="ST7789V TFT LCD">
+<meta property="og:image" content="https://esphome.io/_images/st7789v.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up ST7789V TFT LCD display drivers.">
+
+    <title>ST7789V TFT LCD &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/display/st7789v.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ST7920 LCD Graphic Display" href="st7920.html" />
+    <link rel="prev" title="ST7735 Display" href="st7735.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ST7789V TFT LCD</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#preset-configuration">Preset configuration</a></li>
+<li><a class="reference internal" href="#configuration-examples">Configuration examples</a></li>
+<li><a class="reference internal" href="#complete-example">Complete example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Display Component</a> ➔</li>
+      <li>ST7789V TFT LCD</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="st7789v-tft-lcd">
+<h1>ST7789V TFT LCD<a class="headerlink" href="#st7789v-tft-lcd" title="Permalink to this heading">¶</a></h1>
+<section id="usage">
+<span id="st7789v"></span><h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">st7789v</span></code> display platform allows you to use
+ST7789V (<a class="reference external" href="https://github.com/Xinyuan-LilyGO/TTGO-T-Display">datasheet</a>,
+<a class="reference external" href="https://www.tindie.com/products/ttgo/lilygor-ttgo-t-display/">Tindie</a>)
+displays with ESPHome. Note that this component utilizes the 4-Wire <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI bus</span></a>.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/st7789v-full.jpg"><img alt="../../_images/st7789v-full.jpg" src="../../_images/st7789v-full.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">ST7789V TFT LCD on TTGO T-Display module</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The TTGO T-Display module shown has the display attached to the module’s board and its connections to the ESP32
+cannot be changed. Other display modules have pin headers or other connectors which must be connected appropriately
+to an ESP module.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This component has been made redundant since the ST7789V is now supported by the <a class="reference internal" href="ili9xxx.html#ili9xxx"><span class="std std-ref">ILI9XXX component</span></a>. It is recommended
+that you use the <code class="docutils literal notranslate"><span class="pre">ili9xxx</span></code> component as it will be maintained, whereas this component may not be, or may be removed completely
+in the future.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Displays larger than the 135x240 pixel display on the TTGO T-Display shown require a significant amount of RAM
+to operate correctly. Some ESP devices, such as the ESP8266, do not have sufficient memory to support this display.
+If you attempt to use this component and experience repeated crashes, this is likely the cause of the issue.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example minimal configuration entry</span>
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">st7789v</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TTGO TDisplay 135x240</span>
+<span class="w">    </span><span class="nt">backlight_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">dc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.print(0, 0, id(font), &quot;Hello World!&quot;);</span>
+
+<span class="nt">font</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;gfonts://Roboto&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">font</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more information about the font options see: <a class="reference internal" href="fonts.html#display-fonts"><span class="std std-ref">Font Renderer Component</span></a>.</p>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<p>Options below marked <strong>Required</strong> might have default values set for some models and do not need to be set.
+If you do specify them they will override any default.</p>
+<ul class="simple">
+<li><p><strong>model</strong> (<strong>Required</strong>, string): The display model to use. One of the following options:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">TTGO</span> <span class="pre">TDisplay</span> <span class="pre">135x240</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Adafruit</span> <span class="pre">Funhouse</span> <span class="pre">240x240</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Adafruit</span> <span class="pre">RR</span> <span class="pre">280x240</span></code> (round-rectangular display – some pixels are “deleted” from corners to form rounded shape)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Adafruit</span> <span class="pre">S2</span> <span class="pre">TFT</span> <span class="pre">FEATHER</span> <span class="pre">240X135</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LILYGO</span> <span class="pre">T-Embed</span> <span class="pre">170X320</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Waveshare</span> <span class="pre">1.47in</span> <span class="pre">172X320</span></code> (round-rectangular display – some pixels are “deleted” from corners to form rounded shape)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Custom</span></code> For other displays not listed above</p></li>
+</ul>
+</li>
+<li><p><strong>height</strong> (<strong>Required</strong>, int): Sets height of display in pixels. Defaults depends <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
+<li><p><strong>width</strong> (<strong>Required</strong>, int): Sets width of display. Defaults depends <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
+<li><p><strong>offset_height</strong> (<strong>Required</strong>, int): When <code class="docutils literal notranslate"><span class="pre">model</span></code> is set to “Custom”, use this to specify the display’s vertical
+offset in pixels. This option may not be specified when the <code class="docutils literal notranslate"><span class="pre">model</span></code> is not set to “Custom”. Defaults depends <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
+<li><p><strong>offset_width</strong> (<strong>Required</strong>, int): When <code class="docutils literal notranslate"><span class="pre">model</span></code> is set to “Custom”, use this to specify the display’s horizontal
+offset in pixels. This option may not be specified when the <code class="docutils literal notranslate"><span class="pre">model</span></code> is not set to “Custom”. Defaults depends <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
+<li><p><strong>cs_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The CS pin. Defaults depends <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
+<li><p><strong>dc_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The DC pin. Defaults depends <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
+<li><p><strong>reset_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The RESET pin. Defaults depends <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
+<li><p><strong>eightbitcolor</strong> (<em>Optional</em>, boolean): Limits the supported color depth to eight bits. May be useful on
+memory-constrained devices. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>backlight_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The display’s backlight pin. May be required
+depending on the hardware configuration. To disable a preset backlight pin (e.g. if controlled by another component) set this to <code class="docutils literal notranslate"><span class="pre">no</span></code>.</p></li>
+<li><p><strong>power_supply</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The <a class="reference internal" href="../power_supply.html"><span class="doc">power supply</span></a> to connect to
+this display if required by hardware. The power supply will be turned on before attempting to initialize the display.</p></li>
+<li><p><strong>lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>): The lambda to use for rendering the content on the display.
+See <a class="reference internal" href="index.html#display-engine"><span class="std std-ref">Display Rendering Engine</span></a> for more information.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to re-draw the screen. Defaults to <code class="docutils literal notranslate"><span class="pre">5s</span></code>.</p></li>
+<li><p><strong>pages</strong> (<em>Optional</em>, list): Show pages instead of a single lambda. See <a class="reference internal" href="index.html#display-pages"><span class="std std-ref">Display Pages</span></a>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>data_rate</strong> (<em>Optional</em>, frequency): The SPI data rate (default 20MHz.) Can be reduced if required, e.g. to
+compensate for long data cables.</p></li>
+<li><p><strong>spi_mode</strong> (<em>Optional</em>, 0-3): The SPI clock mode to use (default: <code class="docutils literal notranslate"><span class="pre">mode0</span></code>.) The ST7789V datasheet specifies mode 0,
+but some displays appear to require mode 3. This should be one of <code class="docutils literal notranslate"><span class="pre">mode0</span></code>, <code class="docutils literal notranslate"><span class="pre">mode1</span></code>, <code class="docutils literal notranslate"><span class="pre">mode2</span></code> or <code class="docutils literal notranslate"><span class="pre">mode3</span></code> (or just
+a digit from 0-3.)</p></li>
+</ul>
+</section>
+<section id="preset-configuration">
+<h3>Preset configuration<a class="headerlink" href="#preset-configuration" title="Permalink to this heading">¶</a></h3>
+<p>For specific models there is some preset configuration which will satisy some of the <strong>Required</strong> <em>unless preset</em> values.
+All models except <code class="docutils literal notranslate"><span class="pre">Custom</span></code> preset the <code class="docutils literal notranslate"><span class="pre">height</span></code>, <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">offset_...</span></code> values.
+The table below summarises the other presets. Note that SPI CLK and SDO (mosi) pins, and the power supply pin must be separately
+configured in <code class="docutils literal notranslate"><span class="pre">spi:</span></code> and <code class="docutils literal notranslate"><span class="pre">power_supply:</span></code> blocks - the pins are noted below for convenience only.</p>
+<p>Items marked RQ are hardware dependent but required and not preset. Items marked ? are optional depending on the hardware.</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Model presets</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Model</p></th>
+<th class="head"><p>Height/ width</p></th>
+<th class="head"><p>Offsets</p></th>
+<th class="head"><p>CS</p></th>
+<th class="head"><p>DC</p></th>
+<th class="head"><p>Reset</p></th>
+<th class="head"><p>Back light</p></th>
+<th class="head"><p>Pwr sup</p></th>
+<th class="head"><p>SPI clk</p></th>
+<th class="head"><p>SPI mosi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TTGO TDisplay 135x240</p></td>
+<td><p>240/135</p></td>
+<td><p>52/40</p></td>
+<td><p>5</p></td>
+<td><p>6</p></td>
+<td><p>23</p></td>
+<td><p>4</p></td>
+<td></td>
+<td><p>18</p></td>
+<td><p>19</p></td>
+</tr>
+<tr class="row-odd"><td><p>Adafruit Funhouse 240x240</p></td>
+<td><p>240/240</p></td>
+<td><p>0/0</p></td>
+<td><p>40</p></td>
+<td><p>39</p></td>
+<td><p>41</p></td>
+<td><p>21</p></td>
+<td></td>
+<td><p>36</p></td>
+<td><p>35</p></td>
+</tr>
+<tr class="row-even"><td><p>Adafruit RR 280x240</p></td>
+<td><p>240/240</p></td>
+<td><p>0/20</p></td>
+<td><p>RQ</p></td>
+<td><p>RQ</p></td>
+<td><p>RQ</p></td>
+<td><p>?</p></td>
+<td><p>?</p></td>
+<td><p>RQ</p></td>
+<td><p>RQ</p></td>
+</tr>
+<tr class="row-odd"><td><p>Adafruit S2 TFT FEATHER 240X135</p></td>
+<td><p>240/135</p></td>
+<td><p>52/40</p></td>
+<td><p>7</p></td>
+<td><p>39</p></td>
+<td><p>40</p></td>
+<td><p>45</p></td>
+<td><p>21</p></td>
+<td><p>36</p></td>
+<td><p>35</p></td>
+</tr>
+<tr class="row-even"><td><p>LILYGO T-Embed 170X320</p></td>
+<td><p>320/170</p></td>
+<td><p>35/0</p></td>
+<td><p>10</p></td>
+<td><p>13</p></td>
+<td><p>9</p></td>
+<td><p>15</p></td>
+<td><p>46</p></td>
+<td><p>12</p></td>
+<td><p>11</p></td>
+</tr>
+<tr class="row-odd"><td><p>Waveshare 1.47in 172X320</p></td>
+<td><p>320/172</p></td>
+<td><p>34/0</p></td>
+<td><p>21</p></td>
+<td><p>22</p></td>
+<td><p>23</p></td>
+<td><p>4</p></td>
+<td></td>
+<td><p>18</p></td>
+<td><p>19</p></td>
+</tr>
+<tr class="row-even"><td><p>Custom</p></td>
+<td><p>RQ</p></td>
+<td><p>RQ</p></td>
+<td><p>RQ</p></td>
+<td><p>RQ</p></td>
+<td><p>RQ</p></td>
+<td><p>?</p></td>
+<td><p>?</p></td>
+<td><p>RQ</p></td>
+<td><p>RQ</p></td>
+</tr>
+</tbody>
+</table>
+<p>For all boards you can override the presets by specifying any of the configuration options. Pin assignments on some
+boards can change between versions so if it doesn’t work with the presets check the board pinouts and override options as
+required.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On memory-constrained devices, it may be possible to use <em>part</em> of the display area by
+specifying a smaller <code class="docutils literal notranslate"><span class="pre">height</span></code> and/or <code class="docutils literal notranslate"><span class="pre">width</span></code> than that of the actual display.</p>
+</div>
+</section>
+<section id="configuration-examples">
+<h3>Configuration examples<a class="headerlink" href="#configuration-examples" title="Permalink to this heading">¶</a></h3>
+<p>To use colors in your lambda:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">color</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_red</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3%</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5%</span>
+
+<span class="nn">...</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">lambda</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.rectangle(0,  0, it.get_width(), it.get_height(), id(my_red));</span>
+</pre></div>
+</div>
+<p>To bring in color images:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;image.jpg&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_image</span>
+<span class="w">    </span><span class="nt">resize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200x200</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RGB24</span>
+
+<span class="nn">...</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">lambda</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.image(0, 0, id(my_image));</span>
+</pre></div>
+</div>
+</section>
+<section id="complete-example">
+<h3>Complete example<a class="headerlink" href="#complete-example" title="Permalink to this heading">¶</a></h3>
+<p>The following is an example YAML configuration that you can add to your base device configuration. It defines:</p>
+<ul class="simple">
+<li><p>three fonts (well, one font in three sizes)</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">binary_sensor</span></code> that indicates the state of connectivity to the API</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">binary_sensor</span></code> for each of the two buttons on the TTGO module</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">switch</span></code>, allowing control of the backlight from HA</p></li>
+<li><p>several colors</p></li>
+<li><p>a color image to be shown on the display</p></li>
+<li><p>time, for display…on the display</p></li>
+<li><p>the SPI configuration for communicating with the display</p></li>
+<li><p>the display component itself, for use on the TTGO module</p></li>
+<li><p>a lambda which paints the screen as shown in the picture above:</p>
+<ul>
+<li><p>blue borders, with a sort of “title bar” along the top</p></li>
+<li><p>“ESPHome” in yellow in the top left corner</p></li>
+<li><p>the API connection status, “Online” in green when connected, “Offline” in red when not</p></li>
+<li><p>the time and date, more or less in the center of the display</p></li>
+</ul>
+</li>
+</ul>
+<p>To use this example, you need only to provide the font file, “Helvetica.ttf” (or update it to
+a font of your choosing) and an image file, “image.png” (it may also be a “.jpg”). Place these
+into the same directory as the YAML configuration file itself. Comment/Uncomment/Modify the
+appropriate lines of C code in the lambda to hide or show the image or text as you wish.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">color</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_red</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_yellow</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_green</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_blue</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_gray</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50%</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50%</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50%</span>
+
+<span class="nt">font</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Helvetica.ttf&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">helvetica_48</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">48</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Helvetica.ttf&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">helvetica_24</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Helvetica.ttf&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">helvetica_12</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Node</span><span class="nv"> </span><span class="s">Status&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system_status</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO0</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">pullup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;T-Display</span><span class="nv"> </span><span class="s">Button</span><span class="nv"> </span><span class="s">Input</span><span class="nv"> </span><span class="s">0&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tdisplay_button_input_0</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO35</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;T-Display</span><span class="nv"> </span><span class="s">Button</span><span class="nv"> </span><span class="s">Input</span><span class="nv"> </span><span class="s">1&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tdisplay_button_input_1</span>
+
+<span class="c1"># Allow dimmable control of the backlight (pin GPIO4)</span>
+<span class="nt">output</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ledc</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO4</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio4</span>
+
+<span class="nt">light</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monochromatic</span>
+<span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio4</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Backlight&quot;</span>
+
+<span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;image.png&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_image</span>
+<span class="w">    </span><span class="nt">resize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200x200</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RGB24</span>
+
+<span class="nt">time</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">homeassistant</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esptime</span>
+
+<span class="nt">spi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">clk_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO18</span>
+<span class="w">  </span><span class="nt">mosi_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO19</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">st7789v</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO5</span>
+<span class="w">    </span><span class="nt">dc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO16</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span>
+<span class="w">    </span><span class="nt">rotation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">270</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.rectangle(0,  0, it.get_width(), it.get_height(), id(my_blue));</span>
+<span class="w">      </span><span class="no">it.rectangle(0, 20, it.get_width(), it.get_height(), id(my_blue));   // header bar</span>
+
+<span class="w">      </span><span class="no">it.strftime((240 / 2), (140 / 3) * 1 + 5, id(helvetica_24), id(my_gray), TextAlign::CENTER, &quot;%Y-%m-%d&quot;, id(esptime).now());</span>
+<span class="w">      </span><span class="no">it.strftime((240 / 2), (140 / 3) * 2 + 5, id(helvetica_48), id(my_gray), TextAlign::CENTER, &quot;%H:%M:%S&quot;, id(esptime).now());</span>
+<span class="w">      </span><span class="no">it.print(5, 5, id(helvetica_12), id(my_yellow), TextAlign::TOP_LEFT, &quot;ESPHome&quot;);</span>
+
+<span class="w">      </span><span class="no">// Comment out the above lines to see the image without text overlaid</span>
+<span class="w">      </span><span class="no">// it.image(0, 0, id(my_image));</span>
+
+<span class="w">      </span><span class="no">if (id(system_status).state) {</span>
+<span class="w">        </span><span class="no">it.print(235, 5, id(helvetica_12), id(my_green), TextAlign::TOP_RIGHT, &quot;Online&quot;);</span>
+<span class="w">      </span><span class="no">}</span>
+<span class="w">      </span><span class="no">else {</span>
+<span class="w">        </span><span class="no">it.print(235, 5, id(helvetica_12), id(my_red), TextAlign::TOP_RIGHT, &quot;Offline&quot;);</span>
+<span class="w">      </span><span class="no">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Display Component</span></a></p></li>
+<li><p><a class="reference internal" href="../power_supply.html"><span class="doc">Power Supply Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/st7789v__base_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/display/st7789v.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

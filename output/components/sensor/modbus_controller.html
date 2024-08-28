@@ -1,0 +1,351 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a modbus_controller device sensor.">
+<meta itemprop="name" content="Modbus Controller Sensor">
+<meta itemprop="description" content="Instructions for setting up a modbus_controller device sensor.">
+<meta itemprop="image" content="https://esphome.io/_images/modbus.png">
+<meta name="twitter:title" content="Modbus Controller Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/modbus.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a modbus_controller device sensor.">
+<meta property="og:title" content="Modbus Controller Sensor">
+<meta property="og:image" content="https://esphome.io/_images/modbus.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a modbus_controller device sensor.">
+
+    <title>Modbus Controller Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/modbus_controller.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Mopeka Pro Check BLE Sensor" href="mopeka_pro_check.html" />
+    <link rel="prev" title="MMC5983 Magnetometer" href="mmc5983.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Modbus Controller Sensor</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>Modbus Controller Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="modbus-controller-sensor">
+<h1>Modbus Controller Sensor<a class="headerlink" href="#modbus-controller-sensor" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">modbus_controller</span></code> sensor platform creates a sensor from a modbus_controller component
+and requires <a class="reference internal" href="../modbus_controller.html"><span class="doc">Modbus Controller</span></a> to be configured.</p>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the sensor.</p></li>
+<li><p><strong>register_type</strong> (<strong>Required</strong>): type of the modbus register.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">coil</span></code>: Coils are 1-bit registers (ON/OFF values) that are used to control discrete outputs. They may be read and/or written. Modbus <em>Function Code 1 (Read Coil Status)</em> will be used.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">discrete_input</span></code>: discrete input register (read only coil) are similar to coils but can only be read. Modbus <em>Function Code 2 (Read Input Status)</em> will be used.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">holding</span></code>: Holding Registers - Holding registers are the most universal 16-bit register. They may be read and/or written. Modbus <em>Function Code 3 (Read Holding Registers)</em> will be used.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">read</span></code>: Read Input Registers - registers are 16-bit registers used for input, and may only be read. Modbus <em>Function Code 4 (Read Input Registers)</em> will be used.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>address</strong> (<strong>Required</strong>, int): start address of the first register in a range (can be decimal or hexadecimal).</p></li>
+<li><p><strong>value_type</strong> (<strong>Required</strong>): data type of the modbus register data. The default data type for modbus is a 16 bit integer in big endian format (MSB first).</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">U_WORD</span></code>: unsigned 16 bit integer from 1 register = 16bit</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S_WORD</span></code>: signed 16 bit integer from 1 register = 16bit</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">U_DWORD</span></code>: unsigned 32 bit integer from 2 registers = 32bit</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S_DWORD</span></code>: signed 32 bit integer from 2 registers = 32bit</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">U_DWORD_R</span></code>: unsigned 32 bit integer from 2 registers low word first</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S_DWORD_R</span></code>: signed 32 bit integer from 2 registers low word first</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">U_QWORD</span></code>: unsigned 64 bit integer from 4 registers = 64bit</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S_QWORD</span></code>: signed 64 bit integer from 4 registers = 64bit</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">U_QWORD_R</span></code>: unsigned 64 bit integer from 4 registers low word first</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S_QWORD_R</span></code>: signed 64 bit integer from 4 registers low word first</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FP32</span></code>: 32 bit IEEE 754 floating point from 2 registers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FP32_R</span></code>: 32 bit IEEE 754 floating point - same as FP32 but low word first</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>bitmask</strong> (<em>Optional</em>, int): sometimes multiple values are packed in a single register’s response. The bitmask can be used to extract a value from the response. See <a class="reference internal" href="../modbus_controller.html#bitmasks"><span class="std std-ref">Bitmasks</span></a>.</p></li>
+<li><p><strong>skip_updates</strong> (<em>Optional</em>, int): By default, all sensors of a modbus_controller are updated together. For data points that don’t change very frequently, updates can be skipped. A value of 5 would only update this sensor range in every 5th update cycle. Note: The modbus_controller groups components by address ranges to reduce number of transactions. All components with the same starting address will be updated in one request. <code class="docutils literal notranslate"><span class="pre">skip_updates</span></code> applies for <em>all</em> components in the same range.</p></li>
+<li><p><strong>register_count</strong> (<em>Optional</em>, int): The number of consecutive registers this read request should span or skip in a single command. Default is 1. See <a class="reference internal" href="../modbus_controller.html#modbus-register-count"><span class="std std-ref">Optimizing modbus communications</span></a> for more details.</p></li>
+<li><p><strong>response_size</strong> (<em>Optional</em>, int): Size of the response for the register in bytes. Defaults to register_count*2.</p></li>
+<li><p><strong>force_new_range</strong> (<em>Optional</em>, boolean): If possible sensors with sequential addresses are grouped together and requested in one range. Setting <code class="docutils literal notranslate"><span class="pre">force_new_range:</span> <span class="pre">true</span></code> enforces the start of a new range at that address.</p></li>
+<li><p><strong>lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>):
+Lambda to be evaluated every update interval to get the new value of the sensor.</p>
+<p>Parameters passed into the lambda</p>
+<ul class="simple">
+<li><p><strong>x</strong> (float): The parsed float value of the modbus data</p></li>
+<li><p><strong>data</strong> (std::vector&lt;uint8_t): vector containing the complete raw modbus response bytes for this sensor
+<em>note:</em> because the response contains data for all registers in the same range you have to use <code class="docutils literal notranslate"><span class="pre">data[item-&gt;offset]</span></code> to get the first response byte for your sensor.</p></li>
+<li><p><strong>item</strong> (const pointer to a SensorItem derived object):  The sensor object itself.</p></li>
+</ul>
+<p>Possible return values for the lambda:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">&lt;FLOATING_POINT_NUMBER&gt;;</span></code> the new value for the sensor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">NAN;</span></code> if the state should be considered invalid to indicate an error (advanced).</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>custom_command</strong> (<em>Optional</em>, list of bytes): raw bytes for modbus command. This allows using non-standard commands. If <code class="docutils literal notranslate"><span class="pre">custom_command</span></code> is used <code class="docutils literal notranslate"><span class="pre">address</span></code> and <code class="docutils literal notranslate"><span class="pre">register_type</span></code> can’t be used.
+Custom data must contain all required bytes including the modbus device address. The CRC is automatically calculated and appended to the command.
+See <a class="reference internal" href="../modbus_controller.html#modbus-custom-command"><span class="std std-ref">Using custom_command</span></a> how to use <code class="docutils literal notranslate"><span class="pre">custom_command</span></code></p></li>
+<li><p><strong>offset</strong> (<em>Optional</em>, int): Offset from start address in bytes (only required for uncommon response encodings). If more than one register is written in a command this value is used to find the start of this datapoint relative to start address. The component calculates the size of the range based on offset and size of the value type. For <code class="docutils literal notranslate"><span class="pre">coil</span></code> or <code class="docutils literal notranslate"><span class="pre">discrete_input</span></code> registers offset is the position of the coil/register because these registers encode 8 coils in one byte.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<p>The example below will send 2 modbus commands (device address 1 assumed):</p>
+<p><code class="docutils literal notranslate"><span class="pre">0x1</span> <span class="pre">0x4</span> <span class="pre">0x31</span> <span class="pre">0x0</span> <span class="pre">0x0</span> <span class="pre">0x02</span> <span class="pre">x7f</span> <span class="pre">0x37</span></code> (read 2 registers starting at 0x3100)</p>
+<p><code class="docutils literal notranslate"><span class="pre">0x1</span> <span class="pre">0x3</span> <span class="pre">0x90</span> <span class="pre">0x1</span> <span class="pre">0x0</span> <span class="pre">0x1</span> <span class="pre">0xf8</span> <span class="pre">0xca</span></code> (read 1 holding resister from 0x9001)</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">modbus_controller</span>
+<span class="w">  </span><span class="nt">modbus_controller_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">modbus1</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pv_input_voltage</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PV</span><span class="nv"> </span><span class="s">array</span><span class="nv"> </span><span class="s">input</span><span class="nv"> </span><span class="s">voltage&quot;</span>
+<span class="w">  </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x3100</span>
+<span class="w">  </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;V&quot;</span><span class="w"> </span><span class="c1">## for any other unit the value is returned in minutes</span>
+<span class="w">  </span><span class="nt">register_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read</span>
+<span class="w">  </span><span class="nt">value_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">U_WORD</span>
+<span class="w">  </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">multiply</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">modbus_controller</span>
+<span class="w">  </span><span class="nt">modbus_controller_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">modbus1</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Battery</span><span class="nv"> </span><span class="s">Capacity&quot;</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">battery_capacity</span>
+<span class="w">  </span><span class="nt">register_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">holding</span>
+<span class="w">  </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x9001</span>
+<span class="w">  </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AH&quot;</span>
+<span class="w">  </span><span class="nt">value_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">U_WORD</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">modbus</span></code> sensor platform allows you use a lambda that gets called before data is published
+using <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>.</p>
+<p>The example below logs the value as parsed and the raw modbus bytes received for this register range:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">modbus_controller</span>
+<span class="w">    </span><span class="nt">modbus_controller_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">modbus1</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">battery_capacity</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x9001</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Battery</span><span class="nv"> </span><span class="s">Capacity&quot;</span>
+<span class="w">    </span><span class="nt">register_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">holding</span>
+<span class="w">    </span><span class="nt">value_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">U_WORD</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">ESP_LOGI(&quot;&quot;,&quot;Lambda incoming value=%f - data array size is %d&quot;,x,data.size());</span>
+<span class="w">        </span><span class="no">ESP_LOGI(&quot;&quot;,&quot;Sensor properties: adress = 0x%X, offset = 0x%X value type=%d&quot;,item-&gt;start_address,item-&gt;offset,item-&gt;sensor_value_type);</span>
+<span class="w">        </span><span class="no">int i=0 ;</span>
+<span class="w">        </span><span class="no">for (auto val : data) {</span>
+<span class="w">          </span><span class="no">ESP_LOGI(&quot;&quot;,&quot;data[%d]=0x%02X (%d)&quot;,i,data[i],data[i]);</span>
+<span class="w">          </span><span class="no">i++;</span>
+<span class="w">        </span><span class="no">}</span>
+<span class="w">        </span><span class="no">return x ;</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../modbus.html"><span class="doc">Modbus Component</span></a></p></li>
+<li><p><a class="reference internal" href="../modbus_controller.html"><span class="doc">Modbus Controller</span></a></p></li>
+<li><p><a class="reference internal" href="../binary_sensor/modbus_controller.html"><span class="doc">Modbus Controller Binary Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="../output/modbus_controller.html"><span class="doc">Modbus Controller Output</span></a></p></li>
+<li><p><a class="reference internal" href="../switch/modbus_controller.html"><span class="doc">Modbus Controller Switch</span></a></p></li>
+<li><p><a class="reference internal" href="../number/modbus_controller.html"><span class="doc">Modbus Controller Number</span></a></p></li>
+<li><p><a class="reference internal" href="../select/modbus_controller.html"><span class="doc">Modbus Controller Select</span></a></p></li>
+<li><p><a class="reference internal" href="../text_sensor/modbus_controller.html"><span class="doc">Modbus Controller Text Sensor</span></a></p></li>
+<li><p><a class="reference external" href="https://devices.esphome.io/devices/epever_mptt_tracer_an">EPEVER MPPT Solar Charge Controller (Tracer-AN Series)</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/modbus_controller.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

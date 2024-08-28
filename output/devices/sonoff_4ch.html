@@ -1,0 +1,453 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for putting Sonoff 4CH devices into flash mode and installing ESPHome on them.">
+<meta itemprop="name" content="Using With Sonoff 4CH">
+<meta itemprop="description" content="Instructions for putting Sonoff 4CH devices into flash mode and installing ESPHome on them.">
+<meta itemprop="image" content="https://esphome.io/_images/sonoff_4ch.jpg">
+<meta name="twitter:title" content="Using With Sonoff 4CH">
+<meta name="twitter:image:src" content="https://esphome.io/_images/sonoff_4ch.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for putting Sonoff 4CH devices into flash mode and installing ESPHome on them.">
+<meta property="og:title" content="Using With Sonoff 4CH">
+<meta property="og:image" content="https://esphome.io/_images/sonoff_4ch.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for putting Sonoff 4CH devices into flash mode and installing ESPHome on them.">
+
+    <title>Using With Sonoff 4CH &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/devices/sonoff_4ch.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <link rel="stylesheet" href="../_static/custom.css?hash=ab494674" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Using With Sonoff 4CH</a><ul>
+<li><a class="reference internal" href="#step-1-opening-up-the-sonoff-4ch">Step 1: Opening up the Sonoff 4CH</a></li>
+<li><a class="reference internal" href="#step-2-connecting-uart">Step 2: Connecting UART</a></li>
+<li><a class="reference internal" href="#step-3-creating-firmware">Step 3: Creating Firmware</a></li>
+<li><a class="reference internal" href="#step-4-uploading-firmware">Step 4: Uploading Firmware</a></li>
+<li><a class="reference internal" href="#step-5-adding-the-button-relay-and-leds">Step 5: Adding the Button, Relay and LEDs</a></li>
+<li><a class="reference internal" href="#step-6-finishing-up">Step 6: Finishing Up</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  
+
+
+          <div class="body" role="main">
+            
+  <section id="using-with-sonoff-4ch">
+<h1>Using With Sonoff 4CH<a class="headerlink" href="#using-with-sonoff-4ch" title="Permalink to this heading">¶</a></h1>
+<p>ESPHome can also be used with Sonoff 4CH wireless switches. These devices are
+basically just an ESP8266 chip with 4 relays to control power output, a few buttons on the
+top and a few status LEDs.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/sonoff_4ch_header.jpg"><img alt="../_images/sonoff_4ch_header.jpg" src="../_images/sonoff_4ch_header.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Sonoff 4CH WiFi switch.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This guide will step you through setting up your Sonoff 4CH and flashing the first ESPHome firmware
+with the serial interface. After that, you will be able to upload all future firmwares with the remote
+Over-The-Air update process.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’ve previously installed Sonoff-Tasmota on your Sonoff 4CH, you’re in luck 😀.
+ESPHome can generate a firmware binary which you can then upload via the
+Tasmota web interface. To see how to create this binary, skip to <a class="reference internal" href="#sonoff-4ch-creating-firmware"><span class="std std-ref">Step 3: Creating Firmware</span></a>.</p>
+</div>
+<p>Since firmware version 1.6.0, iTead (the creator of this device) has removed the ability to upload
+a custom firmware through their own upload process. Unfortunately, that means that the only way to
+flash the initial ESPHome firmware is by physically opening the device up and using the UART
+interface.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Opening up this device can be very dangerous if not done correctly. While the device is open,
+you will be a single touch away from being electrocuted if the device is plugged in or connected to a high voltage ‘mains’ power supply.</p>
+<p>So, during this <em>entire</em> guide <strong>never ever</strong> plug the device in or have it connected to mains power. Also, you should only do this
+if you know what you’re doing. If you, at any step, feel something is wrong or are uncomfortable
+with continuing, it’s best to just stop for your own safety.</p>
+<p>It’s your own responsibility to make sure everything you do during this setup process is safe.</p>
+</div>
+<p>For this guide you will need:</p>
+<ul class="simple">
+<li><p>Sonoff 4CH 😉.</p></li>
+<li><p>A USB to UART Bridge for flashing the device. These can be bought on Amazon (or other online stores) for less than 5 dollars.
+Note that the bridge <em>must</em> be 3.3V compatible. Otherwise you will destroy your Sonoff.</p></li>
+<li><p>Jumper wires to connect the UART bridge to the header pins.</p></li>
+<li><p>A computer running Home Assistant with the ESPHome Home Assistant add-on.</p></li>
+<li><p>A screwdriver to open up the Sonoff 4CH.</p></li>
+</ul>
+<p>Have everything? Great! Then you can start.</p>
+<section id="step-1-opening-up-the-sonoff-4ch">
+<h2>Step 1: Opening up the Sonoff 4CH<a class="headerlink" href="#step-1-opening-up-the-sonoff-4ch" title="Permalink to this heading">¶</a></h2>
+<p>The first step is to open up the Sonoff 4CH. Note that you do not have to run the original firmware
+supplied with the Sonoff 4CH before doing this step.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Just to repeat this: Make <strong>absolutely sure</strong> the device is not connected to any appliance or
+connected to mains power before doing this step.</p>
+</div>
+<p>While the device is not plugged in, turn the device so you are viewing it from the top,
+then unscrew the long screws in the four corners of the top cover.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/sonoff_4ch_top.jpg"><img alt="../_images/sonoff_4ch_top.jpg" src="../_images/sonoff_4ch_top.jpg" style="width: 60.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">There are four screws on the front of the Sonoff 4CH.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>After that, you should be able to remove the front cover and should be greeted by the main board.
+The chip we’re interested in here is the “big” one encased in an aluminium cover.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../_images/sonoff_4ch_mcu.jpg"><img alt="../_images/sonoff_4ch_mcu.jpg" src="../_images/sonoff_4ch_mcu.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">The main chip of the Sonoff 4CH and the header pins we’re going to use to flash our custom
+firmware.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="step-2-connecting-uart">
+<h2>Step 2: Connecting UART<a class="headerlink" href="#step-2-connecting-uart" title="Permalink to this heading">¶</a></h2>
+<p>Now we need our computer to somehow establish a data connection to the board. For this we will
+have to connect the four wires on the UART to USB bridge to the UART pins of the Sonoff 4Ch.</p>
+<p>Fortunately for us, exactly these pins come pre-populated with a few header pins. You can identify
+these by the <code class="docutils literal notranslate"><span class="pre">VCC33</span></code>, <code class="docutils literal notranslate"><span class="pre">RX</span></code>, <code class="docutils literal notranslate"><span class="pre">TX</span></code> and <code class="docutils literal notranslate"><span class="pre">GND</span></code> markings on the silk-screen.</p>
+<p>Now go ahead and connect these pins to your UART to USB bridge as seen in the below image. Make sure
+that you connect these correctly, especially the <code class="docutils literal notranslate"><span class="pre">VCC33</span></code> and <code class="docutils literal notranslate"><span class="pre">GND</span></code> parts as you can otherwise
+destroy the chip.</p>
+<p><code class="docutils literal notranslate"><span class="pre">VCC33</span></code> should be connected to the <code class="docutils literal notranslate"><span class="pre">3V3</span></code> (<strong>not</strong> 5V) pin of the UART bridge, <code class="docutils literal notranslate"><span class="pre">GND</span></code> to <code class="docutils literal notranslate"><span class="pre">GND</span></code>
+and the same with <code class="docutils literal notranslate"><span class="pre">RX</span></code>/<code class="docutils literal notranslate"><span class="pre">TX</span></code>.</p>
+<p>When you’re done, it should look something like this:</p>
+<figure class="align-center">
+<img alt="../_images/sonoff_4ch_uart.jpg" src="../_images/sonoff_4ch_uart.jpg" />
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On some older 4CHs, the <code class="docutils literal notranslate"><span class="pre">RX</span></code> and <code class="docutils literal notranslate"><span class="pre">TX</span></code> pins are swapped (sometimes even the written silkscreen is
+wrong). If your upload fails with an <code class="docutils literal notranslate"><span class="pre">error:</span> <span class="pre">espcomm_upload_mem</span> <span class="pre">failed</span></code> message it’s most likely due
+to the pins being swapped. In that case, just swap <code class="docutils literal notranslate"><span class="pre">RX</span></code> and <code class="docutils literal notranslate"><span class="pre">TX</span></code> and try again - you won’t break
+anything if they’re swapped.</p>
+</div>
+</section>
+<section id="step-3-creating-firmware">
+<span id="sonoff-4ch-creating-firmware"></span><h2>Step 3: Creating Firmware<a class="headerlink" href="#step-3-creating-firmware" title="Permalink to this heading">¶</a></h2>
+<p>The Sonoff 4CH is based on the <code class="docutils literal notranslate"><span class="pre">ESP8266</span></code> platform (technically it’s the <code class="docutils literal notranslate"><span class="pre">ESP8285</span></code>, but for our purposes
+they’re the same) and is a subtype of the <code class="docutils literal notranslate"><span class="pre">esp01_1m</span></code> board.
+With this information, you can step through the ESPHome wizard (<code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">sonoff_4ch.yaml</span> <span class="pre">wizard</span></code>),
+or alternatively, you can just take the below configuration file and modify it to your needs.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;NAME_OF_NODE&gt;</span>
+
+<span class="nt">esp8266</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp8285</span>
+
+<span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ssid</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wifi_ssid</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wifi_password</span>
+
+<span class="nt">api</span><span class="p">:</span>
+
+<span class="nt">logger</span><span class="p">:</span>
+
+<span class="nt">ota</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Now run <code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">sonoff_4ch.yaml</span> <span class="pre">compile</span></code> to validate the configuration and
+pre-compile the firmware.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>After this step, you will be able to find the compiled binary under
+<code class="docutils literal notranslate"><span class="pre">&lt;NAME_OF_NODE&gt;/.pioenvs/&lt;NAME_OF_NODE&gt;/firmware.bin</span></code>. If you’re having trouble with
+uploading, you can also try uploading this file directly with other tools.</p>
+</div>
+</section>
+<section id="step-4-uploading-firmware">
+<h2>Step 4: Uploading Firmware<a class="headerlink" href="#step-4-uploading-firmware" title="Permalink to this heading">¶</a></h2>
+<p>In order to upload the firmware, you’re first going to need to get the chip into a flash mode, otherwise
+the device will start up without accepting any firmware flash attempts. To do this, while the UART
+bridge is not connected to your USB port, press and hold the bottom-left push button labelled <code class="docutils literal notranslate"><span class="pre">FW/IO0</span></code>
+and continue to do so while plugging in the UART bridge into your computer. Keep holding the button for
+another 2-4 seconds. The 4CH should now be in a flash mode and should not blink any LED.</p>
+<figure class="align-center" id="id4">
+<img alt="../_images/sonoff_4ch_buttons.jpg" src="../_images/sonoff_4ch_buttons.jpg" />
+<figcaption>
+<p><span class="caption-text">You need to press the button labelled <code class="docutils literal notranslate"><span class="pre">FW/IO0</span></code> during startup.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Now you can finally run the upload command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>esphome<span class="w"> </span>sonoff_4ch.yaml<span class="w"> </span>run
+</pre></div>
+</div>
+<p>If successful, you should see something like this:</p>
+<figure class="align-center">
+<img alt="../_images/sonoff_4ch_upload.png" src="../_images/sonoff_4ch_upload.png" />
+</figure>
+<p>Hooray 🎉! You’ve now successfully uploaded the first ESPHome firmware to your Sonoff 4CH. And in a moment,
+you will be able to use all of ESPHome’s great features with your Sonoff 4CH.</p>
+<p>If above step don’t work, however, here are some steps that can help:</p>
+<ul class="simple">
+<li><p>Sometimes the UART bridge cannot supply enough current to the chip to operate, in this
+case use a 3.3V supply you have lying around. A nice hack is to use the power supply of
+NodeMCU boards. Simply connect the NodeMCU’s 3.3V to VCC and GND to GND. <strong>Do not connect mains
+power to the device in an attempt to overcome this problem while troubleshooting.</strong></p></li>
+<li><p>In other cases the <code class="docutils literal notranslate"><span class="pre">TX</span></code> and <code class="docutils literal notranslate"><span class="pre">RX</span></code> pin are reversed. Simple disconnect the device, swap
+the two pins and put it into flash mode again.</p></li>
+</ul>
+</section>
+<section id="step-5-adding-the-button-relay-and-leds">
+<h2>Step 5: Adding the Button, Relay and LEDs<a class="headerlink" href="#step-5-adding-the-button-relay-and-leds" title="Permalink to this heading">¶</a></h2>
+<p>Now we would like the 4CH to actually do something, not just connect to WiFi and pretty much sit idle.</p>
+<p>Below you will find a table of all usable GPIO pins of the Sonoff 4CH and a configuration file that exposes all
+of the basic functions.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GPIO0</span></code></p></td>
+<td><p>Button #1 (inverted)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GPIO9</span></code></p></td>
+<td><p>Button #2 (inverted)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GPIO10</span></code></p></td>
+<td><p>Button #3 (inverted)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GPIO14</span></code></p></td>
+<td><p>Button #4 (inverted)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GPIO12</span></code></p></td>
+<td><p>Relay #1 and red LED</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GPIO5</span></code></p></td>
+<td><p>Relay #2 and red LED</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GPIO4</span></code></p></td>
+<td><p>Relay #3 and red LED</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GPIO15</span></code></p></td>
+<td><p>Relay #4 and red LED</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GPIO13</span></code></p></td>
+<td><p>Blue LED (inverted)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GPIO1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TX</span></code> pin (for external sensors)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GPIO3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RX</span></code> pin (for external sensors)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GPIO2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IO2</span></code> pin (for external sensors)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The ESP8266 will be prevented from booting if the following pins are pulled LOW (connected to GND) on cold startup: <code class="docutils literal notranslate"><span class="pre">GPIO0</span></code>, <code class="docutils literal notranslate"><span class="pre">GPIO1</span></code>, <code class="docutils literal notranslate"><span class="pre">GPIO2</span></code>. Be prepared if you want to use them for input sensors.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;NAME_OF_NODE&gt;</span>
+
+<span class="nt">esp8266</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp8285</span>
+
+<span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ssid</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wifi_ssid</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wifi_password</span>
+
+<span class="nt">api</span><span class="p">:</span>
+
+<span class="nt">logger</span><span class="p">:</span>
+
+<span class="nt">ota</span><span class="p">:</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO0</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">pullup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sonoff</span><span class="nv"> </span><span class="s">4CH</span><span class="nv"> </span><span class="s">Button</span><span class="nv"> </span><span class="s">1&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO9</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">pullup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sonoff</span><span class="nv"> </span><span class="s">4CH</span><span class="nv"> </span><span class="s">Button</span><span class="nv"> </span><span class="s">2&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO10</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">pullup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sonoff</span><span class="nv"> </span><span class="s">4CH</span><span class="nv"> </span><span class="s">Button</span><span class="nv"> </span><span class="s">3&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO14</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">pullup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sonoff</span><span class="nv"> </span><span class="s">4CH</span><span class="nv"> </span><span class="s">Button</span><span class="nv"> </span><span class="s">4&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sonoff</span><span class="nv"> </span><span class="s">4CH</span><span class="nv"> </span><span class="s">Status&quot;</span>
+
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sonoff</span><span class="nv"> </span><span class="s">4CH</span><span class="nv"> </span><span class="s">Relay</span><span class="nv"> </span><span class="s">1&quot;</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO12</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sonoff</span><span class="nv"> </span><span class="s">4CH</span><span class="nv"> </span><span class="s">Relay</span><span class="nv"> </span><span class="s">2&quot;</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO5</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sonoff</span><span class="nv"> </span><span class="s">4CH</span><span class="nv"> </span><span class="s">Relay</span><span class="nv"> </span><span class="s">3&quot;</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO4</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sonoff</span><span class="nv"> </span><span class="s">4CH</span><span class="nv"> </span><span class="s">Relay</span><span class="nv"> </span><span class="s">4&quot;</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO15</span>
+
+<span class="nt">output</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Register the blue LED as a dimmable output ....</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp8266_pwm</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">blue_led</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO13</span>
+<span class="w">    </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">light</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ... and then make a light out of it.</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monochromatic</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sonoff</span><span class="nv"> </span><span class="s">4CH</span><span class="nv"> </span><span class="s">Blue</span><span class="nv"> </span><span class="s">LED&quot;</span>
+<span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">blue_led</span>
+</pre></div>
+</div>
+<p>Above example also showcases an important concept of ESPHome: IDs and linking. In order
+to make all components in ESPHome as “plug and play” as possible, you can use IDs to define
+them in one area, and simply pass that ID later on. For example, above you can see a PWM (dimmer)
+output being created with the ID <code class="docutils literal notranslate"><span class="pre">blue_led</span></code> for the blue LED. Later on it is then transformed
+into a <a class="reference internal" href="../components/light/monochromatic.html"><span class="doc">monochromatic light</span></a>.
+If you additionally want the buttons to control the relays, look at <a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/devices/sonoff_4ch.yaml">the complete Sonoff 4CH
+with automation example</a>.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/sonoff_4ch_result.png"><img alt="../_images/sonoff_4ch_result.png" src="../_images/sonoff_4ch_result.png" style="width: 75.0%;" /></a>
+</figure>
+</section>
+<section id="step-6-finishing-up">
+<h2>Step 6: Finishing Up<a class="headerlink" href="#step-6-finishing-up" title="Permalink to this heading">¶</a></h2>
+<p>If you’re sure everything is done with the 4CH and have double checked there’s nothing that could cause a short
+in the case, you can put the front cover back on and screw everything together.</p>
+<p>Now triple- or even quadruple-check the UART bridge is not connected to the 4CH, then comes the time when you can
+connect it.</p>
+<p>Happy hacking!</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="sonoff.html"><span class="doc">Generic Sonoff</span></a></p></li>
+<li><p><a class="reference internal" href="sonoff_s20.html"><span class="doc">Using With Sonoff S20</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/devices/sonoff_4ch.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been release since you last visited this page: 2023.11.6 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2023.11.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2023.11");
+    } else if (old !== "2023.11") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2023.11");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

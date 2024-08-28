@@ -1,0 +1,352 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Configuration for the ESP32 platform for ESPHome.">
+<meta itemprop="name" content="ESP32 Platform">
+<meta itemprop="description" content="Configuration for the ESP32 platform for ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/esp32.png">
+<meta name="twitter:title" content="ESP32 Platform">
+<meta name="twitter:image:src" content="https://esphome.io/_images/esp32.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Configuration for the ESP32 platform for ESPHome.">
+<meta property="og:title" content="ESP32 Platform">
+<meta property="og:image" content="https://esphome.io/_images/esp32.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Configuration for the ESP32 platform for ESPHome.">
+
+    <title>ESP32 Platform &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/esp32.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="BLE Component" href="esp32_ble.html" />
+    <link rel="prev" title="EMC2101 Fan Controller and Temperature sensor" href="emc2101.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ESP32 Platform</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#gpio-pin-numbering">GPIO Pin Numbering</a></li>
+<li><a class="reference internal" href="#arduino-framework">Arduino framework</a></li>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+<li><a class="reference internal" href="#esp-idf-framework">ESP-IDF framework</a></li>
+<li><a class="reference internal" href="#id2">Configuration variables:</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>ESP32 Platform</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="esp32-platform">
+<h1>ESP32 Platform<a class="headerlink" href="#esp32-platform" title="Permalink to this heading">¶</a></h1>
+<p>This component contains platform-specific options for the ESP32 platform.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">esp32</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodemcu-32s</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>board</strong> (<strong>Required</strong>, string): The PlatformIO board ID that should
+be used. Choose the appropriate board from
+<a class="reference external" href="https://registry.platformio.org/packages/platforms/platformio/espressif32/boards">this list</a> (the icon next to the name
+can be used to copy the board ID). <em>This only affects pin aliases, flash size and some internal settings</em>, if unsure
+choose a generic board from Espressif such as <code class="docutils literal notranslate"><span class="pre">esp32dev</span></code>.</p></li>
+<li><p><strong>framework</strong> (<em>Optional</em>): Options for the underlying framework used by ESPHome.
+See <a class="reference internal" href="#esp32-arduino-framework"><span class="std std-ref">Arduino framework</span></a> and <a class="reference internal" href="#esp32-espidf-framework"><span class="std std-ref">ESP-IDF framework</span></a>.</p></li>
+<li><p><strong>flash_size</strong> (<em>Optional</em>, string): The amount of flash memory available on the ESP32 board/module. One of <code class="docutils literal notranslate"><span class="pre">2MB</span></code>,
+<code class="docutils literal notranslate"><span class="pre">4MB</span></code>, <code class="docutils literal notranslate"><span class="pre">8MB</span></code>, <code class="docutils literal notranslate"><span class="pre">16MB</span></code> or <code class="docutils literal notranslate"><span class="pre">32MB</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">4MB</span></code>. <strong>Warning: specifying a size larger than that available
+on your board will cause the ESP32 to fail to boot.</strong></p></li>
+<li><p><strong>partitions</strong> (<em>Optional</em>, filename): The name of (optionally including the path to) the file containing the
+partitioning scheme to be used. When not specified, partitions are automatically generated based on <code class="docutils literal notranslate"><span class="pre">flash_size</span></code>.</p></li>
+<li><p><strong>variant</strong> (<em>Optional</em>, string): The variant of the ESP32 that is used on this board. One of <code class="docutils literal notranslate"><span class="pre">esp32</span></code>,
+<code class="docutils literal notranslate"><span class="pre">esp32s2</span></code>, <code class="docutils literal notranslate"><span class="pre">esp32s3</span></code>, <code class="docutils literal notranslate"><span class="pre">esp32c3</span></code> and <code class="docutils literal notranslate"><span class="pre">esp32h2</span></code>. Defaults to the variant that is detected from the board; if
+a board that’s unknown to ESPHome is used, this option is mandatory.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Support for ESP32 variants such as the S2, S3 and C3 is still in development and there could be issues.</p>
+</div>
+</section>
+<section id="gpio-pin-numbering">
+<h2>GPIO Pin Numbering<a class="headerlink" href="#gpio-pin-numbering" title="Permalink to this heading">¶</a></h2>
+<p>The ESP32 boards often use the internal GPIO pin numbering on the board, this means that
+you don’t have to worry about other kinds of pin numberings, yay!</p>
+<p>Some notes about the pins on the ESP32:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GPIO0</span></code> is used to determine the boot mode on startup. It should therefore not be pulled LOW
+on startup to avoid booting into flash mode. You can, however, still use this as an output pin.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GPIO34</span></code>-<code class="docutils literal notranslate"><span class="pre">GPIO39</span></code> can not be used as outputs (even though GPIO stands for “general purpose input
+<strong>output</strong>”…).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GPIO32</span></code>-<code class="docutils literal notranslate"><span class="pre">GPIO39</span></code>: These pins can be used with the <a class="reference internal" href="sensor/adc.html"><span class="doc">Analog To Digital Sensor</span></a> to measure
+voltages.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GPIO2</span></code>: This pin is connected to the blue LED on the board. It also supports
+the <a class="reference internal" href="binary_sensor/esp32_touch.html"><span class="doc">touch pad binary sensor</span></a> like some other
+pins.</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Pin</span><span class="nv"> </span><span class="s">GPIO23&quot;</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span>
+</pre></div>
+</div>
+</section>
+<section id="arduino-framework">
+<span id="esp32-arduino-framework"></span><h2>Arduino framework<a class="headerlink" href="#arduino-framework" title="Permalink to this heading">¶</a></h2>
+<p>This is the default framework for ESP32 chips at the moment.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">esp32</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodemcu-32s</span>
+<span class="w">  </span><span class="nt">framework</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arduino</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0.0</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h2>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>version</strong> (<em>Optional</em>, string): The base framework version number to use, from
+<a class="reference external" href="https://github.com/espressif/arduino-esp32/releases">ESP32 arduino releases</a>. Defaults to <code class="docutils literal notranslate"><span class="pre">recommended</span></code>. Additional values are:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">dev</span></code>: Use the latest commit from <a class="reference external" href="https://github.com/espressif/arduino-esp32">https://github.com/espressif/arduino-esp32</a>, note this may break at any time</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latest</span></code>: Use the latest <em>release</em> from <a class="reference external" href="https://github.com/espressif/arduino-esp32/releases">https://github.com/espressif/arduino-esp32/releases</a>, even if it hasn’t been recommended yet.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">recommended</span></code>: Use the recommended framework version.</p></li>
+</ul>
+</li>
+<li><p><strong>source</strong> (<em>Optional</em>, string): The PlatformIO package or repository to use for framework. This can be used to use a custom or patched version of the framework.</p></li>
+<li><p><strong>platform_version</strong> (<em>Optional</em>, string): The version of the <a class="reference external" href="https://github.com/platformio/platform-espressif32/releases/">platformio/espressif32</a> package to use.</p></li>
+</ul>
+</section>
+<section id="esp-idf-framework">
+<span id="esp32-espidf-framework"></span><h2>ESP-IDF framework<a class="headerlink" href="#esp-idf-framework" title="Permalink to this heading">¶</a></h2>
+<p>This is an alternative base framework for ESP32 chips, and recommended for variants
+of the ESP32 like ESP32S2, ESP32S3, ESP32C3 and single-core ESP32 chips.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">esp32</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp32-c3-devkitm-1</span>
+<span class="w">  </span><span class="nt">framework</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp-idf</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recommended</span>
+<span class="w">    </span><span class="c1"># Custom sdkconfig options</span>
+<span class="w">    </span><span class="nt">sdkconfig_options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">COMPILER_OPTIMIZATION_SIZE</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">y</span>
+<span class="w">    </span><span class="c1"># Advanced tweaking options</span>
+<span class="w">    </span><span class="nt">advanced</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">ignore_efuse_mac_crc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>Configuration variables:<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>version</strong> (<em>Optional</em>, string): The base framework version number to use, from
+<a class="reference external" href="https://github.com/espressif/esp-idf/releases">ESP32 ESP-IDF releases</a>. Defaults to <code class="docutils literal notranslate"><span class="pre">recommended</span></code>. Additional values are:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">dev</span></code>: Use the latest commit from <a class="reference external" href="https://github.com/espressif/esp-idf">https://github.com/espressif/esp-idf</a>, note this may break at any time</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latest</span></code>: Use the latest <em>release</em> from <a class="reference external" href="https://github.com/espressif/esp-idf/releases">https://github.com/espressif/esp-idf/releases</a>, even if it hasn’t been recommended yet.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">recommended</span></code>: Use the recommended framework version.</p></li>
+</ul>
+</li>
+<li><p><strong>source</strong> (<em>Optional</em>, string): The PlatformIO package or repository to use for the framework. This can be used to use a custom or patched version of the framework.</p></li>
+<li><p><strong>platform_version</strong> (<em>Optional</em>, string): The version of the <a class="reference external" href="https://github.com/platformio/platform-espressif32/releases/">platformio/espressif32</a> package to use.</p></li>
+<li><p><strong>sdkconfig_options</strong> (<em>Optional</em>, mapping): Custom sdkconfig <a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/kconfig.html#compiler-options">compiler options</a> to set in the ESP-IDF project.</p></li>
+<li><p><strong>advanced</strong> (<em>Optional</em>, mapping): Advanced options for highly specific tweaks.</p>
+<ul>
+<li><p><strong>ignore_efuse_mac_crc</strong> (<em>Optional</em>, boolean): Can be set to <code class="docutils literal notranslate"><span class="pre">true</span></code> for devices on which the burnt in MAC address does not
+match the also burnt in CRC for that MAC address, resulting in an error like <code class="docutils literal notranslate"><span class="pre">Base</span> <span class="pre">MAC</span> <span class="pre">address</span> <span class="pre">from</span> <span class="pre">BLK0</span> <span class="pre">of</span> <span class="pre">EFUSE</span> <span class="pre">CRC</span> <span class="pre">error</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="esphome.html"><span class="doc">ESPHome Core Configuration</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/esp32.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

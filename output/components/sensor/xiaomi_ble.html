@@ -1,0 +1,808 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Xiaomi Mi Home (Mijia) bluetooth-based sensors in ESPHome.">
+<meta name="keywords" content="Xiaomi, Mi Home, Mijia, BLE, Bluetooth, HHCCJCY01, GCLS002, HHCCPOT002, LYWSDCGQ, LYWSD02, CGG1, LYWSD03MMC, CGD1, JQJCY01YM, MUE4094RT, WX08ZM, MHO, C401, MHOC401">
+<meta itemprop="name" content="Xiaomi Mijia BLE Sensors">
+<meta itemprop="description" content="Instructions for setting up Xiaomi Mi Home (Mijia) bluetooth-based sensors in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/xiaomi_mijia_logo.jpg">
+<meta name="twitter:title" content="Xiaomi Mijia BLE Sensors">
+<meta name="twitter:image:src" content="https://esphome.io/_images/xiaomi_mijia_logo.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Xiaomi Mi Home (Mijia) bluetooth-based sensors in ESPHome.">
+<meta property="og:title" content="Xiaomi Mijia BLE Sensors">
+<meta property="og:image" content="https://esphome.io/_images/xiaomi_mijia_logo.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Xiaomi Mi Home (Mijia) bluetooth-based sensors in ESPHome.">
+
+    <title>Xiaomi Mijia BLE Sensors &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/xiaomi_ble.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="HHCCJCY01 Moved To Xiaomi BLE" href="xiaomi_hhccjcy01.html" />
+    <link rel="prev" title="CFSensor XGZP68xx Series Differential Pressure Sensor" href="xgzp68xx.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Xiaomi Mijia BLE Sensors</a><ul>
+<li><a class="reference internal" href="#supported-devices">Supported Devices</a><ul>
+<li><a class="reference internal" href="#hhccjcy01">HHCCJCY01</a></li>
+<li><a class="reference internal" href="#gcls002">GCLS002</a></li>
+<li><a class="reference internal" href="#hhccpot002">HHCCPOT002</a></li>
+<li><a class="reference internal" href="#lywsdcgq">LYWSDCGQ</a></li>
+<li><a class="reference internal" href="#lywsd02">LYWSD02</a></li>
+<li><a class="reference internal" href="#cgg1">CGG1</a></li>
+<li><a class="reference internal" href="#lywsd03mmc">LYWSD03MMC</a></li>
+<li><a class="reference internal" href="#mho-c303">MHO-C303</a></li>
+<li><a class="reference internal" href="#mho-c401">MHO-C401</a></li>
+<li><a class="reference internal" href="#cgd1">CGD1</a></li>
+<li><a class="reference internal" href="#cgdk2">CGDK2</a></li>
+<li><a class="reference internal" href="#jqjcy01ym">JQJCY01YM</a></li>
+<li><a class="reference internal" href="#wx08zm">WX08ZM</a></li>
+<li><a class="reference internal" href="#mue4094rt">MUE4094RT</a></li>
+<li><a class="reference internal" href="#mjyd02yl-a">MJYD02YL-A</a></li>
+<li><a class="reference internal" href="#cgpr1">CGPR1</a></li>
+<li><a class="reference internal" href="#rtcgq02lm-mi-motion-sensor-2">RTCGQ02LM - Mi Motion Sensor 2</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setting-up-devices">Setting Up Devices</a></li>
+<li><a class="reference internal" href="#obtaining-the-mac-address">Obtaining the MAC address</a></li>
+<li><a class="reference internal" href="#obtaining-the-bindkey">Obtaining the Bindkey</a><ul>
+<li><a class="reference internal" href="#lywsd03mmc-mho-c401">LYWSD03MMC/MHO-C401</a></li>
+<li><a class="reference internal" href="#id3">CGDK2</a></li>
+<li><a class="reference internal" href="#other-encrypted-devices">Other encrypted devices</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#improving-reception-performance">Improving reception performance</a></li>
+<li><a class="reference internal" href="#security-considerations">Security considerations</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>Xiaomi Mijia BLE Sensors</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="xiaomi-mijia-ble-sensors">
+<h1>Xiaomi Mijia BLE Sensors<a class="headerlink" href="#xiaomi-mijia-ble-sensors" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">xiaomi_ble</span></code> sensor platform lets you track the output of Xiaomi Bluetooth Low Energy devices using the <a class="reference internal" href="../esp32_ble_tracker.html"><span class="doc">ESP32 Bluetooth Low Energy Tracker Hub</span></a>. This component will track, for example, the temperature, humidity, moisture, conductivity, illuminance, formaldehyde, mosquito tablet and battery level of the device every time the sensor sends out a BLE broadcast. Contrary to other implementations, <code class="docutils literal notranslate"><span class="pre">xiaomi_ble</span></code> listens passively to advertisement packets and does not pair with the device. Hence ESPHome has no impact on battery life. Thus, if you only use such sensors, you can safely set <code class="docutils literal notranslate"><span class="pre">scan_parameters.active:</span> <span class="pre">false</span></code> in <code class="docutils literal notranslate"><span class="pre">esp32_ble_tracker</span></code> configuration, to save from spamming your RF environment with useless scan requests.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You may alternatively use ESPHome’s <a class="reference internal" href="../bluetooth_proxy.html"><span class="doc">Bluetooth Proxy</span></a> component to forward sensor data to Home Assistant and have Mija devices configured using its own Mija BLE component. This should work for the devices flashed with <a class="reference external" href="https://github.com/pvvx/ATC_MiThermometer">PVVX MiThermometer</a> custom firmware, as well as the regular, stock firmware.</p>
+</div>
+<section id="supported-devices">
+<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Permalink to this heading">¶</a></h2>
+<section id="hhccjcy01">
+<h3>HHCCJCY01<a class="headerlink" href="#hhccjcy01" title="Permalink to this heading">¶</a></h3>
+<p>MiFlora, Huahuacaocao, measures temperature, moisture, ambient light and nutrient levels in the soil.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_hhccjcy011.jpg"><img alt="../../_images/xiaomi_hhccjcy011.jpg" src="../../_images/xiaomi_hhccjcy011.jpg" style="width: 60.0%;" /></a>
+</figure>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_hhccjcy01</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;94:2B:FF:5C:91:61&#39;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xiaomi</span><span class="nv"> </span><span class="s">HHCCJCY01</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">moisture</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xiaomi</span><span class="nv"> </span><span class="s">HHCCJCY01</span><span class="nv"> </span><span class="s">Moisture&quot;</span>
+<span class="w">    </span><span class="nt">illuminance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xiaomi</span><span class="nv"> </span><span class="s">HHCCJCY01</span><span class="nv"> </span><span class="s">Illuminance&quot;</span>
+<span class="w">    </span><span class="nt">conductivity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xiaomi</span><span class="nv"> </span><span class="s">HHCCJCY01</span><span class="nv"> </span><span class="s">Soil</span><span class="nv"> </span><span class="s">Conductivity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xiaomi</span><span class="nv"> </span><span class="s">HHCCJCY01</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Newer versions of HHCCJCY01 ship with firmware 3.2.1, and they
+<a class="reference external" href="https://github.com/esphome/esphome/pull/1288#issuecomment-695809481">don’t send the battery level data anymore</a>.</p>
+</div>
+</section>
+<section id="gcls002">
+<h3>GCLS002<a class="headerlink" href="#gcls002" title="Permalink to this heading">¶</a></h3>
+<p>VegTrug Grow Care Garden, Takasho, suitable for outside, similar to the MiFlora.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_gcls002.jpg"><img alt="../../_images/xiaomi_gcls002.jpg" src="../../_images/xiaomi_gcls002.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_gcls002</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;94:2B:FF:5C:91:61&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GCLS02</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">moisture</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GCLS02</span><span class="nv"> </span><span class="s">Moisture&quot;</span>
+<span class="w">    </span><span class="nt">conductivity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GCLS02</span><span class="nv"> </span><span class="s">Soil</span><span class="nv"> </span><span class="s">Conductivity&quot;</span>
+<span class="w">    </span><span class="nt">illuminance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GCLS02</span><span class="nv"> </span><span class="s">Illuminance&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="hhccpot002">
+<h3>HHCCPOT002<a class="headerlink" href="#hhccpot002" title="Permalink to this heading">¶</a></h3>
+<p>FlowerPot, Huahuacaocao, RoPot, broadcasts moisture and conductivity</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_hhccpot002.jpg"><img alt="../../_images/xiaomi_hhccpot002.jpg" src="../../_images/xiaomi_hhccpot002.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_hhccpot002</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;94:2B:FF:5C:91:61&quot;</span>
+<span class="w">    </span><span class="nt">moisture</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HHCCPOT002</span><span class="nv"> </span><span class="s">Moisture&quot;</span>
+<span class="w">    </span><span class="nt">conductivity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HHCCPOT002</span><span class="nv"> </span><span class="s">Soil</span><span class="nv"> </span><span class="s">Conductivity&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="lywsdcgq">
+<h3>LYWSDCGQ<a class="headerlink" href="#lywsdcgq" title="Permalink to this heading">¶</a></h3>
+<p>Hygro thermometer, round body, segment LCD, broadcasts temperature, humidity and battery level. This device is also known as MJ_HT_V1. In HA’s native Xiaomi BLE integration, the device info page shows it as “MJ_HT_V1 (LYWSDCGQ by Xiaomi)”.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_lywsdcgq1.jpg"><img alt="../../_images/xiaomi_lywsdcgq1.jpg" src="../../_images/xiaomi_lywsdcgq1.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_lywsdcgq</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;7A:80:8E:19:36:BA&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LYWSDCGQ</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LYWSDCGQ</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LYWSDCGQ</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="lywsd02">
+<h3>LYWSD02<a class="headerlink" href="#lywsd02" title="Permalink to this heading">¶</a></h3>
+<p>Hygro thermometer, rectangular body, e-ink display, broadcasts temperature, humidity and battery level.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_lywsd02.jpg"><img alt="../../_images/xiaomi_lywsd02.jpg" src="../../_images/xiaomi_lywsd02.jpg" style="width: 30.0%;" /></a>
+</figure>
+<ul class="simple">
+<li><p>Battery Level, needs xiaomi firmware 1.1.2_0085</p></li>
+</ul>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_lywsd02</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3F:5B:7D:82:58:4E&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LYWSD02</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LYWSD02</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LYWSD02</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="cgg1">
+<h3>CGG1<a class="headerlink" href="#cgg1" title="Permalink to this heading">¶</a></h3>
+<p>Cleargrass (Qingping): hygro thermometer, round body, e-ink display.</p>
+<p>New firmware requires a bindkey in order to decrypt the received data (see <a class="reference internal" href="#obtaining-the-bindkey"><span class="std std-ref">Obtaining the Bindkey</span></a>), and stopped broadcasting battery level.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_cgg1.jpg"><img alt="../../_images/xiaomi_cgg1.jpg" src="../../_images/xiaomi_cgg1.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_cgg1</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;7A:80:8E:19:36:BA&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGG1</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGG1</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGG1</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_cgg1</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;7A:80:8E:28:39:CD&quot;</span>
+<span class="w">    </span><span class="nt">bindkey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;00112233445566778899aabbccddeeff&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGG1</span><span class="nv"> </span><span class="s">(New)</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGG1</span><span class="nv"> </span><span class="s">(New)</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="lywsd03mmc">
+<h3>LYWSD03MMC<a class="headerlink" href="#lywsd03mmc" title="Permalink to this heading">¶</a></h3>
+<p>Hygro thermometer, small square body, segment LCD, encrypted, broadcasts temperature, humidity and battery status.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_lywsd03mmc.jpg"><img alt="../../_images/xiaomi_lywsd03mmc.jpg" src="../../_images/xiaomi_lywsd03mmc.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>There are the following possibilities to operate this sensor:</p>
+<ol class="arabic simple">
+<li><p>Xiaomi stock firmware (requires a bindkey in order to decrypt the received data, see <a class="reference internal" href="#obtaining-the-bindkey"><span class="std std-ref">Obtaining the Bindkey</span></a>)</p></li>
+<li><p>Device flashed with <a class="reference external" href="https://github.com/pvvx/ATC_MiThermometer">PVVX MiThermometer</a> custom firmware</p></li>
+<li><p>Device flashed with <a class="reference external" href="https://github.com/atc1441/ATC_MiThermometer">ATC MiThermometer</a> custom firmware</p>
+<ul class="simple">
+<li><p>“Mi Like” advertisement (dummy bindkey required)</p></li>
+<li><p>“Custom” advertisement (no bindkey required)</p></li>
+<li><p>“pvvx” custom advertisement (no bindkey required, only PVVX firmware)</p></li>
+</ul>
+</li>
+</ol>
+<p>Configuration example for Xiaomi stock firmware or ATC MiThermometer firmware set to “Mi Like” advertisement:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_lywsd03mmc</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A4:C1:38:B1:CD:7F&quot;</span>
+<span class="w">    </span><span class="nt">bindkey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eef418daf699a0c188f3bfd17e4565d9&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LYWSD03MMC</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LYWSD03MMC</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LYWSD03MMC</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+</pre></div>
+</div>
+<p>Configuration example for PVVX MiThermometer firmware set to “Custom” advertisement:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pvvx_mithermometer</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A4:C1:38:B1:CD:7F&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PVVX</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PVVX</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PVVX</span><span class="nv"> </span><span class="s">Battery-Level&quot;</span>
+<span class="w">    </span><span class="nt">battery_voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PVVX</span><span class="nv"> </span><span class="s">Battery-Voltage&quot;</span>
+<span class="w">    </span><span class="nt">signal_strength</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PVVX</span><span class="nv"> </span><span class="s">Signal&quot;</span>
+</pre></div>
+</div>
+<p>Configuration example for ATC MiThermometer firmware set to “Custom” advertisement:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">atc_mithermometer</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A4:C1:38:B1:CD:7F&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ATC</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ATC</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ATC</span><span class="nv"> </span><span class="s">Battery-Level&quot;</span>
+<span class="w">    </span><span class="nt">battery_voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ATC</span><span class="nv"> </span><span class="s">Battery-Voltage&quot;</span>
+<span class="w">    </span><span class="nt">signal_strength</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ATC</span><span class="nv"> </span><span class="s">Signal&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="mho-c303">
+<h3>MHO-C303<a class="headerlink" href="#mho-c303" title="Permalink to this heading">¶</a></h3>
+<p>Hygro thermometer clock with alarm, rectangular body, e-ink display, broadcasts temperature, humidity and battery status. Not encrypted.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_mhoc303.jpg"><img alt="../../_images/xiaomi_mhoc303.jpg" src="../../_images/xiaomi_mhoc303.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>Similar to the LYWSD02, with additional clock features (alarm, pomodoro timer). Runs on two AAA batteries.</p>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_mhoc303</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;E7:50:59:32:A0:1C&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MHO-C303</span><span class="nv"> </span><span class="s">Climate</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MHO-C303</span><span class="nv"> </span><span class="s">Climate</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MHO-C303</span><span class="nv"> </span><span class="s">Climate</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="mho-c401">
+<h3>MHO-C401<a class="headerlink" href="#mho-c401" title="Permalink to this heading">¶</a></h3>
+<p>Hygro thermometer, square body, e-ink display, encrypted, broadcasts temperature, humidity and battery status. Requires a bindkey in order to decrypt the received data (see <a class="reference internal" href="#obtaining-the-bindkey"><span class="std std-ref">Obtaining the Bindkey</span></a>).</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_mhoc401.jpg"><img alt="../../_images/xiaomi_mhoc401.jpg" src="../../_images/xiaomi_mhoc401.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>( MHO-C201 doesn’t have BT )</p>
+<p>Similar to the LYWSD03MMC, there is custom firmware available for this device, so there are the following possibilities to operate this sensor:</p>
+<ol class="arabic simple">
+<li><p>Xiaomi stock firmware (requires a bindkey in order to decrypt the received data, see <a class="reference internal" href="#obtaining-the-bindkey"><span class="std std-ref">Obtaining the Bindkey</span></a>)</p></li>
+<li><p>Device flashed with <a class="reference external" href="https://github.com/pvvx/ATC_MiThermometer">PVVX MiThermometer</a> custom firmware</p>
+<ul class="simple">
+<li><p>“Mi Like” advertisement (dummy bindkey required)</p></li>
+<li><p>“pvvx” custom advertisement (no bindkey required, only PVVX firmware)</p></li>
+</ul>
+</li>
+</ol>
+<p>Configuration example for Xiaomi stock firmware:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_mhoc401</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A4:C1:38:B1:CD:7F&quot;</span>
+<span class="w">    </span><span class="nt">bindkey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eef418daf699a0c188f3bfd17e4565d9&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MHOC401</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MHOC401</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MHOC401</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+</pre></div>
+</div>
+<p>Configuration example for PVVX MiThermometer firmware set to “Custom” advertisement:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pvvx_mithermometer</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A4:C1:38:B1:CD:7F&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PVVX</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PVVX</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PVVX</span><span class="nv"> </span><span class="s">Battery-Level&quot;</span>
+<span class="w">    </span><span class="nt">battery_voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PVVX</span><span class="nv"> </span><span class="s">Battery-Voltage&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="cgd1">
+<h3>CGD1<a class="headerlink" href="#cgd1" title="Permalink to this heading">¶</a></h3>
+<p>Cleargrass (Qingping) alarm clock, segment LCD, encrypted, broadcasts temperature, humidity and battery status. Requires a bindkey in order to decrypt the received data (see <a class="reference internal" href="#obtaining-the-bindkey"><span class="std std-ref">Obtaining the Bindkey</span></a>).</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_cgd1.jpg"><img alt="../../_images/xiaomi_cgd1.jpg" src="../../_images/xiaomi_cgd1.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_cgd1</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A4:C1:38:8C:34:B7&quot;</span>
+<span class="w">    </span><span class="nt">bindkey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fe39106baeedb7c801e3d63c4396f97e&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGD1</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGD1</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGD1</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="cgdk2">
+<h3>CGDK2<a class="headerlink" href="#cgdk2" title="Permalink to this heading">¶</a></h3>
+<p>Cleargrass (Qingping) Temp &amp; RH Lite, round body, segment LCD, encrypted, broadcasts temperature, humidity and battery status. Requires a bindkey in order to decrypt the received data (see <a class="reference internal" href="#obtaining-the-bindkey"><span class="std std-ref">Obtaining the Bindkey</span></a>).
+The measurements are broadcast every 10-15 minutes.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_cgdk2.jpg"><img alt="../../_images/xiaomi_cgdk2.jpg" src="../../_images/xiaomi_cgdk2.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_cgdk2</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;58:2D:34:11:34:B7&quot;</span>
+<span class="w">    </span><span class="nt">bindkey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fe39106baeedb7c801e3d63c4396f97e&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGDK2</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGDK2</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGDK2</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="jqjcy01ym">
+<h3>JQJCY01YM<a class="headerlink" href="#jqjcy01ym" title="Permalink to this heading">¶</a></h3>
+<p>Xiaomi (Honeywell) formaldehyde sensor, OLED display, broadcasts temperature, humidity, formaldehyde concentration (mg/m³) and battery status.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_jqjcy01ym.jpg"><img alt="../../_images/xiaomi_jqjcy01ym.jpg" src="../../_images/xiaomi_jqjcy01ym.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_jqjcy01ym</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;7A:80:8E:19:36:BA&quot;</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;JQJCY01YM</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;JQJCY01YM</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">formaldehyde</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;JQJCY01YM</span><span class="nv"> </span><span class="s">Formaldehyde&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;JQJCY01YM</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="wx08zm">
+<h3>WX08ZM<a class="headerlink" href="#wx08zm" title="Permalink to this heading">¶</a></h3>
+<p>Mosquito Repellent Smart Version, broadcasts the tablet resource level, on/off state and battery level, implemented as a hybrid sensor, needs both <code class="docutils literal notranslate"><span class="pre">sensor</span></code> and <code class="docutils literal notranslate"><span class="pre">binary_sensor</span></code> in config.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_wx08zm.jpg"><img alt="../../_images/xiaomi_wx08zm.jpg" src="../../_images/xiaomi_wx08zm.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_wx08zm</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;74:a3:4a:b5:07:34&quot;</span>
+<span class="w">    </span><span class="nt">tablet</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;WX08ZM</span><span class="nv"> </span><span class="s">Mosquito</span><span class="nv"> </span><span class="s">Tablet&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;WX08ZM</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="mue4094rt">
+<h3>MUE4094RT<a class="headerlink" href="#mue4094rt" title="Permalink to this heading">¶</a></h3>
+<p>Xiaomi Philips BLE night light, broadcasts motion detection (detected/clear, on/off), default timeout is 5s, implemented as a hybrid sensor, needs both <code class="docutils literal notranslate"><span class="pre">sensor</span></code> and <code class="docutils literal notranslate"><span class="pre">binary_sensor</span></code> in config.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_mue4094rt.jpg"><img alt="../../_images/xiaomi_mue4094rt.jpg" src="../../_images/xiaomi_mue4094rt.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_mue4094rt</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MUE4094RT</span><span class="nv"> </span><span class="s">Night</span><span class="nv"> </span><span class="s">Light&quot;</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;7A:80:8E:19:36:BA&quot;</span>
+<span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5s&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="mjyd02yl-a">
+<h3>MJYD02YL-A<a class="headerlink" href="#mjyd02yl-a" title="Permalink to this heading">¶</a></h3>
+<p>Xiaomi Yeelight night light, in-shape replacement of MJYD02YL with BLE, broadcasts light on/off status, motion detection, idle time since last motion event and battery status. Requires a bindkey in order to decrypt the received data (see <a class="reference internal" href="#obtaining-the-bindkey"><span class="std std-ref">Obtaining the Bindkey</span></a>). Implemented as a hybrid sensor, needs both <code class="docutils literal notranslate"><span class="pre">sensor</span></code> and <code class="docutils literal notranslate"><span class="pre">binary_sensor</span></code> in config.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_mjyd02yla.jpg"><img alt="../../_images/xiaomi_mjyd02yla.jpg" src="../../_images/xiaomi_mjyd02yla.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_mjyd02yla</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MJYD02YL-A</span><span class="nv"> </span><span class="s">Night</span><span class="nv"> </span><span class="s">Light&quot;</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;50:EC:50:CD:32:02&quot;</span>
+<span class="w">    </span><span class="nt">bindkey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;48403ebe2d385db8d0c187f81e62cb64&quot;</span>
+<span class="w">    </span><span class="nt">idle_time</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MJYD02YL-A</span><span class="nv"> </span><span class="s">Idle</span><span class="nv"> </span><span class="s">Time&quot;</span>
+<span class="w">    </span><span class="nt">light</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MJYD02YL-A</span><span class="nv"> </span><span class="s">Light</span><span class="nv"> </span><span class="s">Status&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MJYD02YL-A</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+<span class="w">    </span><span class="nt">illuminance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MJYD02YL-A</span><span class="nv"> </span><span class="s">Illuminance&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="cgpr1">
+<h3>CGPR1<a class="headerlink" href="#cgpr1" title="Permalink to this heading">¶</a></h3>
+<p>Qingping motion &amp; ambient light sensor. Broadcasts motion detection, idle time since last motion event, lux value and battery status. Requires a bindkey in order to decrypt the received data (see <a class="reference internal" href="#obtaining-the-bindkey"><span class="std std-ref">Obtaining the Bindkey</span></a>).</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_cgpr1.png"><img alt="../../_images/xiaomi_cgpr1.png" src="../../_images/xiaomi_cgpr1.png" style="width: 30.0%;" /></a>
+</figure>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_cgpr1</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGPR1</span><span class="nv"> </span><span class="s">Motion</span><span class="nv"> </span><span class="s">detector&quot;</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">58:2D:34:60:32:A2</span>
+<span class="w">    </span><span class="nt">bindkey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ff1ae526b23b4aebeadcaaad86f59055&quot;</span>
+<span class="w">    </span><span class="nt">idle_time</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGPR1</span><span class="nv"> </span><span class="s">Idle</span><span class="nv"> </span><span class="s">Time&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGPR1</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+<span class="w">    </span><span class="nt">illuminance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CGPR1</span><span class="nv"> </span><span class="s">Illuminance&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="rtcgq02lm-mi-motion-sensor-2">
+<h3>RTCGQ02LM - Mi Motion Sensor 2<a class="headerlink" href="#rtcgq02lm-mi-motion-sensor-2" title="Permalink to this heading">¶</a></h3>
+<p>Motion &amp; ambient light sensor. Broadcasts motion detection, light/dark and battery status. Also has a button that broadcasts when pressed.
+Requires a bindkey in order to decrypt the received data (see <a class="reference internal" href="#obtaining-the-bindkey"><span class="std std-ref">Obtaining the Bindkey</span></a>).</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/xiaomi_rtcgq02lm.jpg"><img alt="../../_images/xiaomi_rtcgq02lm.jpg" src="../../_images/xiaomi_rtcgq02lm.jpg" style="width: 30.0%;" /></a>
+</figure>
+<p>Configuration example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">xiaomi_rtcgq02lm</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">motion_one</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">01:23:45:67:89:AB</span>
+<span class="w">    </span><span class="nt">bindkey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fe39106baeedb7c801e3d63c4396f97e</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_rtcgq02lm</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">motion_one</span>
+<span class="w">    </span><span class="nt">motion</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Mi</span><span class="nv"> </span><span class="s">Motion&quot;</span>
+<span class="w">    </span><span class="nt">light</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Mi</span><span class="nv"> </span><span class="s">Motion</span><span class="nv"> </span><span class="s">Sensor</span><span class="nv"> </span><span class="s">Light&quot;</span>
+<span class="w">    </span><span class="nt">button</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Mi</span><span class="nv"> </span><span class="s">Motion</span><span class="nv"> </span><span class="s">Sensor</span><span class="nv"> </span><span class="s">Button&quot;</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_rtcgq02lm</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">motion_one</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Mi</span><span class="nv"> </span><span class="s">Motion</span><span class="nv"> </span><span class="s">Sensor</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="setting-up-devices">
+<h2>Setting Up Devices<a class="headerlink" href="#setting-up-devices" title="Permalink to this heading">¶</a></h2>
+<p>Required:</p>
+<ul class="simple">
+<li><p><strong>mac_address</strong> (MAC Address): The MAC address of the device.</p></li>
+<li><p><strong>bindkey</strong> (string, 32 characters, case insensitive): The key to decrypt the BLE advertisements for encrypted sensor types</p></li>
+</ul>
+<p>Optional with <strong>name</strong>, <strong>id</strong> (<a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>) and all other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>:</p>
+<ul class="simple">
+<li><p><strong>temperature</strong></p></li>
+<li><p><strong>humidity</strong></p></li>
+<li><p><strong>moisture</strong></p></li>
+<li><p><strong>illuminance</strong></p></li>
+<li><p><strong>conductivity</strong></p></li>
+<li><p><strong>tablet</strong></p></li>
+<li><p><strong>formaldehyde</strong></p></li>
+<li><p><strong>battery_level</strong></p></li>
+</ul>
+</section>
+<section id="obtaining-the-mac-address">
+<span id="id1"></span><h2>Obtaining the MAC address<a class="headerlink" href="#obtaining-the-mac-address" title="Permalink to this heading">¶</a></h2>
+<p>To find the MAC Address so that ESPHome can identify the device, you can create a simple configuration without any sensor entries:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+
+<span class="nt">xiaomi_ble</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>After uploading, the ESP32 will immediately try to scan for BLE devices. When it detects a new sensor, it will automatically parse the BLE message print a message like this one:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">Found device A4:C1:38:4E:16:78 RSSI=-78</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Address Type</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PUBLIC</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Name</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&#39;LYWSD03MMC&#39;</span>
+</pre></div>
+</div>
+<p>It can sometimes take some time for the first BLE broadcast to be received. Once the device has been found, copy the address <code class="docutils literal notranslate"><span class="pre">A4:C1:38:4E:16:78</span></code> into a new platform entry like shown in the example configurations.</p>
+</section>
+<section id="obtaining-the-bindkey">
+<span id="id2"></span><h2>Obtaining the Bindkey<a class="headerlink" href="#obtaining-the-bindkey" title="Permalink to this heading">¶</a></h2>
+<p>To set up an encrypted device such as the LYWSD03MMC (with Xiaomi stock firmware) and CGD1, you first need to obtain the bind key. The <code class="docutils literal notranslate"><span class="pre">xiaomi_ble</span></code> sensor component is not able to automatically generate a bindkey so other workarounds are necessary.</p>
+<section id="lywsd03mmc-mho-c401">
+<h3>LYWSD03MMC/MHO-C401<a class="headerlink" href="#lywsd03mmc-mho-c401" title="Permalink to this heading">¶</a></h3>
+<p>If the LYWSD03MMC or MHO-C401 sensor is operated with the Xiaomi stock firmware, you can use the <a class="reference external" href="https://atc1441.github.io/TelinkFlasher.html">TeLink flasher application</a> to easily generate a new bind key and upload the key to the device without the need to flash a new firmware (see figure). For this, you load the flasher <a class="reference external" href="https://atc1441.github.io/TelinkFlasher.html">webpage</a> with a <a class="reference external" href="https://github.com/WebBluetoothCG/web-bluetooth/blob/master/implementation-status.md">supported browser</a> and connect the device by pressing “Connect”. After the connection is established, you press the “Do Activation” button and the new key will be shown in the “Mi Bind Key” field. The key can be copied directly into the sensor YAML configuration.</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="../../_images/telink_flasher.jpg"><img alt="../../_images/telink_flasher.jpg" src="../../_images/telink_flasher.jpg" style="width: 100.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Telink flasher application.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The new bind key will work with ESPHome, but the Mi Home app will not recognise the sensor anymore once the device has been activated by the TeLink flasher application. To use the sensor again with the Xiaomi Mi Home app, the device needs to be removed and then re-added inside the Mi Home app.</p>
+</div>
+</section>
+<section id="id3">
+<h3>CGDK2<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<p>The method to obtain a new bind key for the CGDK2 sensor is similar to the method for the LYWSD03MMC sensor, except a modified version of the flasher application is used.</p>
+<p>For this, you load the <a class="reference external" href="https://zaluthar.github.io/TelinkFlasher.html">application</a> with a <a class="reference external" href="https://github.com/WebBluetoothCG/web-bluetooth/blob/master/implementation-status.md">supported browser</a> and connect the device by pressing “Connect”. After the connection is established, you press the “Do Activation” button and the new key will be shown in the “Mi Bind Key” field. The key can be copied directly into the sensor YAML configuration.</p>
+</section>
+<section id="other-encrypted-devices">
+<h3>Other encrypted devices<a class="headerlink" href="#other-encrypted-devices" title="Permalink to this heading">¶</a></h3>
+<p>1.
+The easiest method (confirmed to work for LYWSD03MMC) is to use the <a class="reference external" href="https://github.com/pvvx/ATC_MiThermometer">Telink flasher method</a>. The accompanying <a class="reference external" href="https://www.youtube.com/watch?v=NXKzFG61lNs">video</a> shows how to wirelessly flash a LYWSD03MMC, or how to obtain the bind key of the stock firmware (watch till around 13:10). The custom firmware allows you to change several settings of the device, including the smiley and the advertising interval. Follow the instructions on the site using Telink Flasher - best results with a Bluetooth-enabled Android phone. Note that with <code class="docutils literal notranslate"><span class="pre">pvvx</span></code> default settings advertisment is set to <code class="docutils literal notranslate"><span class="pre">Custom</span></code> with no encryption. No need for <code class="docutils literal notranslate"><span class="pre">bind_key</span></code> in this case, you can just add the sensors to your ESPHome config as described above.</p>
+<p>2.
+The other option is to use the original Mi Home app to add the sensor once. While adding the device, a new key is generated and uploaded into the Xiaomi cloud and to the device itself. Currently a chinese server needs to be selected as the rest of the world doesn’t support most of these devices yet. Once generated, the key will not change again until the device is removed and re-added in the Xiaomi app.</p>
+<p>2a.
+The easiest method to retrieve the bindkey from the cloud is to use the <a class="reference external" href="https://github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor">Cloud Tokens Extractor</a>, written by one of Home Assistant users. If you prefer to not use the executable, read <a class="reference external" href="https://www.home-assistant.io/integrations/xiaomi_miio/#xiaomi-cloud-tokens-extractor">here</a>.</p>
+<p>2b.
+Another option is to use a SSL packet sniffer. It can be setup on either an Android phone or the iPhone. A good choice for Android is the <a class="reference external" href="https://play.google.com/store/apps/details?id=com.egorovandreyrm.pcapremote&amp;hl=en">Remote PCAP</a> in combination with <a class="reference external" href="https://www.wireshark.org/">Wireshark</a>. A tutorial on how to setup the Remote PCAP packet sniffer can be found <a class="reference external" href="https://egorovandreyrm.com/pcap-remote-tutorial/">here</a> and <a class="reference external" href="https://github.com/ahpohl/xiaomi_lywsd03mmc">here</a>. Instructions how to obtain the key using an iPhone are <a class="reference external" href="https://github.com/custom-components/sensor.mitemp_bt/blob/master/faq.md#my-sensors-ble-advertisements-are-encrypted-how-can-i-get-the-key">here</a>. Once the traffic between the Mi Home app and the Xiaomi servers has been recorded, the bind key will show in clear text:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">packet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST /app/device/bltbind</span>
+
+<span class="s">&quot;data&quot;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">= &quot;{&quot;did&quot;:&quot;blt.3.129q4nasgeg00&quot;,&quot;token&quot;:&quot;20c665a7ff82a5bfb5eefc36&quot;,&quot;props&quot;:[{&quot;type&quot;:&quot;prop&quot;,&quot;key&quot;:&quot;bind_key&quot;,&quot;value&quot;:&quot;cfc7cc892f4e32f7a733086cf3443cb0&quot;},   {&quot;type&quot;:&quot;prop&quot;,&quot;key&quot;:&quot;smac&quot;,&quot;value&quot;:&quot;A4:C1:38:8C:34:B7&quot;}]}&quot;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">bind_key</span></code> is the 32 digits “value” item in the above output which needs to be inserted into the config file.</p>
+</section>
+</section>
+<section id="improving-reception-performance">
+<h2>Improving reception performance<a class="headerlink" href="#improving-reception-performance" title="Permalink to this heading">¶</a></h2>
+<p>Use a board with an Ethernet connection to the network, to offload ESP32’s radio module from WiFi traffic, this gains performance on Bluetooth side.
+To maximize the chances of catching advertisements of the sensors, you can set <code class="docutils literal notranslate"><span class="pre">interval</span></code> equal to <code class="docutils literal notranslate"><span class="pre">window</span></code> in <a class="reference internal" href="../esp32_ble_tracker.html"><span class="doc">ESP32 Bluetooth Low Energy Tracker Hub</span></a> scan parameter settings:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">scan_parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span><span class="w"> </span><span class="c1"># try with 300ms if you don&#39;t have LAN module</span>
+<span class="w">    </span><span class="nt">window</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span><span class="w"> </span><span class="c1"># try with 300ms if you don&#39;t have LAN module</span>
+<span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<p>Avoid placing the ESP node in racks, close to routers/switches or other network equipment as EMI interference will degrade Bluetooth signal reception. For best results put as far away as possible, at least 3 meters distance from any other such equipment.</p>
+</section>
+<section id="security-considerations">
+<h2>Security considerations<a class="headerlink" href="#security-considerations" title="Permalink to this heading">¶</a></h2>
+<p>You should at least protect your sensors with a custom pairing PIN code. Choose a method employing bindkey in order to use encrypted communication over the air.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../esp32_ble_tracker.html"><span class="doc">ESP32 Bluetooth Low Energy Tracker Hub</span></a></p></li>
+<li><p><a class="reference internal" href="index.html"><span class="doc">Sensor Component</span></a></p></li>
+<li><p><a class="reference internal" href="../display/pvvx_mithermometer.html"><span class="doc">PVVX MiThermometer Display</span></a></p></li>
+<li><p><a class="reference external" href="/api/xiaomi__ble_8h.html">API Reference</a></p></li>
+<li><p><a class="reference internal" href="../ethernet.html"><span class="doc">Ethernet Component</span></a></p></li>
+<li><p><a class="reference internal" href="../bluetooth_proxy.html"><span class="doc">Bluetooth Proxy</span></a></p></li>
+<li><p>Passive BLE monitor integration for Home Assistant (ble_monitor custom component) <a class="reference external" href="https://github.com/custom-components/ble_monitor">https://github.com/custom-components/ble_monitor</a>
+by <a class="reference external" href="https://github.com/Magalex2x14">&#64;Magalex2x14</a> and <a class="reference external" href="https://github.com/Ernst79">&#64;Ernst79</a></p></li>
+<li><p>Custom firmware (PVVX) for the Xiaomi Thermometer LYWSD03MMC <a class="reference external" href="https://github.com/pvvx/ATC_MiThermometer">https://github.com/pvvx/ATC_MiThermometer</a></p></li>
+<li><p>TeLink flasher application (PVVX) <a class="reference external" href="https://pvvx.github.io/ATC_MiThermometer/TelinkMiFlasher.html">https://pvvx.github.io/ATC_MiThermometer/TelinkMiFlasher.html</a></p></li>
+<li><p>Custom firmware (ATC) for the Xiaomi Thermometer LYWSD03MMC <a class="reference external" href="https://github.com/atc1441/ATC_MiThermometer">https://github.com/atc1441/ATC_MiThermometer</a></p></li>
+<li><p>TeLink flasher application (ATC) <a class="reference external" href="https://atc1441.github.io/TelinkFlasher.html">https://atc1441.github.io/TelinkFlasher.html</a></p></li>
+<li><p>TeLink flasher application modified for CGDK2 <a class="reference external" href="https://zaluthar.github.io/TelinkFlasher.html">https://zaluthar.github.io/TelinkFlasher.html</a></p></li>
+<li><p>Xiaomi LYWSD03MMC passive sensor readout <a class="reference external" href="https://github.com/ahpohl/xiaomi_lywsd03mmc">https://github.com/ahpohl/xiaomi_lywsd03mmc</a> by <a class="reference external" href="https://github.com/ahpohl">&#64;ahpohl</a></p></li>
+<li><p>Cloud Tokens Extractor: <a class="reference external" href="https://github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor">https://github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/xiaomi_ble.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

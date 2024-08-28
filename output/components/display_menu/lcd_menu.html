@@ -1,0 +1,327 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a simple hierarchical menu on displays.">
+<meta itemprop="name" content="LCD Menu">
+<meta itemprop="description" content="Instructions for setting up a simple hierarchical menu on displays.">
+<meta itemprop="image" content="https://esphome.io/_images/lcd_menu.png">
+<meta name="twitter:title" content="LCD Menu">
+<meta name="twitter:image:src" content="https://esphome.io/_images/lcd_menu.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a simple hierarchical menu on displays.">
+<meta property="og:title" content="LCD Menu">
+<meta property="og:image" content="https://esphome.io/_images/lcd_menu.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a simple hierarchical menu on displays.">
+
+    <title>LCD Menu &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/display_menu/lcd_menu.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Media Player Components" href="../media_player/index.html" />
+    <link rel="prev" title="Graphical Display Menu" href="graphical_display_menu.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">LCD Menu</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Display Menu</a> ➔</li>
+      <li>LCD Menu</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="lcd-menu">
+<span id="id1"></span><h1>LCD Menu<a class="headerlink" href="#lcd-menu" title="Permalink to this heading">¶</a></h1>
+<p>The component provides an infrastructure for setting up a hierarchical menu
+on character based LCD displays. This offers the user an interactive method to display
+labels, control entities like <code class="docutils literal notranslate"><span class="pre">switch</span></code>, <code class="docutils literal notranslate"><span class="pre">select</span></code>, <code class="docutils literal notranslate"><span class="pre">number</span></code>  available locally on the
+ESPHome node, without the requirement of a network connection.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/lcd_menu.png"><img alt="../../_images/lcd_menu.png" src="../../_images/lcd_menu.png" style="width: 60.0%;" /></a>
+</figure>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>The component implements the <a class="reference internal" href="index.html#id1"><span class="std std-ref">Display Menu</span></a> component providing
+a hierarchical menu primarily intended to be controlled either by a rotary encoder
+with a button or a five-button joystick controller.</p>
+<p>The component needs to be connected to an instance of a character based LCD display, which
+like <a class="reference internal" href="../display/lcd_display.html#lcd-pcf8574"><span class="std std-ref">lcd_pcf8574 Component</span></a> or <a class="reference internal" href="../display/lcd_display.html#lcd-gpio"><span class="std std-ref">lcd_gpio Component</span></a>. For the best results the GPIO connection is
+recommended; the I²C one running at the speed according to the datasheet (usually <code class="docutils literal notranslate"><span class="pre">100</span></code>
+kHz) or even ESPHome default (<code class="docutils literal notranslate"><span class="pre">50</span></code> kHz) will create perceptible delays especially when
+changing a numeric value using the rotary encoder. Most <code class="docutils literal notranslate"><span class="pre">PCF8574</span></code> adapters used with
+these displays will happily run at <code class="docutils literal notranslate"><span class="pre">200</span></code> or even <code class="docutils literal notranslate"><span class="pre">400</span></code> kHz though so if you are comfortable
+accepting risks from running your hardware out of spec, you might want to try that
+in your <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a> configuration.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lcd_pcf8574</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_lcd</span>
+<span class="w">    </span><span class="nt">dimensions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20x4</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">user_characters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="nt">data</span><span class="p">:</span><span class="w">  </span><span class="c1"># mark_back symbol</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0b00100</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0b01000</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0b11110</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0b01001</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0b00101</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0b00001</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0b11110</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0b00000</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">id(my_lcd_menu).draw();</span>
+<span class="w">      </span><span class="no">if (!id(my_lcd_menu).is_active())</span>
+<span class="w">        </span><span class="no">it.print(&quot;Menu is not active&quot;);</span>
+
+<span class="c1"># Declare a LCD menu</span>
+<span class="nt">lcd_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_lcd_menu</span>
+<span class="w">  </span><span class="nt">display_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_lcd</span>
+<span class="w">  </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rotary</span>
+<span class="w">  </span><span class="nt">mark_back</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x08</span>
+<span class="w">  </span><span class="nt">mark_selected</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x3e</span>
+<span class="w">  </span><span class="nt">mark_editing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x2a</span>
+<span class="w">  </span><span class="nt">mark_submenu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x7e</span>
+<span class="w">  </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+
+<span class="c1"># Rotary encoder to provide navigation</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rotary_encoder</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">debounce</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30ms</span>
+<span class="w">    </span><span class="nt">on_anticlockwise</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.up</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">on_clockwise</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.down</span><span class="p">:</span>
+
+<span class="c1"># A debounced GPIO push button is used to &#39;click&#39;</span>
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30ms</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30ms</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.enter</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>display_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the LCD display.</p></li>
+<li><p><strong>mark_back</strong> (<em>Optional</em>, 0-255): Code of the character used to mark menu items going back
+one level. As the character set lacks a good looking back arrow, using a user defined character
+is advisable (use <code class="docutils literal notranslate"><span class="pre">8</span></code> to reference one at  position <code class="docutils literal notranslate"><span class="pre">0</span></code> to avoid problems with zeros
+in a string). Defaults to <code class="docutils literal notranslate"><span class="pre">0x5e</span></code> (<code class="docutils literal notranslate"><span class="pre">^</span></code>).</p></li>
+<li><p><strong>mark_selected</strong> (<em>Optional</em>, 0-255): Code of the character used to mark menu item selected.
+Defaults to <code class="docutils literal notranslate"><span class="pre">0x3e</span></code> (<code class="docutils literal notranslate"><span class="pre">&gt;</span></code>).</p></li>
+<li><p><strong>mark_editing</strong> (<em>Optional</em>, 0-255): Code of the character used to mark menu item editing mode.
+Defaults to <code class="docutils literal notranslate"><span class="pre">0x2a</span></code> (<code class="docutils literal notranslate"><span class="pre">*</span></code>).</p></li>
+<li><p><strong>mark_submenu</strong> (<em>Optional</em>, 0-255): Code of the character used to mark menu item leading to a
+submenu. Defaults to <code class="docutils literal notranslate"><span class="pre">0x7e</span></code> (a right arrow).</p></li>
+</ul>
+<p>The rest of the configuration is described in the <a class="reference internal" href="index.html#id1"><span class="std std-ref">Display Menu</span></a> component.
+The menu inherits the dimensions of the connected LCD display and uses the entire area.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a></p></li>
+<li><p><a class="reference internal" href="../display/lcd_display.html#lcd-pcf8574"><span class="std std-ref">lcd_pcf8574 Component</span></a></p></li>
+<li><p><a class="reference internal" href="../display/lcd_display.html#lcd-gpio"><span class="std std-ref">lcd_gpio Component</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#id1"><span class="std std-ref">Display Menu</span></a></p></li>
+<li><p><a class="reference internal" href="../sensor/rotary_encoder.html"><span class="doc">Rotary Encoder Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="../binary_sensor/index.html"><span class="doc">Binary Sensor Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/lcd__menu_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/display_menu/lcd_menu.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

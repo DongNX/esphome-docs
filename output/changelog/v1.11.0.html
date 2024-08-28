@@ -1,0 +1,517 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Changelog for esphomelib version 1.11.0.">
+<meta itemprop="name" content="Changelog - Version 1.11.0">
+<meta itemprop="description" content="Changelog for esphomelib version 1.11.0.">
+<meta itemprop="image" content="https://esphome.io/_static/changelog-1.11.0.png">
+<meta name="twitter:title" content="Changelog - Version 1.11.0">
+<meta name="twitter:image:src" content="https://esphome.io/_static/changelog-1.11.0.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:creator" content="@OttoWinter_">
+<meta name="twitter:description" content="Changelog for esphomelib version 1.11.0.">
+<meta property="og:title" content="Changelog - Version 1.11.0">
+<meta property="og:image" content="https://esphome.io/_static/changelog-1.11.0.png">
+<meta property="og:type" content="article">
+<meta property="og:description" content="Changelog for esphomelib version 1.11.0.">
+
+    <title>Changelog - Version 1.11.0 &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/changelog/v1.11.0.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Changelog - Version 1.12.0" href="v1.12.0.html" />
+    <link rel="prev" title="Changelog - Version 1.10.0" href="v1.10.0.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Changelog - Version 1.11.0</a><ul>
+<li><a class="reference internal" href="#esphome-rename-completed">ESPHome Rename Completed</a></li>
+<li><a class="reference internal" href="#installation-methods-changed">Installation Methods Changed</a></li>
+<li><a class="reference internal" href="#local-mdns-responder">Local mDNS Responder</a></li>
+<li><a class="reference internal" href="#faster-release-cycle">Faster Release Cycle</a></li>
+<li><a class="reference internal" href="#release-1-11-2-february-26">Release 1.11.2 - February 26</a></li>
+<li><a class="reference internal" href="#release-1-11-1-february-23">Release 1.11.1 - February 23</a></li>
+<li><a class="reference internal" href="#breaking-changes">Breaking Changes</a></li>
+<li><a class="reference internal" href="#other-notable-changes">Other notable changes:</a></li>
+<li><a class="reference internal" href="#beta-fixes">Beta Fixes</a></li>
+<li><a class="reference internal" href="#all-changes">All changes</a></li>
+<li><a class="reference internal" href="#past-changelogs">Past Changelogs</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Changelog</a> ➔</li>
+      <li>Changelog - Version 1.11.0</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="changelog-version-1-11-0">
+<h1>Changelog - Version 1.11.0<a class="headerlink" href="#changelog-version-1-11-0" title="Permalink to this heading">¶</a></h1>
+<table class="table-center docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference external" href="/index.html"><img alt="Completed Rename" class="component-image dark-invert" src="../_images/logo.svg" /></a></p></td>
+<td><p><a class="reference external" href="/components/binary_sensor/homeassistant.html"><img alt="Home Assistant Binary Sensor" class="component-image dark-invert" src="../_images/home-assistant.svg" /></a></p></td>
+<td><p><a class="reference external" href="/components/light/partition.html"><img alt="Light Partition" class="component-image dark-invert" src="../_images/color_lens.svg" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="/index.html">Completed Rename</a></p></td>
+<td><p><a class="reference external" href="/components/binary_sensor/homeassistant.html">Home Assistant Binary Sensor</a></p></td>
+<td><p><a class="reference external" href="/components/light/partition.html">Light Partition</a></p></td>
+</tr>
+</tbody>
+</table>
+<p>Release 1.11.0 is here, and it has been a busy few weeks :)</p>
+<p>First of all, thank you all for the amazing support on discord, twitter, twitch, etc.
+Seeing how much people can accomplish with this tool is really inspiring!</p>
+<section id="esphome-rename-completed">
+<h2>ESPHome Rename Completed<a class="headerlink" href="#esphome-rename-completed" title="Permalink to this heading">¶</a></h2>
+<p>Back in 1.10.0, it was decided to rename the project from esphomelib to ESPHome. This release
+has seen <strong>massive</strong> refactors to allow this rename. Literally thousands of files had
+to be changed, often with lots of manual action required. Now a rename might not seem
+too exciting for you the user, but consider this: Lots of ancient code got revised and cleaned up,
+the ESPHome source got moved to a <a class="reference external" href="https://github.com/esphome">dedicated Github Organization</a>
+and many other organizational changes were made which will enable faster feature development.</p>
+<p>As an example, ESPHome’s documentation now gets built and served by <a class="reference external" href="https://www.netlify.com/">Netlify</a>,
+so all documentation contributions will now get a preview of the changes on a preview website.</p>
+</section>
+<section id="installation-methods-changed">
+<h2>Installation Methods Changed<a class="headerlink" href="#installation-methods-changed" title="Permalink to this heading">¶</a></h2>
+<p>Because of this rename, ESPHome’s installation methods have also changed (breaking change!).</p>
+<ul class="simple">
+<li><p><strong>Hass.io</strong>: The Hass.io addon repository has moved to <a class="reference external" href="https://github.com/esphome/hassio">https://github.com/esphome/hassio</a>,
+please remove the old addon repository and add the new repository.</p></li>
+<li><p><strong>pip-based installs</strong>: The new installation command is <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">esphome</span></code> and
+the <code class="docutils literal notranslate"><span class="pre">esphomeyaml</span></code> command now is called <code class="docutils literal notranslate"><span class="pre">esphome</span></code>.</p></li>
+<li><p><strong>docker-based installs</strong>: The docker image has moved to <code class="docutils literal notranslate"><span class="pre">esphome/esphome</span></code>. So now you need
+to use <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--rm</span> <span class="pre">-it</span> <span class="pre">esphome/esphome</span> <span class="pre">livingroom.yaml</span> <span class="pre">run</span></code>. The dashboard view
+now uses mDNS to show online/offline status of ESPs, so you need to add <code class="docutils literal notranslate"><span class="pre">--net=host</span></code> for
+that to work.</p></li>
+</ul>
+<p>All old installation methods will no longer receive updates (and potentially be removed
+in the future).</p>
+</section>
+<section id="local-mdns-responder">
+<h2>Local mDNS Responder<a class="headerlink" href="#local-mdns-responder" title="Permalink to this heading">¶</a></h2>
+<p>Up until now, many users had to set static IPs for all ESP nodes in order to be able to connect to
+them. That was not a good user experience and this project is committed to providing the best
+possible user experience. So now ESPHome bundles its own mDNS responder so static IPs are no
+longer necessary (ref: <a class="reference external" href="https://github.com/esphome/esphome/pull/386">esphome#386</a>)! 🎉</p>
+</section>
+<section id="faster-release-cycle">
+<h2>Faster Release Cycle<a class="headerlink" href="#faster-release-cycle" title="Permalink to this heading">¶</a></h2>
+<p>One of the big things that needs to be changed with this project is the release cycle.
+For one thing there’s all contributions by you the users that potentially have to wait
+before users can use it. But it also makes releasing small tweaks or fixes much more difficult.</p>
+<p>I know I’ve said this before, but I want to move ESPHome to a quicker and more regular release
+interval. As a start, I’ve set my personal due date for the next release to be in two weeks.
+Going forward, I want to have a regular release interval of 3 weeks (remind me of this if I forget :)</p>
+<p>Also, you might have seen me post a picture of an ESP32 camera integration for ESPHome. Don’t worry,
+I’ve made that a top priority for the next release, but I’ve hit some road blocks that would have
+prevented it from working in a stable way for this release (and I needed to finally get this darn
+release out).</p>
+</section>
+<section id="release-1-11-2-february-26">
+<h2>Release 1.11.2 - February 26<a class="headerlink" href="#release-1-11-2-february-26" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>docs: Fix units on the valid frequency values <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/170">docs#170</a> by <a class="reference external" href="https://github.com/kwdavidson">&#64;kwdavidson</a></p></li>
+<li><p>esphome: Allow non-pullup pins for dallas <a class="reference external" href="https://github.com/esphome/esphome/pull/456">esphome#456</a></p></li>
+<li><p>core: Turn off light at 0% brightness <a class="reference external" href="https://github.com/esphome/esphome-core/pull/526">core#526</a></p></li>
+<li><p>core: HLW8012 don’t count a single pulse as power <a class="reference external" href="https://github.com/esphome/esphome-core/pull/527">core#527</a></p></li>
+<li><p>core: Set initial brightness to 0 when turning light on <a class="reference external" href="https://github.com/esphome/esphome-core/pull/528">core#528</a></p></li>
+<li><p>core: Allow white value of addressable lights to be controlled independently of brightness <a class="reference external" href="https://github.com/esphome/esphome-core/pull/529">core#529</a></p></li>
+<li><p>core: Fix WiFi not connecting to open networks <a class="reference external" href="https://github.com/esphome/esphome-core/pull/531">core#531</a></p></li>
+<li><p>esphome: Remove automatic update check <a class="reference external" href="https://github.com/esphome/esphome/pull/457">esphome#457</a></p></li>
+<li><p>esphome: Fix mDNS library added only with OTA <a class="reference external" href="https://github.com/esphome/esphome/pull/451">esphome#451</a></p></li>
+<li><p>docs: Merge dallas component <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/179">docs#179</a> by <a class="reference external" href="https://github.com/FrengerH">&#64;FrengerH</a></p></li>
+<li><p>docs: Correct ultrasonic filter_nan example <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/159">docs#159</a> by <a class="reference external" href="https://github.com/apeeters">&#64;apeeters</a></p></li>
+<li><p>docs: Cookbook entry for Display component <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/173">docs#173</a> by <a class="reference external" href="https://github.com/ahd71">&#64;ahd71</a></p></li>
+<li><p>core: Fix light partition src offset <a class="reference external" href="https://github.com/esphome/esphome-core/pull/525">core#525</a></p></li>
+</ul>
+</section>
+<section id="release-1-11-1-february-23">
+<h2>Release 1.11.1 - February 23<a class="headerlink" href="#release-1-11-1-february-23" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>core: Fix addressable not updating light <a class="reference external" href="https://github.com/esphome/esphome-core/pull/521">core#521</a></p></li>
+<li><p>docs: Add Ethernet pin config for olimex esp32-poe board <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/166">docs#166</a> by <a class="reference external" href="https://github.com/setola">&#64;setola</a></p></li>
+<li><p>docs: FAQ: Add description for mDNS support on different subnets <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/169">docs#169</a> by <a class="reference external" href="https://github.com/Taigar2015">&#64;Taigar2015</a></p></li>
+</ul>
+</section>
+<section id="breaking-changes">
+<h2>Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Template Switches no longer restore their state by default <a class="reference external" href="https://github.com/esphome/esphome-core/pull/503">core#503</a></p></li>
+<li><p>Removed heartbeat filter from binary sensors <a class="reference external" href="https://github.com/esphome/esphome-core/pull/454">core#454</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">optimistic</span></code> mode for template platforms has been split off into <code class="docutils literal notranslate"><span class="pre">optimistic</span></code> and
+<code class="docutils literal notranslate"><span class="pre">assumed_state</span></code> options <a class="reference external" href="https://github.com/esphome/esphome-core/pull/455">core#455</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run_cycles</span></code> has been removed from deep_sleep <a class="reference external" href="https://github.com/esphome/esphome/pull/353">esphome#353</a></p></li>
+</ul>
+</section>
+<section id="other-notable-changes">
+<h2>Other notable changes:<a class="headerlink" href="#other-notable-changes" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added GPIO Switch interlocking <a class="reference external" href="https://github.com/esphome/esphome-core/pull/482">core#482</a></p></li>
+<li><p>Added light partition platform which allows you to split an addressable light into partitions
+and combine them <a class="reference external" href="https://github.com/esphome/esphome-core/pull/501">core#501</a></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">wait_until</span></code> action <a class="reference external" href="https://github.com/esphome/esphome-core/pull/508">core#508</a></p></li>
+<li><p>Added template publish actions, which allow you to manually push a state to a template
+platform <a class="reference external" href="https://github.com/esphome/esphome-core/pull/453">core#453</a></p></li>
+<li><p>Added support for SI7021 sensors (found in Sonoff TH modules) <a class="reference external" href="https://github.com/esphome/esphome/pull/375">esphome#375</a></p></li>
+<li><p>MQTT is no longer compiled into firmwares that do no use it, should save a bit of space
+<a class="reference external" href="https://github.com/esphome/esphome-core/pull/430">core#430</a>, <a class="reference external" href="https://github.com/esphome/esphome-core/pull/409">core#409</a></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">use_address</span></code> option to <code class="docutils literal notranslate"><span class="pre">wifi:</span></code> which overrides the address ESPHome connects to <a class="reference external" href="https://github.com/esphome/esphome-core/pull/484">core#484</a></p></li>
+<li><p>Added display pages, which allow you to have a display that periodically switches between
+different pages of content <a class="reference external" href="https://github.com/esphome/esphome-core/pull/507">core#507</a></p></li>
+<li><p>Added two new IR codecs: IR5 and JVC <a class="reference external" href="https://github.com/esphome/esphome-core/pull/502">core#502</a>, <a class="reference external" href="https://github.com/esphome/esphome-core/pull/493">core#493</a></p></li>
+<li><p>Added option to use alternative hardware UART interfaces for logging <a class="reference external" href="https://github.com/esphome/esphome-core/pull/483">core#483</a></p></li>
+<li><p>All log strings are stored in flash now, so that saves a few kb of IRAM on ESP8266s <a class="reference external" href="https://github.com/esphome/esphome-core/pull/432">core#432</a></p></li>
+<li><p>Fixed ESP8266s with CSE7766 rebooting often</p></li>
+<li><p>Fixed using MQTT and native API at the same time</p></li>
+<li><p>Personal information is now automatically redacted from dashboard logs <a class="reference external" href="https://github.com/esphome/esphome-core/pull/488">core#488</a></p></li>
+</ul>
+</section>
+<section id="beta-fixes">
+<h2>Beta Fixes<a class="headerlink" href="#beta-fixes" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>esphome: Fix custom components not registered <a class="reference external" href="https://github.com/esphome/esphome/pull/441">esphome#441</a></p></li>
+<li><p>core: Add empty nameable constructors <a class="reference external" href="https://github.com/esphome/esphome-core/pull/509">core#509</a></p></li>
+<li><p>core: Fix Nextion “Received unknown filler end bytes” <a class="reference external" href="https://github.com/esphome/esphome-core/pull/510">core#510</a></p></li>
+<li><p>core: Fix functional attachInterrupt placed in flash <a class="reference external" href="https://github.com/esphome/esphome-core/pull/511">core#511</a></p></li>
+<li><p>esphome: Remove duplicate scrollbar &amp; move scrollbar <a class="reference external" href="https://github.com/esphome/esphome/pull/443">esphome#443</a> by <a class="reference external" href="https://github.com/TheZoker">&#64;TheZoker</a></p></li>
+<li><p>esphome: Remove unnecessary wrapper <a class="reference external" href="https://github.com/esphome/esphome/pull/444">esphome#444</a> by <a class="reference external" href="https://github.com/TheZoker">&#64;TheZoker</a></p></li>
+<li><p>core: Refactor addressable light and fix partition issue <a class="reference external" href="https://github.com/esphome/esphome-core/pull/512">core#512</a></p></li>
+<li><p>esphome: Fix MQTT log topic level <a class="reference external" href="https://github.com/esphome/esphome/pull/445">esphome#445</a></p></li>
+<li><p>core: Fix ESP8266 functional interrupts <a class="reference external" href="https://github.com/esphome/esphome-core/pull/515">core#515</a></p></li>
+<li><p>esphome: Allow i2c on non-pullup pins <a class="reference external" href="https://github.com/esphome/esphome/pull/447">esphome#447</a></p></li>
+<li><p>esphome: Allow use of arduino core v2.5.0 on ESP8266 <a class="reference external" href="https://github.com/esphome/esphome/pull/446">esphome#446</a></p></li>
+</ul>
+</section>
+<section id="all-changes">
+<h2>All changes<a class="headerlink" href="#all-changes" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>core: Attempt to fix the addressable flicker effect <a class="reference external" href="https://github.com/esphome/esphome-core/pull/392">core#392</a> by <a class="reference external" href="https://github.com/RomRider">&#64;RomRider</a></p></li>
+<li><p>esphome: typing is only required for python &lt; 3.5 <a class="reference external" href="https://github.com/esphome/esphome/pull/341">esphome#341</a> by <a class="reference external" href="https://github.com/dotlambda">&#64;dotlambda</a></p></li>
+<li><p>esphome: Fix install pillow in docker image <a class="reference external" href="https://github.com/esphome/esphome/pull/338">esphome#338</a></p></li>
+<li><p>esphome: Allow IPv4 addresses for SNTP servers <a class="reference external" href="https://github.com/esphome/esphome/pull/340">esphome#340</a></p></li>
+<li><p>docs: Fix esp8266_pwm example, IDs cannot have hyphens <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/123">docs#123</a> by <a class="reference external" href="https://github.com/rabbadab">&#64;rabbadab</a></p></li>
+<li><p>esphome: Add pyserial to install_requires <a class="reference external" href="https://github.com/esphome/esphome/pull/348">esphome#348</a> by <a class="reference external" href="https://github.com/dotlambda">&#64;dotlambda</a></p></li>
+<li><p>docs: Added explanation how to change the password <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/124">docs#124</a> by <a class="reference external" href="https://github.com/WoLpH">&#64;WoLpH</a></p></li>
+<li><p>docs: Update light lambda effect example <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/125">docs#125</a> by <a class="reference external" href="https://github.com/jdads1">&#64;jdads1</a></p></li>
+<li><p>core: Improve handling of MQTT birth message <a class="reference external" href="https://github.com/esphome/esphome-core/pull/410">core#410</a></p></li>
+<li><p>core: Fix WiFi apply hostname too early <a class="reference external" href="https://github.com/esphome/esphome-core/pull/399">core#399</a></p></li>
+<li><p>core: Fix pulse counter filtering for ESP8266 <a class="reference external" href="https://github.com/esphome/esphome-core/pull/397">core#397</a></p></li>
+<li><p>esphome: Warn if expire_after used without MQTT <a class="reference external" href="https://github.com/esphome/esphome/pull/354">esphome#354</a></p></li>
+<li><p>esphome: Use strict string mode for WiFi password <a class="reference external" href="https://github.com/esphome/esphome/pull/351">esphome#351</a></p></li>
+<li><p>docs: Add ESP8266 advanced info <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/128">docs#128</a></p></li>
+<li><p>docs: Cookbook Entry for Sonoff Basic Fish Pond Pump <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/122">docs#122</a> by <a class="reference external" href="https://github.com/meijerwynand">&#64;meijerwynand</a></p></li>
+<li><p>docs: Add Arilux LC02 pinout <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/130">docs#130</a> by <a class="reference external" href="https://github.com/pixiandreas">&#64;pixiandreas</a></p></li>
+<li><p>docs: Dallas: Update for default update_interval <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/131">docs#131</a> by <a class="reference external" href="https://github.com/balk77">&#64;balk77</a></p></li>
+<li><p>core: Fix Light Color Temperature for native API <a class="reference external" href="https://github.com/esphome/esphome-core/pull/398">core#398</a></p></li>
+<li><p>core: Throttle filter doesn’t work for quick firing sensors <a class="reference external" href="https://github.com/esphome/esphome-core/pull/408">core#408</a> by <a class="reference external" href="https://github.com/AlexDanault">&#64;AlexDanault</a></p></li>
+<li><p>core: Improve Preferences Log Output <a class="reference external" href="https://github.com/esphome/esphome-core/pull/414">core#414</a></p></li>
+<li><p>core: Fix GPIO switch restoring inverted <a class="reference external" href="https://github.com/esphome/esphome-core/pull/415">core#415</a></p></li>
+<li><p>core: Default expire after to 0 with deep sleep <a class="reference external" href="https://github.com/esphome/esphome-core/pull/417">core#417</a></p></li>
+<li><p>core: Improve DHT error message <a class="reference external" href="https://github.com/esphome/esphome-core/pull/424">core#424</a></p></li>
+<li><p>esphome: Fix Non-ASCII characters being escaped if in wrong locale <a class="reference external" href="https://github.com/esphome/esphome/pull/369">esphome#369</a></p></li>
+<li><p>esphome: Upgrade HassIO Ubuntu Base to 2.2.1 <a class="reference external" href="https://github.com/esphome/esphome/pull/368">esphome#368</a></p></li>
+<li><p>esphome: Fix ESP32 BLE tracker scan interval in seconds <a class="reference external" href="https://github.com/esphome/esphome/pull/367">esphome#367</a></p></li>
+<li><p>esphome: ESP8266 Better Exception Code Names <a class="reference external" href="https://github.com/esphome/esphome/pull/358">esphome#358</a></p></li>
+<li><p>esphome: Remove DNS1,DNS2 inclusive <a class="reference external" href="https://github.com/esphome/esphome/pull/357">esphome#357</a></p></li>
+<li><p>esphome: Remove deep sleep run_cycles <a class="reference external" href="https://github.com/esphome/esphome/pull/353">esphome#353</a></p></li>
+<li><p>esphome: Fix custom output requiring type <a class="reference external" href="https://github.com/esphome/esphome/pull/344">esphome#344</a></p></li>
+<li><p>core: Don’t duplicate binary sensor events <a class="reference external" href="https://github.com/esphome/esphome-core/pull/411">core#411</a></p></li>
+<li><p>esphome: Add ability to run commands using subprocess, instead of in-process <a class="reference external" href="https://github.com/esphome/esphome/pull/359">esphome#359</a> by <a class="reference external" href="https://github.com/dotlambda">&#64;dotlambda</a></p></li>
+<li><p>core: Fix on_press / on_release being triggered on initial state <a class="reference external" href="https://github.com/esphome/esphome-core/pull/425">core#425</a></p></li>
+<li><p>core: Remove hard dependencies in library.json <a class="reference external" href="https://github.com/esphome/esphome-core/pull/409">core#409</a></p></li>
+<li><p>esphome: Upgrade espressif32 package to 1.6.0 <a class="reference external" href="https://github.com/esphome/esphome/pull/355">esphome#355</a></p></li>
+<li><p>esphome: Fix dashboard password with python 3 <a class="reference external" href="https://github.com/esphome/esphome/pull/339">esphome#339</a></p></li>
+<li><p>esphome: Fix nginx closing WebSocket connection after 60 seconds <a class="reference external" href="https://github.com/esphome/esphome/pull/370">esphome#370</a></p></li>
+<li><p>esphome: Disable platformio LDF <a class="reference external" href="https://github.com/esphome/esphome/pull/352">esphome#352</a></p></li>
+<li><p>core: Store log strings in flash for ESP8266 <a class="reference external" href="https://github.com/esphome/esphome-core/pull/432">core#432</a></p></li>
+<li><p>core: Adding DHT model SI7021 to DHT sensor <a class="reference external" href="https://github.com/esphome/esphome-core/pull/433">core#433</a> by <a class="reference external" href="https://github.com/grea09">&#64;grea09</a></p></li>
+<li><p>esphome: Adding SI7021 sensor to config validation <a class="reference external" href="https://github.com/esphome/esphome/pull/375">esphome#375</a> by <a class="reference external" href="https://github.com/grea09">&#64;grea09</a></p></li>
+<li><p>core: Add logging to NeoPixelBus <a class="reference external" href="https://github.com/esphome/esphome-core/pull/438">core#438</a> by <a class="reference external" href="https://github.com/badbadc0ffee">&#64;badbadc0ffee</a></p></li>
+<li><p>esphome: Includes should be relative to the src directory, not main.cpp file <a class="reference external" href="https://github.com/esphome/esphome/pull/390">esphome#390</a> by <a class="reference external" href="https://github.com/yawor">&#64;yawor</a></p></li>
+<li><p>esphome: Generate variable for each custom component id <a class="reference external" href="https://github.com/esphome/esphome/pull/382">esphome#382</a> by <a class="reference external" href="https://github.com/yawor">&#64;yawor</a></p></li>
+<li><p>esphome: Fix Custom Components No Name <a class="reference external" href="https://github.com/esphome/esphome/pull/395">esphome#395</a></p></li>
+<li><p>core: Split off assumed state from optimistic mode <a class="reference external" href="https://github.com/esphome/esphome-core/pull/455">core#455</a></p></li>
+<li><p>esphome: Remove Heartbeat Binary Sensor Filter <a class="reference external" href="https://github.com/esphome/esphome/pull/393">esphome#393</a></p></li>
+<li><p>core: Disable MQTT if not used <a class="reference external" href="https://github.com/esphome/esphome-core/pull/430">core#430</a></p></li>
+<li><p>esphome: Disable MQTT if not used <a class="reference external" href="https://github.com/esphome/esphome/pull/373">esphome#373</a></p></li>
+<li><p>core: Store raw remote codes in flash <a class="reference external" href="https://github.com/esphome/esphome-core/pull/456">core#456</a></p></li>
+<li><p>core: Deduplicate values before sending <a class="reference external" href="https://github.com/esphome/esphome-core/pull/454">core#454</a></p></li>
+<li><p>core: Rewrite native API client for increased reliability <a class="reference external" href="https://github.com/esphome/esphome-core/pull/426">core#426</a></p></li>
+<li><p>docs: Fix Typo in BME280 Environment Cookbook <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/145">docs#145</a> by <a class="reference external" href="https://github.com/hajdbo">&#64;hajdbo</a></p></li>
+<li><p>docs: Updating Repo URLs in Contribution Guide <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/143">docs#143</a> by <a class="reference external" href="https://github.com/badbadc0ffee">&#64;badbadc0ffee</a></p></li>
+<li><p>core: Update sony.cpp to fix incorrectly formed Sony IR code (extra bit) <a class="reference external" href="https://github.com/esphome/esphome-core/pull/458">core#458</a> by <a class="reference external" href="https://github.com/chris-jennings">&#64;chris-jennings</a></p></li>
+<li><p>docs: Extra example in cookbook / flashing DOIT ESP32 <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/138">docs#138</a> by <a class="reference external" href="https://github.com/DavidDeSloovere">&#64;DavidDeSloovere</a></p></li>
+<li><p>docs: Adding the SI7021 to docs <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/147">docs#147</a> by <a class="reference external" href="https://github.com/grea09">&#64;grea09</a></p></li>
+<li><p>esphome: Validate neopixelbus method <a class="reference external" href="https://github.com/esphome/esphome/pull/398">esphome#398</a></p></li>
+<li><p>core: Fix PMSx003 payload length calculation <a class="reference external" href="https://github.com/esphome/esphome-core/pull/471">core#471</a> by <a class="reference external" href="https://github.com/hajdbo">&#64;hajdbo</a></p></li>
+<li><p>docs: Netlify <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/153">docs#153</a></p></li>
+<li><p>docs: Remove duplicate “includes” line <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/154">docs#154</a> by <a class="reference external" href="https://github.com/notgwj">&#64;notgwj</a></p></li>
+<li><p>core: Remove ‘flash’ property from MQTT Light discovery JSON. <a class="reference external" href="https://github.com/esphome/esphome-core/pull/478">core#478</a> by <a class="reference external" href="https://github.com/brandond">&#64;brandond</a></p></li>
+<li><p>docs: Improve docker build instructions <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/155">docs#155</a> by <a class="reference external" href="https://github.com/DavidDeSloovere">&#64;DavidDeSloovere</a></p></li>
+<li><p>core: Add Homeassistant Binary Sensor <a class="reference external" href="https://github.com/esphome/esphome-core/pull/480">core#480</a> (cherry-picked)</p></li>
+<li><p>core: GPIO Switch Interlocking <a class="reference external" href="https://github.com/esphome/esphome-core/pull/482">core#482</a> (cherry-picked)</p></li>
+<li><p>esphome: Print error when mqtt.publish used without MQTT enabled <a class="reference external" href="https://github.com/esphome/esphome/pull/408">esphome#408</a> (cherry-picked)</p></li>
+<li><p>esphome: Add Homeassistant Binary Sensor <a class="reference external" href="https://github.com/esphome/esphome/pull/409">esphome#409</a> (cherry-picked)</p></li>
+<li><p>esphome: Allow pins 9&amp;10 for PWM <a class="reference external" href="https://github.com/esphome/esphome/pull/410">esphome#410</a> (cherry-picked)</p></li>
+<li><p>docs: Homeassistant binary sensor <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/156">docs#156</a></p></li>
+<li><p>esphome: Store Raw Remote Codes in PROGMEM <a class="reference external" href="https://github.com/esphome/esphome/pull/392">esphome#392</a> (cherry-picked)</p></li>
+<li><p>core: Better error messages for OTA <a class="reference external" href="https://github.com/esphome/esphome-core/pull/486">core#486</a></p></li>
+<li><p>esphome: Better error messages for OTA <a class="reference external" href="https://github.com/esphome/esphome/pull/418">esphome#418</a></p></li>
+<li><p>core: Synchronize homeassistant time periodically <a class="reference external" href="https://github.com/esphome/esphome-core/pull/485">core#485</a></p></li>
+<li><p>core: ESP8266 Arduino 2.5.0 Compatibility <a class="reference external" href="https://github.com/esphome/esphome-core/pull/481">core#481</a> (cherry-picked)</p></li>
+<li><p>esphome: Add Switch Interlocking <a class="reference external" href="https://github.com/esphome/esphome/pull/411">esphome#411</a> (cherry-picked)</p></li>
+<li><p>esphome: Add local mDNS responder for .local <a class="reference external" href="https://github.com/esphome/esphome/pull/386">esphome#386</a> (cherry-picked)</p></li>
+<li><p>core: Auto-Redact private information from logs <a class="reference external" href="https://github.com/esphome/esphome-core/pull/488">core#488</a></p></li>
+<li><p>esphome: Auto-Redact private information from logs in dashboard <a class="reference external" href="https://github.com/esphome/esphome/pull/421">esphome#421</a></p></li>
+<li><p>esphome: Replace optimistic with Assumed State <a class="reference external" href="https://github.com/esphome/esphome/pull/394">esphome#394</a> (cherry-picked)</p></li>
+<li><p>core: Add Template Publish Action <a class="reference external" href="https://github.com/esphome/esphome-core/pull/453">core#453</a> (cherry-picked)</p></li>
+<li><p>esphome: Add template publish actions and switch triggers <a class="reference external" href="https://github.com/esphome/esphome/pull/391">esphome#391</a> (cherry-picked)</p></li>
+<li><p>core: Rework hostname (replaced by use_address) <a class="reference external" href="https://github.com/esphome/esphome-core/pull/484">core#484</a></p></li>
+<li><p>esphome: Add use_address <a class="reference external" href="https://github.com/esphome/esphome/pull/417">esphome#417</a></p></li>
+<li><p>core: Fixes I2C SH1106 repeats the first 8 lines of the display. <a class="reference external" href="https://github.com/esphome/esphome-core/pull/492">core#492</a> by <a class="reference external" href="https://github.com/n0bel">&#64;n0bel</a></p></li>
+<li><p>docs: Link Home Assistant’s include system in FAQ <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/157">docs#157</a> by <a class="reference external" href="https://github.com/TheHackmeister">&#64;TheHackmeister</a></p></li>
+<li><p>core: Rework UART component for fixes <a class="reference external" href="https://github.com/esphome/esphome-core/pull/487">core#487</a></p></li>
+<li><p>esphome: Rework UART component for fixes <a class="reference external" href="https://github.com/esphome/esphome/pull/419">esphome#419</a></p></li>
+<li><p>esphome: Make dout the default flash mode <a class="reference external" href="https://github.com/esphome/esphome/pull/420">esphome#420</a></p></li>
+<li><p>core: Revert espressif32 package upgrade <a class="reference external" href="https://github.com/esphome/esphome-core/pull/490">core#490</a></p></li>
+<li><p>esphome:  Revert “Upgrade espressif32 package to 1.6.0 (#355)”  <a class="reference external" href="https://github.com/esphome/esphome/pull/422">esphome#422</a></p></li>
+<li><p>core: Add support for JVC remote transmitting and receiving <a class="reference external" href="https://github.com/esphome/esphome-core/pull/493">core#493</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>esphome: Add support for JVC remote transmitting and receiving <a class="reference external" href="https://github.com/esphome/esphome/pull/423">esphome#423</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>docs: Add docs for JVC remote transmitting and receiving <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/160">docs#160</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>docs: H801 LED controller (remade) <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/158">docs#158</a> by <a class="reference external" href="https://github.com/erazor666">&#64;erazor666</a></p></li>
+<li><p>core: Enable use of alternate hardware UARTs for logging <a class="reference external" href="https://github.com/esphome/esphome-core/pull/483">core#483</a> by <a class="reference external" href="https://github.com/brandond">&#64;brandond</a></p></li>
+<li><p>esphome: Enable use of alternate hardware UARTs for logging <a class="reference external" href="https://github.com/esphome/esphome/pull/427">esphome#427</a> by <a class="reference external" href="https://github.com/brandond">&#64;brandond</a></p></li>
+<li><p>docs: Enable use of alternate hardware UARTs for logging  <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/161">docs#161</a> by <a class="reference external" href="https://github.com/brandond">&#64;brandond</a></p></li>
+<li><p>core: Rename esphomelib to esphome-core <a class="reference external" href="https://github.com/esphome/esphome-core/pull/494">core#494</a></p></li>
+<li><p>esphome: Rename esphomeyaml to esphome <a class="reference external" href="https://github.com/esphome/esphome/pull/426">esphome#426</a></p></li>
+<li><p>esphome: Include common components for compiles <a class="reference external" href="https://github.com/esphome/esphome/pull/431">esphome#431</a></p></li>
+<li><p>core: Add light partition platform <a class="reference external" href="https://github.com/esphome/esphome-core/pull/501">core#501</a></p></li>
+<li><p>core: Add RC5 IR code support <a class="reference external" href="https://github.com/esphome/esphome-core/pull/502">core#502</a></p></li>
+<li><p>core: Template switch do not restore state by default <a class="reference external" href="https://github.com/esphome/esphome-core/pull/503">core#503</a></p></li>
+<li><p>core: Fix ethernet initialization order <a class="reference external" href="https://github.com/esphome/esphome-core/pull/504">core#504</a></p></li>
+<li><p>esphome: Add RC5 IR code support <a class="reference external" href="https://github.com/esphome/esphome/pull/432">esphome#432</a></p></li>
+<li><p>core: Tweak BLE tracker settings <a class="reference external" href="https://github.com/esphome/esphome-core/pull/505">core#505</a></p></li>
+<li><p>esphome: Add text_sensor.template.publish action <a class="reference external" href="https://github.com/esphome/esphome/pull/433">esphome#433</a></p></li>
+<li><p>esphome: Add light partition platform <a class="reference external" href="https://github.com/esphome/esphome/pull/434">esphome#434</a></p></li>
+<li><p>core: Add ‘hidden’ option to wifi networks <a class="reference external" href="https://github.com/esphome/esphome-core/pull/506">core#506</a></p></li>
+<li><p>esphome: Add hidden option to wifi networks <a class="reference external" href="https://github.com/esphome/esphome/pull/436">esphome#436</a></p></li>
+<li><p>core: Add display pages abstraction <a class="reference external" href="https://github.com/esphome/esphome-core/pull/507">core#507</a></p></li>
+<li><p>esphome: Add display page abstraction <a class="reference external" href="https://github.com/esphome/esphome/pull/435">esphome#435</a></p></li>
+<li><p>esphome: Fix dashboard style issues <a class="reference external" href="https://github.com/esphome/esphome/pull/437">esphome#437</a> by <a class="reference external" href="https://github.com/TheZoker">&#64;TheZoker</a></p></li>
+<li><p>esphome: Include tapTarget html element only when needed <a class="reference external" href="https://github.com/esphome/esphome/pull/439">esphome#439</a> by <a class="reference external" href="https://github.com/TheZoker">&#64;TheZoker</a></p></li>
+<li><p>core: Add wait_until action <a class="reference external" href="https://github.com/esphome/esphome-core/pull/508">core#508</a></p></li>
+<li><p>esphome: Add wait_until action <a class="reference external" href="https://github.com/esphome/esphome/pull/440">esphome#440</a></p></li>
+<li><p>docs: Document addressable_lambda light effect <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/163">docs#163</a></p></li>
+<li><p>esphome: Fix custom components not registered <a class="reference external" href="https://github.com/esphome/esphome/pull/441">esphome#441</a> (cherry-picked)</p></li>
+<li><p>docs: Custom Binary Sensor: Add missing “;” and fix indentation in YAML <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/164">docs#164</a> by <a class="reference external" href="https://github.com/mjoshd">&#64;mjoshd</a></p></li>
+<li><p>core: Add empty nameable constructors <a class="reference external" href="https://github.com/esphome/esphome-core/pull/509">core#509</a> (cherry-picked)</p></li>
+<li><p>core: Fix Nextion “Received unknown filler end bytes” <a class="reference external" href="https://github.com/esphome/esphome-core/pull/510">core#510</a> (cherry-picked)</p></li>
+<li><p>core: Fix functional attachInterrupt placed in flash <a class="reference external" href="https://github.com/esphome/esphome-core/pull/511">core#511</a> (cherry-picked)</p></li>
+<li><p>docs: Add Sonoff T1 LED pin <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/165">docs#165</a> by <a class="reference external" href="https://github.com/lwis">&#64;lwis</a></p></li>
+<li><p>esphome: Remove duplicate scrollbar &amp; move scrollbar <a class="reference external" href="https://github.com/esphome/esphome/pull/443">esphome#443</a> by <a class="reference external" href="https://github.com/TheZoker">&#64;TheZoker</a> (cherry-picked)</p></li>
+<li><p>esphome: Remove unnecessary wrapper <a class="reference external" href="https://github.com/esphome/esphome/pull/444">esphome#444</a> by <a class="reference external" href="https://github.com/TheZoker">&#64;TheZoker</a> (cherry-picked)</p></li>
+<li><p>core: Refactor addressable light and fix partition issue <a class="reference external" href="https://github.com/esphome/esphome-core/pull/512">core#512</a> (cherry-picked)</p></li>
+<li><p>esphome: Fix MQTT log topic level <a class="reference external" href="https://github.com/esphome/esphome/pull/445">esphome#445</a> (cherry-picked)</p></li>
+<li><p>core: Fix ESP8266 functional interrupts <a class="reference external" href="https://github.com/esphome/esphome-core/pull/515">core#515</a> (cherry-picked)</p></li>
+<li><p>esphome: Allow i2c on non-pullup pins <a class="reference external" href="https://github.com/esphome/esphome/pull/447">esphome#447</a> (cherry-picked)</p></li>
+<li><p>esphome: Allow use of arduino core v2.5.0 on ESP8266 <a class="reference external" href="https://github.com/esphome/esphome/pull/446">esphome#446</a> (cherry-picked)</p></li>
+<li><p>core: Fix feed_wdt <a class="reference external" href="https://github.com/esphome/esphome-core/pull/520">core#520</a></p></li>
+<li><p>core: Speed up waveshare Epaper <a class="reference external" href="https://github.com/esphome/esphome-core/pull/518">core#518</a></p></li>
+<li><p>esphome: Improve dashboard setup wizard <a class="reference external" href="https://github.com/esphome/esphome/pull/450">esphome#450</a></p></li>
+</ul>
+</section>
+<section id="past-changelogs">
+<h2>Past Changelogs<a class="headerlink" href="#past-changelogs" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="v1.10.0.html"><span class="doc">Changelog - Version 1.10.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.9.0.html"><span class="doc">Changelog - Version 1.9.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.8.0.html"><span class="doc">Version 1.8.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.7.0.html"><span class="doc">Version 1.7.0</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

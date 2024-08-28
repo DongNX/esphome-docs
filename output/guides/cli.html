@@ -1,0 +1,491 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Documentation for the command line interface of ESPHome.">
+<meta itemprop="name" content="Command Line Interface">
+<meta itemprop="description" content="Documentation for the command line interface of ESPHome.">
+<meta name="twitter:title" content="Command Line Interface">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Documentation for the command line interface of ESPHome.">
+<meta property="og:title" content="Command Line Interface">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Documentation for the command line interface of ESPHome.">
+
+    <title>Command Line Interface &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/guides/cli.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration Types" href="configuration-types.html" />
+    <link rel="prev" title="Changelog" href="changelog.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Command Line Interface</a><ul>
+<li><a class="reference internal" href="#base-usage">Base Usage</a></li>
+<li><a class="reference internal" href="#help-option"><code class="docutils literal notranslate"><span class="pre">--help</span></code> Option</a></li>
+<li><a class="reference internal" href="#verbose-option"><code class="docutils literal notranslate"><span class="pre">--verbose</span></code> Option</a></li>
+<li><a class="reference internal" href="#quiet-option"><code class="docutils literal notranslate"><span class="pre">--quiet</span></code> Option</a></li>
+<li><a class="reference internal" href="#substitution-option"><code class="docutils literal notranslate"><span class="pre">--substitution</span></code> Option</a></li>
+<li><a class="reference internal" href="#run-command"><code class="docutils literal notranslate"><span class="pre">run</span></code> Command</a></li>
+<li><a class="reference internal" href="#config-command"><code class="docutils literal notranslate"><span class="pre">config</span></code> Command</a></li>
+<li><a class="reference internal" href="#compile-command"><code class="docutils literal notranslate"><span class="pre">compile</span></code> Command</a></li>
+<li><a class="reference internal" href="#upload-command"><code class="docutils literal notranslate"><span class="pre">upload</span></code> Command</a></li>
+<li><a class="reference internal" href="#clean-mqtt-command"><code class="docutils literal notranslate"><span class="pre">clean-mqtt</span></code> Command</a></li>
+<li><a class="reference internal" href="#wizard-command"><code class="docutils literal notranslate"><span class="pre">wizard</span></code> Command</a></li>
+<li><a class="reference internal" href="#mqtt-fingerprint-command"><code class="docutils literal notranslate"><span class="pre">mqtt-fingerprint</span></code> Command</a></li>
+<li><a class="reference internal" href="#version-command"><code class="docutils literal notranslate"><span class="pre">version</span></code> Command</a></li>
+<li><a class="reference internal" href="#clean-command"><code class="docutils literal notranslate"><span class="pre">clean</span></code> Command</a></li>
+<li><a class="reference internal" href="#dashboard-command"><code class="docutils literal notranslate"><span class="pre">dashboard</span></code> Command</a></li>
+<li><a class="reference internal" href="#logs-command"><code class="docutils literal notranslate"><span class="pre">logs</span></code> Command</a></li>
+<li><a class="reference internal" href="#using-bash-or-zsh-auto-completion">Using Bash or ZSH auto-completion</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Guides</a> ➔</li>
+      <li>Command Line Interface</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="command-line-interface">
+<h1>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this heading">¶</a></h1>
+<section id="base-usage">
+<h2>Base Usage<a class="headerlink" href="#base-usage" title="Permalink to this heading">¶</a></h2>
+<p>ESPHome’s command line interface always has the following format</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">esphome [OPTIONS] &lt;COMMAND&gt; &lt;CONFIGURATION...&gt; [ARGUMENTS]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can specify multiple configuration files in the command line interface for some commands,
+just list all files after the &lt;COMMAND&gt; like so:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">esphome run livingroom.yaml kitchen.yaml</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="help-option">
+<h2><code class="docutils literal notranslate"><span class="pre">--help</span></code> Option<a class="headerlink" href="#help-option" title="Permalink to this heading">¶</a></h2>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-h-help">
+<span class="sig-name descname"><span class="pre">-h|--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-h-help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output possible &lt;commands&gt; and [arguments].
+Note: you can also use <code class="docutils literal notranslate"><span class="pre">--help</span></code> for any command to get arguments specific to that command.</p>
+</dd></dl>
+
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">esphome &lt;some_command&gt; --help</span>
+</pre></div>
+</div>
+</section>
+<section id="verbose-option">
+<h2><code class="docutils literal notranslate"><span class="pre">--verbose</span></code> Option<a class="headerlink" href="#verbose-option" title="Permalink to this heading">¶</a></h2>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-v-verbose">
+<span class="sig-name descname"><span class="pre">-v|--verbose</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-v-verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable verbose esphome logs.</p>
+</dd></dl>
+
+</section>
+<section id="quiet-option">
+<h2><code class="docutils literal notranslate"><span class="pre">--quiet</span></code> Option<a class="headerlink" href="#quiet-option" title="Permalink to this heading">¶</a></h2>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-q-quiet">
+<span class="sig-name descname"><span class="pre">-q|--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-q-quiet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable all esphome logs.</p>
+</dd></dl>
+
+</section>
+<section id="substitution-option">
+<h2><code class="docutils literal notranslate"><span class="pre">--substitution</span></code> Option<a class="headerlink" href="#substitution-option" title="Permalink to this heading">¶</a></h2>
+<p><em>(can be issued multiple times)</em></p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-s-substitution">
+<span class="sig-name descname"><span class="pre">-s|--substitution</span></span><span class="sig-prename descclassname"> <span class="pre">KEY</span> <span class="pre">VALUE</span></span><a class="headerlink" href="#cmdoption-s-substitution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines or overrides substitution KEY with value VALUE.</p>
+</dd></dl>
+
+<p>Please see <a class="reference internal" href="configuration-types.html#command-line-substitutions"><span class="std std-ref">command line substitutions</span></a> for details.</p>
+</section>
+<section id="run-command">
+<h2><code class="docutils literal notranslate"><span class="pre">run</span></code> Command<a class="headerlink" href="#run-command" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">run</span> <span class="pre">&lt;CONFIG&gt;</span></code> command is the most common command for ESPHome. It</p>
+<ul class="simple">
+<li><p>Validates the configuration</p></li>
+<li><p>Compiles a firmware</p></li>
+<li><p>Uploads the firmware (over OTA or USB)</p></li>
+<li><p>Starts the log view</p></li>
+</ul>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-run-device">
+<span class="sig-name descname"><span class="pre">--device</span></span><span class="sig-prename descclassname"> <span class="pre">UPLOAD_PORT</span></span><a class="headerlink" href="#cmdoption-esphome-run-device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually specify the upload port/IP to use. For example <code class="docutils literal notranslate"><span class="pre">/dev/cu.SLAB_USBtoUART</span></code>, or <code class="docutils literal notranslate"><span class="pre">192.168.1.176</span></code>
+to perform an OTA.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-run-no-logs">
+<span class="sig-name descname"><span class="pre">--no-logs</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-esphome-run-no-logs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable starting log view.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-run-topic">
+<span class="sig-name descname"><span class="pre">--topic</span></span><span class="sig-prename descclassname"> <span class="pre">TOPIC</span></span><a class="headerlink" href="#cmdoption-esphome-run-topic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the topic to subscribe to for MQTT logs (defaults to the one in the configuration).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-run-username">
+<span class="sig-name descname"><span class="pre">--username</span></span><span class="sig-prename descclassname"> <span class="pre">USERNAME</span></span><a class="headerlink" href="#cmdoption-esphome-run-username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the username to subscribe with for MQTT logs (defaults to the one in the configuration).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-run-password">
+<span class="sig-name descname"><span class="pre">--password</span></span><span class="sig-prename descclassname"> <span class="pre">PASSWORD</span></span><a class="headerlink" href="#cmdoption-esphome-run-password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the password to subscribe with for MQTT logs (defaults to the one in the configuration).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-run-client-id">
+<span class="sig-name descname"><span class="pre">--client-id</span></span><span class="sig-prename descclassname"> <span class="pre">CLIENT_ID</span></span><a class="headerlink" href="#cmdoption-esphome-run-client-id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the client ID to subscribe with for MQTT logs (defaults to a randomly chosen one).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-run-host-port">
+<span class="sig-name descname"><span class="pre">--host-port</span></span><span class="sig-prename descclassname"> <span class="pre">HOST_PORT</span></span><a class="headerlink" href="#cmdoption-esphome-run-host-port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the host port to use for legacy Over the Air uploads.</p>
+</dd></dl>
+
+</section>
+<section id="config-command">
+<h2><code class="docutils literal notranslate"><span class="pre">config</span></code> Command<a class="headerlink" href="#config-command" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">config</span> <span class="pre">&lt;CONFIG&gt;</span></code> validates the configuration and displays the validation result.</p>
+</section>
+<section id="compile-command">
+<h2><code class="docutils literal notranslate"><span class="pre">compile</span></code> Command<a class="headerlink" href="#compile-command" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">compile</span> <span class="pre">&lt;CONFIG&gt;</span></code> validates the configuration and compiles the firmware.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-compile-only-generate">
+<span class="sig-name descname"><span class="pre">--only-generate</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-esphome-compile-only-generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set, only generates the C++ source code and does not compile the firmware.</p>
+</dd></dl>
+
+</section>
+<section id="upload-command">
+<h2><code class="docutils literal notranslate"><span class="pre">upload</span></code> Command<a class="headerlink" href="#upload-command" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">upload</span> <span class="pre">&lt;CONFIG&gt;</span></code> validates the configuration and uploads the most recent firmware build.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-upload-device">
+<span class="sig-name descname"><span class="pre">--device</span></span><span class="sig-prename descclassname"> <span class="pre">UPLOAD_PORT</span></span><a class="headerlink" href="#cmdoption-esphome-upload-device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually specify the upload port/IP address to use. For example <code class="docutils literal notranslate"><span class="pre">/dev/cu.SLAB_USBtoUART</span></code>, or <code class="docutils literal notranslate"><span class="pre">192.168.1.176</span></code>
+to perform an OTA.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-upload-host-port">
+<span class="sig-name descname"><span class="pre">--host-port</span></span><span class="sig-prename descclassname"> <span class="pre">HOST_PORT</span></span><a class="headerlink" href="#cmdoption-esphome-upload-host-port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the host port to use for legacy Over the Air uploads.</p>
+</dd></dl>
+
+</section>
+<section id="clean-mqtt-command">
+<h2><code class="docutils literal notranslate"><span class="pre">clean-mqtt</span></code> Command<a class="headerlink" href="#clean-mqtt-command" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">clean-mqtt</span> <span class="pre">&lt;CONFIG&gt;</span></code> cleans retained MQTT discovery messages from the MQTT broker.
+See <a class="reference internal" href="../components/mqtt.html#mqtt-using-with-home-assistant"><span class="std std-ref">Using with Home Assistant</span></a>.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-clean-mqtt-topic">
+<span class="sig-name descname"><span class="pre">--topic</span></span><span class="sig-prename descclassname"> <span class="pre">TOPIC</span></span><a class="headerlink" href="#cmdoption-esphome-clean-mqtt-topic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the topic to clean retained messages from (defaults to the MQTT discovery topic of the
+node).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-clean-mqtt-username">
+<span class="sig-name descname"><span class="pre">--username</span></span><span class="sig-prename descclassname"> <span class="pre">USERNAME</span></span><a class="headerlink" href="#cmdoption-esphome-clean-mqtt-username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the username to subscribe with.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-clean-mqtt-password">
+<span class="sig-name descname"><span class="pre">--password</span></span><span class="sig-prename descclassname"> <span class="pre">PASSWORD</span></span><a class="headerlink" href="#cmdoption-esphome-clean-mqtt-password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the password to subscribe with.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-clean-mqtt-client-id">
+<span class="sig-name descname"><span class="pre">--client-id</span></span><span class="sig-prename descclassname"> <span class="pre">CLIENT_ID</span></span><a class="headerlink" href="#cmdoption-esphome-clean-mqtt-client-id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the client ID to subscribe with.</p>
+</dd></dl>
+
+</section>
+<section id="wizard-command">
+<h2><code class="docutils literal notranslate"><span class="pre">wizard</span></code> Command<a class="headerlink" href="#wizard-command" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">wizard</span> <span class="pre">&lt;CONFIG&gt;</span></code> command starts the ESPHome configuration creation wizard.</p>
+</section>
+<section id="mqtt-fingerprint-command">
+<h2><code class="docutils literal notranslate"><span class="pre">mqtt-fingerprint</span></code> Command<a class="headerlink" href="#mqtt-fingerprint-command" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">mqtt-fingerprint</span> <span class="pre">&lt;CONFIG&gt;</span></code> command shows the MQTT SSL fingerprints of the remote used
+for SSL MQTT connections. See <a class="reference internal" href="../components/mqtt.html#mqtt-ssl-fingerprints"><span class="std std-ref">SSL Fingerprints</span></a>.</p>
+</section>
+<section id="version-command">
+<h2><code class="docutils literal notranslate"><span class="pre">version</span></code> Command<a class="headerlink" href="#version-command" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">version</span></code> command shows the current ESPHome version and exits.</p>
+</section>
+<section id="clean-command">
+<h2><code class="docutils literal notranslate"><span class="pre">clean</span></code> Command<a class="headerlink" href="#clean-command" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">clean</span> <span class="pre">&lt;CONFIG&gt;</span></code> command cleans all build files and can help with some build issues.</p>
+</section>
+<section id="dashboard-command">
+<h2><code class="docutils literal notranslate"><span class="pre">dashboard</span></code> Command<a class="headerlink" href="#dashboard-command" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">dashboard</span> <span class="pre">&lt;CONFIG&gt;</span></code> command starts the ESPHome dashboard server for using ESPHome
+through a graphical user interface. This command accepts a configuration directory instead of a
+single configuration file.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-dashboard-port">
+<span class="sig-name descname"><span class="pre">--port</span></span><span class="sig-prename descclassname"> <span class="pre">PORT</span></span><a class="headerlink" href="#cmdoption-esphome-dashboard-port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the HTTP port to open connections on (defaults to 6052)</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-dashboard-username">
+<span class="sig-name descname"><span class="pre">--username</span></span><span class="sig-prename descclassname"> <span class="pre">USERNAME</span></span><a class="headerlink" href="#cmdoption-esphome-dashboard-username" title="Permalink to this definition">¶</a></dt>
+<dd><p>The optional username to require for authentication.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-dashboard-password">
+<span class="sig-name descname"><span class="pre">--password</span></span><span class="sig-prename descclassname"> <span class="pre">PASSWORD</span></span><a class="headerlink" href="#cmdoption-esphome-dashboard-password" title="Permalink to this definition">¶</a></dt>
+<dd><p>The optional password to require for authentication.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-dashboard-open-ui">
+<span class="sig-name descname"><span class="pre">--open-ui</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-esphome-dashboard-open-ui" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set, opens the dashboard UI in a browser once the server is up and running.</p>
+</dd></dl>
+
+</section>
+<section id="logs-command">
+<h2><code class="docutils literal notranslate"><span class="pre">logs</span></code> Command<a class="headerlink" href="#logs-command" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">esphome</span> <span class="pre">logs</span> <span class="pre">&lt;CONFIG&gt;</span></code> command validates the configuration and shows all logs.</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-logs-topic">
+<span class="sig-name descname"><span class="pre">--topic</span></span><span class="sig-prename descclassname"> <span class="pre">TOPIC</span></span><a class="headerlink" href="#cmdoption-esphome-logs-topic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the topic to subscribe to.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-logs-username">
+<span class="sig-name descname"><span class="pre">--username</span></span><span class="sig-prename descclassname"> <span class="pre">USERNAME</span></span><a class="headerlink" href="#cmdoption-esphome-logs-username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the username.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-logs-password">
+<span class="sig-name descname"><span class="pre">--password</span></span><span class="sig-prename descclassname"> <span class="pre">PASSWORD</span></span><a class="headerlink" href="#cmdoption-esphome-logs-password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the password.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-logs-client-id">
+<span class="sig-name descname"><span class="pre">--client-id</span></span><span class="sig-prename descclassname"> <span class="pre">CLIENT_ID</span></span><a class="headerlink" href="#cmdoption-esphome-logs-client-id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually set the client id.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-esphome-logs-device">
+<span class="sig-name descname"><span class="pre">--device</span></span><span class="sig-prename descclassname"> <span class="pre">SERIAL_PORT</span></span><a class="headerlink" href="#cmdoption-esphome-logs-device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually specify a serial port/IP to use. For example <code class="docutils literal notranslate"><span class="pre">/dev/cu.SLAB_USBtoUART</span></code>.</p>
+</dd></dl>
+
+</section>
+<section id="using-bash-or-zsh-auto-completion">
+<h2>Using Bash or ZSH auto-completion<a class="headerlink" href="#using-bash-or-zsh-auto-completion" title="Permalink to this heading">¶</a></h2>
+<p>ESPHome’s command line interface provides the ability to use auto-completion features provided by Bash or ZSH.</p>
+<p>You can register ESPHome for auto-completion by adding the following to your ~/.bashrc file:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">eval &quot;$(register-python-argcomplete esphome)&quot;</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://kislyuk.github.io/argcomplete/">argcomplete</a> documentation.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

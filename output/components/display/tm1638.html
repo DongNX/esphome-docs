@@ -1,0 +1,386 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up TM1638 7 Segment Display Keypad &amp; LED Module">
+<meta itemprop="name" content="TM1638 7 Segment Display Keypad &amp; LED Module">
+<meta itemprop="description" content="Instructions for setting up TM1638 7 Segment Display Keypad &amp; LED Module">
+<meta itemprop="image" content="https://esphome.io/_images/tm1638.jpg">
+<meta name="twitter:title" content="TM1638 7 Segment Display Keypad &amp; LED Module">
+<meta name="twitter:image:src" content="https://esphome.io/_images/tm1638.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up TM1638 7 Segment Display Keypad &amp; LED Module">
+<meta property="og:title" content="TM1638 7 Segment Display Keypad &amp; LED Module">
+<meta property="og:image" content="https://esphome.io/_images/tm1638.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up TM1638 7 Segment Display Keypad &amp; LED Module">
+
+    <title>TM1638 7 Segment Display Keypad &amp; LED Module &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/display/tm1638.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Waveshare E-Paper Display" href="waveshare_epaper.html" />
+    <link rel="prev" title="TM1637 7-Segment Display" href="tm1637.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">TM1638 7 Segment Display Keypad &amp; LED Module</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#rendering-lambda">Rendering Lambda</a><ul>
+<li><a class="reference internal" href="#creating-a-digital-clock">Creating a digital clock</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#leds">LEDs</a></li>
+<li><a class="reference internal" href="#buttons">Buttons</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Display Component</a> ➔</li>
+      <li>TM1638 7 Segment Display Keypad &amp; LED Module</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="tm1638-7-segment-display-keypad-led-module">
+<h1>TM1638 7 Segment Display Keypad &amp; LED Module<a class="headerlink" href="#tm1638-7-segment-display-keypad-led-module" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">tm1638</span></code> display platform allows you to use the popular TM1638 7 Segment Display Keypad &amp; LED Module with ESPHome.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/tm1638-full.jpg"><img alt="../../_images/tm1638-full.jpg" src="../../_images/tm1638-full.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">TM1638 8-Segment Display Keypad &amp; LED Module.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The module can be powered with 5v DC. To display the colon punctuation use the
+<code class="docutils literal notranslate"><span class="pre">.</span></code> in the colon place. (See clock example below)</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tm1638</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tm1638_display</span>
+<span class="w">    </span><span class="nt">stb_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">clk_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">dio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">intensity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.print(&quot;0123&quot;);</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>stb_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The pin you have the STB line hooked up to.</p></li>
+<li><p><strong>clk_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The pin you have the CLK line hooked up to.</p></li>
+<li><p><strong>dio_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The pin you have the DIO line hooked up to.</p></li>
+<li><p><strong>intensity</strong> (<em>Optional</em>, int): The intensity with which the TM1638 should drive the outputs. Range is from
+0 (least intense) to 7 (the default).  This setting will affect the 7 segment display and the 8 individual LED lights.</p></li>
+<li><p><strong>lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>): The lambda to use for rendering the content on the TM1638.
+See <a class="reference internal" href="#display-tm1638-lambda"><span class="std std-ref">Rendering Lambda</span></a> for more information.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to re-draw the screen. Defaults to <code class="docutils literal notranslate"><span class="pre">1s</span></code>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+</ul>
+</section>
+<section id="rendering-lambda">
+<span id="display-tm1638-lambda"></span><h2>Rendering Lambda<a class="headerlink" href="#rendering-lambda" title="Permalink to this heading">¶</a></h2>
+<p>The TM1638 has a similar API to the fully fledged <a class="reference internal" href="index.html#display-engine"><span class="std std-ref">Display Rendering Engine</span></a>, but it’s only a subset as the TM1638
+7-segment Display Keypad &amp; LED Module does not have a concept of individual pixels. In the lambda you’re passed a variable called <code class="docutils literal notranslate"><span class="pre">it</span></code>
+as with all other displays. In this case however, <code class="docutils literal notranslate"><span class="pre">it</span></code> is a TM1638 instance (see API Reference).</p>
+<p>The most basic operation with the TM1638 is writing a simple number to the screen as in the configuration example
+at the top of this page. But even though you’re passing in a string (here <code class="docutils literal notranslate"><span class="pre">&quot;0123&quot;</span></code>), ESPHome converts it
+into a representation that the TM1638 can understand: The exact pixels that should be turned on. And of course,
+not all characters can be represented. You can see a full list of characters <a class="reference internal" href="max7219.html#display-max7219-characters"><span class="std std-ref">at the MAX7219 docs</span></a>.</p>
+<p>Each of the three methods (<code class="docutils literal notranslate"><span class="pre">print</span></code>, <code class="docutils literal notranslate"><span class="pre">printf</span></code> and <code class="docutils literal notranslate"><span class="pre">strftime</span></code>) all optionally take a position argument at the
+beginning which can be used to print the text at a specific position. This argument is <code class="docutils literal notranslate"><span class="pre">0</span></code> by default which
+means the first character of the first TM1638. For example to start the first character of your text at
+the end of the TM1638, you would write <code class="docutils literal notranslate"><span class="pre">it.print(3,</span> <span class="pre">&quot;0&quot;);</span></code>.</p>
+<p>Also note that the <code class="docutils literal notranslate"><span class="pre">.</span></code> (dot) character is special because when ESPHome encounters it in the string the dot
+segment of the previous position will be enabled.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tm1638</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Print 0 at position 0 (left)</span>
+<span class="w">      </span><span class="no">it.print(&quot;0&quot;);</span>
+<span class="w">      </span><span class="no">// Result: &quot;0   &quot;</span>
+
+<span class="w">      </span><span class="no">// Print 1 at position 1 (second character)</span>
+<span class="w">      </span><span class="no">it.print(1, &quot;1&quot;);</span>
+<span class="w">      </span><span class="no">// Result: &quot;01  &quot;</span>
+
+<span class="w">      </span><span class="no">// Let&#39;s write a sensor value (let&#39;s assume it&#39;s 42.1)</span>
+<span class="w">      </span><span class="no">it.printf(0, &quot;%.1f&quot;, id(my_sensor).state);</span>
+<span class="w">      </span><span class="no">// Result: &quot;42.1 &quot; (the dot will appear on the &quot;2&quot; segment)</span>
+
+<span class="w">      </span><span class="no">// Overwrite the previous content with blank</span>
+<span class="w">      </span><span class="no">it.print(&quot;    &quot;);</span>
+<span class="w">      </span><span class="no">// Print a right-padded sensor value with 0 digits after the decimal</span>
+<span class="w">      </span><span class="no">it.printf(&quot;S%3.0f&quot;, id(my_sensor).state);</span>
+<span class="w">      </span><span class="no">// Result: &quot;S 42&quot;</span>
+
+<span class="w">      </span><span class="no">// Print the current time</span>
+<span class="w">      </span><span class="no">it.strftime(&quot;%H.%M&quot;);</span>
+<span class="w">      </span><span class="no">// Result for 10:06:42 -&gt; &quot;10:06&quot; on a display with : and &quot;10.06&quot; on a display with .</span>
+</pre></div>
+</div>
+<p>Please see <a class="reference internal" href="index.html#display-printf"><span class="std std-ref">Formatted Text</span></a> for a quick introduction into the <code class="docutils literal notranslate"><span class="pre">printf</span></code> formatting rules and
+<a class="reference internal" href="index.html#display-strftime"><span class="std std-ref">Displaying Time</span></a> for an introduction into the <code class="docutils literal notranslate"><span class="pre">strftime</span></code> time formatting.</p>
+<section id="creating-a-digital-clock">
+<h3>Creating a digital clock<a class="headerlink" href="#creating-a-digital-clock" title="Permalink to this heading">¶</a></h3>
+<p>The following example creates a typical digital clock with the <code class="docutils literal notranslate"><span class="pre">:</span></code> colon flashing every second.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">time</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">homeassistant</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">homeassistant_time</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tm1638</span>
+<span class="w">  </span><span class="nt">clk_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">dio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">stb_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500ms</span>
+<span class="w">  </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">static int i = 0;</span>
+<span class="w">      </span><span class="no">i++;</span>
+<span class="w">      </span><span class="no">if ((i % 2) == 0)</span>
+<span class="w">        </span><span class="no">it.strftime(&quot;%H.%M&quot;, id(homeassistant_time).now());</span>
+<span class="w">      </span><span class="no">else</span>
+<span class="w">        </span><span class="no">it.strftime(&quot;%H%M&quot;, id(homeassistant_time).now());</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="leds">
+<h2>LEDs<a class="headerlink" href="#leds" title="Permalink to this heading">¶</a></h2>
+<p>The TM1638 7 Segment Display Keypad &amp; LED Module has 8 LED lights across the top or middle of the display, depending on the board.  These LEDs can be exposed as <a class="reference internal" href="../switch/index.html"><span class="doc">switches</span></a> or <a class="reference internal" href="../output/index.html"><span class="doc">outputs</span></a> with the led property set between 0 and 7.  The board has the LEDs labelled 1-8, but the leds use zero based addressing.   The LED labelled “1” is LED 0 in the configuration.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tm1638</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TM1638Led1</span>
+<span class="w">    </span><span class="nt">led</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+
+<span class="nt">output</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tm1638</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TM1638Led2</span>
+<span class="w">    </span><span class="nt">led</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+</section>
+<section id="buttons">
+<h2>Buttons<a class="headerlink" href="#buttons" title="Permalink to this heading">¶</a></h2>
+<p>The TM1638 7 Segment Display Keypad &amp; LED Module has 8 buttons across the top or middle of the display, depending on the board.  These buttons are exposed as binary sensor components with the key property set between 0 and 7,  They can be accessed via the binary sensor component configuration.  As with the LEDs the buttons are labeled 1-8 on the board, but use zero based addressing.  Therefore the button labelled “1” is key 0 in the configuration.   See <a class="reference internal" href="../binary_sensor/index.html"><span class="doc">Binary Sensor Component</span></a></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tm1638</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TM1638</span><span class="nv"> </span><span class="s">Button</span><span class="nv"> </span><span class="s">1&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TM1638Button1</span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10ms</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TM1638Led1</span>
+<span class="w">    </span><span class="nt">on_release</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TM1638Led1</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tm1638</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TM1638</span><span class="nv"> </span><span class="s">Button</span><span class="nv"> </span><span class="s">2&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TM1638Button2</span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10ms</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">output.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TM1638Led2</span>
+<span class="w">    </span><span class="nt">on_release</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">output.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TM1638Led2</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Display Component</span></a></p></li>
+<li><p><a class="reference internal" href="../switch/index.html"><span class="doc">Switch Component</span></a></p></li>
+<li><p><a class="reference internal" href="../binary_sensor/index.html"><span class="doc">Binary Sensor Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/tm1638_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/display/tm1638.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

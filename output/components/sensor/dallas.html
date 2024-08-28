@@ -1,0 +1,371 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Dallas temperature sensor hubs that can expose many temperature sensors on a single pin using the 1-Wire protocol.">
+<meta name="keywords" content="Dallas, ds18b20, onewire">
+<meta itemprop="name" content="Dallas Temperature Sensor">
+<meta itemprop="description" content="Instructions for setting up Dallas temperature sensor hubs that can expose many temperature sensors on a single pin using the 1-Wire protocol.">
+<meta itemprop="image" content="https://esphome.io/_images/dallas.jpg">
+<meta name="twitter:title" content="Dallas Temperature Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/dallas.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Dallas temperature sensor hubs that can expose many temperature sensors on a single pin using the 1-Wire protocol.">
+<meta property="og:title" content="Dallas Temperature Sensor">
+<meta property="og:image" content="https://esphome.io/_images/dallas.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Dallas temperature sensor hubs that can expose many temperature sensors on a single pin using the 1-Wire protocol.">
+
+    <title>Dallas Temperature Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/dallas.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Daly BMS Sensor" href="daly_bms.html" />
+    <link rel="prev" title="Custom Sensor Component" href="custom.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Dallas Temperature Sensor</a><ul>
+<li><a class="reference internal" href="#component-hub">Component/Hub</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sensor">Sensor</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+<li><a class="reference internal" href="#getting-sensor-ids">Getting Sensor IDs</a></li>
+<li><a class="reference internal" href="#multiple-dallas-hubs">Multiple dallas hubs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>Dallas Temperature Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="dallas-temperature-sensor">
+<h1>Dallas Temperature Sensor<a class="headerlink" href="#dallas-temperature-sensor" title="Permalink to this heading">¶</a></h1>
+<section id="component-hub">
+<span id="dallas-component"></span><h2>Component/Hub<a class="headerlink" href="#component-hub" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">dallas</span></code> component allows you to use your
+<a class="reference external" href="https://www.adafruit.com/product/374">DS18b20</a>
+(<a class="reference external" href="https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf">datasheet</a>)
+and similar 1-Wire temperature sensors.</p>
+<p>To use your <a class="reference internal" href="#dallas-sensor"><span class="std std-ref">dallas sensor</span></a>, first define a dallas “hub” with a pin and
+id, which you will later use to create the sensors. The 1-Wire bus the
+sensors are connected to should have an external pullup resistor of
+about 4.7KΩ. For this, connect a resistor of <em>about</em> 4.7KΩ between <code class="docutils literal notranslate"><span class="pre">3.3V</span></code>
+and the data pin. Values ± 1KΩ will, in most cases, work fine as well,
+if you don’t have massively long wires.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">dallas</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>pin</strong> (<strong>Required</strong>, number): The pin the sensor bus is connected to. Please note that 1-wire is a bi-directional bus so it requires both input and output from the pin.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval that the sensors should be checked.
+Defaults to 60 seconds.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+</ul>
+</section>
+</section>
+<section id="sensor">
+<span id="dallas-sensor"></span><h2>Sensor<a class="headerlink" href="#sensor" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">dallas</span></code> sensor allows you to use DS18B20 and similar sensors.
+First, you need to define a <a class="reference internal" href="#dallas-component"><span class="std std-ref">dallas sensor component</span></a>.
+The dallas sensor component (or “hub”) is an internal model that defines which pins the DS18B20
+sensors are connected to. This is because with these sensors you can actually connect multiple
+sensors to a single pin and use them all at once.</p>
+<p>To initialize a sensor, first supply either <code class="docutils literal notranslate"><span class="pre">address</span></code> <strong>or</strong> <code class="docutils literal notranslate"><span class="pre">index</span></code> to identify the sensor.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/dallas-wired.jpg"><img alt="../../_images/dallas-wired.jpg" src="../../_images/dallas-wired.jpg" style="width: 50.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Wired Version of the DS18B20 1-Wire Temperature Sensor.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/temperature.png"><img alt="../../_images/temperature.png" src="../../_images/temperature.png" style="width: 80.0%;" /></a>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Individual sensors</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dallas</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x1C0000031EDD2A28</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>address</strong> (<strong>Required</strong>, int): The address of the sensor. Use either
+this option or index.</p></li>
+<li><p><strong>index</strong> (<strong>Required</strong>, int): The index of the sensor starting with 0.
+So the first sensor will for example have index 0. <a class="reference internal" href="#dallas-getting-ids"><span class="std std-ref">It’s recommended
+to use address instead</span></a>.</p></li>
+<li><p><strong>resolution</strong> (<em>Optional</em>, int): An optional resolution from 9 to
+12. Higher means more accurate. Defaults to the maximum for most Dallas temperature sensors: 12.</p></li>
+<li><p><strong>dallas_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the <a class="reference internal" href="#dallas-component"><span class="std std-ref">dallas hub</span></a>.
+Use this if you have multiple dallas hubs.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="getting-sensor-ids">
+<span id="dallas-getting-ids"></span><h3>Getting Sensor IDs<a class="headerlink" href="#getting-sensor-ids" title="Permalink to this heading">¶</a></h3>
+<p>It is highly recommended to use the <code class="docutils literal notranslate"><span class="pre">address</span></code> attribute for creating
+dallas sensors, because if you have multiple sensors on a bus and the
+automatic sensor discovery fails, all sensors indices will be shifted by
+one. In order to get the address, simply start the firmware on your
+device with a configured dallas hub and observe the log output (the <a class="reference internal" href="../logger.html#logger-log-levels"><span class="std std-ref">log
+level</span></a> must be set to at least
+<code class="docutils literal notranslate"><span class="pre">debug</span></code>!). Note that you don’t need to define the individual sensors just yet, as
+the scanning will happen even with no sensors connected. For example with this configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">dallas</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+
+<span class="c1"># Note you don&#39;t have to add any sensors at this point</span>
+</pre></div>
+</div>
+<p>You will find something like this:</p>
+<figure class="align-default">
+<img alt="../../_images/dallas-log.png" src="../../_images/dallas-log.png" />
+</figure>
+<p>Now we can add the individual sensors to our configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">dallas</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dallas</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xA40000031F055028</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature</span><span class="nv"> </span><span class="s">#1&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dallas</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xDD0000031EFB0428</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature</span><span class="nv"> </span><span class="s">#2&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dallas</span>
+<span class="w">    </span><span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>Next, individually warm up or cool down the sensors and observe the log again.
+You will see the outputted sensor values changing when they’re being warmed.
+When you’re finished mapping each address to a name, just change the <code class="docutils literal notranslate"><span class="pre">Temperature</span> <span class="pre">#1</span></code>
+to your assigned names and you should be ready.</p>
+</section>
+<section id="multiple-dallas-hubs">
+<h3>Multiple dallas hubs<a class="headerlink" href="#multiple-dallas-hubs" title="Permalink to this heading">¶</a></h3>
+<p>Use this if you have multiple dallas hubs:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">dallas</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hub_1</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hub_2</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dallas</span>
+<span class="w">    </span><span class="nt">dallas_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hub_1</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dallas</span>
+<span class="w">    </span><span class="nt">dallas_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hub_2</span>
+<span class="w">    </span><span class="c1"># ...</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference internal" href="max6675.html"><span class="doc">MAX6675 K-Type Thermocouple Temperature Sensor</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/milesburton/Arduino-Temperature-Control-Library">Arduino DallasTemperature library</a>
+by <a class="reference external" href="https://github.com/milesburton">Miles Burton</a></p></li>
+<li><p><a class="reference external" href="/api/dallas__component_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/dallas.rst">Edit this page on GitHub</a></p></li>
+<li><p><a class="reference external" href="https://www.analog.com/en/technical-articles/guidelines-for-reliable-long-line-1wire-networks.html">Guidelines for Reliable Long Line 1-Wire Networks</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

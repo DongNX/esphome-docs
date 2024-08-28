@@ -1,0 +1,445 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a simple hierarchical menu on displays.">
+<meta itemprop="name" content="Graphical Display Menu">
+<meta itemprop="description" content="Instructions for setting up a simple hierarchical menu on displays.">
+<meta itemprop="image" content="https://esphome.io/_images/lcd_menu.png">
+<meta name="twitter:title" content="Graphical Display Menu">
+<meta name="twitter:image:src" content="https://esphome.io/_images/lcd_menu.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a simple hierarchical menu on displays.">
+<meta property="og:title" content="Graphical Display Menu">
+<meta property="og:image" content="https://esphome.io/_images/lcd_menu.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a simple hierarchical menu on displays.">
+
+    <title>Graphical Display Menu &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/display_menu/graphical_display_menu.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="LCD Menu" href="lcd_menu.html" />
+    <link rel="prev" title="Display Menu" href="index.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Graphical Display Menu</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#drawing-modes">Drawing Modes</a><ul>
+<li><a class="reference internal" href="#pop-up-mode">Pop Up Mode</a></li>
+<li><a class="reference internal" href="#advanced-drawing-mode">Advanced Drawing Mode</a></li>
+<li><a class="reference internal" href="#emulating-pop-up-mode">Emulating Pop Up Mode</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#controlling-menu-item-rendering">Controlling Menu Item Rendering</a></li>
+<li><a class="reference internal" href="#user-interaction-example">User Interaction Example</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Display Menu</a> ➔</li>
+      <li>Graphical Display Menu</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="graphical-display-menu">
+<span id="id1"></span><h1>Graphical Display Menu<a class="headerlink" href="#graphical-display-menu" title="Permalink to this heading">¶</a></h1>
+<p>The component provides an infrastructure for setting up a hierarchical menu
+on graphical displays. This offers the user an interactive method to display
+labels, control entities like <code class="docutils literal notranslate"><span class="pre">switch</span></code>, <code class="docutils literal notranslate"><span class="pre">select</span></code>, <code class="docutils literal notranslate"><span class="pre">number</span></code>  available locally on the
+ESPHome node, without the requirement of a network connection.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/graphical_display_menu.png"><img alt="../../_images/graphical_display_menu.png" src="../../_images/graphical_display_menu.png" style="width: 60.0%;" /></a>
+</figure>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>The component implements the <a class="reference internal" href="index.html#id1"><span class="std std-ref">Display Menu</span></a> component providing
+a hierarchical menu primarily intended to be controlled either by a rotary encoder
+with a button or a five-button joystick controller.</p>
+<p>The component needs to be connected to an instance of a display supporting ESPHome’s rendering
+engine such as <a class="reference internal" href="../display/waveshare_epaper.html"><span class="doc">E-Paper displays</span></a> or <a class="reference internal" href="../display/ssd1306.html"><span class="doc">OLED displays</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">graphical_display_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_graphical_display_menu</span>
+<span class="w">  </span><span class="nt">display</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display_component</span>
+<span class="w">  </span><span class="nt">on_redraw</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">component.update</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display_component</span>
+<span class="w">  </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rotary</span>
+<span class="w">  </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>display</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): ID of the display to render to. See
+<a class="reference internal" href="#drawing-modes"><span class="std std-ref">Drawing Modes</span></a> for more details</p></li>
+<li><p><strong>font</strong> (<a class="reference internal" href="../display/fonts.html#display-fonts"><span class="std std-ref">Font</span></a>): Specifies the font to use</p></li>
+<li><p><strong>foreground_color</strong> (<em>Optional</em>, <a class="reference internal" href="../display/index.html#config-color"><span class="std std-ref">Color</span></a>): Specifies the foreground color to use.
+Defaults to COLOR_ON</p></li>
+<li><p><strong>background_color</strong> (<em>Optional</em>, <a class="reference internal" href="../display/index.html#config-color"><span class="std std-ref">Color</span></a>): Specifies the background color to use.
+Defaults to COLOR_OFF</p></li>
+</ul>
+<p>Automations:</p>
+<ul class="simple">
+<li><p><strong>on_redraw</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the menu needs to be redrawn. This can be useful if your display has slow refresh rates.
+For example E-Ink displays that are used with <cite>display_interval: never</cite></p></li>
+</ul>
+<p>Additional configuration is described in the <a class="reference internal" href="index.html#id1"><span class="std std-ref">Display Menu</span></a> component.</p>
+</section>
+<section id="drawing-modes">
+<span id="id2"></span><h2>Drawing Modes<a class="headerlink" href="#drawing-modes" title="Permalink to this heading">¶</a></h2>
+<section id="pop-up-mode">
+<h3>Pop Up Mode<a class="headerlink" href="#pop-up-mode" title="Permalink to this heading">¶</a></h3>
+<p>When a <strong>display</strong> is specified the menu will create a <a class="reference internal" href="../display/index.html#display-pages"><span class="std std-ref">page</span></a> as part of the initialisation. It will render to the entire
+of the display when invoked. This is useful when you may want to use the display for other purposes but show a menu in response to user
+interaction.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Pop Up Mode requires that your display makes use of <a class="reference internal" href="../display/index.html#display-pages"><span class="std std-ref">pages</span></a>. If you are using a drawing lambda, without pages, it will not
+behave as expected. Instead you will have to use Advanced Mode</p>
+</div>
+</section>
+<section id="advanced-drawing-mode">
+<h3>Advanced Drawing Mode<a class="headerlink" href="#advanced-drawing-mode" title="Permalink to this heading">¶</a></h3>
+<p>If you do not specify a <strong>display</strong> when setting up a menu you will be responsible for controlling drawing of the menu. This also allows you to
+render the menu to a smaller portion than the available screen size. It May be useful in situations where you want to display a menu as part of a
+larger user interface (for example rendering a sensor graph and a control menu next to it)</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">graphical_display_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_menu</span>
+<span class="w">    </span><span class="c1"># Note: No display specified</span>
+<span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">waveshare_epaper</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display_component</span>
+<span class="w">    </span><span class="nt">pages</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">advanced_drawing_mode_page</span>
+<span class="w">      </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">const auto display_width = it.get_width();</span>
+<span class="w">        </span><span class="no">const auto display_height = it.get_height();</span>
+<span class="w">        </span><span class="no">auto half_display_width = (int)(display_width / 2.0f);</span>
+
+<span class="w">        </span><span class="no">// This will render the menu to the right half of the screen leaving the left half for other drawing purposes</span>
+<span class="w">        </span><span class="no">// Arguments: it.menu(x, y, menu, width, height);</span>
+<span class="w">        </span><span class="no">it.menu(half_display_width, 0, id(my_menu), half_display_width, display_height);</span>
+</pre></div>
+</div>
+</section>
+<section id="emulating-pop-up-mode">
+<h3>Emulating Pop Up Mode<a class="headerlink" href="#emulating-pop-up-mode" title="Permalink to this heading">¶</a></h3>
+<p>If you wish to emulate Pop Up Mode the following sample will emulate the same behaviour. This can
+be useful if you’re using a display without <a class="reference internal" href="../display/index.html#display-pages"><span class="std std-ref">pages</span></a> or if you have other
+requirements that requires control over how and where the menu is rendered.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">graphical_display_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_menu</span>
+<span class="w">  </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># ... other items here ...</span>
+
+<span class="w">    </span><span class="c1"># An exit menu item (or some other mechanism) that calls display_menu.hide</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">command</span>
+<span class="w">      </span><span class="nt">on_value</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.hide</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_menu</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">..</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">const auto width = it.get_width();</span>
+<span class="w">      </span><span class="no">const auto height = it.get_height();</span>
+
+<span class="w">      </span><span class="no">if (id(my_menu).is_active()) {</span>
+<span class="w">        </span><span class="no">it.menu(0, 0, id(my_menu), width, height);</span>
+<span class="w">      </span><span class="no">} else {</span>
+<span class="w">        </span><span class="no">it.print(0, 0, id(font), &quot;Menu is hidden, other drawing would go here here&quot;);</span>
+<span class="w">      </span><span class="no">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="controlling-menu-item-rendering">
+<h2>Controlling Menu Item Rendering<a class="headerlink" href="#controlling-menu-item-rendering" title="Permalink to this heading">¶</a></h2>
+<p>By default menu items with a value will be rendered between a set of parenthesis. This can be
+controlled via the <cite>menu_item_value</cite> parameter.</p>
+<ul class="simple">
+<li><p><strong>menu_item_value</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">Templates (Lambdas)</span></a>): Specifies how to render values for
+menu items that have values (eg. Selects, numbers). Defaults to rendering the value as
+“(value here)”. Receives a MenuItemValueArguments as the argument`it`.</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">graphical_display_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">menu_item_value</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">    </span><span class="no">// Will render your menu item value as &quot;My menu label ~my value here~&quot;&quot; normally and &quot;My menu label *my value here*&quot; when in edit mode</span>
+<span class="w">    </span><span class="no">std::string label = &quot; &quot;;</span>
+<span class="w">    </span><span class="no">if (it-&gt;is_item_selected &amp;&amp; it-&gt;is_menu_editing) {</span>
+<span class="w">      </span><span class="no">label.append(&quot;*&quot;);</span>
+<span class="w">      </span><span class="no">label.append(it-&gt;item-&gt;get_value_text());</span>
+<span class="w">      </span><span class="no">label.append(&quot;*&quot;);</span>
+<span class="w">    </span><span class="no">} else {</span>
+<span class="w">      </span><span class="no">label.append(&quot;~&quot;);</span>
+<span class="w">      </span><span class="no">label.append(it-&gt;item-&gt;get_value_text());</span>
+<span class="w">      </span><span class="no">label.append(&quot;~&quot;);</span>
+<span class="w">    </span><span class="no">}</span>
+<span class="w">    </span><span class="no">return label;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure that all characters you use in the menu_item_value are available glyphs for your <a class="reference internal" href="../display/fonts.html#display-fonts"><span class="std std-ref">font</span></a></p>
+</div>
+</section>
+<section id="user-interaction-example">
+<h2>User Interaction Example<a class="headerlink" href="#user-interaction-example" title="Permalink to this heading">¶</a></h2>
+<p>The below example is a more complete example showing how you might use a rotary encoder and button to display/hide the menu and move through the available options</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">waveshare_epaper</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display_component</span>
+<span class="w">    </span><span class="nt">pages</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">graph_page</span>
+<span class="w">      </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">it.print(0, 0, id(my_font), &quot;My menu is not currently active&quot;);</span>
+
+<span class="nt">font</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_font</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+
+<span class="nt">graphical_display_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_graphical_display_menu</span>
+<span class="w">  </span><span class="nt">display</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display_component</span>
+<span class="w">  </span><span class="nt">on_redraw</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">component.update</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_display_component</span>
+<span class="w">  </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rotary</span>
+<span class="w">  </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Label</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Menu Item 1</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Label</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Menu Item 2</span>
+
+<span class="c1"># Rotary encoder to provide navigation</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rotary_encoder</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">debounce</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30ms</span>
+<span class="w">    </span><span class="nt">on_anticlockwise</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.up</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_graphical_display_menu</span>
+<span class="w">    </span><span class="nt">on_clockwise</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.down</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_graphical_display_menu</span>
+
+<span class="c1"># A debounced GPIO push button is used to &#39;click&#39;</span>
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30ms</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30ms</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">display_menu.is_active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_graphical_display_menu</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.enter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_graphical_display_menu</span>
+<span class="w">      </span><span class="nt">else</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.show</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">my_graphical_display_menu</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#id1"><span class="std std-ref">Display Menu</span></a></p></li>
+<li><p><a class="reference internal" href="../display/index.html#display-engine"><span class="std std-ref">Display</span></a></p></li>
+<li><p><a class="reference internal" href="../display/fonts.html#display-fonts"><span class="std std-ref">Font Renderer Component</span></a></p></li>
+<li><p><a class="reference internal" href="../display/index.html#display-pages"><span class="std std-ref">Display Pages</span></a></p></li>
+<li><p><a class="reference external" href="/api/graphical__display__menu_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/display_menu/graphical_display_menu.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

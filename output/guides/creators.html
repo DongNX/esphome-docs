@@ -1,0 +1,311 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Information for creating and sharing devices using ESPHome firmware.">
+<meta itemprop="name" content="Sharing ESPHome devices">
+<meta itemprop="description" content="Information for creating and sharing devices using ESPHome firmware.">
+<meta name="twitter:title" content="Sharing ESPHome devices">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Information for creating and sharing devices using ESPHome firmware.">
+<meta property="og:title" content="Sharing ESPHome devices">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Information for creating and sharing devices using ESPHome firmware.">
+
+    <title>Sharing ESPHome devices &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/guides/creators.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DIY Examples" href="diy.html" />
+    <link rel="prev" title="Contributing" href="contributing.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Sharing ESPHome devices</a><ul>
+<li><a class="reference internal" href="#example-configuration">Example configuration</a></li>
+<li><a class="reference internal" href="#relevant-documentation">Relevant Documentation</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Guides</a> ➔</li>
+      <li>Sharing ESPHome devices</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="sharing-esphome-devices">
+<h1>Sharing ESPHome devices<a class="headerlink" href="#sharing-esphome-devices" title="Permalink to this heading">¶</a></h1>
+<p>We have added configuration options to ESPHome to make it easier
+to create, configure, install and distribute devices running ESPHome.</p>
+<p>No part of a “template” configuration should have any references to secrets,
+or have passwords pre-applied. ESPHome makes it easy for the end-user to add these
+themselves after they adopt the device into their own ESPHome dashboard.</p>
+<section id="example-configuration">
+<h2>Example configuration<a class="headerlink" href="#example-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># These substitutions allow the end user to override certain values</span>
+<span class="nt">substitutions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;project-template&quot;</span>
+<span class="w">  </span><span class="nt">friendly_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Project</span><span class="nv"> </span><span class="s">Template&quot;</span>
+
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${name}&quot;</span>
+<span class="w">  </span><span class="c1"># Friendly names are used where appropriate in Home Assistant</span>
+<span class="w">  </span><span class="nt">friendly_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${friendly_name}&quot;</span>
+<span class="w">  </span><span class="c1"># Automatically add the mac address to the name</span>
+<span class="w">  </span><span class="c1"># so you can use a single firmware for all devices</span>
+<span class="w">  </span><span class="nt">name_add_mac_suffix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">  </span><span class="c1"># This will allow for (future) project identification,</span>
+<span class="w">  </span><span class="c1"># configuration and updates.</span>
+<span class="w">  </span><span class="nt">project</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.project-template</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0&quot;</span>
+
+<span class="c1"># To be able to get logs from the device via serial and api.</span>
+<span class="nt">logger</span><span class="p">:</span>
+
+<span class="c1"># API is a requirement of the dashboard import.</span>
+<span class="nt">api</span><span class="p">:</span>
+
+<span class="c1"># OTA is required for Over-the-Air updating</span>
+<span class="nt">ota</span><span class="p">:</span>
+
+<span class="c1"># This should point to the public location of this yaml file.</span>
+<span class="nt">dashboard_import</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">package_import_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github://esphome/esphome-project-template/project-template-esp32.yaml@v6</span>
+<span class="w">  </span><span class="nt">import_full_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># or true</span>
+
+<span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Set up a wifi access point</span>
+<span class="w">  </span><span class="nt">ap</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;12345678&quot;</span>
+
+<span class="c1"># In combination with the `ap` this allows the user</span>
+<span class="c1"># to provision wifi credentials to the device.</span>
+<span class="nt">captive_portal</span><span class="p">:</span>
+
+<span class="c1"># Sets up Bluetooth LE (Only on ESP32) to allow the user</span>
+<span class="c1"># to provision wifi credentials to the device.</span>
+<span class="nt">esp32_improv</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">authorizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+
+<span class="c1"># Sets up the improv via serial client for Wi-Fi provisioning</span>
+<span class="nt">improv_serial</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">next_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://example.com/project-template/manual?ip={{ip_address}}&amp;name={{device_name}}&amp;version={{esphome_version}}</span>
+</pre></div>
+</div>
+</section>
+<section id="relevant-documentation">
+<h2>Relevant Documentation<a class="headerlink" href="#relevant-documentation" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">name_add_mac_suffix</span></code> - <a class="reference internal" href="../components/esphome.html#esphome-mac-suffix"><span class="std std-ref">Adding the MAC address as a suffix to the device name</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project</span></code> - <a class="reference internal" href="../components/esphome.html#esphome-creators-project"><span class="std std-ref">Project information</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">esp32_improv</span></code> - <a class="reference internal" href="../components/esp32_improv.html"><span class="doc">Improv via BLE</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">captive_portal</span></code> - <a class="reference internal" href="../components/captive_portal.html"><span class="doc">Captive Portal</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wifi</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">ap</span></code> allows you to flash a device that will not contain any
+credentials and they must be set by the user via either the <code class="docutils literal notranslate"><span class="pre">ap</span></code> + <code class="docutils literal notranslate"><span class="pre">captive_portal</span></code> or
+the <code class="docutils literal notranslate"><span class="pre">esp32_improv</span></code> / <code class="docutils literal notranslate"><span class="pre">improv_serial</span></code> components.</p></li>
+<li><dl>
+<dt><code class="docutils literal notranslate"><span class="pre">dashboard_import</span></code></dt><dd><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a class="reference internal" href="../components/esphome.html#esphome-creators-project"><span class="std std-ref">Project information</span></a> above is required for adoption to work in the Dashboard.</p>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">package_import_url</span></code> - This should point to the public repository containing
+the configuration for the device so that the user’s ESPHome dashboard can autodetect this device and
+create a minimal YAML using <a class="reference internal" href="configuration-types.html#config-git-packages"><span class="std std-ref">Remote/git Packages</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import_full_config</span></code> - This signals if ESPHome should download the entire YAML file as the user’s config
+YAML instead of referencing the package. Set this to <code class="docutils literal notranslate"><span class="pre">true</span></code> if you are creating a tutorial to let users
+easily tweak the whole configuration or be able to uncomment follow-up tutorial steps.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">improv_serial</span></code> - <a class="reference internal" href="../components/improv_serial.html"><span class="doc">Improv via Serial</span></a></p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/guides/creators.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

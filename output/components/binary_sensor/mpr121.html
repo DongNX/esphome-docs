@@ -1,0 +1,293 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up MPR121 Capacitive Touch Sensor">
+<meta name="keywords" content="MPR121">
+<meta itemprop="name" content="MPR121 Capacitive Touch Sensor">
+<meta itemprop="description" content="Instructions for setting up MPR121 Capacitive Touch Sensor">
+<meta itemprop="image" content="https://esphome.io/_images/mpr121.jpg">
+<meta name="twitter:title" content="MPR121 Capacitive Touch Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/mpr121.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up MPR121 Capacitive Touch Sensor">
+<meta property="og:title" content="MPR121 Capacitive Touch Sensor">
+<meta property="og:image" content="https://esphome.io/_images/mpr121.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up MPR121 Capacitive Touch Sensor">
+
+    <title>MPR121 Capacitive Touch Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/binary_sensor/mpr121.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Nextion Binary Sensor Component" href="nextion.html" />
+    <link rel="prev" title="Modbus Controller Binary Sensor" href="modbus_controller.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">MPR121 Capacitive Touch Sensor</a><ul>
+<li><a class="reference internal" href="#component-hub">Component/Hub</a></li>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#binary-sensor">Binary Sensor</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Binary Sensor Component</a> ➔</li>
+      <li>MPR121 Capacitive Touch Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="mpr121-capacitive-touch-sensor">
+<h1>MPR121 Capacitive Touch Sensor<a class="headerlink" href="#mpr121-capacitive-touch-sensor" title="Permalink to this heading">¶</a></h1>
+<section id="component-hub">
+<span id="mpr121-component"></span><h2>Component/Hub<a class="headerlink" href="#component-hub" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">mpr121</span></code> sensor platform allows you to use your MPR121
+(<a class="reference external" href="https://cdn-learn.adafruit.com/downloads/pdf/adafruit-mpr121-12-key-capacitive-touch-sensor-breakout-tutorial.pdf">datasheet</a>,
+<a class="reference external" href="https://learn.adafruit.com/adafruit-mpr121-12-key-capacitive-touch-sensor-breakout-tutorial/overview">Adafruit</a>) Capacitive Touch Sensor with ESPHome. The <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C</span></a> is
+required to be set up in your configuration for this sensor to work.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/mpr121-full.jpg"><img alt="../../_images/mpr121-full.jpg" src="../../_images/mpr121-full.jpg" style="width: 50.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">MPR121 Capacitive Touch Sensor. Image by <a class="reference external" href="https://learn.adafruit.com/adafruit-mpr121-12-key-capacitive-touch-sensor-breakout-tutorial/overview">Adafruit</a>.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">mpr121</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mpr121_component</span>
+<span class="w">  </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x5A</span>
+<span class="w">  </span><span class="nt">touch_debounce</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">release_debounce</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">touch_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">  </span><span class="nt">release_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mpr121</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">touch_key0</span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Touch</span><span class="nv"> </span><span class="s">Key</span><span class="nv"> </span><span class="s">0&quot;</span>
+<span class="w">    </span><span class="nt">touch_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+<span class="w">    </span><span class="nt">release_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<p>The configuration is made up of two parts: The central component, and individual Binary sensors per channel.</p>
+<ul class="simple">
+<li><p><strong>address</strong> (<em>Optional</em>, int): The I²C address of the sensor. Defaults to <code class="docutils literal notranslate"><span class="pre">0x5A</span></code>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor.</p></li>
+<li><p><strong>touch_debounce</strong> (<em>Optional</em>, int): The minimum length before a touch is recognized. Range is from 0 to 7.
+Defaults to 0.</p></li>
+<li><p><strong>release_debounce</strong> (<em>Optional</em>, int): The minimum length that no touch is recognized before a release event is created.
+Range is from 0 to 7. Defaults to 0.</p></li>
+<li><p><strong>touch_threshold</strong> (<em>Optional</em>, int): The touch threshold for all channels. This defines the sensitivity for touch detection
+and should be between 5 and 30 (lower = more sensitive). Defaults to 12. Typically the touch threshold is a little bigger than the release threshold.</p></li>
+<li><p><strong>release_threshold</strong> (<em>Optional</em>, int): The release defines the sensitivity for touch detection and should be between 5 and 30. Defaults to 6.</p></li>
+</ul>
+</section>
+<section id="binary-sensor">
+<h2>Binary Sensor<a class="headerlink" href="#binary-sensor" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">mpr121</span></code> binary sensor allows you to use your MPR121 with ESPHome.
+First, setup a <a class="reference internal" href="#mpr121-component"><span class="std std-ref">Component/Hub</span></a> and then use this binary sensor platform to create individual
+binary sensors for each touch sensor.</p>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>name</strong> (<em>Optional</em>, string): The name for the binary sensor.</p></li>
+<li><p><strong>mpr121_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the MPR121 defined above. Useful for multiple MPR121’s on the I²C bus</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>channel</strong> (<strong>Required</strong>, int): The channel number at the MPR121 the touchkey is connected to.</p></li>
+<li><p><strong>touch_threshold</strong> (<em>Optional</em>, int): A per-channel override of the global touch_threshold value. If not specified, uses the global value.</p></li>
+<li><p><strong>release_threshold</strong> (<em>Optional</em>, int): A per-channel override of the global release_threshold value. If not specified, uses the global value.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../sensor/index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference external" href="/api/mpr121_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adafruit/Adafruit_MPR121_Library">Adafruit MPR121 Library</a> by <a class="reference external" href="https://www.adafruit.com/">Adafruit</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/binary_sensor/mpr121.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

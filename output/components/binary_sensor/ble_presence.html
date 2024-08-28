@@ -1,0 +1,346 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up BLE binary sensors for the ESP32.">
+<meta itemprop="name" content="ESP32 Bluetooth Low Energy Device">
+<meta itemprop="description" content="Instructions for setting up BLE binary sensors for the ESP32.">
+<meta itemprop="image" content="https://esphome.io/_images/bluetooth.png">
+<meta name="twitter:title" content="ESP32 Bluetooth Low Energy Device">
+<meta name="twitter:image:src" content="https://esphome.io/_images/bluetooth.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up BLE binary sensors for the ESP32.">
+<meta property="og:title" content="ESP32 Bluetooth Low Energy Device">
+<meta property="og:image" content="https://esphome.io/_images/bluetooth.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up BLE binary sensors for the ESP32.">
+
+    <title>ESP32 Bluetooth Low Energy Device &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/binary_sensor/ble_presence.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="CAP1188 Capacitive Touch Sensor" href="cap1188.html" />
+    <link rel="prev" title="Analog Threshold Binary Sensor" href="analog_threshold.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ESP32 Bluetooth Low Energy Device</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#setting-up-devices">Setting Up Devices</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Binary Sensor Component</a> ➔</li>
+      <li>ESP32 Bluetooth Low Energy Device</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="esp32-bluetooth-low-energy-device">
+<h1>ESP32 Bluetooth Low Energy Device<a class="headerlink" href="#esp32-bluetooth-low-energy-device" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">ble_presence</span></code> binary sensor platform lets you track the presence of a Bluetooth Low Energy device.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The BLE software stack on the ESP32 consumes a significant amount of RAM on the device.</p>
+<p><strong>Crashes are likely to occur</strong> if you include too many additional components in your device’s
+configuration. Memory-intensive components such as <a class="reference internal" href="../voice_assistant.html"><span class="doc">Voice Assistant</span></a> and other
+audio components are most likely to cause issues.</p>
+</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/esp32_ble-ui.png"><img alt="../../_images/esp32_ble-ui.png" src="../../_images/esp32_ble-ui.png" style="width: 80.0%;" /></a>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Presence based on MAC address</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_presence</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AC:37:43:77:5F:4C</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ESP32</span><span class="nv"> </span><span class="s">BLE</span><span class="nv"> </span><span class="s">Tracker</span><span class="nv"> </span><span class="s">Google</span><span class="nv"> </span><span class="s">Home</span><span class="nv"> </span><span class="s">Mini&quot;</span>
+<span class="w">    </span><span class="nt">min_rssi</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-80dB</span>
+<span class="w">  </span><span class="c1"># Presence based on Identity Resolving Key (IRK)</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_presence</span>
+<span class="w">    </span><span class="nt">irk</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1234567890abcdef1234567890abcdef</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ESP32</span><span class="nv"> </span><span class="s">BLE</span><span class="nv"> </span><span class="s">Tracker</span><span class="nv"> </span><span class="s">iPhone&quot;</span>
+<span class="w">  </span><span class="c1"># Presence based on BLE Service UUID</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_presence</span>
+<span class="w">    </span><span class="nt">service_uuid</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;11aa&#39;</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ESP32</span><span class="nv"> </span><span class="s">BLE</span><span class="nv"> </span><span class="s">Tracker</span><span class="nv"> </span><span class="s">Test</span><span class="nv"> </span><span class="s">Service</span><span class="nv"> </span><span class="s">16</span><span class="nv"> </span><span class="s">bit&quot;</span>
+<span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45s</span>
+<span class="w">  </span><span class="c1"># Presence based on iBeacon UUID</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_presence</span>
+<span class="w">    </span><span class="nt">ibeacon_uuid</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;68586f1e-89c2-11eb-8dcd-0242ac130003&#39;</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ESP32</span><span class="nv"> </span><span class="s">BLE</span><span class="nv"> </span><span class="s">Tracker</span><span class="nv"> </span><span class="s">Test</span><span class="nv"> </span><span class="s">Service</span><span class="nv"> </span><span class="s">iBeacon&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Service UUID can be 16 bit long, as in the example, but it can also be 32 bit long
+like <code class="docutils literal notranslate"><span class="pre">1122aaff</span></code>, or 128 bit long like <code class="docutils literal notranslate"><span class="pre">11223344-5566-7788-99aa-bbccddeeff00</span></code>.</p>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the binary sensor.</p></li>
+<li><p><strong>mac_address</strong> (<em>Optional</em>, MAC Address): The MAC address to track for this
+binary sensor. Note that exactly one of <code class="docutils literal notranslate"><span class="pre">mac_address</span></code>, <code class="docutils literal notranslate"><span class="pre">irk</span></code>, <code class="docutils literal notranslate"><span class="pre">service_uuid</span></code> or <code class="docutils literal notranslate"><span class="pre">ibeacon_uuid</span></code>
+must be present.</p></li>
+<li><p><strong>irk</strong> (<em>Optional</em>, 16 byte hex string): The Identity Resolving Key (IRK) to track for this
+binary sensor. Note that exactly one of <code class="docutils literal notranslate"><span class="pre">mac_address</span></code>, <code class="docutils literal notranslate"><span class="pre">irk</span></code>, <code class="docutils literal notranslate"><span class="pre">service_uuid</span></code> or <code class="docutils literal notranslate"><span class="pre">ibeacon_uuid</span></code>
+must be present.</p></li>
+<li><p><strong>service_uuid</strong> (<em>Optional</em>, string): 16 bit, 32 bit, or 128 bit BLE Service UUID
+which can be tracked if the device randomizes the MAC address. Note that exactly one of
+<code class="docutils literal notranslate"><span class="pre">mac_address</span></code>, <code class="docutils literal notranslate"><span class="pre">irk</span></code>, <code class="docutils literal notranslate"><span class="pre">service_uuid</span></code> or <code class="docutils literal notranslate"><span class="pre">ibeacon_uuid</span></code> must be present.</p></li>
+<li><p><strong>ibeacon_uuid</strong> (<em>Optional</em>, string): The <a class="reference external" href="https://en.wikipedia.org/wiki/Universally_unique_identifier">universally unique identifier</a>
+to identify the beacon that needs to be tracked. Note that exactly one of <code class="docutils literal notranslate"><span class="pre">mac_address</span></code>,
+<code class="docutils literal notranslate"><span class="pre">irk</span></code>, <code class="docutils literal notranslate"><span class="pre">service_uuid</span></code> or <code class="docutils literal notranslate"><span class="pre">ibeacon_uuid</span></code> must be present.</p></li>
+<li><p><strong>ibeacon_major</strong> (<em>Optional</em>, int): The iBeacon major identifier of the beacon that needs
+to be tracked. Usually used to group beacons, for example for grouping all beacons in the
+same building.</p></li>
+<li><p><strong>ibeacon_minor</strong> (<em>Optional</em>, int): The iBeacon minor identifier of the beacon that needs
+to be tracked. Usually used to identify beacons within an iBeacon group.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify
+the ID used for code generation.</p></li>
+<li><p><strong>min_rssi</strong> (<em>Optional</em>, int): at which minimum RSSI level would the component report the device be present.</p></li>
+<li><p><strong>timeout</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The delay after last detecting the device before publishing not present state.
+The default is 5 minutes.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="setting-up-devices">
+<span id="esp32-ble-tracker-setting-up-devices"></span><h2>Setting Up Devices<a class="headerlink" href="#setting-up-devices" title="Permalink to this heading">¶</a></h2>
+<p>To set up binary sensors for specific BLE beacons you first have to know which MAC address
+to track. Most devices show this screen in some setting menu. If you don’t know the MAC address,
+however, you can use the <code class="docutils literal notranslate"><span class="pre">esp32_ble_tracker</span></code> hub without any binary sensors attached and read through
+the logs to see discovered Bluetooth Low Energy devices.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry for finding MAC addresses</span>
+<span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Using the configuration above, first you should see a <code class="docutils literal notranslate"><span class="pre">Starting</span> <span class="pre">scan...</span></code> debug message at
+boot-up. Then, when a BLE device is discovered, you should see messages like
+<code class="docutils literal notranslate"><span class="pre">Found</span> <span class="pre">device</span> <span class="pre">AC:37:43:77:5F:4C</span></code> together with some information about their
+address type and advertised name. If you don’t see these messages, your device is unfortunately
+currently not supported.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry for finding</span>
+<span class="c1"># Service UUIDs and iBeacon UUIDs and identifiers</span>
+<span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+
+<span class="nt">logger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VERY_VERBOSE</span>
+</pre></div>
+</div>
+<p>You can increase the <a class="reference internal" href="../logger.html#logger-log-levels"><span class="std std-ref">log level</span></a> to <code class="docutils literal notranslate"><span class="pre">VERY_VERBOSE</span></code> to review detailed
+data for each discovered BLE device. This will make ESPHome print Service UUIDs, iBeacon UUIDs,
+iBeacon major and minor identifiers, BLE manufacturer data, RSSI and other data useful for
+debugging purposes. Note that this is useful only during set-up and a less verbose log level
+should be specified afterwards.</p>
+<p>Please note that devices that show a <code class="docutils literal notranslate"><span class="pre">RANDOM</span></code> address type in the logs probably use a privacy
+feature called Resolvable Private Addresses to avoid BLE tracking. Since their MAC-address periodically
+changes, they can’t be tracked by the MAC address. However, if you know the devices “Identity Resolving
+Key” (IRK), you can check if the generated private MAC address belongs to the device with the IRK.</p>
+<p>There is no support to obtain the key with ESPHome. For now you will have to use one of the options
+described in the ESPresense project: <a class="reference external" href="https://espresense.com/beacons">https://espresense.com/beacons</a></p>
+<p>Alternatively you can:</p>
+<ul class="simple">
+<li><p>Create a BLE beacon, set a unique 16 bit, 32 bit or 128 bit Service UUID and track your device
+based on that. Make sure you don’t pick a <a class="reference external" href="https://www.bluetooth.com/specifications/gatt/services/">GATT Service UUID</a>, otherwise generic services
+might give you incorrect tracking results.</p></li>
+<li><p>Create an iBeacon and track it based on its iBeacon UUID. You can also optionally specify
+major and minor numbers to match if additional filtering is required. ESPHome offers this
+functionality via the <a class="reference internal" href="../esp32_ble_beacon.html"><span class="doc">ESP32 Bluetooth Low Energy Beacon</span></a>
+component. Several iOS and Android applications, including the open source Home Assistant
+mobile application also provide means to create iBeacons.</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../esp32_ble_tracker.html"><span class="doc">ESP32 Bluetooth Low Energy Tracker Hub</span></a></p></li>
+<li><p><a class="reference internal" href="../esp32_ble_beacon.html"><span class="doc">ESP32 Bluetooth Low Energy Beacon</span></a></p></li>
+<li><p><a class="reference internal" href="index.html"><span class="doc">Binary Sensor Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/ble__presence_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/nkolban/ESP32_BLE_Arduino">ESP32 BLE for Arduino</a> by <a class="reference external" href="https://github.com/nkolban">Neil Kolban</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/binary_sensor/ble_presence.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

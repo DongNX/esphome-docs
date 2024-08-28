@@ -1,0 +1,346 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up an Uponor Smatrix Base Pulse underfloor heating control system in ESPHome.">
+<meta name="keywords" content="Uponor Smatrix, HCS, Thermostat">
+<meta itemprop="name" content="Uponor Smatrix Base Pulse Underfloor Heating">
+<meta itemprop="description" content="Instructions for setting up an Uponor Smatrix Base Pulse underfloor heating control system in ESPHome.">
+<meta name="twitter:title" content="Uponor Smatrix Base Pulse Underfloor Heating">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up an Uponor Smatrix Base Pulse underfloor heating control system in ESPHome.">
+<meta property="og:title" content="Uponor Smatrix Base Pulse Underfloor Heating">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up an Uponor Smatrix Base Pulse underfloor heating control system in ESPHome.">
+
+    <title>Uponor Smatrix Base Pulse Underfloor Heating &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/uponor_smatrix.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="VBus Component" href="vbus.html" />
+    <link rel="prev" title="UART Bus" href="uart.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Uponor Smatrix Base Pulse Underfloor Heating</a><ul>
+<li><a class="reference internal" href="#connecting-to-the-bus">Connecting to the bus</a></li>
+<li><a class="reference internal" href="#getting-started">Getting started</a></li>
+<li><a class="reference internal" href="#controller-hub-component">Controller/Hub component</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#climate-component">Climate component</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sensor-component">Sensor component</a><ul>
+<li><a class="reference internal" href="#id2">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>Uponor Smatrix Base Pulse Underfloor Heating</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="uponor-smatrix-base-pulse-underfloor-heating">
+<h1>Uponor Smatrix Base Pulse Underfloor Heating<a class="headerlink" href="#uponor-smatrix-base-pulse-underfloor-heating" title="Permalink to this heading">¶</a></h1>
+<p>The Uponor Smatrix component allows you to integrate an Uponor Smatrix Base Pulse underfloor heating control system in ESPHome without the need for an Smatrix Pulse Com R-208 communication module.
+It directly communicates with the controller and thermostats via the RS485 thermostat bus.</p>
+<section id="connecting-to-the-bus">
+<h2>Connecting to the bus<a class="headerlink" href="#connecting-to-the-bus" title="Permalink to this heading">¶</a></h2>
+<p>This component is able to communicate directly with the RS485 thermostat bus. For that, you will need to connect an RS485 to TTL converter to a UART bus of your ESPHome device.</p>
+<p>The RS485 side of the converter can either be connected to one of the A/B terminals on the controller or on one of the thermostats.
+The +/- terminals provide 5 volts and can be used to power your ESPHome device.</p>
+<p>The <a class="reference internal" href="uart.html#uart"><span class="std std-ref">UART Component</span></a> must be configured with a baud rate of 19200, 8 data bits, no parity, 1 stop bit.</p>
+</section>
+<section id="getting-started">
+<span id="uponor-gettingstarted"></span><h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h2>
+<p>The controller and the thermostats have unique addresses used for communication that are not displayed anywhere but can only be found when scanning the bus.
+Start with a basic configuration that just contains the UART and Uponor hub components. Make sure that the UART pins are configured according to your wiring and the baud rate is set to 19200.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">uponor_smatrix</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>When you upload this configuration to your ESPHome device and connect it to the Uponor Smatrix bus, it will print a list of detected addresses to the log output.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[00:00:00][C][uponor_smatrix:019]: Uponor Smatrix
+[00:00:00][C][uponor_smatrix:020]:   System address: 0x110B
+[00:00:00][C][uponor_smatrix:031]:   Detected unknown device addresses:
+[00:00:00][C][uponor_smatrix:033]:     0xDE62
+[00:00:00][C][uponor_smatrix:033]:     0xDDFF
+[00:00:00][C][uponor_smatrix:033]:     0xDE72
+[00:00:00][C][uponor_smatrix:033]:     0xDE4A
+[00:00:00][C][uponor_smatrix:033]:     0xDE13
+</pre></div>
+</div>
+<p>With that you can then add <code class="docutils literal notranslate"><span class="pre">climate</span></code> or <code class="docutils literal notranslate"><span class="pre">sensor</span></code> components for the detected devices. Optionally, you can also statically add the detected system address to your <code class="docutils literal notranslate"><span class="pre">uponor_smatrix</span></code> configuration.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">uponor_smatrix</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x110B</span>
+
+<span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uponor_smatrix</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xDE13</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Thermostat Living Room</span>
+</pre></div>
+</div>
+</section>
+<section id="controller-hub-component">
+<h2>Controller/Hub component<a class="headerlink" href="#controller-hub-component" title="Permalink to this heading">¶</a></h2>
+<p>The main <code class="docutils literal notranslate"><span class="pre">uponor_smatrix</span></code> component is responsible for the communication with the controller and thermostats and distributes data to the climate and sensor components described below.</p>
+<p>It is also able to synchronize the date and time of the thermostats with a time source in case your system has thermostats that can be programmed with a time schedule.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">uponor_smatrix</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x110B</span>
+<span class="w">  </span><span class="nt">uart_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_uart</span>
+<span class="w">  </span><span class="nt">time_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_time</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>address</strong> (<em>Optional</em>, int): The 16 bit system/controller address. This will be automatically detected from the bus if not specified. See <a class="reference internal" href="#uponor-gettingstarted"><span class="std std-ref">Getting started</span></a> on how to find the address.</p></li>
+<li><p><strong>uart_id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the <a class="reference internal" href="uart.html#uart"><span class="std std-ref">UART Component</span></a> if you want to use multiple UART buses.</p></li>
+<li><p><strong>time_id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Specify the ID of the <a class="reference internal" href="time/index.html"><span class="doc">Time Component</span></a> to use as the time source if you want ESPHome to automatically synchronize the date and time of the thermostats.</p></li>
+<li><p><strong>time_device_address</strong> (<em>Optional</em>, int): The 16 bit device address of the thermostat that keeps the system time. This will be automatically detected from the bus if not specified.
+It needs to be the device address of the first thermostat that was paired to the controller, and the one where you can manually change the date and time via the buttons on the thermostat.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The system address and the address of the thermostat keeping the time will be automatically detected from the bus if not specified in the configuration!
+You can safely leave out those parameters in almost all cases.</p>
+</div>
+</section>
+</section>
+<section id="climate-component">
+<h2>Climate component<a class="headerlink" href="#climate-component" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uponor_smatrix</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xDE13</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Thermostat Living Room</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>address</strong> (<em>Required</em>, int): The 16 bit device address of the thermostat. See <a class="reference internal" href="#uponor-gettingstarted"><span class="std std-ref">Getting started</span></a> on how to find the address.</p></li>
+<li><p><strong>uponor_smatrix_id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the <code class="docutils literal notranslate"><span class="pre">uponor_smatrix</span></code> hub component if you want to use multiple hub components on one ESPHome device.</p></li>
+<li><p>All options from <a class="reference internal" href="climate/index.html#config-climate"><span class="std std-ref">Climate</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="sensor-component">
+<h2>Sensor component<a class="headerlink" href="#sensor-component" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uponor_smatrix</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xDE13</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Humidity Living Room</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Temperature Living Room</span>
+<span class="w">    </span><span class="nt">external_temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Floor Temperature Living Room</span>
+</pre></div>
+</div>
+<section id="id2">
+<h3>Configuration variables:<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>address</strong> (<em>Required</em>, int): The 16 bit device address of the thermostat. See <a class="reference internal" href="#uponor-gettingstarted"><span class="std std-ref">Getting started</span></a> on how to find the address.</p></li>
+<li><p><strong>uponor_smatrix_id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the <code class="docutils literal notranslate"><span class="pre">uponor_smatrix</span></code> hub component if you want to use multiple hub components on one ESPHome device.</p></li>
+<li><p><strong>humidity</strong> (<em>Optional</em>): A sensor reading the current humidity the thermostat reports.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>temperature</strong> (<em>Optional</em>): A sensor reading the current temperature the thermostat reports.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>external_temperature</strong> (<em>Optional</em>): A sensor reading the current external temperature the thermostat reports.
+This comes from an optionally attached external temperature sensor that can measure the floor or outdoor temperature.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/kroimon/uponor-smatrix-analysis">Protocol Analysis</a></p></li>
+<li><p><a class="reference external" href="/api/uponor__smatrix_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/uponor_smatrix.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

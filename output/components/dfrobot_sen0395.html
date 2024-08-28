@@ -1,0 +1,472 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up DFRobot mmWave Radar">
+<meta name="keywords" content="mmWave">
+<meta itemprop="name" content="DFRobot mmWave Radar">
+<meta itemprop="description" content="Instructions for setting up DFRobot mmWave Radar">
+<meta itemprop="image" content="https://esphome.io/_images/dfrobot_sen0395.jpg">
+<meta name="twitter:title" content="DFRobot mmWave Radar">
+<meta name="twitter:image:src" content="https://esphome.io/_images/dfrobot_sen0395.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up DFRobot mmWave Radar">
+<meta property="og:title" content="DFRobot mmWave Radar">
+<meta property="og:image" content="https://esphome.io/_images/dfrobot_sen0395.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up DFRobot mmWave Radar">
+
+    <title>DFRobot mmWave Radar &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/dfrobot_sen0395.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="EMC2101 Fan Controller and Temperature sensor" href="emc2101.html" />
+    <link rel="prev" title="DF-Player mini" href="dfplayer.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">DFRobot mmWave Radar</a><ul>
+<li><a class="reference internal" href="#hub-component">Hub Component</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#binary-sensor">Binary Sensor</a><ul>
+<li><a class="reference internal" href="#via-gpio">Via GPIO</a></li>
+<li><a class="reference internal" href="#via-uart">Via UART</a></li>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#switch">Switch</a><ul>
+<li><a class="reference internal" href="#id2">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#actions">Actions</a><ul>
+<li><a class="reference internal" href="#dfrobot-sen0395-settings-action"><code class="docutils literal notranslate"><span class="pre">dfrobot_sen0395.settings</span></code> Action</a><ul>
+<li><a class="reference internal" href="#id3">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dfrobot-sen0395-reset-action"><code class="docutils literal notranslate"><span class="pre">dfrobot_sen0395.reset</span></code> Action</a><ul>
+<li><a class="reference internal" href="#id4">Configuration variables:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>DFRobot mmWave Radar</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="dfrobot-mmwave-radar">
+<h1>DFRobot mmWave Radar<a class="headerlink" href="#dfrobot-mmwave-radar" title="Permalink to this heading">¶</a></h1>
+<p>The <a class="reference external" href="https://wiki.dfrobot.com/mmWave_Radar_Human_Presence_Detection_SKU_SEN0395">DFRobot mmWave Radar</a>
+(aka <code class="docutils literal notranslate"><span class="pre">SEN0395</span></code>) is a 24GHz radar which can be used for human presence detection. It can detect tiny movements
+and compared to a PIR sensor <strong>it can detect presence continuously</strong>. This can be useful, for example, to turn
+the lights on when you enter a room, keep them on as long as you are there (without waving your hands at the
+sensor) and turn them off almost immediately after you leave the room.</p>
+<p>It is possible to use this sensor with only a single GPIO pin; however, if you wish to change its settings,
+a <a class="reference internal" href="uart.html"><span class="doc">UART Bus</span></a> component (and its requisite GPIO pins) is required in your device’s configuration.</p>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="../_images/dfrobot_sen0395-full.jpg"><img alt="../_images/dfrobot_sen0395-full.jpg" src="../_images/dfrobot_sen0395-full.jpg" style="width: 75%;" /></a>
+<figcaption>
+<p><span class="caption-text">DFRobot mmWave Radar / presence detection sensor</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">dfrobot_sen0395</span><span class="p">:</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Information coming from uart bus</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dfrobot_sen0395</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Mmwave Detected via UART</span>
+
+<span class="w">  </span><span class="c1"># Information coming from dedicated gpio (IO2)</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Mmwave Detected via GPIO</span>
+<span class="w">    </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">motion</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INPUT_PULLDOWN</span>
+
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Switch to turn on/off detection</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dfrobot_sen0395</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Mmwave Active</span>
+</pre></div>
+</div>
+<section id="hub-component">
+<span id="dfrobot-sen0395-component"></span><h2>Hub Component<a class="headerlink" href="#hub-component" title="Permalink to this heading">¶</a></h2>
+<p>You only need to have the hub component (<code class="docutils literal notranslate"><span class="pre">dfrobot_sen0395:</span></code> entry) defined if you want to change the sensor’s
+settings or read its state via the UART. A <a class="reference internal" href="binary_sensor/gpio.html"><span class="doc">GPIO Binary Sensor</span></a> alone is sufficient if you only want
+to determine presence/occupancy. When you define <code class="docutils literal notranslate"><span class="pre">dfrobot_sen0395:</span></code> you’ll need to have a <code class="docutils literal notranslate"><span class="pre">uart:</span></code> entry in
+your configuration with both the TX and RX pins defined and the baud rate must be set to <code class="docutils literal notranslate"><span class="pre">115200</span></code>.</p>
+<p>Multiple instances of this component may be defined if multiple <a class="reference internal" href="uart.html"><span class="doc">UART Bus</span></a> components are available:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">dfrobot_sen0395</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mmWave_1</span>
+<span class="w">    </span><span class="nt">uart_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uart_1</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mmWave_2</span>
+<span class="w">    </span><span class="nt">uart_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uart_2</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation. Necessary if you want
+to define multiple instances of this component.</p></li>
+<li><p><strong>uart_id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the <a class="reference internal" href="uart.html"><span class="doc">UART Bus</span></a> if you want
+to use multiple UART buses.</p></li>
+</ul>
+</section>
+</section>
+<section id="binary-sensor">
+<span id="dfrobot-sen0395-binary-sensor"></span><h2>Binary Sensor<a class="headerlink" href="#binary-sensor" title="Permalink to this heading">¶</a></h2>
+<section id="via-gpio">
+<span id="dfrobot-sen0395-via-gpio"></span><h3>Via GPIO<a class="headerlink" href="#via-gpio" title="Permalink to this heading">¶</a></h3>
+<p>To determine presence, you can simply use a <a class="reference internal" href="binary_sensor/gpio.html"><span class="doc">GPIO Binary Sensor</span></a> and connect a single GPIO pin
+from your processor to the IO2 pin of the mmWave radar. Using a dedicated GPIO pin may offer an advantage since
+it may wake the processor from sleep.</p>
+<p>If you don’t want/need to change the radar’s settings and only need to determine presence/occupancy, the
+<code class="docutils literal notranslate"><span class="pre">dfrobot_sen0395:</span></code> and <code class="docutils literal notranslate"><span class="pre">uart:</span></code> components are not necessary.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Presence Detected via GPIO</span>
+<span class="w">    </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">motion</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INPUT_PULLDOWN</span>
+</pre></div>
+</div>
+</section>
+<section id="via-uart">
+<span id="dfrobot-sen0395-via-uart"></span><h3>Via UART<a class="headerlink" href="#via-uart" title="Permalink to this heading">¶</a></h3>
+<p>Connecting the sensor via the serial connection (UART) allows both changing its settings as well as reading its state.
+Note, however, that the UART peripheral cannot wake the processor; if you plan on sleeping the processor, you’ll likely
+still need to use the <a class="reference internal" href="#dfrobot-sen0395-via-gpio"><span class="std std-ref">GPIO pin</span></a> approach described above (in addition to the UART).</p>
+<p>First, setup a <a class="reference internal" href="uart.html"><span class="doc">UART Bus</span></a> and <a class="reference internal" href="#dfrobot-sen0395-component"><span class="std std-ref">Hub Component</span></a> and then use its binary sensor platform
+to create individual binary sensors for each presence sensor.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dfrobot_sen0395</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Presence Detected via UART</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>dfrobot_sen0395_id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the DFRobot mmWave component defined above.
+Required when multiple instances of the <code class="docutils literal notranslate"><span class="pre">dfrobot_sen0395</span></code> component are defined.</p></li>
+<li><p>All other options from <a class="reference internal" href="binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="switch">
+<span id="dfrobot-sen0395-switch"></span><h2>Switch<a class="headerlink" href="#switch" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference internal" href="switch/index.html#config-switch"><span class="std std-ref">Switch components</span></a> are used to enable/disable various module features/functions.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dfrobot_sen0395</span>
+<span class="w">    </span><span class="nt">dfrobot_sen0395_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mmWave</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor_active</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mmWave Active</span>
+</pre></div>
+</div>
+<section id="id2">
+<h3>Configuration variables:<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>dfrobot_sen0395_id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the DFRobot mmWave component defined above.
+Required when multiple instances of the <code class="docutils literal notranslate"><span class="pre">dfrobot_sen0395</span></code> component are defined.</p></li>
+<li><p><strong>type</strong> (<strong>Required</strong>): One of:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">presence_via_uart</span></code>: when enabled, the module sends presence information via both the serial connection and
+GPIO pin; when disabled, presense is indicated only via the GPIO pin.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sensor_active</span></code>: when enabled, presence detection is reported; when disabled, presense will not be reported.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">start_after_boot</span></code>: when enabled, the sensor will start immediately after power-on; when disabled, the sensor
+must be manually started.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">turn_on_led</span></code>: when enabled, the mmWave sensor’s LED blinks during operation; when disabled, the LED will always
+remain off.</p></li>
+</ul>
+</li>
+<li><p>All other options from <a class="reference internal" href="switch/index.html#config-switch"><span class="std std-ref">Switch</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="actions">
+<span id="dfrobot-sen0395-actions"></span><h2>Actions<a class="headerlink" href="#actions" title="Permalink to this heading">¶</a></h2>
+<section id="dfrobot-sen0395-settings-action">
+<span id="dfrobot-sen0395-action-settings"></span><h3><code class="docutils literal notranslate"><span class="pre">dfrobot_sen0395.settings</span></code> Action<a class="headerlink" href="#dfrobot-sen0395-settings-action" title="Permalink to this heading">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Each change to the configuration of the mmWave radar triggers a write to its internal flash/EEPROM.
+Write cycles to this memory are limited, so avoid the practice of changing settings frequently.
+Determine the appropriate settings for your device and avoid changing them unless absolutely necessary.</p>
+</div>
+<p>The DFRobot mmWave Radar has several settings which can be changed. These settings are saved in non-volatile memory
+and do not need to be set on each boot.</p>
+<p>The settings action allows changing of any number of the mmWave radar’s internal parameters/settings. With this
+action, any unspecified parameters will remain unchanged. All settings are tempatable.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">dfrobot_sen0395.settings</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">factory_reset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">detection_segments</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># Define between one and four segments</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0cm</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3m</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">5.1m</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6.6m</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">output_latency</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">delay_after_detect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="w">        </span><span class="nt">delay_after_disappear</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="w">      </span><span class="nt">sensitivity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
+</pre></div>
+</div>
+<section id="id3">
+<h4>Configuration variables:<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h4>
+<ul>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the mmWave sensor on which settings should be
+changed. If only one radar is defined, this is optional.</p></li>
+<li><p><strong>factory_reset</strong> (<em>Optional</em>, boolean): If set to true, a factory reset of the sensor will be performed (before
+changing other options if present). Ignored if not set or set to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>detection_segments</strong> (<em>Optional</em>, list): A list of detection segments. A segment specifies from where to where
+detection should trigger. One to four segments and ranges from 0cm to 9m may be specified. Distances should be
+defined in steps of 15cm. Note that the specified ranges are rounded internally. Segments can be defined in a
+one or two dimensional list. Pairs of values must be defined (from distance to distance). The default is one
+range from 0cm to 3m.</p>
+<p><strong>Examples</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">detection_segments</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0cm</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3m</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">5.1m</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6.6m</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>In the above example, if a person was present in the range between 0cm and 3m (distance from the sensor) or
+between 5.1m and 6.6m the sensor would trigger (meaning a person was detected). If a person is present
+between 3.1m and 5m or 6.7m and 9m it would not trigger.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">detection_segments</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">return 0;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">return return id(mwave_max_distance).state;</span>
+</pre></div>
+</div>
+<p>Section values can be defined using lambdas, so you can set the distances depending on other entities. Distances
+are defined as a float in meters (10cm = 0.1). If you return a negative value (-1) the segment will not be set.</p>
+</li>
+<li><p><strong>output_latency</strong> (<em>Optional</em>, dictionary):</p>
+<ul class="simple">
+<li><p><strong>delay_after_detect</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Time to wait before signaling that a person was
+detected. Specify in steps of 25 ms. Factory default is 2.5s. Value is tempatable: Return seconds value
+(100 ms = 0.1). Returning -1 keeps the value unchanged.</p></li>
+<li><p><strong>delay_after_disappear</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Time to wait before signaling that a person
+is no longer detected. Specify in steps of 25 ms. Factory default is 10 s. Value is tempatable: Return seconds
+value (100 ms = 0.1). Returning -1 keeps the value unchanged.</p></li>
+</ul>
+</li>
+<li><p><strong>sensitivity</strong> (<em>Optional</em>, int): Set the sensitivity of the sensor. Ranges from 0 to 9. Value is tempatable:
+Return 0-9. Returning -1 keeps the value unchanged.</p></li>
+</ul>
+</section>
+</section>
+<section id="dfrobot-sen0395-reset-action">
+<h3><code class="docutils literal notranslate"><span class="pre">dfrobot_sen0395.reset</span></code> Action<a class="headerlink" href="#dfrobot-sen0395-reset-action" title="Permalink to this heading">¶</a></h3>
+<p>Restart the sensor.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">dfrobot_sen0395.reset</span><span class="p">:</span>
+</pre></div>
+</div>
+<section id="id4">
+<h4>Configuration variables:<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the mmWave component. Useful when multiple instances of this component are defined.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="uart.html#uart"><span class="std std-ref">UART bus</span></a></p></li>
+<li><p><a class="reference internal" href="binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a></p></li>
+<li><p><a class="reference external" href="https://wiki.dfrobot.com/mmWave_Radar_Human_Presence_Detection_SKU_SEN0395">DFRobot mmWave Radar Wiki page</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/dfrobot_sen0395.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

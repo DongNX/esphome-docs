@@ -1,0 +1,543 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up the core ESPHome configuration.">
+<meta itemprop="name" content="ESPHome Core Configuration">
+<meta itemprop="description" content="Instructions for setting up the core ESPHome configuration.">
+<meta itemprop="image" content="https://esphome.io/_images/cloud-circle.png">
+<meta name="twitter:title" content="ESPHome Core Configuration">
+<meta name="twitter:image:src" content="https://esphome.io/_images/cloud-circle.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up the core ESPHome configuration.">
+<meta property="og:title" content="ESPHome Core Configuration">
+<meta property="og:image" content="https://esphome.io/_images/cloud-circle.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up the core ESPHome configuration.">
+
+    <title>ESPHome Core Configuration &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/esphome.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ethernet Component" href="ethernet.html" />
+    <link rel="prev" title="ESP8266 Platform" href="esp8266.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ESPHome Core Configuration</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#on-boot"><code class="docutils literal notranslate"><span class="pre">on_boot</span></code></a></li>
+<li><a class="reference internal" href="#on-shutdown"><code class="docutils literal notranslate"><span class="pre">on_shutdown</span></code></a></li>
+<li><a class="reference internal" href="#on-loop"><code class="docutils literal notranslate"><span class="pre">on_loop</span></code></a></li>
+<li><a class="reference internal" href="#platformio-options"><code class="docutils literal notranslate"><span class="pre">platformio_options</span></code></a></li>
+<li><a class="reference internal" href="#includes"><code class="docutils literal notranslate"><span class="pre">includes</span></code></a></li>
+<li><a class="reference internal" href="#libraries"><code class="docutils literal notranslate"><span class="pre">libraries</span></code></a></li>
+<li><a class="reference internal" href="#adjusting-flash-writes">Adjusting flash writes</a></li>
+<li><a class="reference internal" href="#changing-esphome-node-name">Changing ESPHome Node Name</a></li>
+<li><a class="reference internal" href="#adding-the-mac-address-as-a-suffix-to-the-device-name">Adding the MAC address as a suffix to the device name</a></li>
+<li><a class="reference internal" href="#project-information">Project information</a></li>
+<li><a class="reference internal" href="#minimum-esphome-version">Minimum ESPHome version</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>ESPHome Core Configuration</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="esphome-core-configuration">
+<h1>ESPHome Core Configuration<a class="headerlink" href="#esphome-core-configuration" title="Permalink to this heading">¶</a></h1>
+<p>Here you specify some core information that ESPHome needs to create
+firmwares. Most importantly, this is the section of the configuration
+where you specify the <strong>name</strong> of the node.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">livingroom</span>
+<span class="w">    </span><span class="nt">comment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Living room ESP32 controller</span>
+<span class="w">    </span><span class="nt">area</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Living Room</span>
+
+<span class="nt">esp32</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodemcu-32s</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<span id="esphome-configuration-variables"></span><h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): This is the name of the node. It
+should always be unique in your ESPHome network. May only contain lowercase
+characters, digits and hyphens, and can be at most 24 characters long by default, or 31
+characters long if <code class="docutils literal notranslate"><span class="pre">name_add_mac_suffix</span></code> is <code class="docutils literal notranslate"><span class="pre">false</span></code>.
+See <a class="reference internal" href="#esphome-changing-node-name"><span class="std std-ref">Changing ESPHome Node Name</span></a>.</p></li>
+<li><p><strong>friendly_name</strong> (<em>Optional</em>, string): This is the name sent to the frontend. It is used
+by Home Assistant as the integration name, device name, and is automatically prefixed to entities
+where necessary.</p></li>
+<li><p><strong>area</strong> (<em>Optional</em>, string): This is the area sent to the frontend. It is used
+by Home Assistant as the area / zone which the node belongs to.</p></li>
+</ul>
+<p>Advanced options:</p>
+<ul class="simple">
+<li><p><strong>build_path</strong> (<em>Optional</em>, string): Customize where ESPHome will store the build files
+for your node. By default, ESPHome puts the PlatformIO project it uses to build the
+firmware in the <code class="docutils literal notranslate"><span class="pre">.esphome/build/&lt;NODE&gt;</span></code> (or into path from <code class="docutils literal notranslate"><span class="pre">ESPHOME_BUILD_PATH</span></code> environment variable if specified) directory,
+but you can customize this behavior using this option. Official docker image automatically use <cite>/build</cite> folder
+as default one in case it is mounted to it.</p></li>
+<li><p><strong>platformio_options</strong> (<em>Optional</em>, mapping): Additional options to pass over to PlatformIO in the
+platformio.ini file. See <a class="reference internal" href="#esphome-platformio-options"><span class="std std-ref">platformio_options</span></a>.</p></li>
+<li><p><strong>includes</strong> (<em>Optional</em>, list of files): A list of C/C++ files to include in the main (auto-generated) sketch file
+for custom components. The paths in this list are relative to the directory where the YAML configuration file
+is in. See <a class="reference internal" href="#esphome-includes"><span class="std std-ref">includes</span></a>.</p></li>
+<li><p><strong>libraries</strong> (<em>Optional</em>, list of libraries): A list of libraries to include in the project. See
+<a class="reference internal" href="#esphome-libraries"><span class="std std-ref">libraries</span></a>.</p></li>
+<li><p><strong>comment</strong> (<em>Optional</em>, string): Additional text information about this node. Only for display in UI.</p></li>
+<li><p><strong>name_add_mac_suffix</strong> (<em>Optional</em>, boolean): Appends the last 3 bytes of the mac address of the device to
+the name in the form <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;-aabbcc</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.
+See <a class="reference internal" href="#esphome-mac-suffix"><span class="std std-ref">Adding the MAC address as a suffix to the device name</span></a>.</p></li>
+<li><p><strong>project</strong> (<em>Optional</em>): ESPHome Creator’s Project information. See <a class="reference internal" href="#esphome-creators-project"><span class="std std-ref">Project information</span></a>.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): Name of the project</p></li>
+<li><p><strong>version</strong> (<strong>Required</strong>, string): Version of the project</p></li>
+<li><p><strong>on_update</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when the device firmware is updated.
+This compares the above <code class="docutils literal notranslate"><span class="pre">version</span></code> field with the <code class="docutils literal notranslate"><span class="pre">version</span></code> that was in the previous firmware
+as long as the <code class="docutils literal notranslate"><span class="pre">name</span></code> matches.
+The <code class="docutils literal notranslate"><span class="pre">version</span></code> is stored in flash memory when the firmware is first run for future comparisons.</p></li>
+</ul>
+</li>
+<li><p><strong>min_version</strong> (<em>Optional</em>, string): The minimum ESPHome version required to compile this configuration.
+See <a class="reference internal" href="#esphome-min-version"><span class="std std-ref">Minimum ESPHome version</span></a>.</p></li>
+<li><p><strong>compile_process_limit</strong> (<em>Optional</em>, int): The maximum number of simultaneous compile processes to run.
+Defaults to the number of cores of the CPU which is also the maximum you can set.</p></li>
+</ul>
+<p>Old-style platform options, which have been moved to the platform-specific <a class="reference internal" href="esp32.html"><span class="doc">esp32</span></a> and
+<a class="reference internal" href="esp8266.html"><span class="doc">esp8266</span></a> sections but are still accepted here for compatibility reasons (usage not
+recommended for new projects):</p>
+<ul class="simple">
+<li><p><strong>platform</strong> (<strong>Required</strong>, string): The platform used, either <code class="docutils literal notranslate"><span class="pre">esp8266</span></code> or <code class="docutils literal notranslate"><span class="pre">esp32</span></code>.</p></li>
+<li><p><strong>board</strong> (<strong>Required</strong>, string): The board used, see
+<a class="reference internal" href="esp32.html"><span class="doc">esp32</span></a> and <a class="reference internal" href="esp8266.html"><span class="doc">esp8266</span></a> for more information.</p></li>
+<li><p><strong>arduino_version</strong> (<em>Optional</em>, string): The version of the Arduino framework to compile the project against.</p></li>
+<li><p><strong>esp8266_restore_from_flash</strong> (<em>Optional</em>, boolean): For ESP8266s, whether to store some persistent preferences in flash
+memory.</p></li>
+</ul>
+<p>Automations:</p>
+<ul class="simple">
+<li><p><strong>on_boot</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the node starts. See <a class="reference internal" href="#esphome-on-boot"><span class="std std-ref">on_boot</span></a>.</p></li>
+<li><p><strong>on_shutdown</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+right before the node shuts down. See <a class="reference internal" href="#esphome-on-shutdown"><span class="std std-ref">on_shutdown</span></a>.</p></li>
+<li><p><strong>on_loop</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+on each <code class="docutils literal notranslate"><span class="pre">loop()</span></code> iteration. See <a class="reference internal" href="#esphome-on-loop"><span class="std std-ref">on_loop</span></a>.</p></li>
+</ul>
+</section>
+<section id="on-boot">
+<span id="esphome-on-boot"></span><h2><code class="docutils literal notranslate"><span class="pre">on_boot</span></code><a class="headerlink" href="#on-boot" title="Permalink to this heading">¶</a></h2>
+<p>This automation will be triggered when the ESP boots up. By default, it is executed after everything else
+is already set up. You can however change this using the <code class="docutils literal notranslate"><span class="pre">priority</span></code> parameter.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_boot</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">600</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch_1</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>priority</strong> (<em>Optional</em>, float): The priority to execute your custom initialization code. A higher value
+means a high priority and thus also your code being executed earlier. Please note this is an ESPHome-internal
+value and any change will not be marked as a breaking change. Defaults to <code class="docutils literal notranslate"><span class="pre">600</span></code>. Priorities (you can use any value between them too):</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">800.0</span></code>: This is where all hardware initialization of vital components is executed. For example setting switches
+to their initial state.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">600.0</span></code>: This is where most sensors are set up.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">250.0</span></code>: At this priority, WiFi is initialized.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">200.0</span></code>: Network connections like MQTT/native API are set up at this priority.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-100.0</span></code>: At this priority, pretty much everything should already be initialized.</p></li>
+</ul>
+</li>
+<li><p>See <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p></li>
+</ul>
+</section>
+<section id="on-shutdown">
+<span id="esphome-on-shutdown"></span><h2><code class="docutils literal notranslate"><span class="pre">on_shutdown</span></code><a class="headerlink" href="#on-shutdown" title="Permalink to this heading">¶</a></h2>
+<p>This automation will be triggered when the ESP is about to shut down. Shutting down is usually caused by
+too many WiFi/MQTT connection attempts, Over-The-Air updates being applied or through the <a class="reference internal" href="deep_sleep.html"><span class="doc">Deep Sleep Component</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s not guaranteed that all components are in a connected state when this automation is triggered. For
+example, the MQTT client may have already disconnected. For use-cases that require specific shutdown ordering, look at the <code class="docutils literal notranslate"><span class="pre">priority</span></code> parameter.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_shutdown</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">700</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch_1</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>priority</strong> (<em>Optional</em>, float): The priority to execute your custom shutdown code. A higher value
+means a high priority and in case of shutdown triggers that the code is executed <strong>later</strong>.
+Priority is used primarily for the initialization order of components. Shutdowns for these components are handled in <em>reverse</em> order, such that e.g. sensors (600) are shutdown before the hardware components (800) they depend on.
+Please note this is an ESPHome-internal value and any change will not be marked as a breaking change.
+Defaults to <code class="docutils literal notranslate"><span class="pre">600</span></code>. For priority values refer to the list in the <a class="reference internal" href="#esphome-on-boot"><span class="std std-ref">on_boot</span></a> section.</p></li>
+<li><p>See <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p></li>
+</ul>
+</section>
+<section id="on-loop">
+<span id="esphome-on-loop"></span><h2><code class="docutils literal notranslate"><span class="pre">on_loop</span></code><a class="headerlink" href="#on-loop" title="Permalink to this heading">¶</a></h2>
+<p>This automation will be triggered on every <code class="docutils literal notranslate"><span class="pre">loop()</span></code> iteration (usually around every 16 milliseconds).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_loop</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># do something</span>
+</pre></div>
+</div>
+</section>
+<section id="platformio-options">
+<span id="esphome-platformio-options"></span><h2><code class="docutils literal notranslate"><span class="pre">platformio_options</span></code><a class="headerlink" href="#platformio-options" title="Permalink to this heading">¶</a></h2>
+<p>PlatformIO supports a number of options in its <code class="docutils literal notranslate"><span class="pre">platformio.ini</span></code> file. With the <code class="docutils literal notranslate"><span class="pre">platformio_options</span></code>
+parameter you can tell ESPHome what options to pass into the <code class="docutils literal notranslate"><span class="pre">env</span></code> section of the PlatformIO file
+(note you can also do this by editing the <code class="docutils literal notranslate"><span class="pre">platformio.ini</span></code> file manually).</p>
+<p>You can view a full list of PlatformIO options here: <a class="reference external" href="https://docs.platformio.org/en/latest/projectconf/section_env.html">https://docs.platformio.org/en/latest/projectconf/section_env.html</a></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">platformio_options</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">upload_speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">115200</span>
+<span class="w">    </span><span class="nt">board_build.f_flash</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80000000L</span>
+</pre></div>
+</div>
+</section>
+<section id="includes">
+<span id="esphome-includes"></span><h2><code class="docutils literal notranslate"><span class="pre">includes</span></code><a class="headerlink" href="#includes" title="Permalink to this heading">¶</a></h2>
+<p>With <code class="docutils literal notranslate"><span class="pre">includes</span></code> you can include source files in the generated PlatformIO project.
+All files declared with this option are copied to the project each time it is compiled.</p>
+<p>You can always look at the generated PlatformIO project (<code class="docutils literal notranslate"><span class="pre">.esphome/build/&lt;NODE&gt;</span></code>) to see what
+is happening - and if you want you can even copy the include files directly into the <code class="docutils literal notranslate"><span class="pre">src/</span></code> folder.
+The <code class="docutils literal notranslate"><span class="pre">includes</span></code> option is only a helper option that does that for you.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">includes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch.h</span>
+</pre></div>
+</div>
+<p>This option behaves differently depending on what the included file is pointing at:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If the include string is pointing at a directory, the entire directory tree is copied into the
+src/ folder.</p></li>
+<li><p>If the include string points to a header file (.h, .hpp, .tcc), it is copied in the src/ folder
+AND included in the <code class="docutils literal notranslate"><span class="pre">main.cpp</span></code> file. This way the lambda code can access it.</p></li>
+<li><p>If the include string points to a regular source file (.c, .cpp), it is copied in the src/ folder
+AND compiled into the binary. This way implementation of classes and functions in header files can
+be provided.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="libraries">
+<span id="esphome-libraries"></span><h2><code class="docutils literal notranslate"><span class="pre">libraries</span></code><a class="headerlink" href="#libraries" title="Permalink to this heading">¶</a></h2>
+<p>With the <code class="docutils literal notranslate"><span class="pre">libraries</span></code> option it is possible to include libraries in the PlatformIO project. These libraries will then
+be compiled into the resulting firmware, and can be used in code from <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a> and from
+custom components.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">libraries</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># a library from PlatformIO</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">espressif/esp32-camera</span>
+
+<span class="w">    </span><span class="c1"># a library bundled with Arduino</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Wire</span>
+
+<span class="w">    </span><span class="c1"># use the git version of a library used by a component</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome/Improv=https://github.com/improv-wifi/sdk-cpp.git#v1.0.0</span>
+</pre></div>
+</div>
+<p>The most common usage of this option is to include third-party libraries that are available in the <a class="reference external" href="https://platformio.org/lib">PlatformIO registry</a>. They can be added by listing their name under this option. It is also possible to use
+specific versions, or to fetch libraries from a file or git repository. ESPHome accepts the same syntax as the
+<a class="reference external" href="https://docs.platformio.org/en/latest/userguide/lib/cmd_install.html">pio lib install</a> command.</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;=&lt;source&gt;</span></code> syntax, it is possible to override the version used for libraries that are automatically added
+by one of ESPHome’s components. This can be useful during development to make ESPHome use a custom fork of a library.</p>
+<p>By default, ESPHome does not include any libraries into the project. This means that libraries that are bundled with
+Arduino, such as <code class="docutils literal notranslate"><span class="pre">Wire</span></code> or <code class="docutils literal notranslate"><span class="pre">EEPROM</span></code>, aren’t available. If you need to use them, you should list them manually under
+this option. If they are used by another library, they should be listed before the library that uses them.</p>
+</section>
+<section id="adjusting-flash-writes">
+<span id="preferences-flash-write-interval"></span><h2>Adjusting flash writes<a class="headerlink" href="#adjusting-flash-writes" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">preferences</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">flash_write_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1min</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>flash_write_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Customize the frequency in which data is
+flushed to the flash. This setting helps to prevent rapid changes to a component from being quickly
+written to the flash and wearing it out. Defaults to <code class="docutils literal notranslate"><span class="pre">1min</span></code>.</p></li>
+</ul>
+<p>As all devices have a limited number of flash write cycles, this setting helps to reduce the number of flash writes
+due to quickly changing components. In the past, when components such as <code class="docutils literal notranslate"><span class="pre">light</span></code>, <code class="docutils literal notranslate"><span class="pre">switch</span></code>, <code class="docutils literal notranslate"><span class="pre">fan</span></code> and <code class="docutils literal notranslate"><span class="pre">globals</span></code>
+were changed, the state was immediately committed to flash. The result of this was that the last state of these
+components would always restore to its last state on power loss, however, this has the cost of potentially quickly
+damaging the flash if these components are quickly changed.</p>
+<p>A safety feature has thus been implemented to mitigate issues resulting from the limited number of flash write cycles,
+the state is first stored in memory before being flushed to flash after the <code class="docutils literal notranslate"><span class="pre">flash_write_interval</span></code> has passed. This
+results in fewer flash writes, preserving the flash health.</p>
+<p>This behavior can be disabled by setting <code class="docutils literal notranslate"><span class="pre">flash_write_interval</span></code> to <code class="docutils literal notranslate"><span class="pre">0s</span></code> to immediately commit the state to flash,
+however, be aware that this may lead to increased flash wearing and a shortened device lifespan!</p>
+<p>For <a class="reference internal" href="esp8266.html"><span class="doc">ESP8266</span></a>, <code class="docutils literal notranslate"><span class="pre">restore_from_flash</span></code> must also be set to <code class="docutils literal notranslate"><span class="pre">true</span></code> for states to be written to flash.</p>
+</section>
+<section id="changing-esphome-node-name">
+<span id="esphome-changing-node-name"></span><h2>Changing ESPHome Node Name<a class="headerlink" href="#changing-esphome-node-name" title="Permalink to this heading">¶</a></h2>
+<p>Trying to change the name of a node or its address in the network?
+You can do so with the <code class="docutils literal notranslate"><span class="pre">use_address</span></code> option of the <a class="reference internal" href="wifi.html"><span class="doc">WiFi configuration</span></a>.</p>
+<p>Change the device name or address in your YAML to the new value and additionally
+set <code class="docutils literal notranslate"><span class="pre">use_address</span></code> to point to the old address like so:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Step 1. Changing name from test8266 to kitchen</span>
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kitchen</span>
+<span class="w">  </span><span class="c1"># ...</span>
+
+<span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">use_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test8266.local</span>
+</pre></div>
+</div>
+<p>Now upload the updated config to the device. As a second step, you now need to remove the
+<code class="docutils literal notranslate"><span class="pre">use_address</span></code> option from your configuration again so that subsequent uploads will work again
+(otherwise it will try to upload to the old address).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Step 2</span>
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kitchen</span>
+<span class="w">  </span><span class="c1"># ...</span>
+
+<span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="c1"># Remove or comment out use_address</span>
+<span class="w">  </span><span class="c1"># use_address: test8266.local</span>
+</pre></div>
+</div>
+<p>The same procedure can be done for changing the static IP of a device.</p>
+</section>
+<section id="adding-the-mac-address-as-a-suffix-to-the-device-name">
+<span id="esphome-mac-suffix"></span><h2>Adding the MAC address as a suffix to the device name<a class="headerlink" href="#adding-the-mac-address-as-a-suffix-to-the-device-name" title="Permalink to this heading">¶</a></h2>
+<p>Using <code class="docutils literal notranslate"><span class="pre">name_add_mac_suffix</span></code> allows <a class="reference internal" href="../guides/creators.html"><span class="doc">creators</span></a> to
+provision multiple devices at the factory with a single firmware and still
+have unique identification for customer installs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>End users will need to create an individual YAML config file if they want to OTA update the
+devices in the future.  Creators can facilitate this process by providing <code class="docutils literal notranslate"><span class="pre">dashboard_import</span></code> URL
+for end users.  This allows them to easily update their devices as new features are made available
+upstream.</p>
+</div>
+</section>
+<section id="project-information">
+<span id="esphome-creators-project"></span><h2>Project information<a class="headerlink" href="#project-information" title="Permalink to this heading">¶</a></h2>
+<p>This allows creators to add the project name and version to the compiled code. It is currently only
+exposed via the logger, mDNS and the device_info response via the native API. The format of the name
+should be <code class="docutils literal notranslate"><span class="pre">author_name.project_name</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration</span>
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">project</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;jesse.leds_party&quot;</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="minimum-esphome-version">
+<span id="esphome-min-version"></span><h2>Minimum ESPHome version<a class="headerlink" href="#minimum-esphome-version" title="Permalink to this heading">¶</a></h2>
+<p>This allows YAML files to specify the minimum version of ESPHome required to compile.
+This is useful in the case of packages where a published package might use features only
+available in a newer version of ESPHome. This allows for a more friendly error message.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/esphome.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

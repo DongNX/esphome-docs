@@ -1,0 +1,435 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Getting Started guide for installing ESPHome using the command line and creating a basic configuration.">
+<meta itemprop="name" content="Getting Started with the ESPHome Command Line">
+<meta itemprop="description" content="Getting Started guide for installing ESPHome using the command line and creating a basic configuration.">
+<meta itemprop="image" content="https://esphome.io/_images/console.png">
+<meta name="twitter:title" content="Getting Started with the ESPHome Command Line">
+<meta name="twitter:image:src" content="https://esphome.io/_images/console.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Getting Started guide for installing ESPHome using the command line and creating a basic configuration.">
+<meta property="og:title" content="Getting Started with the ESPHome Command Line">
+<meta property="og:image" content="https://esphome.io/_images/console.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Getting Started guide for installing ESPHome using the command line and creating a basic configuration.">
+
+    <title>Getting Started with the ESPHome Command Line &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/guides/getting_started_command_line.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Getting Started with ESPHome and Home Assistant" href="getting_started_hassio.html" />
+    <link rel="prev" title="Frequently Asked Questions" href="faq.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Getting Started with the ESPHome Command Line</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#connecting-the-esp-device">Connecting the ESP Device</a></li>
+<li><a class="reference internal" href="#creating-a-project">Creating a Project</a></li>
+<li><a class="reference internal" href="#adding-some-features">Adding some features</a></li>
+<li><a class="reference internal" href="#first-uploading">First uploading</a></li>
+<li><a class="reference internal" href="#adding-a-binary-sensor">Adding A Binary Sensor</a></li>
+<li><a class="reference internal" href="#where-to-go-next">Where To Go Next</a></li>
+<li><a class="reference internal" href="#bonus-esphome-dashboard">Bonus: ESPHome dashboard</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Guides</a> ➔</li>
+      <li>Getting Started with the ESPHome Command Line</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="getting-started-with-the-esphome-command-line">
+<h1>Getting Started with the ESPHome Command Line<a class="headerlink" href="#getting-started-with-the-esphome-command-line" title="Permalink to this heading">¶</a></h1>
+<p>ESPHome is the perfect solution for creating custom firmwares for
+your ESP8266/ESP32 boards. In this guide we’ll go through how to set up a
+basic “node” in a few simple steps.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
+<p>See <a class="reference internal" href="installing_esphome.html"><span class="doc">Installing ESPHome Manually</span></a>.</p>
+<p>If you’re familiar with Docker, you can use that instead!
+Note that on macOS Docker <a class="reference external" href="https://github.com/moby/hyperkit/issues/149">can not pass USB devices through</a>.
+You will not be able to flash ESP devices through USB on Mac, all other features will work. Flashing with web dashboard is still possible.</p>
+<p>Our image supports AMD64, ARM and ARM64 (AARCH64), and can be downloaded with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/esphome/esphome
+</pre></div>
+</div>
+<p>If you want to use <cite>docker-compose</cite> instead, here’s a sample file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3&#39;</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">esphome</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/esphome/esphome</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/esphome/config:/config</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/localtime:/etc/localtime:ro</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span>
+<span class="w">    </span><span class="nt">privileged</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">USERNAME=test</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PASSWORD=ChangeMe</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using NFS share to back your container’s config volume, you may
+need to mount the volume with the <cite>nolock</cite> option, otherwise platformio may
+freeze on container startup as per <a class="reference external" href="https://github.com/platformio/platformio-core/issues/3089">platformIO-core Issue 3089</a></p>
+</div>
+<p>The project provides multiple docker tags; please pick the one that suits you
+better:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">latest</span></code> and <code class="docutils literal notranslate"><span class="pre">stable</span></code> point to the latest stable release available. It’s
+not recommended to automatically update the container based on those tags
+because of the possible breaking changes between releases.</p></li>
+<li><p>Release-tracking tag <code class="docutils literal notranslate"><span class="pre">YEAR.MONTH</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">2022.8</span></code>) points to the latest
+stable patch release available within the required version. There should
+never be a breaking change when upgrading the containers based on tags like
+that.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">beta</span></code> points to the latest released beta version, and to the latest stable
+release when there is no fresh beta release.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dev</span></code> is the bleeding edge release; built daily based on the latest changes
+in the <code class="docutils literal notranslate"><span class="pre">dev</span></code> branch.</p></li>
+</ul>
+</section>
+<section id="connecting-the-esp-device">
+<h2>Connecting the ESP Device<a class="headerlink" href="#connecting-the-esp-device" title="Permalink to this heading">¶</a></h2>
+<p>Follow the instructions in <a class="reference internal" href="physical_device_connection.html"><span class="doc">Physically Connecting to your Device</span></a> to connect to your
+ESP device.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The most difficult part of setting up a new ESPHome device is the initial
+installation. Installation requires that your ESP device is connected with
+a cable to a computer. Later updates can be installed wirelessly.</p>
+</div>
+</section>
+<section id="creating-a-project">
+<h2>Creating a Project<a class="headerlink" href="#creating-a-project" title="Permalink to this heading">¶</a></h2>
+<p>Now let’s setup a configuration file. Fortunately, ESPHome has a
+friendly setup wizard that will guide you through creating your first
+configuration file. For example, if you want to create a configuration
+file called <code class="docutils literal notranslate"><span class="pre">livingroom.yaml</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>esphome<span class="w"> </span>wizard<span class="w"> </span>livingroom.yaml
+<span class="c1"># On Docker:</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">&quot;</span>:/config<span class="w"> </span>-it<span class="w"> </span>ghcr.io/esphome/esphome<span class="w"> </span>wizard<span class="w"> </span>livingroom.yaml
+</pre></div>
+</div>
+<p>At the end of this step, you will have your first YAML configuration
+file ready. It doesn’t do much yet and only makes your device connect to
+the WiFi network, but still it’s a first step.</p>
+</section>
+<section id="adding-some-features">
+<h2>Adding some features<a class="headerlink" href="#adding-some-features" title="Permalink to this heading">¶</a></h2>
+<p>So now you should have a file called <code class="docutils literal notranslate"><span class="pre">livingroom.yaml</span></code> (or similar).
+Go open that file in an editor of your choice and let’s add a <a class="reference internal" href="../components/switch/gpio.html"><span class="doc">simple
+GPIO switch</span></a> to our app.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Dehumidifier&quot;</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO5</span>
+</pre></div>
+</div>
+<p>The configuration format should hopefully immediately seem similar to
+you. ESPHome has tried to keep it as close to Home Assistant’s
+<code class="docutils literal notranslate"><span class="pre">configuration.yaml</span></code> schema as possible. In the above example, we’re
+simply adding a switch that’s called “Living Room Dehumidifier” (could control
+anything really, for example lights) and is connected to pin <code class="docutils literal notranslate"><span class="pre">GPIO5</span></code>.
+The nice thing about ESPHome is that it will automatically also try
+to translate pin numbers for you based on the board. For example in the
+above configuration, if using a NodeMCU board, you could have just as
+well set <code class="docutils literal notranslate"><span class="pre">D1</span></code> as the <code class="docutils literal notranslate"><span class="pre">pin:</span></code> option.</p>
+</section>
+<section id="first-uploading">
+<h2>First uploading<a class="headerlink" href="#first-uploading" title="Permalink to this heading">¶</a></h2>
+<p>Now you can go ahead and add some more components. Once you feel like
+you have something you want to upload to your ESP board, simply plug in
+the device via USB and type the following command (replacing
+<code class="docutils literal notranslate"><span class="pre">livingroom.yaml</span></code> with your configuration file):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>esphome<span class="w"> </span>run<span class="w"> </span>livingroom.yaml
+</pre></div>
+</div>
+<p>You should see ESPHome validating the configuration and telling you
+about potential problems. Then ESPHome will proceed to compile and
+upload the custom firmware. You will also see that ESPHome created a
+new folder with the name of your node. This is a new PlatformIO project
+that you can modify afterwards and play around with.</p>
+<p>If you are running docker on Linux you can add <code class="docutils literal notranslate"><span class="pre">--device=/dev/ttyUSB0</span></code>
+to your docker command to map a local USB device. Docker on Mac will not be able to access host USB devices.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">&quot;</span>:/config<span class="w"> </span>--device<span class="o">=</span>/dev/ttyUSB0<span class="w"> </span>-it<span class="w"> </span>ghcr.io/esphome/esphome<span class="w"> </span>run<span class="w"> </span>livingroom.yaml
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, you can flash the binary using <a class="reference internal" href="faq.html#esphome-esptool"><span class="std std-ref">ESPHome Web or esptool</span></a>.</p>
+</div>
+<p>Now when you go to the Home Assistant <strong>Integrations</strong> screen (under <strong>Configuration</strong> panel), you
+should see the ESPHome device show up in the discovered section (although this can take up to 5 minutes).
+Alternatively, you can manually add the device by clicking <strong>CONFIGURE</strong> on the ESPHome integration
+and entering <code class="docutils literal notranslate"><span class="pre">&lt;NODE_NAME&gt;.local</span></code> as the host.</p>
+<figure class="align-center">
+<img alt="../_images/gpio-ui1.png" src="../_images/gpio-ui1.png" />
+</figure>
+<p>After the first upload, you will probably never need to use the USB
+cable again, as all features of ESPHome are enabled remotely as well.
+No more opening hidden boxes stowed in places hard to reach. Yay!</p>
+</section>
+<section id="adding-a-binary-sensor">
+<h2>Adding A Binary Sensor<a class="headerlink" href="#adding-a-binary-sensor" title="Permalink to this heading">¶</a></h2>
+<p>Next, we’re going to add a very simple binary sensor that periodically
+checks if a particular GPIO pin is pulled high or low - the <a class="reference internal" href="../components/binary_sensor/gpio.html"><span class="doc">GPIO Binary
+Sensor</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Window&quot;</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">pullup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<p>This is an advanced feature of ESPHome. Almost all pins can
+optionally have a more complicated configuration schema with options for
+inversion and pinMode - the <a class="reference internal" href="configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>.</p>
+<p>This time when uploading, you don’t need to have the device plugged in
+through USB again. The upload will magically happen “over the air”.
+Using ESPHome directly, this is the same as from a USB cable, but
+for docker you need to supply an additional parameter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>esphome<span class="w"> </span>run<span class="w"> </span>livingroom.yaml
+<span class="c1"># On docker</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">&quot;</span>:/config<span class="w"> </span>-it<span class="w"> </span>ghcr.io/esphome/esphome<span class="w"> </span>run<span class="w"> </span>livingroom.yaml
+</pre></div>
+</div>
+<figure class="align-default">
+<img alt="../_images/gpio-ui.png" src="../_images/gpio-ui.png" />
+</figure>
+</section>
+<section id="where-to-go-next">
+<h2>Where To Go Next<a class="headerlink" href="#where-to-go-next" title="Permalink to this heading">¶</a></h2>
+<p>Great 🎉! You’ve now successfully set up your first ESPHome project
+and uploaded your first ESPHome custom firmware to your node. You’ve
+also learned how to enable some basic components via the configuration
+file.</p>
+<p>So now is a great time to go take a look at the <a class="reference internal" href="../index.html"><span class="doc">Components Index</span></a>.
+Hopefully you’ll find all sensors/outputs/etc. you’ll need in there. If you’re having any problems or
+want new features, please either create a new issue on the <a class="reference external" href="https://github.com/esphome/issues/issues">GitHub issue
+tracker</a> or find us on the
+<a class="reference external" href="https://discord.gg/KhAMKrd">Discord chat</a> (also make sure to read the <a class="reference internal" href="faq.html"><span class="doc">FAQ</span></a>).</p>
+</section>
+<section id="bonus-esphome-dashboard">
+<h2>Bonus: ESPHome dashboard<a class="headerlink" href="#bonus-esphome-dashboard" title="Permalink to this heading">¶</a></h2>
+<p>ESPHome features a dashboard that you can use to easily manage your nodes
+from a nice web interface. It was primarily designed for
+<a class="reference internal" href="getting_started_hassio.html"><span class="doc">the Home Assistant add-on</span></a>, but also works with a simple command.</p>
+<p>To start the ESPHome dashboard, simply start ESPHome with the following command
+(with <code class="docutils literal notranslate"><span class="pre">config/</span></code> pointing to a directory where you want to store your configurations)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install dashboard dependencies</span>
+pip<span class="w"> </span>install<span class="w"> </span>tornado<span class="w"> </span>esptool<span class="se">\</span>
+<span class="w"> </span>esphome<span class="w"> </span>dashboard<span class="w"> </span>config
+
+<span class="c1"># On Docker, host networking mode is required for online status indicators</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--net<span class="o">=</span>host<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">&quot;</span>:/config<span class="w"> </span>-it<span class="w"> </span>ghcr.io/esphome/esphome
+
+<span class="c1"># On Docker with MacOS, the host networking option doesn&#39;t work as expected. An</span>
+<span class="c1"># alternative is to use the following command if you are a MacOS user.</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">6052</span>:6052<span class="w"> </span>-e<span class="w"> </span><span class="nv">ESPHOME_DASHBOARD_USE_PING</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">&quot;</span>:/config<span class="w"> </span>-it<span class="w"> </span>ghcr.io/esphome/esphome
+</pre></div>
+</div>
+<p>After that, you will be able to access the dashboard through <code class="docutils literal notranslate"><span class="pre">localhost:6052</span></code>.</p>
+<figure class="align-default">
+<img alt="../_images/dashboard_states.png" src="../_images/dashboard_states.png" />
+</figure>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="cli.html"><span class="doc">Command Line Interface</span></a></p></li>
+<li><p><a class="reference internal" href="../index.html"><span class="doc">ESPHome index</span></a></p></li>
+<li><p><a class="reference internal" href="getting_started_hassio.html"><span class="doc">Getting Started with ESPHome and Home Assistant</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/guides/getting_started_command_line.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

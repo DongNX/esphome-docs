@@ -1,0 +1,468 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up ILI9xxx like TFT LCD display drivers.">
+<meta itemprop="name" content="ILI9xxx TFT LCD Series">
+<meta itemprop="description" content="Instructions for setting up ILI9xxx like TFT LCD display drivers.">
+<meta itemprop="image" content="https://esphome.io/_images/ili9341.jpg">
+<meta name="twitter:title" content="ILI9xxx TFT LCD Series">
+<meta name="twitter:image:src" content="https://esphome.io/_images/ili9341.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up ILI9xxx like TFT LCD display drivers.">
+<meta property="og:title" content="ILI9xxx TFT LCD Series">
+<meta property="og:image" content="https://esphome.io/_images/ili9341.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up ILI9xxx like TFT LCD display drivers.">
+
+    <title>ILI9xxx TFT LCD Series &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/display/ili9xxx.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Inkplate 6, 10 and 6 Plus" href="inkplate6.html" />
+    <link rel="prev" title="Font Renderer Component" href="fonts.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ILI9xxx TFT LCD Series</a><ul>
+<li><a class="reference internal" href="#models">Models</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#configuration-examples">Configuration examples</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Display Component</a> ➔</li>
+      <li>ILI9xxx TFT LCD Series</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="ili9xxx-tft-lcd-series">
+<h1>ILI9xxx TFT LCD Series<a class="headerlink" href="#ili9xxx-tft-lcd-series" title="Permalink to this heading">¶</a></h1>
+<section id="models">
+<span id="ili9xxx"></span><h2>Models<a class="headerlink" href="#models" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>With this display driver you can control the following displays:</dt><dd><ul class="simple">
+<li><p>GC9A01A</p></li>
+<li><p>ILI9341</p></li>
+<li><p>ILI9342</p></li>
+<li><p>ILI9481</p></li>
+<li><p>ILI9481-18 (ILI9481 in 18 bit, i.e. 262K color, mode)</p></li>
+<li><p>ILI9486</p></li>
+<li><p>ILI9488</p></li>
+<li><p>ILI9488_A (alternative gamma configuration for ILI9488)</p></li>
+<li><p>M5STACK</p></li>
+<li><p>S3BOX</p></li>
+<li><p>S3BOX_LITE</p></li>
+<li><p>ST7796</p></li>
+<li><p>ST7789V</p></li>
+<li><p>TFT 2.4</p></li>
+<li><p>TFT 2.4R</p></li>
+<li><p>WAVESHARE_RES_3_5 (Waveshare Pico-ResTouch-LCD-3.5)</p></li>
+</ul>
+</dd>
+</dl>
+<p>More display drivers will come in the future.</p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
+<p>This component is the successor of the ILI9341 component supporting more display driver chips from the ILI and related
+families.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ILI9xxx</span></code> display platform allows you to use
+ILI9341 (<a class="reference external" href="https://cdn-shop.adafruit.com/datasheets/ILI9341.pdf">datasheet</a>,
+<a class="reference external" href="https://www.aliexpress.com/af/Ili9341.html">Aliexpress</a>) and other
+displays from the same chip family with ESPHome. As this is a somewhat higher resolution display and requires additional pins
+beyond the basic SPI connections, and a reasonable amount of RAM, it is not well suited for the ESP8266.</p>
+<p><strong>Note:</strong> use of 16 bit colors requires double the amount of RAM as 8 bit, and may need PSRAM to be available.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/ili9341-full.jpg"><img alt="../../_images/ili9341-full.jpg" src="../../_images/ili9341-full.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">ILI9341 display</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example minimal configuration entry</span>
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ili9xxx</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ili9341</span>
+<span class="w">    </span><span class="nt">dc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.fill(COLOR_BLACK);</span>
+<span class="w">      </span><span class="no">it.print(0, 0, id(my_font), id(my_red), TextAlign::TOP_LEFT, &quot;Hello World!&quot;);</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><p><strong>model</strong> (<strong>Required</strong>): The model of the display. Options are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">M5STACK</span></code>, <code class="docutils literal notranslate"><span class="pre">TFT</span> <span class="pre">2.4</span></code>, <code class="docutils literal notranslate"><span class="pre">TFT</span> <span class="pre">2.4R</span></code>, <code class="docutils literal notranslate"><span class="pre">S3BOX</span></code>, <code class="docutils literal notranslate"><span class="pre">S3BOX_LITE</span></code>, <code class="docutils literal notranslate"><span class="pre">WSPICOLCD</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ILI9341</span></code>, <code class="docutils literal notranslate"><span class="pre">ILI9342</span></code>, <code class="docutils literal notranslate"><span class="pre">ILI9486</span></code>, <code class="docutils literal notranslate"><span class="pre">ILI9488</span></code>, <code class="docutils literal notranslate"><span class="pre">ILI9488_A</span></code> (alternative gamma configuration for ILI9488)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ILI9481</span></code>, <code class="docutils literal notranslate"><span class="pre">ILI9481-18</span></code> (18 bit mode)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ST7789V</span></code>, <code class="docutils literal notranslate"><span class="pre">ST7796</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GC9A01A</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>dc_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The DC pin.</p></li>
+<li><p><strong>reset_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The RESET pin.</p></li>
+<li><p><strong>lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>): The lambda to use for rendering the content on the display.
+See <a class="reference internal" href="index.html#display-engine"><span class="std std-ref">Display Rendering Engine</span></a> for more information.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to re-draw the screen. Defaults to <code class="docutils literal notranslate"><span class="pre">5s</span></code>.</p></li>
+<li><p><strong>auto_clear_enabled</strong> (<em>Optional</em>, boolean): Whether to automatically clear the display in each loop (‘’true’’, default),
+or to keep the existing display content (must overwrite explicitly, e.g., only on data change).</p></li>
+<li><p><strong>pages</strong> (<em>Optional</em>, list): Show pages instead of a single lambda. See <a class="reference internal" href="index.html#display-pages"><span class="std std-ref">Display Pages</span></a>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>color_palette</strong> (<em>Optional</em>): The type of color pallet that will be used in the ESP’s internal 8-bits-per-pixel buffer.  This can be used to improve color depth quality of the image.  For example if you know that the display will only be showing grayscale images, the clarity of the display can be improved by targeting the available colors to monochrome only.  Options are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code> (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GRAYSCALE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IMAGE_ADAPTIVE</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>color_order</strong> (<em>Optional</em>): Should be one of <code class="docutils literal notranslate"><span class="pre">bgr</span></code> (default) or <code class="docutils literal notranslate"><span class="pre">rgb</span></code>.</p></li>
+<li><p><strong>color_palette_images</strong> (<em>Optional</em>): A list of image files that will be used to generate the color pallet for the display.  This should only be used in conjunction with <code class="docutils literal notranslate"><span class="pre">-color_palette:</span> <span class="pre">IMAGE_ADAPTIVE</span></code> above.  The images will be analysed at compile time and a custom color pallet will be created based on the most commonly occuring colors.  A typical setting would be a sample image that represented the fully populated display.  This can significantly improve the quality of displayed images.  Note that these images are not stored on the ESP device, just the 256byte color pallet created from them.</p></li>
+<li><p><strong>dimensions</strong> (<em>Optional</em>): Dimensions of the screen, specified either as <em>width</em> <strong>x</strong> <em>height</em> (e.g <code class="docutils literal notranslate"><span class="pre">320x240</span></code>) or with separate config keys. If not provided the dimensions will be determined by the model selected.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>height</strong> (<strong>Required</strong>, int): Specifies height of display in pixels.</p></li>
+<li><p><strong>width</strong> (<strong>Required</strong>, int): Specifies width of display.</p></li>
+<li><p><strong>offset_width</strong> (<em>Optional</em>, int): Specify an offset for the x-direction of the display, typically used when an LCD is smaller than the maximum supported by the driver chip. Default is 0</p></li>
+<li><p><strong>offset_height</strong> (<em>Optional</em>, int): Specify an offset for the y-direction of the display. Default is 0.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>invert_colors</strong> (<em>Optional</em>): With this boolean option you can invert the display colors. <strong>Note</strong> some of the displays have this option set automatically to true and can’t be changed.</p></li>
+<li><p><strong>18bit_mode</strong> (<em>Optional</em>): With this boolean option you can manual enable or disable the 18 bit color mode.</p></li>
+<li><p><strong>rotation</strong> (<em>Optional</em>): Rotate the display presentation in software. Choose one of <code class="docutils literal notranslate"><span class="pre">0°</span></code>, <code class="docutils literal notranslate"><span class="pre">90°</span></code>, <code class="docutils literal notranslate"><span class="pre">180°</span></code>, or <code class="docutils literal notranslate"><span class="pre">270°</span></code>. This option cannot be used with <code class="docutils literal notranslate"><span class="pre">transform</span></code>.</p></li>
+<li><p><strong>transform</strong> (<em>Optional</em>): Transform the display presentation using hardware. All defaults are <code class="docutils literal notranslate"><span class="pre">false</span></code>. This option cannot be used with <code class="docutils literal notranslate"><span class="pre">rotation</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>swap_xy</strong> (<em>Optional</em>, boolean): If true, exchange the x and y axes.</p></li>
+<li><p><strong>mirror_x</strong> (<em>Optional</em>, boolean): If true, mirror the x axis.</p></li>
+<li><p><strong>mirror_y</strong> (<em>Optional</em>, boolean): If true, mirror the y axis.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<dl class="simple">
+<dt><strong>Note:</strong> The <code class="docutils literal notranslate"><span class="pre">rotation</span></code> variable will do a software based rotation. It is better to use the <strong>transform</strong> to rotate the display in hardware. Use one of the following combinations:</dt><dd><ul class="simple">
+<li><p>90 degrees - use <code class="docutils literal notranslate"><span class="pre">swap_xy</span></code> with <code class="docutils literal notranslate"><span class="pre">mirror_x</span></code></p></li>
+<li><p>180 degrees - use <code class="docutils literal notranslate"><span class="pre">mirror_x</span></code> with <code class="docutils literal notranslate"><span class="pre">mirror_y</span></code></p></li>
+<li><p>270 degrees - use <code class="docutils literal notranslate"><span class="pre">swap_xy</span></code> with <code class="docutils literal notranslate"><span class="pre">mirror_y</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<p>With 90 and 270 rotations you will also need to swap the <strong>dimensions</strong> ‘’height’’ and ‘’width’’ (see example below.</p>
+<p>To modify the SPI setting see <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI bus</span></a> . The default <strong>data_rate</strong> is set to <code class="docutils literal notranslate"><span class="pre">40MHz</span></code> and the <strong>spi_mode</strong> mode is <code class="docutils literal notranslate"><span class="pre">MODE0</span></code> but some displays require <code class="docutils literal notranslate"><span class="pre">MODE3</span></code> (*).</p>
+<p><strong>Note:</strong> The maximum achievable data rate will depend on the chip type (e.g. ESP32 vs ESP32-S3) the pins used (on ESP32 using the default SPI pins allows higher rates) and the connection type (on-board connections will support higher rates than long cables or DuPont wires.) If in doubt, start with a low speed and test higher rates to find what works. A MISO pin should preferably not be specified, as this will limit the maximum rate in some circumstances, and is not required if the SPI bus is used only for the display.</p>
+</section>
+<section id="configuration-examples">
+<h3>Configuration examples<a class="headerlink" href="#configuration-examples" title="Permalink to this heading">¶</a></h3>
+<p>To use hardware rotation, use both <code class="docutils literal notranslate"><span class="pre">dimensions</span></code> and <code class="docutils literal notranslate"><span class="pre">transform</span></code>, e.g. this config will turn a landscape display with
+height 320 and width 480 into portrait. Note that the dimensions are those of the final display.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">transform</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">swap_xy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">mirror_x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">dimensions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">480</span>
+<span class="w">  </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">320</span>
+</pre></div>
+</div>
+<p>To utilize the color capabilities of this display module, you’ll likely want to add a <code class="docutils literal notranslate"><span class="pre">color:</span></code> section to your
+YAML configuration; please see <a class="reference internal" href="index.html#config-color"><span class="std std-ref">color</span></a> for more detail on this configuration section.</p>
+<p>To use colors in your lambda:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">color</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_red</span>
+<span class="w">    </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">    </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3%</span>
+<span class="w">    </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5%</span>
+
+<span class="nn">...</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">lambda</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.rectangle(0,  0, it.get_width(), it.get_height(), id(my_red));</span>
+</pre></div>
+</div>
+<p>To bring in color images:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;image.jpg&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_image</span>
+<span class="w">    </span><span class="nt">resize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200x200</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RGB24</span>
+
+<span class="nn">...</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">lambda</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.image(0, 0, id(my_image));</span>
+</pre></div>
+</div>
+<p>To configure a dimmable backlight:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a PWM output on the ESP32</span>
+<span class="nt">output</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ledc</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">backlight_pwm</span>
+
+<span class="c1"># Define a monochromatic, dimmable light for the backlight</span>
+<span class="nt">light</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monochromatic</span>
+<span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">backlight_pwm</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Display</span><span class="nv"> </span><span class="s">Backlight&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">back_light</span>
+<span class="w">    </span><span class="nt">restore_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ALWAYS_ON</span>
+</pre></div>
+</div>
+<p>To configure an image adaptive color pallet to show greater than 8 bit color depth with a RAM limited screen buffer:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sample_100x100.png&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myimage</span>
+<span class="w">    </span><span class="nt">resize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100x100</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RGB24</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ili9xxx</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ili9341</span>
+<span class="w">    </span><span class="nt">dc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">rotation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">90</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tft_ha</span>
+<span class="w">    </span><span class="nt">color_palette</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IMAGE_ADAPTIVE</span>
+<span class="w">    </span><span class="nt">color_palette_images</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;sample_100x100.png&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;display_design.png&quot;</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.image(0, 0, id(myimage));</span>
+</pre></div>
+</div>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">transform</span></code> options to hardware rotate the display on a Lilygo T-Embed. This has an st7789v but only uses 170 pixels of the 240 width.
+This config rotates the display into landscape mode using the driver chip.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ili9xxx</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">st7789v</span>
+<span class="w">    </span><span class="nt">dimensions</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">170</span>
+<span class="w">      </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">320</span>
+<span class="w">      </span><span class="nt">offset_height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">35</span>
+<span class="w">      </span><span class="nt">offset_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">transform</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">swap_xy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">mirror_x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">mirror_y</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">color_order</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bgr</span>
+<span class="w">    </span><span class="nt">data_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80MHz</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">dc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO13</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO9</span>
+</pre></div>
+</div>
+<p>For Lilygo TTGO Boards if you move from the st7789v to this you need the following settings to make it work.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ili9xxx</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">st7789v</span>
+<span class="w">    </span><span class="c1">#TTGO TDisplay 135x240</span>
+<span class="w">    </span><span class="nt">dimensions</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">240</span>
+<span class="w">      </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">135</span>
+<span class="w">      </span><span class="nt">offset_height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">40</span>
+<span class="w">      </span><span class="nt">offset_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">52</span>
+<span class="w">    </span><span class="c1"># Required or the colors are all inverted, and Black screen is White</span>
+<span class="w">    </span><span class="nt">invert_colors</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Display Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/ili9xxx__display_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/display/ili9xxx.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

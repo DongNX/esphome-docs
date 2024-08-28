@@ -1,0 +1,544 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up the WiFi configuration for your ESP node in ESPHome.">
+<meta name="keywords" content="WiFi, WLAN, ESP8266, ESP32">
+<meta itemprop="name" content="WiFi Component">
+<meta itemprop="description" content="Instructions for setting up the WiFi configuration for your ESP node in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/network-wifi.png">
+<meta name="twitter:title" content="WiFi Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/network-wifi.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up the WiFi configuration for your ESP node in ESPHome.">
+<meta property="og:title" content="WiFi Component">
+<meta property="og:image" content="https://esphome.io/_images/network-wifi.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up the WiFi configuration for your ESP node in ESPHome.">
+
+    <title>WiFi Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/wifi.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="WireGuard Component" href="wireguard.html" />
+    <link rel="prev" title="Wiegand keypad and tag reader" href="wiegand.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">WiFi Component</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#access-point-mode">Access Point Mode</a></li>
+<li><a class="reference internal" href="#user-entered-credentials">User Entered Credentials</a></li>
+<li><a class="reference internal" href="#manual-ips">Manual IPs</a></li>
+<li><a class="reference internal" href="#power-save-mode">Power Save Mode</a></li>
+<li><a class="reference internal" href="#connecting-to-multiple-networks">Connecting to Multiple Networks</a></li>
+<li><a class="reference internal" href="#enterprise-authentication">Enterprise Authentication</a></li>
+<li><a class="reference internal" href="#on-connect-on-disconnect-trigger"><code class="docutils literal notranslate"><span class="pre">on_connect</span></code> / <code class="docutils literal notranslate"><span class="pre">on_disconnect</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#wifi-disable-action"><code class="docutils literal notranslate"><span class="pre">wifi.disable</span></code> Action</a></li>
+<li><a class="reference internal" href="#wifi-enable-action"><code class="docutils literal notranslate"><span class="pre">wifi.enable</span></code> Action</a></li>
+<li><a class="reference internal" href="#wifi-connected-condition"><code class="docutils literal notranslate"><span class="pre">wifi.connected</span></code> Condition</a></li>
+<li><a class="reference internal" href="#wifi-enabled-condition"><code class="docutils literal notranslate"><span class="pre">wifi.enabled</span></code> Condition</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>WiFi Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="wifi-component">
+<h1>WiFi Component<a class="headerlink" href="#wifi-component" title="Permalink to this heading">¶</a></h1>
+<p>This core ESPHome component sets up WiFi connections to access points
+for you. You need to have a network configuration (either Wifi or Ethernet)
+or ESPHome will fail in the config validation stage. You also can’t have both Wifi
+and Ethernet setup in same time (even if your ESP has both wired).</p>
+<p>It’s recommended to provide a static IP for your node, as it can
+dramatically improve connection times.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ssid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyHomeNetwork</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VerySafePassword</span>
+
+<span class="w">  </span><span class="c1"># Optional manual IP</span>
+<span class="w">  </span><span class="nt">manual_ip</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">static_ip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.0.123</span>
+<span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.0.1</span>
+<span class="w">    </span><span class="nt">subnet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># It is highly recommended to use secrets</span>
+<span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ssid</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wifi_ssid</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wifi_password</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<span id="wifi-configuration-variables"></span><h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>ssid</strong> (<em>Optional</em>, string): The name (or <a class="reference external" href="https://www.lifewire.com/definition-of-service-set-identifier-816547">service set
+identifier</a>)
+of the WiFi access point your device should connect to.</p></li>
+<li><p><strong>password</strong> (<em>Optional</em>, string): The password (or PSK) for your
+WiFi network. Leave empty for no password.</p></li>
+<li><p><strong>networks</strong> (<em>Optional</em>): Configure multiple WiFi networks to connect to, the best one
+that is reachable will be connected to. See <a class="reference internal" href="#wifi-networks"><span class="std std-ref">Connecting to Multiple Networks</span></a>.</p></li>
+<li><p><strong>manual_ip</strong> (<em>Optional</em>): Manually configure the static IP of the node.</p>
+<ul>
+<li><p><strong>static_ip</strong> (<strong>Required</strong>, IPv4 address): The static IP of your node.</p></li>
+<li><p><strong>gateway</strong> (<strong>Required</strong>, IPv4 address): The gateway of the local network.</p></li>
+<li><p><strong>subnet</strong> (<strong>Required</strong>, IPv4 address): The subnet of the local network.</p></li>
+<li><p><strong>dns1</strong> (<em>Optional</em>, IPv4 address): The main DNS server to use.</p></li>
+<li><p><strong>dns2</strong> (<em>Optional</em>, IPv4 address): The backup DNS server to use.</p></li>
+</ul>
+</li>
+<li><p><strong>use_address</strong> (<em>Optional</em>, string): Manually override what address to use to connect
+to the ESP. Defaults to auto-generated value. Example, if you have changed your static IP and want to flash OTA to the previously configured IP address.</p></li>
+<li><p><strong>ap</strong> (<em>Optional</em>): Enable an access point mode on the node.</p>
+<ul>
+<li><p><strong>ssid</strong> (<em>Optional</em>, string): The name of the access point to create. Leave empty to use
+the device name.</p></li>
+<li><p><strong>password</strong> (<em>Optional</em>, string): The password for the access point. Leave empty for
+no password.</p></li>
+<li><p><strong>channel</strong> (<em>Optional</em>, int): The channel the AP should operate on from 1 to 14.
+Defaults to 1.</p></li>
+<li><p><strong>manual_ip</strong> (<em>Optional</em>): Manually set the IP options for the AP. Same options as
+manual_ip for station mode.</p></li>
+<li><p><strong>ap_timeout</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The time after which to enable the
+configured fallback hotspot. Can be disabled by setting this to <code class="docutils literal notranslate"><span class="pre">0s</span></code>, which requires manually starting the AP by other means (eg: from a button press). Defaults to <code class="docutils literal notranslate"><span class="pre">1min</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>domain</strong> (<em>Optional</em>, string): Set the domain of the node hostname used for uploading.
+For example, if it’s set to <code class="docutils literal notranslate"><span class="pre">.local</span></code>, all uploads will be sent to <code class="docutils literal notranslate"><span class="pre">&lt;HOSTNAME&gt;.local</span></code>.
+Defaults to <code class="docutils literal notranslate"><span class="pre">.local</span></code>.</p></li>
+<li><p><strong>reboot_timeout</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The amount of time to wait before rebooting when no
+WiFi connection exists. Can be disabled by setting this to <code class="docutils literal notranslate"><span class="pre">0s</span></code>, but note that the low level IP stack currently
+seems to have issues with WiFi where a full reboot is required to get the interface back working. Defaults to <code class="docutils literal notranslate"><span class="pre">15min</span></code>.</p></li>
+<li><p><strong>power_save_mode</strong> (<em>Optional</em>, string): The power save mode for the WiFi interface.
+See <a class="reference internal" href="#wifi-power-save-mode"><span class="std std-ref">Power Save Mode</span></a></p></li>
+<li><p><strong>output_power</strong> (<em>Optional</em>, string): The amount of TX power for the WiFi interface from 8.5dB to 20.5dB. Default for ESP8266 is 20dB, 20.5dB might cause unexpected restarts.</p></li>
+<li><p><strong>fast_connect</strong> (<em>Optional</em>, boolean): If enabled, directly connects to WiFi network without doing a full scan
+first. This is required for hidden networks and can significantly improve connection times. Defaults to <code class="docutils literal notranslate"><span class="pre">off</span></code>.
+The downside is that this option connects to the first network the ESP sees, even if that network is very far away and
+better ones are available.</p></li>
+<li><p><strong>passive_scan</strong> (<em>Optional</em>, boolean): If enabled, then the device will perform WiFi scans in a passive fashion. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>enable_btm</strong> (<em>Optional</em>, bool): Only on <code class="docutils literal notranslate"><span class="pre">esp32</span></code> with <code class="docutils literal notranslate"><span class="pre">esp-idf</span></code>. Enable 802.11v BSS Transition Management support.</p></li>
+<li><p><strong>enable_rrm</strong> (<em>Optional</em>, bool): Only on <code class="docutils literal notranslate"><span class="pre">esp32</span></code> with <code class="docutils literal notranslate"><span class="pre">esp-idf</span></code>. Enable 802.11k Radio Resource Management support.</p></li>
+<li><p><strong>on_connect</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be performed when a connection is established.</p></li>
+<li><p><strong>on_disconnect</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be performed when the connection is dropped.</p></li>
+<li><p><strong>enable_on_boot</strong> (<em>Optional</em>, boolean): If enabled, the WiFi interface will be enabled on boot. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+</ul>
+</section>
+<section id="access-point-mode">
+<h2>Access Point Mode<a class="headerlink" href="#access-point-mode" title="Permalink to this heading">¶</a></h2>
+<p>ESPHome has an optional “Access Point Mode”. If you include <code class="docutils literal notranslate"><span class="pre">ap:</span></code>
+in your wifi configuration, ESPHome will automatically set up an access point that you
+can connect to. Additionally, you can specify both a “normal” station mode and AP mode at the
+same time. This will cause ESPHome to only enable the access point when no connection
+to the WiFi router can be made.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ap</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ssid</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Livingroom</span><span class="nv"> </span><span class="s">Fallback</span><span class="nv"> </span><span class="s">Hotspot&quot;</span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;W1PBGyrokfLz&quot;</span>
+</pre></div>
+</div>
+<p>You can also create a simple <code class="docutils literal notranslate"><span class="pre">ap</span></code> config which will set up the access point to have the
+devices name as the ssid with no password.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ap</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+
+<span class="c1"># or if you still want the ap to have a password</span>
+
+<span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ap</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;W1PBGyrokfLz&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="user-entered-credentials">
+<h2>User Entered Credentials<a class="headerlink" href="#user-entered-credentials" title="Permalink to this heading">¶</a></h2>
+<p>Some components such as <a class="reference internal" href="captive_portal.html"><span class="doc">Captive Portal</span></a>, <a class="reference internal" href="improv_serial.html"><span class="doc">Improv via Serial</span></a> and <a class="reference internal" href="esp32_improv.html"><span class="doc">Improv via BLE</span></a>
+enable the user to send and save Wi-Fi credentials to the device. Beginning in 2022.11.0,
+as long as no credentials are set in the config file, and firmware is uploaded without erasing
+the flash (via OTA), the device will keep the saved credentials.</p>
+</section>
+<section id="manual-ips">
+<span id="wifi-manual-ip"></span><h2>Manual IPs<a class="headerlink" href="#manual-ips" title="Permalink to this heading">¶</a></h2>
+<p>If you’re having problems with your node not connecting to WiFi or the connection
+process taking a long time, it can be a good idea to assign a static IP address
+to the ESP. This way, the ESP doesn’t need to go through the slow DHCP process.</p>
+<p>You can do so with the <code class="docutils literal notranslate"><span class="pre">manual_ip:</span></code> option in the WiFi configuration.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">manual_ip</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># Set this to the IP of the ESP</span>
+<span class="w">    </span><span class="nt">static_ip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.42</span>
+<span class="w">    </span><span class="c1"># Set this to the IP address of the router. Often ends with .1</span>
+<span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.1</span>
+<span class="w">    </span><span class="c1"># The subnet of the network. 255.255.255.0 works for most home networks.</span>
+<span class="w">    </span><span class="nt">subnet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
+</pre></div>
+</div>
+<p>After putting a manual IP in your configuration, the ESP will no longer need to negotiate
+a dynamic IP address with the router, thus improving the time until connection.</p>
+<p>Additionally, this can help with <a class="reference internal" href="ota.html"><span class="doc">Over-The-Air updates</span></a> if for example the
+home network doesn’t allow for <code class="docutils literal notranslate"><span class="pre">.local</span></code> addresses. When a manual IP is in your configuration,
+the OTA process will automatically choose that as the target for the upload.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See also <a class="reference internal" href="esphome.html#esphome-changing-node-name"><span class="std std-ref">Changing ESPHome Node Name</span></a>.</p>
+</div>
+</section>
+<section id="power-save-mode">
+<span id="wifi-power-save-mode"></span><h2>Power Save Mode<a class="headerlink" href="#power-save-mode" title="Permalink to this heading">¶</a></h2>
+<p>The WiFi interface of all ESPs offer three power save modes to reduce the amount of power spent on
+WiFi. While some options <em>can</em> reduce the power usage of the ESP, they generally also decrease the
+reliability of the WiFi connection, with frequent disconnections from the router in the highest
+power saving mode.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code> (least power saving, Default for ESP8266)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LIGHT</span></code> (Default for ESP32)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HIGH</span></code> (most power saving)</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">power_save_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+</pre></div>
+</div>
+</section>
+<section id="connecting-to-multiple-networks">
+<span id="wifi-networks"></span><h2>Connecting to Multiple Networks<a class="headerlink" href="#connecting-to-multiple-networks" title="Permalink to this heading">¶</a></h2>
+<p>Starting with version 1.10.0, you can give ESPHome a number of WiFi networks to connect to.
+ESPHome will then attempt to connect to the one with the highest signal strength.</p>
+<p>To enable this mode, remove the <code class="docutils literal notranslate"><span class="pre">ssid</span></code> and <code class="docutils literal notranslate"><span class="pre">password</span></code> options from your wifi configuration
+and move everything under the <code class="docutils literal notranslate"><span class="pre">networks</span></code> key:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ssid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FirstNetworkToConnectTo</span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VerySafePassword</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ssid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SecondNetworkToConnectTo</span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VerySafePassword</span>
+<span class="w">  </span><span class="c1"># Other options</span>
+<span class="w">  </span><span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>ssid</strong> (<em>Optional</em>, string): The SSID or WiFi network name.</p></li>
+<li><p><strong>password</strong> (<em>Optional</em>, string): The password to use for authentication. Leave empty for no password.</p></li>
+<li><p><strong>manual_ip</strong> (<em>Optional</em>): Manually configure the static IP of the node when using this network. Note that
+when using different static IP addresses on each network, it is required to set <code class="docutils literal notranslate"><span class="pre">use_address</span></code>, as ESPHome
+cannot infer to which network the node is connected.</p>
+<ul>
+<li><p><strong>static_ip</strong> (<strong>Required</strong>, IPv4 address): The static IP of your node.</p></li>
+<li><p><strong>gateway</strong> (<strong>Required</strong>, IPv4 address): The gateway of the local network.</p></li>
+<li><p><strong>subnet</strong> (<strong>Required</strong>, IPv4 address): The subnet of the local network.</p></li>
+<li><p><strong>dns1</strong> (<em>Optional</em>, IPv4 address): The main DNS server to use.</p></li>
+<li><p><strong>dns2</strong> (<em>Optional</em>, IPv4 address): The backup DNS server to use.</p></li>
+</ul>
+</li>
+<li><p><strong>eap</strong> (<em>Optional</em>): See <a class="reference internal" href="#eap"><span class="std std-ref">Enterprise Authentication</span></a>.</p></li>
+<li><p><strong>channel</strong> (<em>Optional</em>, int): The channel of the network (1-14). If given, only connects to networks
+that are on this channel.</p></li>
+<li><p><strong>bssid</strong> (<em>Optional</em>, string): The connection’s BSSID (MAC address). BSSIDs must consist of six
+two-digit hexadecimal values separated by colon characters (”<code class="docutils literal notranslate"><span class="pre">:</span></code>”). All letters must be in upper case.</p></li>
+<li><p><strong>hidden</strong> (<em>Optional</em>, boolean): Whether this network is hidden. Defaults to false.
+If you add this option you also have to specify ssid.</p></li>
+<li><p><strong>priority</strong> (<em>Optional</em>, float): The priority of this network. After each time, the network with
+the highest priority is chosen. If the connection fails, the priority is decreased by one.
+Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+</ul>
+</section>
+<section id="enterprise-authentication">
+<span id="eap"></span><h2>Enterprise Authentication<a class="headerlink" href="#enterprise-authentication" title="Permalink to this heading">¶</a></h2>
+<p>WPA2_EAP Enterprise Authentication is supported on ESP32s and ESP8266s.
+In order to configure this feature you must use the <a class="reference internal" href="#wifi-networks"><span class="std std-ref">Connecting to Multiple Networks</span></a> style configuration.
+The ESP32 is known to work with PEAP, EAP-TTLS, and the certificate based EAP-TLS.
+These are advanced settings and you will usually need to consult your enterprise network administrator.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example EAP configuration</span>
+<span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ssid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EAP-TTLS_EnterpriseNetwork</span>
+<span class="w">    </span><span class="nt">eap</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob</span>
+<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VerySafePassword</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ssid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EAP-TLS_EnterpriseNetwork</span>
+<span class="w">    </span><span class="nt">eap</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">identity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob</span>
+<span class="w">      </span><span class="nt">certificate_authority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ca_cert.pem</span>
+<span class="w">      </span><span class="nt">certificate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cert.pem</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">key.pem</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>identity</strong> (<em>Optional</em>, string): The outer identity to pass to the EAP authentication server.
+This is required for EAP-TLS.</p></li>
+<li><p><strong>username</strong> (<em>Optional</em>, string): The username to present to the authenticating server.</p></li>
+<li><p><strong>password</strong> (<em>Optional</em>, string): The password to present to the authentication server.
+For EAP-TLS this password may be set to decrypt to private key instead.</p></li>
+<li><p><strong>certificate_authority</strong> (<em>Optional</em>, string): Path to a PEM encoded certificate to use when validating the authentication server.</p></li>
+<li><p><strong>certificate</strong> (<em>Optional</em>, string): Path to a PEM encoded certificate to use for EAP-TLS authentication.</p></li>
+<li><p><strong>key</strong> (<em>Optional</em>, string): Path to a PEM encoded private key matching <code class="docutils literal notranslate"><span class="pre">certificate</span></code> for EAP-TLS authentication.
+Optionally encrypted with <code class="docutils literal notranslate"><span class="pre">password</span></code>.</p></li>
+</ul>
+</section>
+<section id="on-connect-on-disconnect-trigger">
+<span id="wifi-on-connect-disconnect"></span><h2><code class="docutils literal notranslate"><span class="pre">on_connect</span></code> / <code class="docutils literal notranslate"><span class="pre">on_disconnect</span></code> Trigger<a class="headerlink" href="#on-connect-on-disconnect-trigger" title="Permalink to this heading">¶</a></h2>
+<p>This trigger is activated when a WiFi connection is established or dropped.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_connect</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch1</span>
+<span class="w">  </span><span class="nt">on_disconnect</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch1</span>
+</pre></div>
+</div>
+</section>
+<section id="wifi-disable-action">
+<span id="wifi-on-disable"></span><h2><code class="docutils literal notranslate"><span class="pre">wifi.disable</span></code> Action<a class="headerlink" href="#wifi-disable-action" title="Permalink to this heading">¶</a></h2>
+<p>This action turns off the WiFi interface on demand.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">wifi.disable</span><span class="p">:</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be aware that if you disable WiFi, the API timeout will need to be disabled otherwise the device will reboot.</p>
+</div>
+</section>
+<section id="wifi-enable-action">
+<span id="wifi-on-enable"></span><h2><code class="docutils literal notranslate"><span class="pre">wifi.enable</span></code> Action<a class="headerlink" href="#wifi-enable-action" title="Permalink to this heading">¶</a></h2>
+<p>This action turns on the WiFi interface on demand.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">wifi.enable</span><span class="p">:</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The configuration option <code class="docutils literal notranslate"><span class="pre">enable_on_boot</span></code> can be set to <code class="docutils literal notranslate"><span class="pre">false</span></code> if you do not want wifi to be enabled on boot.</p>
+</div>
+</section>
+<section id="wifi-connected-condition">
+<span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">wifi.connected</span></code> Condition<a class="headerlink" href="#wifi-connected-condition" title="Permalink to this heading">¶</a></h2>
+<p>This <a class="reference internal" href="../guides/automations.html#config-condition"><span class="std std-ref">Condition</span></a> checks if the WiFi client is currently connected to a station.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">wifi.connected</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WiFi is connected!</span>
+</pre></div>
+</div>
+<p>The lambda equivalent for this is <code class="docutils literal notranslate"><span class="pre">id(wifi_id).is_connected()</span></code>.</p>
+</section>
+<section id="wifi-enabled-condition">
+<span id="id2"></span><h2><code class="docutils literal notranslate"><span class="pre">wifi.enabled</span></code> Condition<a class="headerlink" href="#wifi-enabled-condition" title="Permalink to this heading">¶</a></h2>
+<p>This <a class="reference internal" href="../guides/automations.html#config-condition"><span class="std std-ref">Condition</span></a> checks if WiFi is currently enabled or not.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wifi.enabled</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">wifi.disable</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">else</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">wifi.enable</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>The lambda equivalent for this is <code class="docutils literal notranslate"><span class="pre">!id(wifi_id).is_disabled()</span></code>.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="captive_portal.html"><span class="doc">Captive Portal</span></a></p></li>
+<li><p><a class="reference internal" href="text_sensor/wifi_info.html"><span class="doc">WiFi Info Text Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="sensor/wifi_signal.html"><span class="doc">WiFi Signal Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="network.html"><span class="doc">Network component</span></a></p></li>
+<li><p><a class="reference internal" href="ethernet.html"><span class="doc">Ethernet Component</span></a></p></li>
+<li><p><a class="reference internal" href="api.html"><span class="doc">Native API Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/wifi__component_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/wifi.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

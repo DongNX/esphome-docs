@@ -1,0 +1,420 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Configuration for the LibreTiny platform for ESPHome.">
+<meta itemprop="name" content="LibreTiny Platform">
+<meta itemprop="description" content="Configuration for the LibreTiny platform for ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/libretiny.png">
+<meta name="twitter:title" content="LibreTiny Platform">
+<meta name="twitter:image:src" content="https://esphome.io/_images/libretiny.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Configuration for the LibreTiny platform for ESPHome.">
+<meta property="og:title" content="LibreTiny Platform">
+<meta property="og:image" content="https://esphome.io/_images/libretiny.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Configuration for the LibreTiny platform for ESPHome.">
+
+    <title>LibreTiny Platform &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/libretiny.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LightWaveRF" href="lightwaverf.html" />
+    <link rel="prev" title="Key collector component" href="key_collector.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">LibreTiny Platform</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#gpio-pin-numbering">GPIO Pin Numbering</a></li>
+<li><a class="reference internal" href="#advanced-options">Advanced options</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>LibreTiny Platform</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="libretiny-platform">
+<h1>LibreTiny Platform<a class="headerlink" href="#libretiny-platform" title="Permalink to this heading">¶</a></h1>
+<p>This component contains platform-specific options for the <a class="reference external" href="https://docs.libretiny.eu/">LibreTiny</a> platform.
+It provides support for the following microcontrollers, commonly used in Tuya devices, amongst others:</p>
+<ul class="simple">
+<li><p><strong>BK72xx</strong>: BK7231T, BK7231N</p></li>
+<li><p><strong>RTL87xx</strong>: RTL8710BN, RTL8710BX</p></li>
+</ul>
+<p>Since different microcontrollers are supported, you need to include the appropriate ESPHome component,
+depending on which processor your device has.</p>
+<p>Refer to <a class="reference external" href="https://docs.libretiny.eu/link/boards">LibreTiny/Boards</a> to find your board type.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry for BK72xx</span>
+<span class="nt">bk72xx</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generic-bk7231n-qfn32-tuya</span>
+
+<span class="c1"># Example configuration entry for RTL87xx</span>
+<span class="nt">rtl87xx</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generic-rtl8710bn-2mb-788k</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><strong>board</strong> (<strong>Required</strong>, string): The PlatformIO board ID that should be used. Choose the appropriate board from
+<a class="reference external" href="https://registry.platformio.org/packages/platforms/kuba2k2/libretiny/boards">this list</a>
+(the icon next to the name can be used to copy the board ID).</p>
+<p><strong>This affects CPU selection and some internal settings</strong> - make sure to choose the right CPU.
+If unsure about the choice of a particular board, choose a generic board such as <code class="docutils literal notranslate"><span class="pre">generic-bk7231n-qfn32-tuya</span></code>.</p>
+</li>
+<li><p><strong>framework</strong> (<em>Optional</em>): Options for the underlying framework used by ESPHome.</p>
+<ul class="simple">
+<li><p><strong>version</strong> (<em>Optional</em>, string): The LibreTiny version number to use, from
+<a class="reference external" href="https://github.com/kuba2k2/libretiny/releases">LibreTiny platform releases</a>. Defaults to <code class="docutils literal notranslate"><span class="pre">recommended</span></code>. Additional values</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">dev</span></code>: Use the latest commit from <a class="reference external" href="https://github.com/kuba2k2/libretiny">https://github.com/kuba2k2/libretiny</a>, note this may break at any time</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latest</span></code>: Use the latest <em>release</em> from <a class="reference external" href="https://github.com/kuba2k2/libretiny/releases">https://github.com/kuba2k2/libretiny/releases</a>, even if it hasn’t been recommended yet.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">recommended</span></code>: Use the recommended framework version.</p></li>
+</ul>
+</li>
+<li><p><strong>source</strong> (<em>Optional</em>, string): The PlatformIO package or repository to use for the framework. This can be used to use a custom or patched version of the framework.</p></li>
+<li><p><a class="reference internal" href="#advanced-options"><span class="std std-ref">Advanced options</span></a></p></li>
+</ul>
+</li>
+<li><p><strong>family</strong> (<em>Optional</em>, string): The family of LibreTiny-supported microcontrollers that is used on this board.
+One of <code class="docutils literal notranslate"><span class="pre">bk7231n</span></code>, <code class="docutils literal notranslate"><span class="pre">bk7231t</span></code>, <code class="docutils literal notranslate"><span class="pre">rtl8710b</span></code>, <code class="docutils literal notranslate"><span class="pre">rtl8720c</span></code>, <code class="docutils literal notranslate"><span class="pre">bk7251</span></code>, <code class="docutils literal notranslate"><span class="pre">bk7231q</span></code>.
+Defaults to the variant that is detected from the board, if a board that’s unknown to ESPHome is used,
+this option is mandatory. <strong>It’s recommended not to include this option</strong>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Support for the LibreTiny platform is still in development and there could be issues or missing components.</p>
+<p>Please report any issues on <a class="reference external" href="https://github.com/kuba2k2/libretiny">LibreTiny GitHub</a>.</p>
+</div>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h2>
+<p>Since BK72xx and RTL87xx chips are relatively new on the IoT Open Source development stage,
+there aren’t many resources on flashing and configuring them.</p>
+<p>Here are a few useful links:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/tuya-cloudcutter/tuya-cloudcutter">tuya-cloudcutter</a> - flashing ESPHome Over-the-Air
+to some devices compatible with Tuya/SmartLife apps (BK72xx only!)</p>
+<ul>
+<li><p><a class="reference external" href="https://docs.libretiny.eu/link/cloudcutter-digiblur">Textual &amp; video guide by digiblurDIY</a></p></li>
+<li><p><a class="reference external" href="https://docs.libretiny.eu/link/cloudcutter-video">Video guide by LibreTiny</a></p></li>
+<li><p><a class="reference external" href="https://docs.libretiny.eu/link/kickstart">ESPHome-Kickstart</a> - starter firmware to upload OTA with Cloudcutter</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://docs.libretiny.eu/link/flashing-beken-72xx">Flashing BK72xx by UART</a></p></li>
+<li><p><a class="reference external" href="https://docs.libretiny.eu/link/flashing-realtek-ambz">Flashing RTL8710B by UART</a></p></li>
+<li><p><a class="reference external" href="https://upk.libretiny.eu/">UPK2ESPHome</a> - generating ESPHome YAML automatically, from Cloudcutter profiles or Kickstart firmware (also BK72xx only)</p></li>
+</ul>
+</section>
+<section id="gpio-pin-numbering">
+<h2>GPIO Pin Numbering<a class="headerlink" href="#gpio-pin-numbering" title="Permalink to this heading">¶</a></h2>
+<p>Chips supported by LibreTiny use the internal GPIO pin numbering of the boards, this means that
+you don’t have to worry about other kinds of pin numberings, yay!</p>
+<p>Additionally, you can use <strong>pin function macros</strong> to quickly access a GPIO tied to a particular peripheral,
+such as UART1 TX/RX or PWM0.
+See <a class="reference external" href="https://docs.libretiny.eu/link/gpio-access">LibreTiny/GPIO Access</a> to learn more.</p>
+<p>Most of the popular boards (often incorrectly called “chips”), that are usually shipped with Smart Home devices,
+are <em>supported by LibreTiny</em>, which means that a pinout drawing is available, with all GPIOs described.
+Visit <a class="reference external" href="https://docs.libretiny.eu/link/boards">LibreTiny/Boards</a> to find all supported boards.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Pin</span> <span class="pre">functions</span></code> table outlines all GPIOs available on the chosen board.
+<em>You can use any of the visible names</em> to access a particular GPIO.</p>
+<p>Some notes about the pins on BK72xx:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TX2</span> <span class="pre">(P0)</span></code> and <code class="docutils literal notranslate"><span class="pre">RX2</span> <span class="pre">(P1)</span></code> are used for the default <a class="reference internal" href="logger.html"><span class="doc">Logger Component</span></a> UART port.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TX1</span> <span class="pre">(P11)</span></code> and <code class="docutils literal notranslate"><span class="pre">RX1</span> <span class="pre">(P10)</span></code> are used for flashing firmware, as well as for <a class="reference internal" href="tuya.html"><span class="doc">Tuya MCU</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ADC3</span> <span class="pre">(P23)</span></code> is the only <a class="reference internal" href="sensor/adc.html"><span class="doc">Analog To Digital Sensor</span></a> available on BK7231.</p></li>
+</ul>
+<p>Some notes about the pins on RTL8710BN/BX:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TX2</span> <span class="pre">(PA30)</span></code> and <code class="docutils literal notranslate"><span class="pre">RX2</span> <span class="pre">(PA29)</span></code> are used for flashing the firmware,
+as well as the default <a class="reference internal" href="logger.html"><span class="doc">Logger Component</span></a> UART port.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TX2</span> <span class="pre">(PA30)</span></code> is additionally used to determine the boot mode on startup (similar to ESP32).
+Pulling it LOW on startup will enter “download mode”.</p></li>
+</ul>
+<p>Example configuration entries using various naming styles:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># GPIO switch on P26/GPIO26 (BK72xx example)</span>
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Relay 1</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">P26</span>
+
+<span class="c1"># GPIO binary sensor on PA12 (RTL87xx example)</span>
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Pin</span><span class="nv"> </span><span class="s">PA12&quot;</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PA12</span>
+
+<span class="c1"># ADC reading (BK72xx example)</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adc</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ADC3</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+
+<span class="c1"># PWM component</span>
+<span class="nt">output</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">libretiny_pwm</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PWM2</span>
+<span class="w">    </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000 Hz</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pwm_output</span>
+<span class="c1"># using light with the PWM</span>
+<span class="nt">light</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monochromatic</span>
+<span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pwm_output</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Kitchen</span><span class="nv"> </span><span class="s">Light&quot;</span>
+
+<span class="c1"># Tuya MCU on UART1 (BK72xx example)</span>
+<span class="nt">uart</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">rx_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RX1</span>
+<span class="w">  </span><span class="nt">tx_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TX1</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9600</span>
+<span class="nt">tuya</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="advanced-options">
+<span id="id1"></span><h2>Advanced options<a class="headerlink" href="#advanced-options" title="Permalink to this heading">¶</a></h2>
+<p>These are some advanced configuration options of LibreTiny platform.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">bk72xx</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cb2s</span>
+<span class="w">  </span><span class="nt">framework</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class="w">    </span><span class="nt">loglevel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">debug</span>
+<span class="w">    </span><span class="nt">debug</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wifi</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ota</span>
+<span class="w">    </span><span class="nt">sdk_silent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
+<span class="w">    </span><span class="nt">uart_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">gpio_recover</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">LT_LOG_HEAP</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">LT_AUTO_DOWNLOAD_REBOOT</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>loglevel</strong> (<em>Optional</em>, string): Logging level for LibreTiny core. Controls the output of logging messages
+from the core (doesn’t affect ESPHome logger!). <em>These messages are only visible on the physical UART</em>.
+One of <code class="docutils literal notranslate"><span class="pre">verbose</span></code>, <code class="docutils literal notranslate"><span class="pre">trace</span></code> (same as <code class="docutils literal notranslate"><span class="pre">verbose</span></code>), <code class="docutils literal notranslate"><span class="pre">debug</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code>,
+<code class="docutils literal notranslate"><span class="pre">warn</span></code> (default), <code class="docutils literal notranslate"><span class="pre">error</span></code>, <code class="docutils literal notranslate"><span class="pre">fatal</span></code>, <code class="docutils literal notranslate"><span class="pre">none</span></code>.</p></li>
+<li><p><strong>debug</strong> (<em>Optional</em>, string or string list): Modules to enable LibreTiny debugging for.
+Refer to <a class="reference external" href="https://docs.libretiny.eu/link/config-debug">LibreTiny/Configuration</a>
+for more information - some modules are enabled by default.
+One or more of <code class="docutils literal notranslate"><span class="pre">wifi</span></code>, <code class="docutils literal notranslate"><span class="pre">client</span></code>, <code class="docutils literal notranslate"><span class="pre">server</span></code>, <code class="docutils literal notranslate"><span class="pre">ssl</span></code>, <code class="docutils literal notranslate"><span class="pre">ota</span></code>, <code class="docutils literal notranslate"><span class="pre">fdb</span></code>,
+<code class="docutils literal notranslate"><span class="pre">mdns</span></code>, <code class="docutils literal notranslate"><span class="pre">lwip</span></code>, <code class="docutils literal notranslate"><span class="pre">lwip_assert</span></code>.
+Specifying <code class="docutils literal notranslate"><span class="pre">none</span></code> will disable all modules. You can also combine <code class="docutils literal notranslate"><span class="pre">none</span></code> with one or more of the modules.</p></li>
+<li><p><strong>sdk_silent</strong> (<em>Optional</em>, string): Define the SDK logging “silent mode”.
+This disables messages from vendor SDKs, which makes UART output more readable, but can hide some error messages.
+<em>This affects the physical UART port only</em>.
+Refer to <a class="reference external" href="https://docs.libretiny.eu/link/config-serial">LibreTiny/Configuration</a> for more information.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">all</span></code>: Disable all messages (default).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auto</span></code>: Disable selectively, i.e. during Wi-Fi activation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">none</span></code>: Keep all logging messages, don’t disable anything.</p></li>
+</ul>
+</li>
+<li><p><strong>uart_port</strong> (<em>Optional</em>, int): Choose the default UART port of the framework.
+This affects LibreTiny logging messages, <strong>as well as the default port for</strong>
+<a class="reference internal" href="logger.html"><span class="doc">ESPHome logger</span></a> (e.g. if you don’t specify any other).
+One of 0, 1, 2. The default value is chip-specific and is chosen by LibreTiny appropriately.</p></li>
+<li><p><strong>gpio_recover</strong> (<em>Optional</em>, boolean): Disable JTAG/SWD debugging peripherals. This may be needed
+to free GPIOs that should be used for other functions. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><strong>options</strong> (<em>Optional</em>, mapping): Custom options passed to LibreTiny platform.
+Refer to <a class="reference external" href="https://docs.libretiny.eu/link/config">LibreTiny/Configuration</a> to see all options.
+<em>This takes precedence (overrides) all options described above</em>.</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="esphome.html"><span class="doc">ESPHome Core Configuration</span></a></p></li>
+<li><p><a class="reference internal" href="output/libretiny_pwm.html"><span class="doc">LibreTiny PWM Output</span></a></p></li>
+<li><p><a class="reference internal" href="text_sensor/libretiny.html"><span class="doc">LibreTiny Text Sensor</span></a></p></li>
+<li><p><a class="reference external" href="https://docs.libretiny.eu/">LibreTiny Documentation</a> (external)</p></li>
+<li><p><a class="reference internal" href="tuya.html"><span class="doc">Tuya MCU</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/libretiny.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

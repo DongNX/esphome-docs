@@ -1,0 +1,506 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up AS5600 magnetic position sensor / encoder.">
+<meta name="keywords" content="AS5600 AS5600L">
+<meta itemprop="name" content="AS5600 12-Bit Magnetic Position Sensor">
+<meta itemprop="description" content="Instructions for setting up AS5600 magnetic position sensor / encoder.">
+<meta itemprop="image" content="https://esphome.io/_images/as5600.jpg">
+<meta name="twitter:title" content="AS5600 12-Bit Magnetic Position Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/as5600.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up AS5600 magnetic position sensor / encoder.">
+<meta property="og:title" content="AS5600 12-Bit Magnetic Position Sensor">
+<meta property="og:image" content="https://esphome.io/_images/as5600.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up AS5600 magnetic position sensor / encoder.">
+
+    <title>AS5600 12-Bit Magnetic Position Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/as5600.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="AS7341 Spectral Color Sensor" href="as7341.html" />
+    <link rel="prev" title="AMS AS3935 Franklin Lightning Sensor" href="as3935.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">AS5600 12-Bit Magnetic Position Sensor</a><ul>
+<li><a class="reference internal" href="#component-hub">Component/Hub</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#direction">Direction</a></li>
+<li><a class="reference internal" href="#position-range">Position / Range</a></li>
+<li><a class="reference internal" href="#i2c-addresses">I²C Addresses</a></li>
+<li><a class="reference internal" href="#sensor">Sensor</a><ul>
+<li><a class="reference internal" href="#as5600-sensor-config">Configuration variables:</a></li>
+<li><a class="reference internal" href="#out-of-range-mode">Out of Range Mode</a></li>
+<li><a class="reference internal" href="#magnet-status">Magnet Status</a></li>
+<li><a class="reference internal" href="#converting-position">Converting Position</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>AS5600 12-Bit Magnetic Position Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="as5600-12-bit-magnetic-position-sensor">
+<h1>AS5600 12-Bit Magnetic Position Sensor<a class="headerlink" href="#as5600-12-bit-magnetic-position-sensor" title="Permalink to this heading">¶</a></h1>
+<section id="component-hub">
+<span id="as5600-component"></span><h2>Component/Hub<a class="headerlink" href="#component-hub" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">as5600</span></code> sensor platform you to use your AS5600 (<a class="reference external" href="https://ams.com/documents/20143/36005/AS5600_DS000365_5-00.pdf/649ee61c-8f9a-20df-9e10-43173a3eb323">datasheet</a>,
+<a class="reference external" href="https://ams.com/en/as5600">AMS</a>) or AS5600L (<a class="reference external" href="https://ams.com/documents/20143/36005/AS5600L_DS000545_3-00.pdf/7ade6878-7a32-2294-b88d-479d50fab6de">datasheet</a>,
+<a class="reference external" href="https://ams.com/en/as5600l">AMS</a>) 12-bit magnetic position sensor with ESPHome. Individual sensors will be added
+using the <a class="reference internal" href="#as5600-sensor"><span class="std std-ref">AS5600 Sensor Platform</span></a>. To use this hub, first setup
+the <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a> and connect the sensor to the pins specified there.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/as5600-full.jpg"><img alt="../../_images/as5600-full.jpg" src="../../_images/as5600-full.jpg" style="width: 50.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">AS5600 12-Bit Magnetic Position Sensor.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">as5600</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">dir_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">start_position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0deg</span>
+<span class="w">  </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">180deg</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>dir_pin</strong> (<em>Optional</em>, int): The pin connected to the AS5600’s direction pin.
+See <a class="reference internal" href="#as5600-direction"><span class="std std-ref">Direction</span></a> for more information.</p></li>
+<li><p><strong>direction</strong> (<em>Optional</em>, string): The direction that the magnet should rotate to increase values.
+Used in combination with the <strong>dir_pin</strong>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">clockwise</span></code> (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">counterclockwise</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>start_position</strong> (<em>Optional</em>, int): The raw position that should be considered the start (i.e. <code class="docutils literal notranslate"><span class="pre">0</span></code>).
+See <a class="reference internal" href="#as5600-position-range"><span class="std std-ref">Position / Range</span></a>.</p></li>
+<li><p><strong>end_position</strong> (<em>Optional</em>, int): The raw position that should be considered the end (e.g. 180deg)
+of the allowable rotation range. Mutually exclusive with <strong>range</strong>. See <a class="reference internal" href="#as5600-position-range"><span class="std std-ref">Position / Range</span></a>.</p></li>
+<li><p><strong>range</strong> (<em>Optional</em>, int): The allowable rotation range from the <strong>start_position</strong>. Mutually
+exclusive with <strong>end_position</strong>. See <a class="reference internal" href="#as5600-position-range"><span class="std std-ref">Position / Range</span></a>.</p></li>
+<li><p><strong>hysteresis</strong> (<em>Optional</em>, string): See datasheet.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">none</span></code> (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lsb1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lsb2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lsb3</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>power_mode</strong> (<em>Optional</em>, string): The power mode to run the sensor. Note: When <strong>watchdog</strong> is enabled,
+it will switch the device to <code class="docutils literal notranslate"><span class="pre">low3</span></code> when there is not much change in position.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">nominal</span></code> (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">low1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">low2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">low3</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>watchdog</strong> (<em>Optional</em>, boolean): Whether to enable the watchdog that puts the the chip in to
+low power mode 3. Check the datasheet for more information.
+Defaults to <code class="docutils literal notranslate"><span class="pre">off</span></code>.</p></li>
+<li><p><strong>slow_filter</strong> (<em>Optional</em>, string): See datasheet.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">16x</span></code> (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">8x</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4x</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2x</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>fast_filter</strong> (<em>Optional</em>, string): See datasheet.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">none</span></code> (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lsb6</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lsb7</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lsb9</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lsb18</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lsb21</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lsb24</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lsb10</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>address</strong> (<em>Optional</em>, int): The i²c address of the sensor.
+See <a class="reference internal" href="#as5600-i2c-addresses"><span class="std std-ref">I²C Addresses</span></a> for more information.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID for this AS5600 Hub.</p></li>
+<li><p>All other options for I²C devices described at <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="direction">
+<span id="as5600-direction"></span><h2>Direction<a class="headerlink" href="#direction" title="Permalink to this heading">¶</a></h2>
+<p>The AS5600 has <code class="docutils literal notranslate"><span class="pre">direction</span></code> pin that controls which rotation direction will cause the position value to <strong>increase</strong>.
+This pin should be pulled low for clockwise, and pulled high for counterclockwise. If left floating, you are likely
+to encounter erratic behavior.</p>
+<p>If you would like the ESP controller to pull that pin high or low, you may configure the <code class="docutils literal notranslate"><span class="pre">dir_pin</span></code> and optionally, the
+<code class="docutils literal notranslate"><span class="pre">direction</span></code> option to have the ESP controller pull the pin high or low.</p>
+</section>
+<section id="position-range">
+<span id="as5600-position-range"></span><h2>Position / Range<a class="headerlink" href="#position-range" title="Permalink to this heading">¶</a></h2>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/as5600-magnet-position.png"><img alt="../../_images/as5600-magnet-position.png" src="../../_images/as5600-magnet-position.png" style="width: 80.0%;" /></a>
+</figure>
+<p>Position and range may be configured as one of the following:</p>
+<ul class="simple">
+<li><p>a value between <code class="docutils literal notranslate"><span class="pre">-4095</span></code> and <code class="docutils literal notranslate"><span class="pre">4095</span></code></p></li>
+<li><p>an angle between <code class="docutils literal notranslate"><span class="pre">-360deg</span></code> and <code class="docutils literal notranslate"><span class="pre">360deg</span></code></p></li>
+<li><p>a percentage between <code class="docutils literal notranslate"><span class="pre">-100%</span></code> and <code class="docutils literal notranslate"><span class="pre">100%</span></code></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Negative position values will be normalized to their respective positive position (e.g. -90deg would translate to 270deg).</p>
+</div>
+<p>The AS5600 reports 2 position values. The value for both types of position values will always be a whole number between 0 and 4095.</p>
+<p>A “raw” position value is not filtered, scaled, etc. So a value of <cite>0</cite> is always when the north end of the magnet is at the top of
+the chip, 2048 is always when the north end of the magnet is as the bottom of the chip, etc.</p>
+<p>The regular/scaled position is filtered and scaled based on the sensor configuration (e.g. <code class="docutils literal notranslate"><span class="pre">start_position</span></code>, <code class="docutils literal notranslate"><span class="pre">end_position</span></code>, <code class="docutils literal notranslate"><span class="pre">range</span></code>, etc).
+For example, let’s say we have the following component config:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">as5600</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">start_position</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">90deg</span>
+<span class="w">  </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">180deg</span>
+<span class="w">  </span><span class="nt">direction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clockwise</span>
+<span class="w">  </span><span class="nt">dir_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>If the magnet north was at the right side of the chip (i.e. 1024 / 90deg raw position), the scaled position would report a value of <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p>If the magnet north was at the bottom of the chip (i.e. 2048 / 180deg raw position), the scaled position would report a value of <code class="docutils literal notranslate"><span class="pre">2048</span></code>.</p></li>
+<li><p>If the magnet north was at the left of the chip (i.e. 3096 / 270deg raw position), the scaled position would report a value of <code class="docutils literal notranslate"><span class="pre">4095</span></code>.</p></li>
+<li><p>If the magnet north was at the top of the chipe (i.e. 0 / 0deg raw position), the scaled position would be out of range (which also has
+it’s own caveats discussed below).</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You may specify an <code class="docutils literal notranslate"><span class="pre">end_position</span></code> that is less than the <code class="docutils literal notranslate"><span class="pre">start_position</span></code>. When doing so, the allowable range will start at the
+<code class="docutils literal notranslate"><span class="pre">start_position</span></code> and continue through to the highest position value (i.e. <code class="docutils literal notranslate"><span class="pre">4095</span></code>) and then continue from <code class="docutils literal notranslate"><span class="pre">0</span></code> until it reaches
+the <code class="docutils literal notranslate"><span class="pre">end_position</span></code>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The datasheet calls out that the minimum angle that can be configured (start and end position, or start and range) it 18 degrees.
+Configuring anything less than that may yield un-expected results.</p>
+</div>
+</section>
+<section id="i2c-addresses">
+<span id="as5600-i2c-addresses"></span><h2>I²C Addresses<a class="headerlink" href="#i2c-addresses" title="Permalink to this heading">¶</a></h2>
+<p>The AS5600 address is not configurable and must be <code class="docutils literal notranslate"><span class="pre">0x36</span></code>. However, if using an AS5600L,
+the default address should be <code class="docutils literal notranslate"><span class="pre">0x40</span></code> and it is configurable.</p>
+</section>
+<section id="sensor">
+<span id="as5600-sensor"></span><h2>Sensor<a class="headerlink" href="#sensor" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">as5600</span></code> sensor allows you to publish the angle/position measurement from your AS5600 with ESPHome.
+First, setup an <a class="reference internal" href="#as5600-component"><span class="std std-ref">AS5600 Hub</span></a> for your AS5600 sensor and then use this
+sensor platform to create individual sensors that will report the position to Home Assistant.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/as5600-ui.jpg"><img alt="../../_images/as5600-ui.jpg" src="../../_images/as5600-ui.jpg" style="width: 80.0%;" /></a>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">as5600</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">dir_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">as5600</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Position</span>
+<span class="w">    </span><span class="nt">raw_position</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Raw Position</span>
+<span class="w">    </span><span class="nt">gain</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Gain</span>
+<span class="w">    </span><span class="nt">magnitude</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Magnitude</span>
+<span class="w">    </span><span class="nt">status</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Status</span>
+</pre></div>
+</div>
+<section id="as5600-sensor-config">
+<span id="id1"></span><h3>Configuration variables:<a class="headerlink" href="#as5600-sensor-config" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>out_of_range_mode</strong> (<em>Optional</em>, string): How to treat out of range values. Only applicable if configured
+for a range less than 360 degrees. Defaults to <code class="docutils literal notranslate"><span class="pre">min_max</span></code>. See <a class="reference internal" href="#as5600-out-of-range-mode"><span class="std std-ref">Out of Range Mode</span></a>.</p></li>
+<li><p><strong>as5600_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the
+<a class="reference internal" href="#as5600-component"><span class="std std-ref">AS5600 Hub</span></a> you want to use this sensor.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval
+to check the sensor. Defaults to <code class="docutils literal notranslate"><span class="pre">60s</span></code>.</p></li>
+<li><p><strong>raw_position</strong> (<em>Optional</em>): Reports the raw (un-scaled, un-filtered) position of the magnet.</p>
+<ul>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>gain</strong> (<em>Optional</em>): Information about the automatic gain control. Typically for diagnostic purposes.
+The datasheet says this will be between 0-255 when powered by 5v and between 0-128 when powered by 3.3v.
+Ideally the value should be close to the middle of the respective range.</p>
+<ul>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>magnitude</strong> (<em>Optional</em>): Information about the detected magnitude. Typically for diagnostic purposes.
+The expected scale does not appear to be defined in the datasheet, however, AMS provides a
+<a class="reference external" href="https://ams.com/documents/20143/36005/Position%20Sensors_UG000359_1-00.pdf/65a99825-c115-f2f0-9167-6efad8e27c20">user guide</a>
+which contains pictures that show it as a scale between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">3000</span></code>. Typically this value is seen somewhere
+in the neighborhood of <code class="docutils literal notranslate"><span class="pre">2100</span></code> for a well positioned magnet.</p>
+<ul>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>status</strong> (<em>Optional</em>): Information about the magnet status. Typically for diagnostic purposes.
+See <a class="reference internal" href="#as5600-magnet-status"><span class="std std-ref">Magnet Status</span></a></p>
+<ul>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="out-of-range-mode">
+<span id="as5600-out-of-range-mode"></span><h3>Out of Range Mode<a class="headerlink" href="#out-of-range-mode" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">min_max</span></code> (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nan</span></code></p></li>
+</ul>
+<p>When using a range less that 360deg, there would be a range of raw values that would be considered “out of range”. By default (<code class="docutils literal notranslate"><span class="pre">min_max</span></code> mode), the AS5600
+splits that range in half and reports <code class="docutils literal notranslate"><span class="pre">0</span></code> while in the half of the “out-of-range” range closest to the <code class="docutils literal notranslate"><span class="pre">start_position</span></code> and it reports
+<code class="docutils literal notranslate"><span class="pre">4095</span></code> while in the half of the “out-of-range” range closest to the <code class="docutils literal notranslate"><span class="pre">end_position</span></code> / end of the <code class="docutils literal notranslate"><span class="pre">range</span></code>. Alternatively, you may set to <code class="docutils literal notranslate"><span class="pre">nan</span></code>
+mode where the sensor will publish <code class="docutils literal notranslate"><span class="pre">NAN</span></code> (i.e. “Unknown”) when the position falls outside the narrowed range.</p>
+</section>
+<section id="magnet-status">
+<span id="as5600-magnet-status"></span><h3>Magnet Status<a class="headerlink" href="#magnet-status" title="Permalink to this heading">¶</a></h3>
+<p>The magnet status should report one of the following values:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code> indicates that no magnet was detected.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4</span></code> indicates that the magnet was detected and has good reading.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">5</span></code> indicates that the magnet was detected, but is too strong. Measurements may appear to be stuck if the magnet is too strong.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">6</span></code> indicates that the magnet was detected, but is too weak. Measurements may still be possible in this state.</p></li>
+</ul>
+</section>
+<section id="converting-position">
+<span id="as5600-converting-position"></span><h3>Converting Position<a class="headerlink" href="#converting-position" title="Permalink to this heading">¶</a></h3>
+<p>You may desire the position to be converted from the native <code class="docutils literal notranslate"><span class="pre">0</span></code> thru <code class="docutils literal notranslate"><span class="pre">4095</span></code> to degrees, or perhaps a percentage of the allowable range.
+Here are some examples to make that happen:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/as5600-ui-derived.jpg"><img alt="../../_images/as5600-ui-derived.jpg" src="../../_images/as5600-ui-derived.jpg" style="width: 80.0%;" /></a>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">as5600</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_as5600</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">as5600</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Angle</span>
+<span class="w">    </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;°&#39;</span>
+<span class="w">    </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:rotate-right</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">as5600::RAW_TO_DEGREES</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">id(my_as5600).get_range_scale();&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">as5600</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_as5600</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">as5600</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Percent</span>
+<span class="w">    </span><span class="nt">unit_of_measurement</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%&#39;</span>
+<span class="w">    </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:rotate-right</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">(x</span><span class="nv"> </span><span class="s">/</span><span class="nv"> </span><span class="s">as5600::POSITION_COUNT)</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">100;&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference external" href="/api/as5600_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/as5600.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

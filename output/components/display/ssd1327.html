@@ -1,0 +1,409 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up SSD1327 OLED display drivers.">
+<meta itemprop="name" content="SSD1327 OLED Display">
+<meta itemprop="description" content="Instructions for setting up SSD1327 OLED display drivers.">
+<meta itemprop="image" content="https://esphome.io/_images/ssd1327.jpg">
+<meta name="twitter:title" content="SSD1327 OLED Display">
+<meta name="twitter:image:src" content="https://esphome.io/_images/ssd1327.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up SSD1327 OLED display drivers.">
+<meta property="og:title" content="SSD1327 OLED Display">
+<meta property="og:image" content="https://esphome.io/_images/ssd1327.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up SSD1327 OLED display drivers.">
+
+    <title>SSD1327 OLED Display &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/display/ssd1327.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="SSD1331 OLED Display" href="ssd1331.html" />
+    <link rel="prev" title="SSD1325/7 OLED Display" href="ssd1325.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">SSD1327 OLED Display</a><ul>
+<li><a class="reference internal" href="#over-i2c">Over I²C</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#over-spi">Over SPI</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+<li><a class="reference internal" href="#configuration-examples">Configuration examples</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Display Component</a> ➔</li>
+      <li>SSD1327 OLED Display</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="ssd1327-oled-display">
+<h1>SSD1327 OLED Display<a class="headerlink" href="#ssd1327-oled-display" title="Permalink to this heading">¶</a></h1>
+<section id="over-i2c">
+<span id="ssd1327-i2c"></span><h2>Over I²C<a class="headerlink" href="#over-i2c" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ssd1327_i2c</span></code> display platform allows you to use
+SSD1327 (<a class="reference external" href="https://www.generationrobots.com/media/Ecran_OLED_0_96/SSD1327_datasheet.pdf">datasheet</a>,
+<a class="reference external" href="https://www.waveshare.com/1.5inch-oled-module.htm">Waveshare</a>) displays with ESPHome. Note that this component is for
+displays that are connected via the <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a>. If your SSD1327 is connected via the 4-Wire
+<a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI bus</span></a>, see <a class="reference internal" href="#ssd1327-spi"><span class="std std-ref">Over SPI</span></a>.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/ssd1327-full.jpg"><img alt="../../_images/ssd1327-full.jpg" src="../../_images/ssd1327-full.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">SSD1327 OLED Display</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Connect CLK to the SCL (clock) pin you chose for the <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a> and connect DIN to the SDA (data) pin.
+For power, connect VCC to 3.3V and GND to GND. You may also connect the <code class="docutils literal notranslate"><span class="pre">RESET</span></code> pin to an available pin on the
+ESP; this is recommended as it improves reliability.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">i2c</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D1</span>
+<span class="w">  </span><span class="nt">scl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D2</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssd1327_i2c</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SSD1327</span><span class="nv"> </span><span class="s">128x128&quot;</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D0</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x3D</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.print(0, 0, id(font), &quot;Hello World!&quot;);</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>model</strong> (<strong>Required</strong>): The model of the display. At present, only one option is available:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">SSD1327</span> <span class="pre">128x128</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>reset_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The RESET pin. Defaults to not connected.</p></li>
+<li><p><strong>address</strong> (<em>Optional</em>, int): Manually specify the <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C</span></a> address of the display. Defaults to 0x3D.</p></li>
+<li><p><strong>rotation</strong> (<em>Optional</em>): Set the rotation of the display. Everything you draw in <code class="docutils literal notranslate"><span class="pre">lambda:</span></code> will be rotated
+by this option. One of <code class="docutils literal notranslate"><span class="pre">0°</span></code> (default), <code class="docutils literal notranslate"><span class="pre">90°</span></code>, <code class="docutils literal notranslate"><span class="pre">180°</span></code>, <code class="docutils literal notranslate"><span class="pre">270°</span></code>.</p></li>
+<li><p><strong>brightness</strong> (<em>Optional</em>, percentage): Set display brightness in %. Defaults to <code class="docutils literal notranslate"><span class="pre">100%</span></code></p></li>
+<li><p><strong>lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>): The lambda to use for rendering the content on the display.
+See <a class="reference internal" href="index.html#display-engine"><span class="std std-ref">Display Rendering Engine</span></a> for more information.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to re-draw the screen. Defaults to <code class="docutils literal notranslate"><span class="pre">5s</span></code>.</p></li>
+<li><p><strong>pages</strong> (<em>Optional</em>, list): Show pages instead of a single lambda. See <a class="reference internal" href="index.html#display-pages"><span class="std std-ref">Display Pages</span></a>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To speed up the display update process you can select higher I²C frequencies.</p>
+</div>
+</section>
+</section>
+<section id="over-spi">
+<span id="ssd1327-spi"></span><h2>Over SPI<a class="headerlink" href="#over-spi" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ssd1327_spi</span></code> display platform allows you to use
+SSD1327 (<a class="reference external" href="https://cdn-shop.adafruit.com/datasheets/SSD1327.pdf">datasheet</a>, <a class="reference external" href="https://www.adafruit.com/product/326">Adafruit</a>)
+displays with ESPHome. Note that this component is for displays that are connected via the 4-Wire <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI bus</span></a>.
+If your SSD1327 is connected via the <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a>, see <a class="reference internal" href="#ssd1327-i2c"><span class="std std-ref">Over I²C</span></a>.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../../_images/ssd1327-full.jpg"><img alt="../../_images/ssd1327-full.jpg" src="../../_images/ssd1327-full.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">SSD1327 OLED Display</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Connect CLK to the SCK (clock) pin you chose for the <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI bus</span></a>, connect DIN to the MOSI/SDO pin, and connect <code class="docutils literal notranslate"><span class="pre">DC</span></code>
+to another pin of your choosing. <code class="docutils literal notranslate"><span class="pre">CS</span></code> may connect to a pin on the ESP or it may connect to ground if the display is the only
+device connected to the SPI bus. For power, connect VCC to 3.3V and GND to GND. You may also connect the <code class="docutils literal notranslate"><span class="pre">RESET</span></code> pin to an
+available pin on the ESP; this is recommended as it improves reliability.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">spi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">clk_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D0</span>
+<span class="w">  </span><span class="nt">mosi_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D1</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssd1327_spi</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SSD1327</span><span class="nv"> </span><span class="s">128x128&quot;</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D2</span>
+<span class="w">    </span><span class="nt">dc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D3</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D4</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.print(0, 0, id(font), &quot;Hello World!&quot;);</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>model</strong> (<strong>Required</strong>): The model of the display. At present, only one option is available:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">SSD1327</span> <span class="pre">128x128</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>cs_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The Chip Select (CS) pin.</p></li>
+<li><p><strong>dc_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The DC pin.</p></li>
+<li><p><strong>reset_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The RESET pin. Defaults to not connected.</p></li>
+<li><p><strong>rotation</strong> (<em>Optional</em>): Set the rotation of the display. Everything you draw in <code class="docutils literal notranslate"><span class="pre">lambda:</span></code> will be rotated
+by this option. One of <code class="docutils literal notranslate"><span class="pre">0°</span></code> (default), <code class="docutils literal notranslate"><span class="pre">90°</span></code>, <code class="docutils literal notranslate"><span class="pre">180°</span></code>, <code class="docutils literal notranslate"><span class="pre">270°</span></code>.</p></li>
+<li><p><strong>brightness</strong> (<em>Optional</em>, percentage): Set display brightness in %. Defaults to <code class="docutils literal notranslate"><span class="pre">100%</span></code></p></li>
+<li><p><strong>lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>): The lambda to use for rendering the content on the display.
+See <a class="reference internal" href="index.html#display-engine"><span class="std std-ref">Display Rendering Engine</span></a> for more information.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to re-draw the screen. Defaults to <code class="docutils literal notranslate"><span class="pre">5s</span></code>.</p></li>
+<li><p><strong>pages</strong> (<em>Optional</em>, list): Show pages instead of a single lambda. See <a class="reference internal" href="index.html#display-pages"><span class="std std-ref">Display Pages</span></a>.</p></li>
+<li><p><strong>spi_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI Component</span></a> if you want
+to use multiple SPI buses.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+</ul>
+</section>
+<section id="configuration-examples">
+<h3>Configuration examples<a class="headerlink" href="#configuration-examples" title="Permalink to this heading">¶</a></h3>
+<p>To utilize the grayscale capabilities of this display module, add a <code class="docutils literal notranslate"><span class="pre">color:</span></code> section to your YAML configuration;
+please see <a class="reference internal" href="index.html#config-color"><span class="std std-ref">color</span></a> for more details. As this is a grayscale display, it only uses the white color
+element as shown below.</p>
+<p>To use grayscale in your lambda:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">color</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">medium_gray</span>
+<span class="w">    </span><span class="nt">white</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50%</span>
+
+<span class="nn">...</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">lambda</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.rectangle(0,  0, it.get_width(), it.get_height(), id(medium_gray));</span>
+</pre></div>
+</div>
+<p>To bring in grayscale images:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;image.jpg&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_image</span>
+<span class="w">    </span><span class="nt">resize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">120x120</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GRAYSCALE</span>
+
+<span class="nn">...</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">lambda</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.image(0, 0, id(my_image));</span>
+</pre></div>
+</div>
+<p>In this case, the image will be converted to grayscale (regardless of its original format) and rendered as such
+when drawn on the display. Note that the original image may require some adjustment as not all images immediately
+convert nicely to the 4-bit grayscale format this display supports.</p>
+<p>Note that if <code class="docutils literal notranslate"><span class="pre">type:</span> <span class="pre">GRAYSCALE</span></code> is omitted, the image will render as a binary image (no grayscale); in this
+case, a color attribute may be passed to the <code class="docutils literal notranslate"><span class="pre">image()</span></code> method as follows:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;image.jpg&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_image</span>
+<span class="w">    </span><span class="nt">resize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">120x120</span>
+
+<span class="nn">...</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">lambda</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">it.image(0, 0, id(medium_gray), id(my_image));</span>
+</pre></div>
+</div>
+<p>This will draw the complete image with the given shade of gray.</p>
+<p>To create a new color as needed in code:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">lambda</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">float white_intensity = 0.5;</span>
+<span class="w">      </span><span class="no">Color variable_gray(0, 0, 0, white_intensity);</span>
+<span class="w">      </span><span class="no">it.rectangle(0,  0, it.get_width(), it.get_height(), variable_gray);</span>
+</pre></div>
+</div>
+<p>The last argument of the <code class="docutils literal notranslate"><span class="pre">Color</span></code> constructor is the intensity of the white element; it is a percentage
+(value of range 0 to 1). It may be defined by another variable so it is adjustable in code.</p>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Display Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/ssd1327__base_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/display/ssd1327.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

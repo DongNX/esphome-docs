@@ -1,0 +1,537 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Physically Connecting to your Device &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/guides/physical_device_connection.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributors" href="supporters.html" />
+    <link rel="prev" title="Migrating from Tasmota" href="migrate_sonoff_tasmota.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Physically Connecting to your Device</a><ul>
+<li><a class="reference internal" href="#connecting-to-the-esp">Connecting to the ESP</a><ul>
+<li><a class="reference internal" href="#usb-port-on-device">USB Port on Device</a></li>
+<li><a class="reference internal" href="#pre-soldered-programming-header">Pre-soldered Programming Header</a></li>
+<li><a class="reference internal" href="#unpopulated-programming-header">Unpopulated Programming Header</a></li>
+<li><a class="reference internal" href="#solder-filled-programming-header">Solder-filled Programming Header</a></li>
+<li><a class="reference internal" href="#module-only">Module Only</a></li>
+<li><a class="reference internal" href="#bare-chip">Bare Chip</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#materials">Materials</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Guides</a> ➔</li>
+      <li>Physically Connecting to your Device</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="physically-connecting-to-your-device">
+<h1>Physically Connecting to your Device<a class="headerlink" href="#physically-connecting-to-your-device" title="Permalink to this heading">¶</a></h1>
+<p>The most difficult part of setting up a new ESPHome device is the initial
+installation, which requires connecting your ESP device to a computer using a
+cable.</p>
+<p><strong>You only need to do this once per device.</strong> Once you’ve flashed ESPHome on a
+device, you can use <a class="reference internal" href="../components/ota.html"><span class="doc">the OTA updater</span></a> to upload new
+versions or configuration changes wirelessly.</p>
+<p>ESPHome runs on a wide variety of devices, so it’s hard to list any specific
+set of tools that you need or to give instructions on how to connect. This
+guide tries to cover some of the more common flashing situations. If your
+device doesn’t fit any of these situations, try and find a guide for your
+specific device in the <a class="reference internal" href="../index.html#devices"><span class="std std-ref">devices guides</span></a> or elsewhere on the
+internet.</p>
+<section id="connecting-to-the-esp">
+<h2>Connecting to the ESP<a class="headerlink" href="#connecting-to-the-esp" title="Permalink to this heading">¶</a></h2>
+<p>There’s a wide variety of situations you might find yourself in, each of which
+requires you do something different to connect your computer to the ESP in
+order to flash it.</p>
+<p>You only need to physically connect to it once. Once you’ve flashed your device
+and connected it to your WiFi, you can use the <a class="reference external" href="/components/ota.html">OTA (over-the-air) update
+component</a> to install software remotely.</p>
+<p>Programming a ESP-based device is done by connecting the serial port on the
+ESP8266/ESP32 to your computer through a USB to serial adapter. Some devices
+have adapter built into the circuit board (and some even have the programmer
+embedded in the MCU, in which case things are a bit easier.</p>
+<p>In case you use an external serial programmer connected to RX and TX of the ESP, choose one based
+on CH340 as it’s the most reliable and the cheapest one to use for flashing. Programmers based on
+CP2102 or PL2303 are compatible with many devices, but using an external 3.3V supply might be
+necessary for them.</p>
+<p id="esphome-phy-con-drv">Plug in the board or the serial programmer into a free USB port and check if it has been properly detected
+by your computer. The firmware programming tools use a serial interface to communicate with your device.
+On Windows these interfaces are named <code class="docutils literal notranslate"><span class="pre">COM1</span></code>, <code class="docutils literal notranslate"><span class="pre">COM2</span></code>, etc. and on Linux they are named <code class="docutils literal notranslate"><span class="pre">/dev/ttyUSB0</span></code>,
+<code class="docutils literal notranslate"><span class="pre">/dev/ttyACM1</span></code>, etc.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If it’s not showing up as a serial port, you might not have the required drivers
+installed. The model number you need is engraved on the chip connected to the USB port.
+ESPs and programmers usually ship with one of these UART chips:</p>
+<ul class="simple">
+<li><p>CH34x: <a class="reference external" href="https://github.com/nodemcu/nodemcu-devkit/tree/master/Drivers">driver</a></p></li>
+<li><p>CP2102: <a class="reference external" href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">driver</a></p></li>
+<li><p>PL2303: <a class="reference external" href="https://www.prolific.com.tw/US/ShowProduct.aspx?p_id=225&amp;pcid=41">driver</a></p></li>
+</ul>
+</div>
+<p>With the exception of the situation where you have a USB port, you need to make
+five electrical connections to program an ESP-based board:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">+3.3V</span></code>, or occasionally <code class="docutils literal notranslate"><span class="pre">+5.0V</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GND</span></code>, or ground</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TX</span></code> of programmer to <code class="docutils literal notranslate"><span class="pre">RX</span></code> of the <code class="docutils literal notranslate"><span class="pre">ESP</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RX</span></code> of programmer to <code class="docutils literal notranslate"><span class="pre">TX</span></code> of the <code class="docutils literal notranslate"><span class="pre">ESP</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IO0</span></code>, used to place the board into programming mode. This is often a button
+that you need to hold down while connecting the power (<code class="docutils literal notranslate"><span class="pre">+3.3V</span></code>).</p></li>
+</ul>
+<p>The power supplied to the device is one of the most important elements for both flashing
+the device and for stable operation. You must ensure that the device receives sufficient
+power (current AND appropriate voltage level) to properly flash the firmware on the device.
+When using an external <code class="docutils literal notranslate"><span class="pre">3.3V</span></code> supply, ensure the ground (<code class="docutils literal notranslate"><span class="pre">GND</span></code>) of both are connected together,
+this ensures a common ground. A PC power supply can be a good source for <code class="docutils literal notranslate"><span class="pre">3.3V</span></code> DC power.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some adapters can be switched between <code class="docutils literal notranslate"><span class="pre">3.3V</span></code> and <code class="docutils literal notranslate"><span class="pre">5V</span></code> for the data pins, but still provide 5V on the power pin which will irreparably destroy your device. You <strong>MUST</strong> make sure the data (<code class="docutils literal notranslate"><span class="pre">RX</span></code> and <code class="docutils literal notranslate"><span class="pre">TX</span></code>) and <code class="docutils literal notranslate"><span class="pre">VCC</span></code> pins are set for <code class="docutils literal notranslate"><span class="pre">3.3V</span></code>.</p>
+</div>
+<p>ESP needs to be put into programming mode or flash mode before the firmware can be uploaded. This is
+done by connecting <code class="docutils literal notranslate"><span class="pre">GPIO0</span></code> pin to <code class="docutils literal notranslate"><span class="pre">GND</span></code> while the chip is booting.</p>
+<p id="esphome-phy-con-prg">To put the ESP into programming mode:</p>
+<ul class="simple">
+<li><p>Disconnect the USB connection of your board or serial programmer from the computer (to power off your ESP)</p></li>
+<li><p>Bridge <code class="docutils literal notranslate"><span class="pre">GPIO0</span></code> and <code class="docutils literal notranslate"><span class="pre">GND</span></code> (by pressing the on-board button or connection with a wire)</p></li>
+<li><p>Connect the board or serial programmer to your computer (ensuring ESP powers up)</p></li>
+<li><p>After a few seconds disconnect <code class="docutils literal notranslate"><span class="pre">GPIO0</span></code> from <code class="docutils literal notranslate"><span class="pre">GND</span></code> (release button or remove the wire connection). On devices that do not provide the <code class="docutils literal notranslate"><span class="pre">GPIO0</span></code> connected button, it may be easier to leave the wired bridge in place throughout the entire flashing process (erase &amp; upload). Doing so will not create any problems. After the firmware is uploaded successfully, remove the bridge. This allows the device to boot normally.</p></li>
+</ul>
+<p>You may need to power-cycle the ESP between erasing and uploading the firmware, this can be done by disconnecting and reconnecting, of course with <code class="docutils literal notranslate"><span class="pre">GPIO0</span></code> and <code class="docutils literal notranslate"><span class="pre">GND</span></code> still connected to each other.</p>
+<p><code class="docutils literal notranslate"><span class="pre">RX</span></code> and <code class="docutils literal notranslate"><span class="pre">TX</span></code> can be sometimes swapped. If programming your board doesn’t work the
+first time, try flipping the wires connected to those pins before trying again.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<a class="reference internal image-reference" href="../_images/high-voltage-warning.svg"><img alt="High voltage warning symbol" height="50" src="../_images/high-voltage-warning.svg" /></a>
+<p><strong>Do not connect your device to mains electricity while following this
+guide.</strong> If your device is open and plugged directly into the wall, you’ll
+be a single touch away from being electrocuted.</p>
+<p>Note that this does not apply if your device uses a separate “wall wart” or
+a power brick. Using an external power supply while flashing is an advanced
+topic not covered here, but does not pose any safety risk.</p>
+<p><strong>You are solely responsible for your own safety.</strong> If you feel something
+is wrong or are uncomfortable with continuing, stop immediately.</p>
+</div>
+<section id="usb-port-on-device">
+<h3>USB Port on Device<a class="headerlink" href="#usb-port-on-device" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/nodemcu_esp8266.jpg"><img alt="../_images/nodemcu_esp8266.jpg" src="../_images/nodemcu_esp8266.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">A device with a USB port and a serial adapter built-in</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Development boards often come with a USB port built in. This USB port is
+connected to a serial adapter, so you don’t need a separate serial adapter. You
+can use just a <a class="reference internal" href="#usb-cable"><span class="std std-ref">USB cable</span></a> to connect it to your computer to
+program it.</p>
+<p>This isn’t likely to be very useful without connecting additional sensors to it
+by either soldering or using a breadboard, but you do not need anything else to
+<em>just</em> flash ESPHome on it.</p>
+</section>
+<section id="pre-soldered-programming-header">
+<h3>Pre-soldered Programming Header<a class="headerlink" href="#pre-soldered-programming-header" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/programming-header-populated.jpg"><img alt="../_images/programming-header-populated.jpg" src="../_images/programming-header-populated.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">A device that comes with programming headers pre-installed</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>In this situation, you’ll need just <a class="reference internal" href="#jumper-wires"><span class="std std-ref">jumper wires</span></a> and a
+<a class="reference internal" href="#usb-serial-adapter"><span class="std std-ref">USB to serial adapter</span></a>. You don’t need to solder
+anything, that’s already been done by the factory.</p>
+</section>
+<section id="unpopulated-programming-header">
+<h3>Unpopulated Programming Header<a class="headerlink" href="#unpopulated-programming-header" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../_images/programming-header-unpopulated.jpg"><img alt="../_images/programming-header-unpopulated.jpg" src="../_images/programming-header-unpopulated.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">A device that has a spot for programming headers on the circuit board</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>You can probably get away with <a class="reference internal" href="#jumper-wires"><span class="std std-ref">jumper wires</span></a> and a
+<a class="reference internal" href="#usb-serial-adapter"><span class="std std-ref">USB to serial adapter</span></a>. You can place the male end
+of the wires directly into the circuit board and hold them into place with your
+hand until you’re done flashing the board.</p>
+<p>These headers sometimes have writing on the circuit board indicating what each
+pin is. If your header does not, either look it up on the internet, or use a
+multimeter in continuity mode to figure it out (advanced topic).</p>
+</section>
+<section id="solder-filled-programming-header">
+<h3>Solder-filled Programming Header<a class="headerlink" href="#solder-filled-programming-header" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="../_images/programming-header-filled.jpg"><img alt="../_images/programming-header-filled.jpg" src="../_images/programming-header-filled.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">A set of programming headers that are filled with solder</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>You’ll need a USB to serial adapter, <a class="reference internal" href="#jumper-wires"><span class="std std-ref">jumper wires</span></a>, a
+<a class="reference internal" href="#soldering-iron"><span class="std std-ref">soldering iron</span></a>, and probably <a class="reference internal" href="#solder"><span class="std std-ref">solder</span></a> and
+some <a class="reference internal" href="#pcb-headers"><span class="std std-ref">breakaway headers</span></a> if your board looks like this.</p>
+<p>You can try placing the jumper wires in the right place, but you’ll have
+trouble holding them without having them slide around. You’ll want to solder a
+header onto the programming port in this situation.</p>
+<p>These headers sometimes have writing on the circuit board indicating what each
+pin is. If your header does not, either look it up on the internet, or use a
+multimeter in continuity mode to figure it out (advanced topic).</p>
+</section>
+<section id="module-only">
+<h3>Module Only<a class="headerlink" href="#module-only" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="../_images/module-only-programming.jpg"><img alt="From https://tasmota.github.io/docs/devices/SM-SO301/" src="../_images/module-only-programming.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">An ESP8266 module with programming wires soldered on</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>If the device has a module but no programming headers, things get a bit tricky.
+You’ll need a <a class="reference internal" href="#usb-serial-adapter"><span class="std std-ref">USB to serial adapter</span></a>, <a class="reference internal" href="#jumper-wires"><span class="std std-ref">jumper
+wires</span></a>, <a class="reference internal" href="#wire-strippers"><span class="std std-ref">wire strippers</span></a>, <a class="reference internal" href="#wire-snips"><span class="std std-ref">wire snips</span></a>, a <a class="reference internal" href="#soldering-iron"><span class="std std-ref">soldering iron</span></a>, <a class="reference internal" href="#solder"><span class="std std-ref">solder</span></a>, and a bit of <a class="reference internal" href="#soldering-flux"><span class="std std-ref">flux</span></a> would help.</p>
+<p>Cut the jumper wires, strip a bit off the end, and then solder them onto the
+module. You can find the correct places to solder the wires by looking up the
+module model number on the internet. You can find <a class="reference external" href="https://tasmota.github.io/docs/Pinouts/">one list of commonly used
+modules here</a>.</p>
+</section>
+<section id="bare-chip">
+<h3>Bare Chip<a class="headerlink" href="#bare-chip" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="../_images/programming-bare-chip.jpg"><img alt="From https://tasmota.github.io/docs/devices/Teckin-SP23/" src="../_images/programming-bare-chip.jpg" style="width: 75.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">A bare ESP8266 IC with no programming header</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This is an advanced topic and won’t be covered in detail, but you have three options:</p>
+<ul class="simple">
+<li><p>You can hope that your device is supported by an OTA conversation tool. Most
+these tools have been broken by vendors, and the ESPHome community can’t help
+you with using these tools.</p></li>
+<li><p>If the programming wires connect to a larger component like a resistor, you
+can solder or clip your <a class="reference internal" href="#jumper-wires"><span class="std std-ref">jumper wires</span></a> to that larger
+component.</p></li>
+<li><p>You can use your amazing microsoldering skills to connect directly to the IC.</p></li>
+</ul>
+</section>
+</section>
+<section id="materials">
+<h2>Materials<a class="headerlink" href="#materials" title="Permalink to this heading">¶</a></h2>
+<p>Because we’re working with hardware, we might need some additional tools,
+depending on the situation. Already have all this stuff? You’re good to go!</p>
+<p>But if you don’t, don’t go out and buy everything just yet. Read through the
+guide first and make a list of everything you need. Different situations will
+require different parts and tools.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 38%" />
+<col style="width: 13%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Approx. cost</p></th>
+<th class="head"><p>Picture</p>
+</th>
+</tr>
+</thead>
+<tbody id="usb-cable">
+<tr class="row-even"><td><p><a class="reference internal" href="#usb-cable"><span class="std std-ref">USB to micro-USB/mini-USB/USB-C</span></a></p></td>
+<td><p>If your target device has a USB port on it, you need the appropriate
+cable to connect to it.</p></td>
+<td><p>$3 to $10</p></td>
+<td><img alt="From https://www.stockvault.net/photo/271754/usb-cable" src="../_images/usb-cable.jpg" />
+</td>
+</tr>
+<tr class="row-odd" id="usb-serial-adapter"><td><p><a class="reference internal" href="#usb-serial-adapter"><span class="std std-ref">USB to serial adapter</span></a></p></td>
+<td><p>Serial communication is a simple way of talking to other devices, like
+the ESP32/ESP8266 you’re flashing. But your computer probably doesn’t
+have this capability built-in. “Serial”, “UART”, “TTL”, and “COM” are
+all more-or-less synonyms.</p>
+<p>There are many different types of these, so don’t worry if yours doesn’t
+look exactly like the picture. However, you do need one with a voltage
+regulator.</p>
+<p>The <a class="reference external" href="https://tasmota.github.io/docs/Getting-Started/#needed-hardware">Tasmota website provides a good set of suggestions on what to buy</a>.</p>
+</td>
+<td><p>$3 to $10</p></td>
+<td><img alt="From https://tasmota.github.io/docs/Getting-Started/" src="../_images/usb-serial-adapter.jpg" />
+</td>
+</tr>
+<tr class="row-even" id="jumper-wires"><td><p><a class="reference internal" href="#jumper-wires"><span class="std std-ref">Jumper wires</span></a></p></td>
+<td><p>Used to connect two things together electrically. The male end has metal
+protuding and is plugged into the female end of a wire or board.
+They come in varying lengths too, but for our purposes, any length will
+do.</p></td>
+<td><p>$3 to $8 for a pack</p></td>
+<td><img alt="From https://www.flickr.com/photos/snazzyguy/8096512976" src="../_images/jumper-wires.jpg" />
+</td>
+</tr>
+<tr class="row-odd" id="pcb-headers"><td><p><a class="reference internal" href="#pcb-headers"><span class="std std-ref">Breakable headers</span></a></p></td>
+<td><p>Soldered to a PCB to provide a way to connect jumper wires. The distance
+between the metal pins is known as the pitch, and is usually 2.54mm for
+what we’re doing.</p>
+<p>This sort of header can be cut to the correct length along the groves.</p>
+</td>
+<td><p>$3 to $8 for a pack</p></td>
+<td><img alt="From https://www.flickr.com/photos/snazzyguy/27120004896/" src="../_images/breakable-header.jpg" />
+</td>
+</tr>
+<tr class="row-even" id="wire-snips"><td><p><a class="reference internal" href="#wire-snips"><span class="std std-ref">Wire snips, wire cutters, flush cutters</span></a></p></td>
+<td><p>Used to cut wire. These can often be subsituted by a knife or scissors,
+but be careful not to hurt yourself.</p></td>
+<td><p>$5 to $15</p></td>
+<td><img alt="From https://www.flickr.com/photos/snazzyguy/3932324106" src="../_images/wire-cutters.jpg" />
+</td>
+</tr>
+<tr class="row-odd" id="wire-strippers"><td><p><a class="reference internal" href="#wire-strippers"><span class="std std-ref">Wire strippers</span></a></p></td>
+<td><p>Used to remove the insulation from wires, leaving the conductive metal
+interior exposed. These can often be subsituted by a knife, scissors, or
+fingernails, but be careful not to hurt yourself.</p>
+<p>There are many different styles, not just that in the picture. You’ll
+want something that works with fairly thin wire, about 20 AWG to 26 AWG.</p>
+</td>
+<td><p>$5 to $15</p></td>
+<td><img alt="From https://www.flickr.com/photos/snazzyguy/3931542659" src="../_images/strippers.jpg" />
+</td>
+</tr>
+<tr class="row-even" id="soldering-iron"><td><p><a class="reference internal" href="#soldering-iron"><span class="std std-ref">Soldering iron</span></a></p></td>
+<td><p>Used to melt metal, called solder, to connect things together in an
+electrically conductive way.</p>
+<p>You’ll want something with temperature control. Other than that, there
+are many varying opinions and options here.</p>
+<p><a class="reference external" href="https://www.reddit.com/r/AskElectronics/wiki/soldering">The /r/AskElectronics wiki has some good suggestions</a>. The
+following would serve you well, although be careful to buy from a
+reliable source:</p>
+<ul class="simple">
+<li><p>Hakko FX-888D</p></li>
+<li><p>KSGER T12</p></li>
+<li><p>TS100/TS80</p></li>
+</ul>
+</td>
+<td><p>$60 to $120</p></td>
+<td><img alt="From https://commons.wikimedia.org/wiki/File:Soldering_Station_Weller_2.jpeg" src="../_images/soldering-iron.jpg" />
+</td>
+</tr>
+<tr class="row-odd" id="solder"><td><p><a class="reference internal" href="#solder"><span class="std std-ref">Electronics solder</span></a></p></td>
+<td><p>Molten metal used to join things in an electrically conductive way.
+There are two types, leaded and lead-free. Leaded melts at a lower
+temperature and is a little easier to work with, but is hazardous to the
+environment (but not to humans in this form).</p>
+<p>Electronics solder also usually has a “rosin core”, which helps clean
+the surfaces to allow the solder to stick.</p>
+<p>You absolutely do not want plumbing solder, also known as “acid core” or
+“silver solder”. It needs much higher temperatures than we can safely
+use here.</p>
+</td>
+<td><p>$8 to $12</p></td>
+<td><img alt="From https://commons.wikimedia.org/wiki/File:Rosin_core_solder.JPG" src="../_images/solder.jpg" />
+</td>
+</tr>
+<tr class="row-even" id="soldering-flux"><td><p><a class="reference internal" href="#soldering-flux"><span class="std std-ref">Electronics flux</span></a></p></td>
+<td><p>Used to clean the metal surfaces before soldering them together.
+Sometimes the rosin core of the solder doesn’t provide enough, so you’d
+want add some extra.</p>
+<p>This stuff is helpful, but probably not needed for this guide since we
+won’t be doing any advanced soldering.</p>
+<p>If you do buy it, you absolutely do not want plumber’s flux. It will
+destroy your circuit boards.</p>
+</td>
+<td><p>$8 to $12</p></td>
+<td><img alt="../_images/flux.jpg" src="../_images/flux.jpg" />
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../index.html"><span class="doc">ESPHome index</span></a></p></li>
+<li><p><a class="reference internal" href="getting_started_command_line.html"><span class="doc">Getting Started with the ESPHome Command Line</span></a></p></li>
+<li><p><a class="reference internal" href="getting_started_hassio.html"><span class="doc">Getting Started with ESPHome and Home Assistant</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/guides/physical_device_connection.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

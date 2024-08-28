@@ -1,0 +1,341 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up ADS1118 multiplexed analog voltage sensors.">
+<meta name="keywords" content="ADS1118">
+<meta itemprop="name" content="ADS1118 4-Channel 16-Bit A/D Converter with Internal Temperature Sensor">
+<meta itemprop="description" content="Instructions for setting up ADS1118 multiplexed analog voltage sensors.">
+<meta itemprop="image" content="https://esphome.io/_images/ads1118.jpg">
+<meta name="twitter:title" content="ADS1118 4-Channel 16-Bit A/D Converter with Internal Temperature Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/ads1118.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up ADS1118 multiplexed analog voltage sensors.">
+<meta property="og:title" content="ADS1118 4-Channel 16-Bit A/D Converter with Internal Temperature Sensor">
+<meta property="og:image" content="https://esphome.io/_images/ads1118.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up ADS1118 multiplexed analog voltage sensors.">
+
+    <title>ADS1118 4-Channel 16-Bit A/D Converter with Internal Temperature Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/ads1118.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="AGS10 Volatile Organic Compound (VOC) Sensor" href="ags10.html" />
+    <link rel="prev" title="ADS1115 4-Channel 16-Bit A/D Converter" href="ads1115.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ADS1118 4-Channel 16-Bit A/D Converter with Internal Temperature Sensor</a><ul>
+<li><a class="reference internal" href="#component-hub">Component/Hub</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sensor">Sensor</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a><ul>
+<li><a class="reference internal" href="#adc-options">ADC Options:</a></li>
+<li><a class="reference internal" href="#temperature-options">Temperature Options:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#multiplexer-and-gain">Multiplexer and Gain</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>ADS1118 4-Channel 16-Bit A/D Converter with Internal Temperature Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="ads1118-4-channel-16-bit-a-d-converter-with-internal-temperature-sensor">
+<h1>ADS1118 4-Channel 16-Bit A/D Converter with Internal Temperature Sensor<a class="headerlink" href="#ads1118-4-channel-16-bit-a-d-converter-with-internal-temperature-sensor" title="Permalink to this heading">¶</a></h1>
+<section id="component-hub">
+<span id="ads1118-component"></span><h2>Component/Hub<a class="headerlink" href="#component-hub" title="Permalink to this heading">¶</a></h2>
+<p>ADS1118 4-Channel 16-Bit A/D Converter (<a class="reference external" href="https://www.ti.com/lit/ds/symlink/ads1118.pdf">datasheet</a>)
+The <code class="docutils literal notranslate"><span class="pre">ads1118</span></code> domain creates a global hub so that you can later create
+individual sensors using the <a class="reference internal" href="#ads1118-sensor"><span class="std std-ref">ADS1118 Sensor Platform</span></a>.
+It uses the <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI Bus</span></a> for communication.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/ads1118-full.jpg"><img alt="../../_images/ads1118-full.jpg" src="../../_images/ads1118-full.jpg" style="width: 60.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">ADS1118 16-Bit ADC.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ads1118</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>cs_pin</strong> (<strong>Required</strong>, int): The SPI cable select pin to use.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID for this ADS1118 Hub. Use this if you
+want to use multiple ADS1118 hubs at once.</p></li>
+</ul>
+</section>
+</section>
+<section id="sensor">
+<span id="ads1118-sensor"></span><h2>Sensor<a class="headerlink" href="#sensor" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ads1118</span></code> sensor allows you to use your ADS1118 delta-sigma ADC
+sensors (<a class="reference external" href="https://www.ti.com/lit/ds/symlink/ads1118.pdf">datasheet</a>) with ESPHome.
+First, setup an <a class="reference internal" href="#ads1118-component"><span class="std std-ref">ADS1118 Hub</span></a> for your ADS1118 sensor and then use this
+sensor platform to create individual sensors that will report the voltage.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ads1118</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adc</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">batt_volt</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Battery Voltage</span>
+<span class="w">    </span><span class="nt">multiplexer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A3_GND</span>
+<span class="w">    </span><span class="nt">gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4.096</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.01s</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>type</strong> (<em>Optional</em>): <code class="docutils literal notranslate"><span class="pre">adc``(default)</span> <span class="pre">or</span> <span class="pre">``temperature</span></code></p></li>
+<li><dl class="simple">
+<dt><strong>ads1118_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the</dt><dd><p><a class="reference internal" href="#ads1118-component"><span class="std std-ref">ADS1118 Hub</span></a> you want to use this sensor.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to check the sensor. Defaults to <code class="docutils literal notranslate"><span class="pre">60s</span></code>.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+<section id="adc-options">
+<h4>ADC Options:<a class="headerlink" href="#adc-options" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>multiplexer</strong> (<strong>Required</strong>): The multiplexer channel of this sensor. Effectively means between which pins you want to measure voltage.</p></li>
+<li><p><strong>gain</strong> (<strong>Required</strong>, float): The gain of this sensor.</p></li>
+</ul>
+</section>
+<section id="temperature-options">
+<h4>Temperature Options:<a class="headerlink" href="#temperature-options" title="Permalink to this heading">¶</a></h4>
+<p>None</p>
+</section>
+</section>
+</section>
+<section id="multiplexer-and-gain">
+<h2>Multiplexer and Gain<a class="headerlink" href="#multiplexer-and-gain" title="Permalink to this heading">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As per (<a class="reference external" href="https://www.ti.com/lit/ds/symlink/ads1118.pdf">datasheet</a>) Section 7.3 Note 2:
+“No more than VDD + 0.3V must be applied to the analog inputs of the device.”
+This means if you power the device with 3.3V, take care not to supply the 4 AIN pins with more than 3.6V.</p>
+</div>
+<p>The ADS1118 has a multiplexer that can be configured to measure voltage between several pin configurations. These are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A0_A1</span></code> (between Pin 0 and Pin 1)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A0_A3</span></code> (between Pin 0 and Pin 3)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A1_A3</span></code> (between Pin 1 and Pin 3)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A2_A3</span></code> (between Pin 2 and Pin 3)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A0_GND</span></code> (between Pin 0 and GND)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A1_GND</span></code> (between Pin 1 and GND)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A2_GND</span></code> (between Pin 2 and GND)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A3_GND</span></code> (between Pin 3 and GND)</p></li>
+</ul>
+</div></blockquote>
+<p>Additionally, the ADS1118 has a Programmable Gain Amplifier (PGA) that can help you measure voltages in different ranges, these are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">6.144</span></code> (measures up to 6.144V)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4.096</span></code> (measures up to 4.096V)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2.048</span></code> (measures up to 2.048V)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.024</span></code> (measures up to 1.024V)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0.512</span></code> (measures up to 0.512V)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0.256</span></code> (measures up to 0.256V)</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference internal" href="adc.html"><span class="doc">Analog To Digital Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="ads1115.html"><span class="doc">ADS1115 4-Channel 16-Bit A/D Converter</span></a></p></li>
+<li><p><a class="reference external" href="/api/ads1118_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/ads1118.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

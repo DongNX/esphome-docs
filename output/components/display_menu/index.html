@@ -1,0 +1,923 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a simple hierarchical menu on displays.">
+<meta itemprop="name" content="Display Menu">
+<meta itemprop="description" content="Instructions for setting up a simple hierarchical menu on displays.">
+<meta itemprop="image" content="https://esphome.io/_images/lcd_menu.png">
+<meta name="twitter:title" content="Display Menu">
+<meta name="twitter:image:src" content="https://esphome.io/_images/lcd_menu.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a simple hierarchical menu on displays.">
+<meta property="og:title" content="Display Menu">
+<meta property="og:image" content="https://esphome.io/_images/lcd_menu.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a simple hierarchical menu on displays.">
+
+    <title>Display Menu &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/display_menu/index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Graphical Display Menu" href="graphical_display_menu.html" />
+    <link rel="prev" title="Template Lock" href="../lock/template.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Display Menu</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#menu-items">Menu Items</a><ul>
+<li><a class="reference internal" href="#editing-values">Editing values</a></li>
+<li><a class="reference internal" href="#label">Label</a></li>
+<li><a class="reference internal" href="#menu">Menu</a></li>
+<li><a class="reference internal" href="#back">Back</a></li>
+<li><a class="reference internal" href="#select">Select</a></li>
+<li><a class="reference internal" href="#number">Number</a></li>
+<li><a class="reference internal" href="#switch">Switch</a></li>
+<li><a class="reference internal" href="#command">Command</a></li>
+<li><a class="reference internal" href="#custom">Custom</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#automations">Automations</a><ul>
+<li><a class="reference internal" href="#on-enter"><code class="docutils literal notranslate"><span class="pre">on_enter</span></code></a></li>
+<li><a class="reference internal" href="#on-leave"><code class="docutils literal notranslate"><span class="pre">on_leave</span></code></a></li>
+<li><a class="reference internal" href="#on-value"><code class="docutils literal notranslate"><span class="pre">on_value</span></code></a></li>
+<li><a class="reference internal" href="#on-next"><code class="docutils literal notranslate"><span class="pre">on_next</span></code></a></li>
+<li><a class="reference internal" href="#on-prev"><code class="docutils literal notranslate"><span class="pre">on_prev</span></code></a></li>
+<li><a class="reference internal" href="#display-menu-up-action"><code class="docutils literal notranslate"><span class="pre">display_menu.up</span></code> Action</a></li>
+<li><a class="reference internal" href="#display-menu-down-action"><code class="docutils literal notranslate"><span class="pre">display_menu.down</span></code> Action</a></li>
+<li><a class="reference internal" href="#display-menu-left-action"><code class="docutils literal notranslate"><span class="pre">display_menu.left</span></code> Action</a></li>
+<li><a class="reference internal" href="#display-menu-right-action"><code class="docutils literal notranslate"><span class="pre">display_menu.right</span></code> Action</a></li>
+<li><a class="reference internal" href="#display-menu-enter-action"><code class="docutils literal notranslate"><span class="pre">display_menu.enter</span></code> Action</a></li>
+<li><a class="reference internal" href="#display-menu-show-action"><code class="docutils literal notranslate"><span class="pre">display_menu.show</span></code> Action</a></li>
+<li><a class="reference internal" href="#display-menu-hide-action"><code class="docutils literal notranslate"><span class="pre">display_menu.hide</span></code> Action</a></li>
+<li><a class="reference internal" href="#display-menu-show-main-action"><code class="docutils literal notranslate"><span class="pre">display_menu.show_main</span></code> Action</a></li>
+<li><a class="reference internal" href="#display-menu-is-active-condition"><code class="docutils literal notranslate"><span class="pre">display_menu.is_active</span></code> Condition</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li>Display Menu</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="display-menu">
+<h1>Display Menu<a class="headerlink" href="#display-menu" title="Permalink to this heading">¶</a></h1>
+<p id="id1">The component provides a menu primarily intended to be controlled either by a rotary encoder
+with a button or a five-button joystick controller. It allows to navigate a hierarchy of items
+and submenus with the ability to change the values and execute commands. The menu can
+be activated and deactivated on demand, allowing alternating between using the screen for
+the menu and other information.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>This document describes the configuration and automations common for the components implementing
+this component. At the moment the character based LCD displays are supported using
+the <a class="reference internal" href="lcd_menu.html#lcd-menu"><span class="std std-ref">lcd_menu</span></a> component and an instance of this is used in the configuration
+examples.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lcd_pcf8574</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_lcd</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">id(my_lcd_menu).draw();</span>
+<span class="w">      </span><span class="no">if (!id(my_lcd_menu).is_active())</span>
+<span class="w">        </span><span class="no">it.print(&quot;Menu is not active&quot;);</span>
+
+<span class="c1"># Declare a LCD menu</span>
+<span class="nt">lcd_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_lcd_menu</span>
+<span class="w">  </span><span class="nt">display_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_lcd</span>
+<span class="w">  </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rotary</span>
+<span class="w">  </span><span class="nt">on_enter</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;root</span><span class="nv"> </span><span class="s">enter&quot;);&#39;</span>
+<span class="w">  </span><span class="nt">on_leave</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;root</span><span class="nv"> </span><span class="s">leave&quot;);&#39;</span>
+<span class="w">  </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">back</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Back&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">label</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Label</span><span class="nv"> </span><span class="s">1&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">label</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">return &quot;Templated label&quot;;</span>
+
+<span class="c1"># Encoder to provide navigation</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rotary_encoder</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">on_anticlockwise</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.up</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">on_clockwise</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.down</span><span class="p">:</span>
+
+<span class="c1"># A de-bounced GPIO is used to &#39;click&#39;</span>
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10ms</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10ms</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.enter</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul>
+<li><p><strong>root_item_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the root menu item.</p></li>
+<li><p><strong>active</strong> (<em>Optional</em>, boolean): Whether the menu should start as active, meaning accepting
+user interactions and displaying output. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><strong>mode</strong> (<em>Optional</em>, enum): Defines the navigation logic. Defaults to <code class="docutils literal notranslate"><span class="pre">rotary</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rotary</span></code>: Rotary mode expects the clockwise movement wired to <a class="reference internal" href="#display-menu-down-action"><span class="std std-ref">display_menu.down</span></a>,
+the anticlockwise one to <a class="reference internal" href="#display-menu-up-action"><span class="std std-ref">display_menu.up</span></a> and the switch
+to <a class="reference internal" href="#display-menu-enter-action"><span class="std std-ref">display_menu.enter</span></a> action.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">joystick</span></code>: Joystick mode expects the up, down, left and right buttons wired to the <a class="reference internal" href="#display-menu-up-action"><span class="std std-ref">display_menu.up</span></a>,
+<a class="reference internal" href="#display-menu-down-action"><span class="std std-ref">display_menu.down</span></a>, <a class="reference internal" href="#display-menu-left-action"><span class="std std-ref">display_menu.left</span></a>
+and <a class="reference internal" href="#display-menu-right-action"><span class="std std-ref">display_menu.right</span></a> actions and the middle button
+to the <a class="reference internal" href="#display-menu-enter-action"><span class="std std-ref">display_menu.enter</span></a> action.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>items</strong> (<strong>Required</strong>): The first level of the menu.</p></li>
+</ul>
+<p>Automations:</p>
+<ul class="simple">
+<li><p><strong>on_enter</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the menu level (here the root one) is entered. See <a class="reference internal" href="#display-menu-on-enter"><span class="std std-ref">on_enter</span></a>.</p></li>
+<li><p><strong>on_leave</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the menu level is not displayed anymore.
+See <a class="reference internal" href="#display-menu-on-leave"><span class="std std-ref">on_leave</span></a>.</p></li>
+</ul>
+</section>
+<section id="menu-items">
+<h2>Menu Items<a class="headerlink" href="#menu-items" title="Permalink to this heading">¶</a></h2>
+<p>The component manages a hierarchy of menu items. The common configuration variables are:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>type</strong> (<strong>Required</strong>, string): The type of the menu item (see below).</p></li>
+<li><p><strong>text</strong> (<em>Optional</em>, string, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The text displayed
+for the menu item. If a lambda is specified it gets an <code class="docutils literal notranslate"><span class="pre">it</span></code> argument pointing to
+the <code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> that is being drawn.</p></li>
+</ul>
+<section id="editing-values">
+<span id="display-menu-edit-mode"></span><h3>Editing values<a class="headerlink" href="#editing-values" title="Permalink to this heading">¶</a></h3>
+<p>Some of the menu items provide a way to edit values either by selecting from a list of options
+or changing a numeric one. Such items can be configured in two ways.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">immediate_edit</span></code> configuration is <code class="docutils literal notranslate"><span class="pre">false</span></code>, the editing mode has to be activated
+first by activating the rotary encoder’s switch or the joystick’s center button.
+On the activation the <code class="docutils literal notranslate"><span class="pre">on_enter</span></code> automation is called and the item is marked as editable
+(the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> selection marker changes to <code class="docutils literal notranslate"><span class="pre">*</span></code> as default). The value can be then
+iterated through the rotary wheel (in the <code class="docutils literal notranslate"><span class="pre">rotary</span></code> mode) or the joystick left
+and right buttons (in the <code class="docutils literal notranslate"><span class="pre">joystick</span></code> one). The editing mode is deactivated
+by another clicking of the switch, the <code class="docutils literal notranslate"><span class="pre">on_leave</span></code> automation is called and the selection
+marker changes back.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">immediate_edit</span></code> configuration is <code class="docutils literal notranslate"><span class="pre">true</span></code> the menu item is editable immediately
+when it is selected. The <code class="docutils literal notranslate"><span class="pre">on_enter</span></code> and <code class="docutils literal notranslate"><span class="pre">on_leave</span></code> are not called. In the <code class="docutils literal notranslate"><span class="pre">joystick</span></code> mode
+the left and right buttons iterate through the values; the items that are editable
+show the editable marker to signal that the buttons can be used. In the <code class="docutils literal notranslate"><span class="pre">rotary</span></code> mode
+activating the switch iterates to the next value. The selection marker does not change
+(here it is used to signal whether rotating the knob navigates the menu or changes the value).
+The menu item of the <code class="docutils literal notranslate"><span class="pre">number</span></code> type can be only immediately editable in the <code class="docutils literal notranslate"><span class="pre">joystick</span></code> mode.</p>
+</section>
+<section id="label">
+<h3>Label<a class="headerlink" href="#label" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">items</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_label</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">label</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;My</span><span class="nv"> </span><span class="s">Label&#39;</span>
+</pre></div>
+</div>
+<p>The menu item of the type <code class="docutils literal notranslate"><span class="pre">label</span></code> just displays a text. There is no configuration and
+no interaction is possible.</p>
+</section>
+<section id="menu">
+<h3>Menu<a class="headerlink" href="#menu" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">items</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">menu</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;My</span><span class="nv"> </span><span class="s">Submenu&#39;</span>
+<span class="w">    </span><span class="nt">on_enter</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;enter:</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str());&#39;</span>
+<span class="w">    </span><span class="nt">on_leave</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;leave:</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str());&#39;</span>
+<span class="w">    </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">label</span>
+<span class="w">        </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Label&#39;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">back</span>
+<span class="w">        </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Back&#39;</span>
+</pre></div>
+</div>
+<p>The menu item of the type <code class="docutils literal notranslate"><span class="pre">menu</span></code> defines a list of child menu items. When the item
+is clicked the display shows the new menu level.</p>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>items</strong> (<strong>Required</strong>): Defines the child menu items.</p></li>
+</ul>
+<p>Automations:</p>
+<ul class="simple">
+<li><p><strong>on_enter</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the menu level is entered. See <a class="reference internal" href="#display-menu-on-enter"><span class="std std-ref">on_enter</span></a>.</p></li>
+<li><p><strong>on_leave</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the menu level is not displayed anymore.
+See <a class="reference internal" href="#display-menu-on-leave"><span class="std std-ref">on_leave</span></a>.</p></li>
+</ul>
+</section>
+<section id="back">
+<h3>Back<a class="headerlink" href="#back" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">items</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">back</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Back&#39;</span>
+</pre></div>
+</div>
+<p>The menu item of the type <code class="docutils literal notranslate"><span class="pre">back</span></code> closes the current menu level and goes up in
+the menu level hierarchy. The <code class="docutils literal notranslate"><span class="pre">on_leave</span></code> automation of the current level and
+<code class="docutils literal notranslate"><span class="pre">on_enter</span></code> one of the higher one are invoked. There is no configuration.</p>
+</section>
+<section id="select">
+<h3>Select<a class="headerlink" href="#select" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lcd_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">select</span>
+<span class="w">      </span><span class="nt">immediate_edit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;My</span><span class="nv"> </span><span class="s">Color&#39;</span>
+<span class="w">      </span><span class="nt">select</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_color</span>
+<span class="w">      </span><span class="nt">on_enter</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;select</span><span class="nv"> </span><span class="s">enter:</span><span class="nv"> </span><span class="s">%s,</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str(),</span><span class="nv"> </span><span class="s">it-&gt;get_value_text().c_str());&#39;</span>
+<span class="w">      </span><span class="nt">on_leave</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;select</span><span class="nv"> </span><span class="s">leave:</span><span class="nv"> </span><span class="s">%s,</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str(),</span><span class="nv"> </span><span class="s">it-&gt;get_value_text().c_str());&#39;</span>
+<span class="w">      </span><span class="nt">on_value</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;select</span><span class="nv"> </span><span class="s">value:</span><span class="nv"> </span><span class="s">%s,</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str(),</span><span class="nv"> </span><span class="s">it-&gt;get_value_text().c_str());&#39;</span>
+
+<span class="nt">select</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_color</span>
+<span class="w">    </span><span class="nt">optimistic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;Red&#39;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;Green&#39;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;Blue&#39;</span>
+</pre></div>
+</div>
+<p>The menu item of the type <code class="docutils literal notranslate"><span class="pre">select</span></code> allows cycling through a set of values defined by the
+associated <code class="docutils literal notranslate"><span class="pre">select</span></code> component.</p>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>immediate_edit</strong> (<em>Optional</em>, boolean): Whether the item can be immediately edited when
+selected. See <a class="reference internal" href="#display-menu-edit-mode"><span class="std std-ref">Editing Values</span></a>. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>select</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): A <code class="docutils literal notranslate"><span class="pre">select</span></code> component managing
+the edited value.</p></li>
+<li><p><strong>value_lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>):
+Lambda returning a string to be displayed as value. The lambda gets an <code class="docutils literal notranslate"><span class="pre">it</span></code> argument
+pointing to the <code class="docutils literal notranslate"><span class="pre">MenuItem</span></code>. If not specified the selected option name of the <code class="docutils literal notranslate"><span class="pre">select</span></code>
+component is used as the value.</p></li>
+</ul>
+<p>Automations:</p>
+<ul class="simple">
+<li><p><strong>on_enter</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the editing mode is activated. See <a class="reference internal" href="#display-menu-on-enter"><span class="std std-ref">on_enter</span></a>.</p></li>
+<li><p><strong>on_leave</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the editing mode is exited.
+See <a class="reference internal" href="#display-menu-on-leave"><span class="std std-ref">on_leave</span></a>.</p></li>
+<li><p><strong>on_value</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the value is changed.
+See <a class="reference internal" href="#display-menu-on-value"><span class="std std-ref">on_value</span></a>.</p></li>
+</ul>
+</section>
+<section id="number">
+<h3>Number<a class="headerlink" href="#number" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lcd_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;My</span><span class="nv"> </span><span class="s">Number&#39;</span>
+<span class="w">      </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;%.2f&#39;</span>
+<span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_number</span>
+<span class="w">      </span><span class="nt">on_enter</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;number</span><span class="nv"> </span><span class="s">enter:</span><span class="nv"> </span><span class="s">%s,</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str(),</span><span class="nv"> </span><span class="s">it-&gt;get_value_text().c_str());&#39;</span>
+<span class="w">      </span><span class="nt">on_leave</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;number</span><span class="nv"> </span><span class="s">leave:</span><span class="nv"> </span><span class="s">%s,</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str(),</span><span class="nv"> </span><span class="s">it-&gt;get_value_text().c_str());&#39;</span>
+<span class="w">      </span><span class="nt">on_value</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;number</span><span class="nv"> </span><span class="s">value:</span><span class="nv"> </span><span class="s">%s,</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str(),</span><span class="nv"> </span><span class="s">it-&gt;get_value_text().c_str());&#39;</span>
+
+<span class="nt">number</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_number</span>
+<span class="w">    </span><span class="nt">optimistic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">min_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0</span>
+<span class="w">    </span><span class="nt">max_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20.0</span>
+<span class="w">    </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">    </span><span class="nt">on_value</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;number&quot;,</span><span class="nv"> </span><span class="s">&quot;value:</span><span class="nv"> </span><span class="s">%f&quot;,</span><span class="nv"> </span><span class="s">x);&#39;</span>
+</pre></div>
+</div>
+<p>The menu item of the type <code class="docutils literal notranslate"><span class="pre">number</span></code> allows editing a floating point number.
+On click the <code class="docutils literal notranslate"><span class="pre">on_enter</span></code> automation is called and the item is marked as editable
+(the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> selection marker changes to <code class="docutils literal notranslate"><span class="pre">*</span></code> as default). Up and down events
+then increase and decrease the value by steps defined in the <code class="docutils literal notranslate"><span class="pre">number</span></code>,
+respecting the <code class="docutils literal notranslate"><span class="pre">min_value</span></code> and <code class="docutils literal notranslate"><span class="pre">max_value</span></code>. The editing mode is exited
+by another click.</p>
+<p>Note that the fractional floating point values do not necessarily add nicely and
+ten times <code class="docutils literal notranslate"><span class="pre">0.100000</span></code> is not necessarily <code class="docutils literal notranslate"><span class="pre">1.000000</span></code>. Use steps that are
+powers of two (such as <code class="docutils literal notranslate"><span class="pre">0.125</span></code>) or take care of the rounding explicitly.</p>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>immediate_edit</strong> (<em>Optional</em>, boolean): Whether the item can be immediately edited when
+selected. See <a class="reference internal" href="#display-menu-edit-mode"><span class="std std-ref">Editing Values</span></a>. Ignored in the <code class="docutils literal notranslate"><span class="pre">rotary</span></code> mode.
+Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>number</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): A <code class="docutils literal notranslate"><span class="pre">number</span></code> component managing
+the edited value. If on entering the value is less than <code class="docutils literal notranslate"><span class="pre">min_value</span></code> or more than
+<code class="docutils literal notranslate"><span class="pre">max_value</span></code>, the value is capped to fall into the range.</p></li>
+<li><p><strong>format</strong> (<em>Optional</em>, string): A <code class="docutils literal notranslate"><span class="pre">printf</span></code>-like format string specifying
+exactly one <code class="docutils literal notranslate"><span class="pre">f</span></code> or <code class="docutils literal notranslate"><span class="pre">g</span></code>-type conversion used to display the current value.
+Defaults to <code class="docutils literal notranslate"><span class="pre">%.1f</span></code>.</p></li>
+<li><p><strong>value_lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>):
+Lambda returning a string to be displayed as value. The lambda gets an <code class="docutils literal notranslate"><span class="pre">it</span></code> argument
+pointing to the <code class="docutils literal notranslate"><span class="pre">MenuItem</span></code>. If not specified the value of the <code class="docutils literal notranslate"><span class="pre">number</span></code> component
+formatted according to the <code class="docutils literal notranslate"><span class="pre">format</span></code> is used as the value.</p></li>
+</ul>
+<p>Automations:</p>
+<ul class="simple">
+<li><p><strong>on_enter</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the editing mode is activated. See <a class="reference internal" href="#display-menu-on-enter"><span class="std std-ref">on_enter</span></a>.</p></li>
+<li><p><strong>on_leave</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the editing mode is exited.
+See <a class="reference internal" href="#display-menu-on-leave"><span class="std std-ref">on_leave</span></a>.</p></li>
+<li><p><strong>on_value</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the value is changed.
+See <a class="reference internal" href="#display-menu-on-value"><span class="std std-ref">on_value</span></a>.</p></li>
+</ul>
+</section>
+<section id="switch">
+<h3>Switch<a class="headerlink" href="#switch" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lcd_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch</span>
+<span class="w">      </span><span class="nt">immediate_edit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;My</span><span class="nv"> </span><span class="s">Switch&#39;</span>
+<span class="w">      </span><span class="nt">on_text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Bright&#39;</span>
+<span class="w">      </span><span class="nt">off_text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Dark&#39;</span>
+<span class="w">      </span><span class="nt">switch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch</span>
+<span class="w">      </span><span class="nt">on_enter</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;switch</span><span class="nv"> </span><span class="s">enter:</span><span class="nv"> </span><span class="s">%s,</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str(),</span><span class="nv"> </span><span class="s">it-&gt;get_value_text().c_str());&#39;</span>
+<span class="w">      </span><span class="nt">on_leave</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;switch</span><span class="nv"> </span><span class="s">leave:</span><span class="nv"> </span><span class="s">%s,</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str(),</span><span class="nv"> </span><span class="s">it-&gt;get_value_text().c_str());&#39;</span>
+<span class="w">      </span><span class="nt">on_value</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;switch</span><span class="nv"> </span><span class="s">value:</span><span class="nv"> </span><span class="s">%s,</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str(),</span><span class="nv"> </span><span class="s">it-&gt;get_value_text().c_str());&#39;</span>
+
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch</span>
+<span class="w">    </span><span class="nt">optimistic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<p>The menu item of the type <code class="docutils literal notranslate"><span class="pre">switch</span></code> allows toggling the associated <code class="docutils literal notranslate"><span class="pre">switch</span></code> component.</p>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>immediate_edit</strong> (<em>Optional</em>, boolean): Whether the item can be immediately edited when
+selected. See <a class="reference internal" href="#display-menu-edit-mode"><span class="std std-ref">Editing Values</span></a>. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>on_text</strong> (<em>Optional</em>, string): The text for the <code class="docutils literal notranslate"><span class="pre">ON</span></code> state. Defaults to <code class="docutils literal notranslate"><span class="pre">On</span></code>.</p></li>
+<li><p><strong>off_text</strong> (<em>Optional</em>, string): The text for the <code class="docutils literal notranslate"><span class="pre">OFF</span></code> state. Defaults to <code class="docutils literal notranslate"><span class="pre">Off</span></code>.</p></li>
+<li><p><strong>switch</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): A <code class="docutils literal notranslate"><span class="pre">switch</span></code> component managing
+the edited value.</p></li>
+<li><p><strong>value_lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>):
+Lambda returning a string to be displayed as value. The lambda gets an <code class="docutils literal notranslate"><span class="pre">it</span></code> argument
+pointing to the <code class="docutils literal notranslate"><span class="pre">MenuItem</span></code>. If not specified the <code class="docutils literal notranslate"><span class="pre">on_text</span></code> / <code class="docutils literal notranslate"><span class="pre">off_text</span></code> is used.</p></li>
+</ul>
+<p>Automations:</p>
+<ul class="simple">
+<li><p><strong>on_enter</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the editing mode is activated. See <a class="reference internal" href="#display-menu-on-enter"><span class="std std-ref">on_enter</span></a>.</p></li>
+<li><p><strong>on_leave</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the editing mode is exited.
+See <a class="reference internal" href="#display-menu-on-leave"><span class="std std-ref">on_leave</span></a>.</p></li>
+<li><p><strong>on_value</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the value is changed.
+See <a class="reference internal" href="#display-menu-on-value"><span class="std std-ref">on_value</span></a>.</p></li>
+</ul>
+</section>
+<section id="command">
+<h3>Command<a class="headerlink" href="#command" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">items</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">command</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Hide&#39;</span>
+<span class="w">    </span><span class="nt">on_value</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.hide</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>The menu item of the type <code class="docutils literal notranslate"><span class="pre">command</span></code> allows triggering commands. There is no
+additional configuration.</p>
+<p>Automations:</p>
+<ul class="simple">
+<li><p><strong>on_value</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the menu item is clicked.
+See <a class="reference internal" href="#display-menu-on-value"><span class="std std-ref">on_value</span></a>.</p></li>
+</ul>
+</section>
+<section id="custom">
+<h3>Custom<a class="headerlink" href="#custom" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lcd_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">items</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom</span>
+<span class="w">      </span><span class="nt">immediate_edit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;My</span><span class="nv"> </span><span class="s">Custom&#39;</span>
+<span class="w">      </span><span class="nt">value_lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">to_string(some_state);&#39;</span>
+<span class="w">      </span><span class="nt">on_next</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;some_state++;&#39;</span>
+<span class="w">      </span><span class="nt">on_prev</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;some_state--;&#39;</span>
+</pre></div>
+</div>
+<p>The menu item of the type <code class="docutils literal notranslate"><span class="pre">custom</span></code> delegates navigating the values to the automations
+and displaying the value to the <code class="docutils literal notranslate"><span class="pre">value_lambda</span></code>.</p>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>immediate_edit</strong> (<em>Optional</em>, boolean): Whether the item can be immediately edited when
+selected. See <a class="reference internal" href="#display-menu-edit-mode"><span class="std std-ref">Editing Values</span></a>. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>value_lambda</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a>):
+Lambda returning a string to be displayed as value. The lambda gets an <code class="docutils literal notranslate"><span class="pre">it</span></code> argument
+pointing to the <code class="docutils literal notranslate"><span class="pre">MenuItem</span></code>.</p></li>
+</ul>
+<p>Automations:</p>
+<ul class="simple">
+<li><p><strong>on_enter</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the editing mode is activated. See <a class="reference internal" href="#display-menu-on-enter"><span class="std std-ref">on_enter</span></a>.</p></li>
+<li><p><strong>on_leave</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the editing mode is exited.
+See <a class="reference internal" href="#display-menu-on-leave"><span class="std std-ref">on_leave</span></a>.</p></li>
+<li><p><strong>on_value</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the value is changed.
+See <a class="reference internal" href="#display-menu-on-value"><span class="std std-ref">on_value</span></a>.</p></li>
+<li><p><strong>on_next</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the user navigates to the next value.
+See <a class="reference internal" href="#display-menu-on-next"><span class="std std-ref">on_next</span></a>.</p></li>
+<li><p><strong>on_prev</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the user navigates to the previous value.
+See <a class="reference internal" href="#display-menu-on-prev"><span class="std std-ref">on_prev</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="automations">
+<h2>Automations<a class="headerlink" href="#automations" title="Permalink to this heading">¶</a></h2>
+<section id="on-enter">
+<span id="display-menu-on-enter"></span><h3><code class="docutils literal notranslate"><span class="pre">on_enter</span></code><a class="headerlink" href="#on-enter" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when the menu level is entered, i.e. the component
+draws its items on the display. The <code class="docutils literal notranslate"><span class="pre">it</span></code> parameter points to a <code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> class
+with the information of the menu item describing the displayed child items.
+If present at the top level it is an internally generated root menu item,
+otherwise an user defined one.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lcd_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">items</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">menu</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Submenu</span><span class="nv"> </span><span class="s">1&#39;</span>
+<span class="w">      </span><span class="nt">on_enter</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;enter:</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str());&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-leave">
+<span id="display-menu-on-leave"></span><h3><code class="docutils literal notranslate"><span class="pre">on_leave</span></code><a class="headerlink" href="#on-leave" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when the menu level is exited, i.e. the component
+does not draw its items on the display anymore. The <code class="docutils literal notranslate"><span class="pre">it</span></code> parameter points to
+a <code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> class with the information of the menu item. If present at the
+top level it is an internally generated root menu item, otherwise
+an user defined one. It does not matter whether the level was left due to entering
+the submenu or going back to the parent menu.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lcd_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">items</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">menu</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Submenu</span><span class="nv"> </span><span class="s">1&#39;</span>
+<span class="w">      </span><span class="nt">on_leave</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;leave:</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str());&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-value">
+<span id="display-menu-on-value"></span><h3><code class="docutils literal notranslate"><span class="pre">on_value</span></code><a class="headerlink" href="#on-value" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when the value edited through the menu changed
+or a command was triggered.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lcd_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">items</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">select</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Select</span><span class="nv"> </span><span class="s">Item&#39;</span>
+<span class="w">      </span><span class="nt">select</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_select_1</span>
+<span class="w">      </span><span class="nt">on_value</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESP_LOGI(&quot;display_menu&quot;,</span><span class="nv"> </span><span class="s">&quot;select</span><span class="nv"> </span><span class="s">value:</span><span class="nv"> </span><span class="s">%s,</span><span class="nv"> </span><span class="s">%s&quot;,</span><span class="nv"> </span><span class="s">it-&gt;get_text().c_str(),</span><span class="nv"> </span><span class="s">it-&gt;get_value_text().c_str());&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-next">
+<span id="display-menu-on-next"></span><h3><code class="docutils literal notranslate"><span class="pre">on_next</span></code><a class="headerlink" href="#on-next" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when the user requested to set the value to the next one.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lcd_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">items</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Custom</span><span class="nv"> </span><span class="s">Item&#39;</span>
+<span class="w">      </span><span class="nt">value_lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">to_string(some_state);&#39;</span>
+<span class="w">      </span><span class="nt">on_next</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;some_state++;&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="on-prev">
+<span id="display-menu-on-prev"></span><h3><code class="docutils literal notranslate"><span class="pre">on_prev</span></code><a class="headerlink" href="#on-prev" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when the user requested to set the value to the previous one.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lcd_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">items</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Custom</span><span class="nv"> </span><span class="s">Item&#39;</span>
+<span class="w">      </span><span class="nt">value_lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">to_string(some_state);&#39;</span>
+<span class="w">      </span><span class="nt">on_prev</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;some_state--;&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="display-menu-up-action">
+<span id="id2"></span><h3><code class="docutils literal notranslate"><span class="pre">display_menu.up</span></code> Action<a class="headerlink" href="#display-menu-up-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> for navigating up in a menu. The action
+is usually wired to an anticlockwise turn of a rotary encoder or to the upper
+button of the joystick.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rotary_encoder</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">on_anticlockwise</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.up</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the menu to navigate.</p></li>
+</ul>
+</section>
+<section id="display-menu-down-action">
+<span id="id3"></span><h3><code class="docutils literal notranslate"><span class="pre">display_menu.down</span></code> Action<a class="headerlink" href="#display-menu-down-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> for navigating down in a menu. The action
+is usually wired to a clockwise turn of a rotary encoder or to the lower
+button of the joystick.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rotary_encoder</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">on_clockwise</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.down</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the menu to navigate.</p></li>
+</ul>
+</section>
+<section id="display-menu-left-action">
+<span id="id4"></span><h3><code class="docutils literal notranslate"><span class="pre">display_menu.left</span></code> Action<a class="headerlink" href="#display-menu-left-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> usually wired to the left button
+of the joystick. In the <code class="docutils literal notranslate"><span class="pre">joystick</span></code> mode it is used to set the previous
+value or to decrement the numeric one; depending on the <code class="docutils literal notranslate"><span class="pre">immediate_edit</span></code>
+flag entering the edit mode is required or not. If used in the <code class="docutils literal notranslate"><span class="pre">rotary</span></code>
+mode it exits the editing. In both modes it can be also used to navigate
+back one level when used with the <code class="docutils literal notranslate"><span class="pre">back</span></code> menu item.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.left</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the menu to navigate.</p></li>
+</ul>
+</section>
+<section id="display-menu-right-action">
+<span id="id5"></span><h3><code class="docutils literal notranslate"><span class="pre">display_menu.right</span></code> Action<a class="headerlink" href="#display-menu-right-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> usually wired to the right button
+of the joystick. In the <code class="docutils literal notranslate"><span class="pre">joystick</span></code> mode it is used to set the next
+value or to increment the numeric one; depending on the <code class="docutils literal notranslate"><span class="pre">immediate_edit</span></code>
+flag entering the edit mode is required or not. In both modes it can
+be also used to enter the submenu when used with the <code class="docutils literal notranslate"><span class="pre">menu</span></code> menu item.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.right</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the menu to navigate.</p></li>
+</ul>
+</section>
+<section id="display-menu-enter-action">
+<span id="id6"></span><h3><code class="docutils literal notranslate"><span class="pre">display_menu.enter</span></code> Action<a class="headerlink" href="#display-menu-enter-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> for triggering a selected menu item, resulting
+in an action depending on the type of the item - entering a submenu, starting/stopping
+editing or triggering a command. The action is usually wired to a press button
+of a rotary encoder or to the center button of the joystick.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10ms</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10ms</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.enter</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the menu to navigate.</p></li>
+</ul>
+</section>
+<section id="display-menu-show-action">
+<h3><code class="docutils literal notranslate"><span class="pre">display_menu.show</span></code> Action<a class="headerlink" href="#display-menu-show-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> for showing an inactive menu. The state
+of the menu remains unchanged, i.e. the menu level shown at the moment it was hidden
+is restored, as is the selected item. The following snippet shows the menu if it is
+inactive, otherwise triggers the selected item.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">display_menu.is_active</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.enter</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">else</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.show</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the menu to show.</p></li>
+</ul>
+</section>
+<section id="display-menu-hide-action">
+<h3><code class="docutils literal notranslate"><span class="pre">display_menu.hide</span></code> Action<a class="headerlink" href="#display-menu-hide-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> for hiding the menu. A hidden menu
+does not react to <code class="docutils literal notranslate"><span class="pre">draw()</span></code> and does not process navigation actions.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lcd_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">items</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">command</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Hide&#39;</span>
+<span class="w">      </span><span class="nt">on_value</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.hide</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the menu to hide.</p></li>
+</ul>
+</section>
+<section id="display-menu-show-main-action">
+<h3><code class="docutils literal notranslate"><span class="pre">display_menu.show_main</span></code> Action<a class="headerlink" href="#display-menu-show-main-action" title="Permalink to this heading">¶</a></h3>
+<p>This is an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a> for showing the root level of the menu.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lcd_menu</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">items</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">command</span>
+<span class="w">      </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Show</span><span class="nv"> </span><span class="s">Main&#39;</span>
+<span class="w">      </span><span class="nt">on_value</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">display_menu.show_main</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the menu to hide.</p></li>
+</ul>
+</section>
+<section id="display-menu-is-active-condition">
+<span id="display-menu-is-active"></span><h3><code class="docutils literal notranslate"><span class="pre">display_menu.is_active</span></code> Condition<a class="headerlink" href="#display-menu-is-active-condition" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../../guides/automations.html#config-condition"><span class="std std-ref">Condition</span></a> checks if the given menu is active, i.e.
+shown on the display and processing navigation events.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">display_menu.is_active</span><span class="p">:</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/api/display__menu__base_8h.html">API Reference</a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="graphical_display_menu.html">Graphical Display Menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lcd_menu.html">LCD Menu</a></li>
+</ul>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/display_menu/index.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,523 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a Daly Smart BMS">
+<meta itemprop="name" content="Daly BMS Sensor">
+<meta itemprop="description" content="Instructions for setting up a Daly Smart BMS">
+<meta itemprop="image" content="https://esphome.io/_images/daly_bms.jpg">
+<meta name="twitter:title" content="Daly BMS Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/daly_bms.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a Daly Smart BMS">
+<meta property="og:title" content="Daly BMS Sensor">
+<meta property="og:image" content="https://esphome.io/_images/daly_bms.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a Daly Smart BMS">
+
+    <title>Daly BMS Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/daly_bms.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="DHT Temperature+Humidity Sensor" href="dht.html" />
+    <link rel="prev" title="Dallas Temperature Sensor" href="dallas.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Daly BMS Sensor</a><ul>
+<li><a class="reference internal" href="#component-hub">Component/Hub</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sensor">Sensor</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#text-sensor">Text Sensor</a><ul>
+<li><a class="reference internal" href="#id2">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#binary-sensor">Binary Sensor</a><ul>
+<li><a class="reference internal" href="#id3">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#control-bms">Control BMS</a></li>
+<li><a class="reference internal" href="#uart-connection">UART Connection</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>Daly BMS Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="daly-bms-sensor">
+<h1>Daly BMS Sensor<a class="headerlink" href="#daly-bms-sensor" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">daly_bms</span></code> sensor platform allows you to use a Daly Smart BMS
+(<a class="reference external" href="https://dalyelec.en.made-in-china.com/">more info</a>)
+with ESPHome.</p>
+<p>The BMS communicates via <a class="reference internal" href="../uart.html#uart"><span class="std std-ref">UART</span></a>.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/daly_bms_example.png"><img alt="../../_images/daly_bms_example.png" src="../../_images/daly_bms_example.png" style="width: 100.0%;" /></a>
+</figure>
+<section id="component-hub">
+<h2>Component/Hub<a class="headerlink" href="#component-hub" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">daly_bms</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20s</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Delay between data requests.</p></li>
+<li><p><strong>address</strong> (<em>Optional</em>, int): Address to use, defaults to <code class="docutils literal notranslate"><span class="pre">0x80</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="sensor">
+<h2>Sensor<a class="headerlink" href="#sensor" title="Permalink to this heading">¶</a></h2>
+<p>A sensor platform to read BMS data</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">daly_bms</span>
+<span class="w">    </span><span class="nt">voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Battery</span><span class="nv"> </span><span class="s">Voltage&quot;</span>
+<span class="w">    </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Battery</span><span class="nv"> </span><span class="s">Current&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+<span class="w">    </span><span class="nt">max_cell_voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Max</span><span class="nv"> </span><span class="s">Cell</span><span class="nv"> </span><span class="s">Voltage&quot;</span>
+<span class="w">    </span><span class="nt">max_cell_voltage_number</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Max</span><span class="nv"> </span><span class="s">Cell</span><span class="nv"> </span><span class="s">Voltage</span><span class="nv"> </span><span class="s">Number&quot;</span>
+<span class="w">    </span><span class="nt">min_cell_voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Min</span><span class="nv"> </span><span class="s">Cell</span><span class="nv"> </span><span class="s">Voltage&quot;</span>
+<span class="w">    </span><span class="nt">min_cell_voltage_number</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Min</span><span class="nv"> </span><span class="s">Cell</span><span class="nv"> </span><span class="s">Voltage</span><span class="nv"> </span><span class="s">Number&quot;</span>
+<span class="w">    </span><span class="nt">max_temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Max</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">max_temperature_probe_number</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Max</span><span class="nv"> </span><span class="s">Temperature</span><span class="nv"> </span><span class="s">Probe</span><span class="nv"> </span><span class="s">Number&quot;</span>
+<span class="w">    </span><span class="nt">min_temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Min</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">min_temperature_probe_number</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Min</span><span class="nv"> </span><span class="s">Temperature</span><span class="nv"> </span><span class="s">Probe</span><span class="nv"> </span><span class="s">Number&quot;</span>
+<span class="w">    </span><span class="nt">remaining_capacity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Remaining</span><span class="nv"> </span><span class="s">Capacity&quot;</span>
+<span class="w">    </span><span class="nt">cells_number</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Cells</span><span class="nv"> </span><span class="s">Number&quot;</span>
+<span class="w">    </span><span class="nt">temperature_1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature</span><span class="nv"> </span><span class="s">1&quot;</span>
+<span class="w">    </span><span class="nt">temperature_2</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature</span><span class="nv"> </span><span class="s">2&quot;</span>
+<span class="w">    </span><span class="nt">cell_1_voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Cell</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">Voltage&quot;</span>
+<span class="w">    </span><span class="nt">cell_2_voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Cell</span><span class="nv"> </span><span class="s">2</span><span class="nv"> </span><span class="s">Voltage&quot;</span>
+<span class="w">    </span><span class="nt">cell_3_voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Cell</span><span class="nv"> </span><span class="s">3</span><span class="nv"> </span><span class="s">Voltage&quot;</span>
+<span class="w">    </span><span class="nt">cell_4_voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Cell</span><span class="nv"> </span><span class="s">4</span><span class="nv"> </span><span class="s">Voltage&quot;</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>voltage</strong> (<em>Optional</em>): Voltage of the battery pack connected to Daly BMS.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>current</strong> (<em>Optional</em>): Current flowing trough the BMS (input or output from batttery).
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>battery_level</strong> (<em>Optional</em>): Battery level in % (SoC).
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>max_cell_voltage</strong> (<em>Optional</em>): The cell of the battery with the higher voltage.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>max_cell_voltage_number</strong> (<em>Optional</em>): The cell number of the battery with the higher voltage.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>min_cell_voltage</strong> (<em>Optional</em>): The cell of the battery with the lower voltage.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>min_cell_voltage_number</strong> (<em>Optional</em>): The cell number of the battery with the lower voltage.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>max_temperature</strong> (<em>Optional</em>): The higher temperature measured from the temperature sensors.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>max_temperature_probe_number</strong> (<em>Optional</em>): The sensor number which has measured the higher temperature.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>min_temperature</strong> (<em>Optional</em>): The lower temperature measured from the temperature sensors.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>min_temperature_probe_number</strong> (<em>Optional</em>): The sensor number which has measured the lower temperature.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>remaining_capacity</strong> (<em>Optional</em>): The capacity in Ah left in the battery.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>cells_number</strong> (<em>Optional</em>): The number of cells in series in the battery pack.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>temperature_1</strong> (<em>Optional</em>): The first temperature sensor.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>temperature_2</strong> (<em>Optional</em>): The second temperature sensor.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>cell_1_voltage</strong> (<em>Optional</em>): The voltage of cell number 1. Cell number can be from 1 to 16.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="text-sensor">
+<h2>Text Sensor<a class="headerlink" href="#text-sensor" title="Permalink to this heading">¶</a></h2>
+<p>Text sensor that indicates the status of BMS.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">text_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">daly_bms</span>
+<span class="w">    </span><span class="nt">status</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BMS</span><span class="nv"> </span><span class="s">Status&quot;</span>
+</pre></div>
+</div>
+<section id="id2">
+<h3>Configuration variables:<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>status</strong> (<em>Optional</em>): The BMS Status (Charging, Discharging, Stationary).
+All options from <a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="binary-sensor">
+<h2>Binary Sensor<a class="headerlink" href="#binary-sensor" title="Permalink to this heading">¶</a></h2>
+<p>Binary sensor that indicates the status of MOS.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">daly_bms</span>
+<span class="w">    </span><span class="nt">charging_mos_enabled</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Charging</span><span class="nv"> </span><span class="s">MOS&quot;</span>
+<span class="w">    </span><span class="nt">discharging_mos_enabled</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Discharging</span><span class="nv"> </span><span class="s">MOS&quot;</span>
+</pre></div>
+</div>
+<section id="id3">
+<h3>Configuration variables:<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>charging_mos_enabled</strong> (<em>Optional</em>): The BMS charging MOS status to enable the recharge of the battery.
+All options from <a class="reference internal" href="../binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+<li><p><strong>discharging_mos_enabled</strong> (<em>Optional</em>): The BMS discharging mos status to enable the load.
+All options from <a class="reference internal" href="../binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="control-bms">
+<h2>Control BMS<a class="headerlink" href="#control-bms" title="Permalink to this heading">¶</a></h2>
+<p>At this moment Daly sensor platform don’t suppport controlling you BMS, but you can make some stuff using uart.write</p>
+<p>First you need to setup binary sensors for charging and disharging MOS</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">daly_bms</span>
+<span class="w">    </span><span class="nt">charging_mos_enabled</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Daly</span><span class="nv"> </span><span class="s">Charging</span><span class="nv"> </span><span class="s">MOS&quot;</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bin_daly_chg_mos</span><span class="w"> </span><span class="c1"># binary MOS sensor must have ID to use with switch</span>
+<span class="w">      </span><span class="nt">internal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"> </span><span class="c1"># but you can make it internal to avoid duplication</span>
+<span class="w">    </span><span class="nt">discharging_mos_enabled</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Daly</span><span class="nv"> </span><span class="s">Discharging</span><span class="nv"> </span><span class="s">MOS&quot;</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bin_daly_dischg_mos</span><span class="w"> </span><span class="c1"># binary MOS sensor must have ID to use with switch</span>
+<span class="w">      </span><span class="nt">internal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"> </span><span class="c1"># but you can make it internal to avoid duplication</span>
+</pre></div>
+</div>
+<p>Then you can add switches</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Daly</span><span class="nv"> </span><span class="s">Charging</span><span class="nv"> </span><span class="s">MOS&quot;</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">if (id(bin_daly_chg_mos).state) {</span>
+<span class="w">        </span><span class="no">return true;</span>
+<span class="w">      </span><span class="no">} else {</span>
+<span class="w">        </span><span class="no">return false;</span>
+<span class="w">      </span><span class="no">}</span>
+<span class="w">    </span><span class="nt">turn_on_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0xA5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x40</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xDA</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x08</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x01</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xC8</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Send</span><span class="nv"> </span><span class="s">cmd</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Daly:</span><span class="nv"> </span><span class="s">Set</span><span class="nv"> </span><span class="s">charge</span><span class="nv"> </span><span class="s">MOS</span><span class="nv"> </span><span class="s">on&quot;</span>
+<span class="w">    </span><span class="nt">turn_off_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0xA5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x40</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xDA</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x08</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xC7</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Send</span><span class="nv"> </span><span class="s">cmd</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Daly:</span><span class="nv"> </span><span class="s">Set</span><span class="nv"> </span><span class="s">charge</span><span class="nv"> </span><span class="s">MOS</span><span class="nv"> </span><span class="s">off&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Daly</span><span class="nv"> </span><span class="s">Discharging</span><span class="nv"> </span><span class="s">MOS&quot;</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">if (id(bin_daly_dischg_mos).state) {</span>
+<span class="w">        </span><span class="no">return true;</span>
+<span class="w">      </span><span class="no">} else {</span>
+<span class="w">        </span><span class="no">return false;</span>
+<span class="w">      </span><span class="no">}</span>
+<span class="w">    </span><span class="nt">turn_on_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0xA5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x40</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xD9</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x08</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x01</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xC7</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Send</span><span class="nv"> </span><span class="s">cmd</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Daly:</span><span class="nv"> </span><span class="s">Set</span><span class="nv"> </span><span class="s">discharge</span><span class="nv"> </span><span class="s">MOS</span><span class="nv"> </span><span class="s">on&quot;</span>
+<span class="w">    </span><span class="nt">turn_off_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0xA5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x40</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xD9</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x08</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xC6</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Send</span><span class="nv"> </span><span class="s">cmd</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Daly:</span><span class="nv"> </span><span class="s">Set</span><span class="nv"> </span><span class="s">discharge</span><span class="nv"> </span><span class="s">MOS</span><span class="nv"> </span><span class="s">off&quot;</span>
+</pre></div>
+</div>
+<p>Also you can add select to change battery level</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">select</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Daly</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level</span><span class="nv"> </span><span class="s">setup&quot;</span>
+<span class="w">    </span><span class="nt">optimistic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">75%</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50%</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25%</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0%</span>
+<span class="w">    </span><span class="nt">initial_option</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="w">    </span><span class="nt">set_action</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&quot;100%&quot;;&#39;</span>
+<span class="w">            </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0xA5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x40</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x21</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x08</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x03</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xE8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xF9</span><span class="p p-Indicator">]</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Send</span><span class="nv"> </span><span class="s">cmd</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Daly:</span><span class="nv"> </span><span class="s">Set</span><span class="nv"> </span><span class="s">SOC</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">100%&quot;</span>
+<span class="w">            </span><span class="nt">else</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">                    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&quot;75%&quot;;&#39;</span>
+<span class="w">                  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">                    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span>
+<span class="w">                        </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0xA5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x40</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x21</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x08</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x02</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xEE</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xFE</span><span class="p p-Indicator">]</span>
+<span class="w">                    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">                        </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Send</span><span class="nv"> </span><span class="s">cmd</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Daly:</span><span class="nv"> </span><span class="s">Set</span><span class="nv"> </span><span class="s">SOC</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">75%&quot;</span>
+<span class="w">                  </span><span class="nt">else</span><span class="p">:</span>
+<span class="w">                    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">                        </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">                          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&quot;50%&quot;;&#39;</span>
+<span class="w">                        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">                          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span>
+<span class="w">                              </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0xA5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x40</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x21</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x08</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x01</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xF4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x03</span><span class="p p-Indicator">]</span>
+<span class="w">                          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">                              </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Send</span><span class="nv"> </span><span class="s">cmd</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Daly:</span><span class="nv"> </span><span class="s">Set</span><span class="nv"> </span><span class="s">SOC</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">50%&quot;</span>
+<span class="w">                        </span><span class="nt">else</span><span class="p">:</span>
+<span class="w">                          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">                              </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">                                </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&quot;25%&quot;;&#39;</span>
+<span class="w">                              </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">                                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span>
+<span class="w">                                    </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0xA5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x40</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x21</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x08</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0xFA</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x08</span><span class="p p-Indicator">]</span>
+<span class="w">                                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">                                    </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Send</span><span class="nv"> </span><span class="s">cmd</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Daly:</span><span class="nv"> </span><span class="s">Set</span><span class="nv"> </span><span class="s">SOC</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">25%&quot;</span>
+<span class="w">                              </span><span class="nt">else</span><span class="p">:</span>
+<span class="w">                                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">                                    </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">                                      </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&quot;0%&quot;;&#39;</span>
+<span class="w">                                    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">                                      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uart.write</span><span class="p">:</span>
+<span class="w">                                          </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0xA5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x40</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x21</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x08</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x00</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0x0E</span><span class="p p-Indicator">]</span>
+<span class="w">                                      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">                                          </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Send</span><span class="nv"> </span><span class="s">cmd</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Daly:</span><span class="nv"> </span><span class="s">Set</span><span class="nv"> </span><span class="s">SOC</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">0%&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="uart-connection">
+<h2>UART Connection<a class="headerlink" href="#uart-connection" title="Permalink to this heading">¶</a></h2>
+<p>Connect RX from BMS to TX in ESP board and TX from BMS to RX in ESP board</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="../../_images/daly_bms_pinout.png"><img alt="../../_images/daly_bms_pinout.png" src="../../_images/daly_bms_pinout.png" style="width: 100.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Uart Pinout.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>3.3v Warning:</strong> some BMS 3.3v cant source large currents and may not work to properly power the ESP. If you are having WIFI connection issues or similar, try a different power source. There is 12-15v available on the Daly connector which via a proper step-down converter can properly power the ESP.</p>
+<p>On the ESP32 (untested on ESP8266) if you are having missing data (such as Temperature 1/2), it may be due to UART buffer size.
+Add the following to your configuration to increase the buffer from the default 256 to 512.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">uart</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">rx_buffer_size</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference external" href="/api/daly__bms_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/daly_bms.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

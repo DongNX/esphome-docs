@@ -1,0 +1,548 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Changelog for esphomelib version 1.9.0.">
+<meta itemprop="name" content="Changelog - Version 1.9.0">
+<meta itemprop="description" content="Changelog for esphomelib version 1.9.0.">
+<meta itemprop="image" content="https://esphome.io/_static/changelog-1.9.0.png">
+<meta name="twitter:title" content="Changelog - Version 1.9.0">
+<meta name="twitter:image:src" content="https://esphome.io/_static/changelog-1.9.0.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:creator" content="@OttoWinter_">
+<meta name="twitter:description" content="Changelog for esphomelib version 1.9.0.">
+<meta property="og:title" content="Changelog - Version 1.9.0">
+<meta property="og:image" content="https://esphome.io/_static/changelog-1.9.0.png">
+<meta property="og:type" content="article">
+<meta property="og:description" content="Changelog for esphomelib version 1.9.0.">
+
+    <title>Changelog - Version 1.9.0 &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/changelog/v1.9.0.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Custom" href="../custom/index.html" />
+    <link rel="prev" title="Version 1.8.0" href="v1.8.0.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Changelog - Version 1.9.0</a><ul>
+<li><a class="reference internal" href="#new-components">New Components</a></li>
+<li><a class="reference internal" href="#new-features">New Features</a></li>
+<li><a class="reference internal" href="#breaking-changes">Breaking Changes</a></li>
+<li><a class="reference internal" href="#release-1-9-1-november-19">Release 1.9.1 - November 19</a></li>
+<li><a class="reference internal" href="#release-1-9-2-november-25">Release 1.9.2 - November 25</a></li>
+<li><a class="reference internal" href="#release-1-9-3-december-1">Release 1.9.3 - December 1</a></li>
+<li><a class="reference internal" href="#all-changes">All changes</a></li>
+<li><a class="reference internal" href="#past-changelogs">Past Changelogs</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Changelog</a> ➔</li>
+      <li>Changelog - Version 1.9.0</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="changelog-version-1-9-0">
+<h1>Changelog - Version 1.9.0<a class="headerlink" href="#changelog-version-1-9-0" title="Permalink to this heading">¶</a></h1>
+<table class="table-center docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference external" href="/guides/faq.html#how-do-i-update-to-the-latest-beta-release"><img alt="Beta Releases" class="component-image dark-invert" src="../_images/new-box.svg" /></a></p></td>
+<td><p><a class="reference external" href="/components/text_sensor/index.html"><img alt="Text Sensors" class="component-image dark-invert" src="../_images/folder-open.svg" /></a></p></td>
+<td><p><a class="reference external" href="/components/sensor/mqtt_subscribe.html"><img alt="MQTT Subscribe" class="component-image" src="../_images/mqtt.png" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="/guides/faq.html#how-do-i-update-to-the-latest-beta-release">Beta Releases</a></p></td>
+<td><p><a class="reference external" href="/components/text_sensor/index.html">Text Sensors</a></p></td>
+<td><p><a class="reference external" href="/components/sensor/mqtt_subscribe.html">MQTT Subscribe</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="/components/stepper/index.html"><img alt="Stepper" class="component-image" src="../_images/stepper.svg" /></a></p></td>
+<td><p><a class="reference external" href="/components/sensor/cse7766.html"><img alt="CSE7766" class="component-image" src="../_images/cse7766.svg" /></a></p></td>
+<td><p><a class="reference external" href="/components/sensor/pmsx003.html"><img alt="PMSX003" class="component-image" src="../_images/pmsx003.svg" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="/components/stepper/index.html">Stepper</a></p></td>
+<td><p><a class="reference external" href="/components/sensor/cse7766.html">CSE7766</a></p></td>
+<td><p><a class="reference external" href="/components/sensor/pmsx003.html">PMSX003</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="/guides/faq.html#i-can-t-get-flashing-over-usb-to-work"><img alt="esphomeflasher" class="component-image" src="../_images/logo.svg" /></a></p></td>
+<td><p><a class="reference external" href="/components/sensor/total_daily_energy.html"><img alt="Total Daily Energy" class="component-image dark-invert" src="../_images/sigma.svg" /></a></p></td>
+<td><p><a class="reference external" href="/components/output/my9231.html"><img alt="MY9231/MY9291 LED driver" class="component-image" src="../_images/my9231.svg" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="/guides/faq.html#i-can-t-get-flashing-over-usb-to-work">esphomeflasher</a></p></td>
+<td><p><a class="reference external" href="/components/sensor/total_daily_energy.html">Total Daily Energy</a></p></td>
+<td><p><a class="reference external" href="/components/output/my9231.html">MY9231/MY9291 LED driver</a></p></td>
+</tr>
+</tbody>
+</table>
+<p>It’s time for another release of esphomelib: 1.9.0. This release is quite different from the last one,
+it doesn’t focus that much on new integrations with a “modest” amount of 7 new integrations. No, most of the
+development has been focused on improving the core architecture and making the esphomelib ecosystem easier to use.
+Because that’s my main goal of this project: Providing a great user-experience so that you can focus on building
+awesome things with DIY hardware!</p>
+<p>The features I’m particularly excited about are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">esphomeflasher</span></code> - Experiencing problems flashing esphomelib firmwares using esphomeyaml?
+No problem, esphomeflasher is a tool designed to make that super easy. Just let esphomeyaml generate the binary and flash
+from your PC.</p></li>
+<li><p><a class="reference internal" href="../components/ota.html"><span class="doc">Over-the-Air Updates</span></a> have been completely re-written to make them a lot more
+stable.</p></li>
+<li><p>A lot of work has been put in to provide more context in YAML validation errors. Sometimes, esphomeyaml will even
+try to give you suggestions for how to fix a validation error!</p></li>
+<li><p>A new release cycle: esphomeyaml now also has a <a class="reference internal" href="../guides/faq.html#faq-beta"><span class="std std-ref">beta release channel</span></a> kind of like Home Assistant. This helps to
+iron out the most important bugs before each stable release</p></li>
+<li><p>And of course, lots of stability improvements and bug fixes :)</p></li>
+</ul>
+<p>Thank you very much to everybody who contributed to this release with new code or by
+<a class="reference internal" href="../guides/faq.html#faq-bug-report"><span class="std std-ref">reporting bugs</span></a>!</p>
+<section id="new-components">
+<h2>New Components<a class="headerlink" href="#new-components" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>There’s a new base component called <a class="reference internal" href="../components/text_sensor/index.html"><span class="doc">text sensors</span></a> for using
+text-based inputs, not just numbers like the generic <a class="reference internal" href="../components/sensor/index.html"><span class="doc">sensors</span></a> did
+(<a class="reference external" href="https://github.com/esphome/esphome/pull/166">esphome#166</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/52">docs#52</a>)</p></li>
+<li><p>The new MQTT Subscribe Sensors allow you to get external data into esphomelib’s ecosystem via MQTT
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/193">core#193</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/175">esphome#175</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/50">docs#50</a>)</p></li>
+<li><p>Added <a class="reference internal" href="../components/sensor/cse7766.html"><span class="doc">CSE7766 Power Sensor</span></a> to support power measurements
+on the Sonoff Pow R2 (<a class="reference external" href="https://github.com/esphome/esphome-core/pull/277">core#277</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/190">esphome#190</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/59">docs#59</a>)</p></li>
+<li><p>Thanks to <a class="reference external" href="https://github.com/puuu">&#64;puuu</a>, the LED driver in the Sonoff B1 (MY9231) is now supported!
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/266">core#266</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/227">esphome#227</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/80">docs#80</a>)</p></li>
+<li><p>Added the <a class="reference internal" href="../components/sensor/pmsx003.html"><span class="doc">PMSX003 Particulate Matter Sensor</span></a>
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/229">core#229</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/192">esphome#192</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/58">docs#58</a>)</p></li>
+<li><p>Added support for <a class="reference internal" href="../components/stepper/index.html"><span class="doc">A4988 Stepper Motors</span></a> (<a class="reference external" href="https://github.com/esphome/esphome-core/pull/239">core#239</a>,
+<a class="reference external" href="https://github.com/esphome/esphome/pull/206">esphome#206</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/68">docs#68</a>)</p></li>
+<li><p>Added <a class="reference internal" href="../components/sensor/total_daily_energy.html"><span class="doc">total daily energy sensor</span></a> to accumulate the total
+power usage over one day (<a class="reference external" href="https://github.com/esphome/esphome-core/pull/256">core#256</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/220">esphome#220</a>)</p></li>
+</ul>
+</section>
+<section id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p>Compiling for ESP32s is now possible on RPis 🎉</p></li>
+<li><p>esphomelib now has a new tool: <a class="reference external" href="https://github.com/esphome/esphome-flasher">esphomeflasher</a> to simplify
+flashing on Windows/MacOS machines <strong>without having to install esphomeyaml</strong>. So if esphomeyaml for some reason
+can’t find your USB port, you now can use the esphomeflasher app. See <code class="docutils literal notranslate"><span class="pre">esphomeflasher</span></code>.</p></li>
+<li><p>ESP8266s now save the states of lights/switches/… internally and restores them on boot.
+Additionally, esphomelib can now operate in fully offline mode if your WiFi network goes down
+or the MQTT broker is unreachable, see <a class="reference internal" href="../guides/automations.html#automation-networkless"><span class="std std-ref">Do Automations Work Without a Network Connection</span></a>
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/258">core#258</a>, <a class="reference external" href="https://github.com/esphome/esphome-core/pull/267">core#267</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/229">esphome#229</a>)</p></li>
+<li><p>The <a class="reference internal" href="../components/ota.html"><span class="doc">Over-the-Air Update</span></a> process was quite buggy sometimes and the Arduino-library
+esphomelib used was doing some weird stuff. The OTA-process has now been completely re-written to be more stable
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/204">core#204</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/177">esphome#177</a>).</p></li>
+<li><p>Add support for the Home Assistant device registry. If you’re using <a class="reference external" href="https://www.home-assistant.io/blog/2018/10/26/release-81/">Home Assistant 0.81.0</a>
+or higher you will see a list of all components for each esphomelib node in the integrations screen
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/233">core#233</a>).</p></li>
+<li><p>The current esphomelib version and compilation time are now printed on each boot
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/189">core#189</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/159">esphome#159</a>):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[13:57:33][I][application:092]: You&#39;re running esphomelib v1.9.0 compiled on Nov  3 2018, 13:55:11
+</pre></div>
+</div>
+</li>
+<li><p>Stack traces in the USB logs are now automatically decoded to make debugging easier
+(<a class="reference external" href="https://github.com/esphome/esphome/pull/214">esphome#214</a>)</p></li>
+<li><p>Added <a class="reference internal" href="../components/mqtt.html#mqtt-on-json-message"><span class="std std-ref">on_json_message Trigger</span></a> and <a class="reference internal" href="../components/mqtt.html#mqtt-publish-json-action"><span class="std std-ref">mqtt.publish_json Action</span></a> to make using JSON for MQTT payloads easier
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/230">core#230</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/193">esphome#193</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/60">docs#60</a>)</p></li>
+<li><p>The remote (IR) components have received support for Samsung’s IR protocol
+(<a class="reference external" href="https://github.com/esphome/esphome/pull/176">esphome#176</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/48">docs#48</a>)</p></li>
+<li><p>Added <a class="reference internal" href="../guides/automations.html#component-update-action"><span class="std std-ref">component.update Action</span></a>, <a class="reference internal" href="../components/logger.html#logger-log-action"><span class="std std-ref">logger.log Action</span></a> and <a class="reference internal" href="../guides/automations.html#script-execute-action"><span class="std std-ref">script.execute Action</span></a> for simplifying
+automations
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/232">core#232</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/196">esphome#196</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/198">esphome#198</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/61">docs#61</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/63">docs#63</a>)</p></li>
+<li><p>Added <a class="reference internal" href="../components/binary_sensor/index.html#binary-sensor-on-multi-click"><span class="std std-ref">on_multi_click</span></a> trigger to distinguish between double, long, and single clicks.
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/262">core#262</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/77">docs#77</a>,  <a class="reference external" href="https://github.com/esphome/esphome/pull/226">esphome#226</a>)</p></li>
+<li><p>Added an <a class="reference internal" href="../components/binary_sensor/pn532.html#pn532-on-tag"><span class="std std-ref">Over I²C</span></a> to <a class="reference internal" href="../components/binary_sensor/pn532.html"><span class="doc">PN532 NFC Readers</span></a> so that automations
+can directly use the NFC tag ID
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/194">core#194</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/189">esphome#189</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/57">docs#57</a>)</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">hass-config</span></code> command which generates a Home Assistant configuration for your esphomeyaml nodes.
+Useful if you’re not using MQTT discovery (<a class="reference external" href="https://github.com/esphome/esphome/pull/208">esphome#208</a>)</p></li>
+<li><p>All documentation pages now have comment systems powered by <a class="reference external" href="https://disqus.com/">disqus</a>
+(<a class="reference external" href="https://github.com/esphome/esphome-docs/pull/47">docs#47</a>)</p></li>
+<li><p>You now have to option to have a different log level for log messages sent over MQTT (<a class="reference internal" href="../components/mqtt.html#mqtt-message"><span class="std std-ref">docs</span></a>,
+<a class="reference external" href="https://github.com/esphome/esphome/pull/167">esphome#167</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/51">docs#51</a>)</p></li>
+<li><p>Added a color correction option to <a class="reference internal" href="../components/light/fastled.html"><span class="doc">FastLED addressable lights</span></a>
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/234">core#234</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/200">esphome#200</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/64">docs#64</a>)</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">clean</span></code> command to esphomeyaml to fix some occasional build errors
+(<a class="reference external" href="https://github.com/esphome/esphome/pull/181">esphome#181</a>)</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">send_first_at</span></code> option to sliding window moving average sensor filters
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/240">core#240</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/207">esphome#207</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/69">docs#69</a>)</p></li>
+<li><p>You can now upload OTA firmware files with the <a class="reference internal" href="../components/web_server.html"><span class="doc">web server component</span></a></p></li>
+<li><p>Added the ability to define global variables in esphomeyaml: <a class="reference internal" href="../guides/automations.html#config-globals"><span class="std std-ref">Global Variables</span></a>.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">frequency</span></code> option to the <a class="reference internal" href="../components/output/esp8266_pwm.html"><span class="doc">ESP8266 Software PWM Output</span></a>.</p></li>
+</ul>
+</section>
+<section id="breaking-changes">
+<h2>Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p>As part of the rewrite of Over-The-Air updates, the old OTA protocol is incompatible with the new one -
+But fear not, esphomeyaml still supports the legacy OTA update process. On your first OTA upload with 1.9.0, you will
+see esphomeyaml try with the new OTA method and fail. After that, esphomeyaml will fall back to the old OTA
+process and upload correctly (<a class="reference external" href="https://github.com/esphome/esphome-core/pull/204">core#204</a>).</p></li>
+<li><p>esphomelib’s naming convention has been made more consistent. If you’re not using any <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>,
+everything will still work. However, if you’re using the C++ API, there are a couple of breaking changes:</p>
+<p>For sensors and binary sensors, <code class="docutils literal notranslate"><span class="pre">id(my_sensor).value</span></code> has been deprecated and <code class="docutils literal notranslate"><span class="pre">id(my_sensor).state</span></code> should be used
+instead. Additionally, the syntax for toggling lights and switches through C++ has been changed. Please see
+the <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/62">docs#62</a> changeset for more information
+(<a class="reference external" href="https://github.com/esphome/esphome-core/pull/231">core#231</a>, <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/62">docs#62</a>, <a class="reference external" href="https://github.com/esphome/esphome/pull/197">esphome#197</a>)</p>
+</li>
+</ul>
+</section>
+<section id="release-1-9-1-november-19">
+<h2>Release 1.9.1 - November 19<a class="headerlink" href="#release-1-9-1-november-19" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>lib: Fix RDM6300 not reporting cards <a class="reference external" href="https://github.com/esphome/esphome-core/pull/278">core#278</a></p></li>
+<li><p>lib: Fix SNTP with less than 3 servers <a class="reference external" href="https://github.com/esphome/esphome-core/pull/279">core#279</a></p></li>
+<li><p>lib: Fix update interval log missing time unit <a class="reference external" href="https://github.com/esphome/esphome-core/pull/280">core#280</a></p></li>
+<li><p>lib: Fix CSE7766 spamming logs <a class="reference external" href="https://github.com/esphome/esphome-core/pull/281">core#281</a></p></li>
+<li><p>lib: Fix outdated links <a class="reference external" href="https://github.com/esphome/esphome-core/pull/282">core#282</a></p></li>
+<li><p>yaml: Fix SNTP servers option <a class="reference external" href="https://github.com/esphome/esphome/pull/237">esphome#237</a></p></li>
+</ul>
+</section>
+<section id="release-1-9-2-november-25">
+<h2>Release 1.9.2 - November 25<a class="headerlink" href="#release-1-9-2-november-25" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>lib: Fix crashing when logger not being used <a class="reference external" href="https://github.com/esphome/esphome-core/pull/285">core#285</a></p></li>
+<li><p>lib: Fix template cover spamming logs <a class="reference external" href="https://github.com/esphome/esphome-core/pull/287">core#287</a></p></li>
+<li><p>lib: Improve ESP32 BLE tracker stability <a class="reference external" href="https://github.com/esphome/esphome-core/pull/289">core#289</a></p></li>
+<li><p>lib: Fix sensor filters using C++ undefined behavior <a class="reference external" href="https://github.com/esphome/esphome-core/pull/293">core#293</a></p></li>
+</ul>
+</section>
+<section id="release-1-9-3-december-1">
+<h2>Release 1.9.3 - December 1<a class="headerlink" href="#release-1-9-3-december-1" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>docs: Fix Sonoff Basic pinouts <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/88">docs#88</a> by <a class="reference external" href="https://github.com/sherbang">&#64;sherbang</a></p></li>
+<li><p>docs: Update cwww.rst <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/85">docs#85</a> by <a class="reference external" href="https://github.com/Melkor82">&#64;Melkor82</a></p></li>
+<li><p>lib: Fix PMSX003 <a class="reference external" href="https://github.com/esphome/esphome-core/pull/300">core#300</a></p></li>
+<li><p>lib: Fix issue with filters introduced in 1.9.2 <a class="reference external" href="https://github.com/esphome/esphome-core/pull/296">core#296</a></p></li>
+<li><p>lib: Fix BMP085 pressure value <a class="reference external" href="https://github.com/esphome/esphome-core/pull/292">core#292</a></p></li>
+<li><p>yaml: CSE7766 update interval <a class="reference external" href="https://github.com/esphome/esphome/pull/250">esphome#250</a></p></li>
+<li><p>docs: CSE7766 Update Interval <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/91">docs#91</a></p></li>
+</ul>
+</section>
+<section id="all-changes">
+<h2>All changes<a class="headerlink" href="#all-changes" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>docs: Clarify ESP32 BLE Tracker comment <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/42">docs#42</a></p></li>
+<li><p>yaml: Add a link to Home Assistant in README <a class="reference external" href="https://github.com/esphome/esphome/pull/152">esphome#152</a> by <a class="reference external" href="https://github.com/jonnyair">&#64;jonnyair</a></p></li>
+<li><p>lib: Add a link to Home Assistant in README.md <a class="reference external" href="https://github.com/esphome/esphome-core/pull/184">core#184</a> by <a class="reference external" href="https://github.com/jonnyair">&#64;jonnyair</a></p></li>
+<li><p>docs: Fix time docs 12-hour clock strftime format <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/43">docs#43</a></p></li>
+<li><p>lib: Fix ESP32 BLE Presence detection always on <a class="reference external" href="https://github.com/esphome/esphome-core/pull/185">core#185</a></p></li>
+<li><p>lib: Fix LCD display include <a class="reference external" href="https://github.com/esphome/esphome-core/pull/186">core#186</a></p></li>
+<li><p>lib: Fix template switch spamming output <a class="reference external" href="https://github.com/esphome/esphome-core/pull/187">core#187</a></p></li>
+<li><p>lib: Fix using HTU21D for SI7021 <a class="reference external" href="https://github.com/esphome/esphome-core/pull/188">core#188</a></p></li>
+<li><p>lib: Fix components sending invalid state on startup if integration not ready yet <a class="reference external" href="https://github.com/esphome/esphome-core/pull/195">core#195</a></p></li>
+<li><p>lib: Log esphomelib version and compilation time on boot <a class="reference external" href="https://github.com/esphome/esphome-core/pull/189">core#189</a> (new-feature)</p></li>
+<li><p>yaml: Log esphomelib version and compilation time on boot <a class="reference external" href="https://github.com/esphome/esphome/pull/159">esphome#159</a> (new-feature)</p></li>
+<li><p>yaml: Fix raw remote receiver <a class="reference external" href="https://github.com/esphome/esphome/pull/158">esphome#158</a></p></li>
+<li><p>lib: Add Code of Conduct (Contributor Covenant) <a class="reference external" href="https://github.com/esphome/esphome-core/pull/196">core#196</a></p></li>
+<li><p>lib: Create CONTRIBUTING.md <a class="reference external" href="https://github.com/esphome/esphome-core/pull/197">core#197</a></p></li>
+<li><p>lib: Create issue templates <a class="reference external" href="https://github.com/esphome/esphome-core/pull/198">core#198</a></p></li>
+<li><p>lib: Create pull request template <a class="reference external" href="https://github.com/esphome/esphome-core/pull/199">core#199</a></p></li>
+<li><p>yaml: Create Pull Request Template <a class="reference external" href="https://github.com/esphome/esphome/pull/172">esphome#172</a></p></li>
+<li><p>yaml: Create CONTRIBUTING.md <a class="reference external" href="https://github.com/esphome/esphome/pull/169">esphome#169</a></p></li>
+<li><p>yaml: Add Code of Conduct (Contributor Covenant) <a class="reference external" href="https://github.com/esphome/esphome/pull/168">esphome#168</a></p></li>
+<li><p>yaml: Create issue templates <a class="reference external" href="https://github.com/esphome/esphome/pull/171">esphome#171</a></p></li>
+<li><p>docs: Add Code of Conduct (Contributor Covenant) <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/44">docs#44</a></p></li>
+<li><p>docs: Create Pull Request Template <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/45">docs#45</a></p></li>
+<li><p>yaml: Fix readme broken link <a class="reference external" href="https://github.com/esphome/esphome/pull/174">esphome#174</a></p></li>
+<li><p>lib: Fix pulse counter counting inverted on ESP8266 <a class="reference external" href="https://github.com/esphome/esphome-core/pull/200">core#200</a></p></li>
+<li><p>yaml: Add use_build_flags removal notice <a class="reference external" href="https://github.com/esphome/esphome/pull/173">esphome#173</a></p></li>
+<li><p>docs: Highlight update_interval gotchas <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/46">docs#46</a></p></li>
+<li><p>docs: Add Disqus and cleanup <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/47">docs#47</a> (new-feature)</p></li>
+<li><p>lib: Fix PN532 not logging discovered tags <a class="reference external" href="https://github.com/esphome/esphome-core/pull/202">core#202</a></p></li>
+<li><p>yaml: Add Samsung IR protocol <a class="reference external" href="https://github.com/esphome/esphome/pull/176">esphome#176</a> by <a class="reference external" href="https://github.com/escoand">&#64;escoand</a> (new-feature)</p></li>
+<li><p>docs: add samsung ir protocol <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/48">docs#48</a> by <a class="reference external" href="https://github.com/escoand">&#64;escoand</a> (new-feature)</p></li>
+<li><p>lib: Bump FastLED to 3.2.0 <a class="reference external" href="https://github.com/esphome/esphome-core/pull/203">core#203</a></p></li>
+<li><p>yaml: Fix Wifi power_save_mode option <a class="reference external" href="https://github.com/esphome/esphome/pull/178">esphome#178</a></p></li>
+<li><p>lib: Fix application sort order <a class="reference external" href="https://github.com/esphome/esphome-core/pull/211">core#211</a></p></li>
+<li><p>docs: Improve pulse counter docs <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/49">docs#49</a></p></li>
+<li><p>lib: Fix ESP32 BLE Controller Init <a class="reference external" href="https://github.com/esphome/esphome-core/pull/213">core#213</a></p></li>
+<li><p>lib: Fix Web Server Creating Infinite Print Loop <a class="reference external" href="https://github.com/esphome/esphome-core/pull/214">core#214</a></p></li>
+<li><p>lib: Add TOGGLE payload to more components <a class="reference external" href="https://github.com/esphome/esphome-core/pull/212">core#212</a> (new-feature)</p></li>
+<li><p>lib: ESP8266 Pulse Counter Improve Timing <a class="reference external" href="https://github.com/esphome/esphome-core/pull/205">core#205</a></p></li>
+<li><p>lib: Add MQTT Subscribe Sensor <a class="reference external" href="https://github.com/esphome/esphome-core/pull/193">core#193</a> (new-feature)</p></li>
+<li><p>docs: Add MQTT Subscribe sensor <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/50">docs#50</a> (new-feature)</p></li>
+<li><p>yaml: Add MQTT Subscribe sensor <a class="reference external" href="https://github.com/esphome/esphome/pull/175">esphome#175</a> (new-feature)</p></li>
+<li><p>yaml: MQTT different log level <a class="reference external" href="https://github.com/esphome/esphome/pull/167">esphome#167</a> (new-feature)</p></li>
+<li><p>docs: Add option to have different log level over MQTT <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/51">docs#51</a> (new-feature)</p></li>
+<li><p>yaml: Add clean build files command and auto-clean on version change <a class="reference external" href="https://github.com/esphome/esphome/pull/181">esphome#181</a> (new-feature)</p></li>
+<li><p>lib: Add power on value to switch <a class="reference external" href="https://github.com/esphome/esphome-core/pull/207">core#207</a> (new-feature)</p></li>
+<li><p>lib: Rework OTA to be more stable <a class="reference external" href="https://github.com/esphome/esphome-core/pull/204">core#204</a> (breaking-change) (new-feature)</p></li>
+<li><p>yaml: Rework OTA to be more stable <a class="reference external" href="https://github.com/esphome/esphome/pull/177">esphome#177</a> (new-feature)</p></li>
+<li><p>lib: Fix WiFi not working when GPIO 0 connected <a class="reference external" href="https://github.com/esphome/esphome-core/pull/215">core#215</a></p></li>
+<li><p>lib: Fix MiFlora illuminance reading <a class="reference external" href="https://github.com/esphome/esphome-core/pull/220">core#220</a></p></li>
+<li><p>lib: Remove invalid file headers <a class="reference external" href="https://github.com/esphome/esphome-core/pull/219">core#219</a></p></li>
+<li><p>yaml: Fix config dump time output <a class="reference external" href="https://github.com/esphome/esphome/pull/184">esphome#184</a></p></li>
+<li><p>lib: GPIO Switch Rewrite <a class="reference external" href="https://github.com/esphome/esphome-core/pull/217">core#217</a></p></li>
+<li><p>docs: Add power on value to GPIO Switch <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/55">docs#55</a> (new-feature)</p></li>
+<li><p>yaml: Decentralize Automation Generator Code <a class="reference external" href="https://github.com/esphome/esphome/pull/182">esphome#182</a></p></li>
+<li><p>lib: Add PN532 On Tag Trigger <a class="reference external" href="https://github.com/esphome/esphome-core/pull/226">core#226</a> (new-feature)</p></li>
+<li><p>lib: Add text sensors <a class="reference external" href="https://github.com/esphome/esphome-core/pull/194">core#194</a> (new-feature)</p></li>
+<li><p>docs: Add Text sensors <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/52">docs#52</a> (new-feature)</p></li>
+<li><p>lib: Fix PCF8574 assert. <a class="reference external" href="https://github.com/esphome/esphome-core/pull/223">core#223</a> by <a class="reference external" href="https://github.com/lobradov">&#64;lobradov</a></p></li>
+<li><p>lib: Unify Xiaomi MiJia&amp;MiFlora Implementations <a class="reference external" href="https://github.com/esphome/esphome-core/pull/225">core#225</a></p></li>
+<li><p>docs: Unify xiaomi implementations <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/56">docs#56</a></p></li>
+<li><p>yaml: Unify Xiaomi implementations <a class="reference external" href="https://github.com/esphome/esphome/pull/188">esphome#188</a></p></li>
+<li><p>lib: Add CSE7766 for Sonoff Pow R2 <a class="reference external" href="https://github.com/esphome/esphome-core/pull/227">core#227</a> (new-feature)</p></li>
+<li><p>docs: Add CSE7766 for Sonoff Pow R2 <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/59">docs#59</a> (new-feature)</p></li>
+<li><p>docs: Add PN532 On Tag Trigger <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/57">docs#57</a> (new-feature)</p></li>
+<li><p>yaml: Add CSE776 for Sonoff Pow R2 <a class="reference external" href="https://github.com/esphome/esphome/pull/190">esphome#190</a> (new-feature)</p></li>
+<li><p>yaml: Add Text Sensors <a class="reference external" href="https://github.com/esphome/esphome/pull/166">esphome#166</a> (new-feature)</p></li>
+<li><p>yaml: Add PN532 On Tag Trigger <a class="reference external" href="https://github.com/esphome/esphome/pull/189">esphome#189</a> (new-feature)</p></li>
+<li><p>lib: Add MQTT publish JSON action and subscribe JSON trigger <a class="reference external" href="https://github.com/esphome/esphome-core/pull/230">core#230</a> (new-feature)</p></li>
+<li><p>yaml: Add MQTT publish JSON action and subscribe JSON trigger <a class="reference external" href="https://github.com/esphome/esphome/pull/193">esphome#193</a> (new-feature)</p></li>
+<li><p>docs: Add MQTT publish JSON action and subscribe JSON trigger <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/60">docs#60</a> (new-feature)</p></li>
+<li><p>lib: Add PMSX003 Particulate Matter Sensor <a class="reference external" href="https://github.com/esphome/esphome-core/pull/229">core#229</a> (new-feature)</p></li>
+<li><p>docs: Add PMSX003 Particulate Matter Sensor <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/58">docs#58</a> (new-feature)</p></li>
+<li><p>lib: Add update component action and scripts <a class="reference external" href="https://github.com/esphome/esphome-core/pull/232">core#232</a> (new-feature)</p></li>
+<li><p>docs: Add update component action and scripts <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/61">docs#61</a> (new-feature)</p></li>
+<li><p>lib: Implement HASS device registry for MQTT components <a class="reference external" href="https://github.com/esphome/esphome-core/pull/233">core#233</a> (new-feature)</p></li>
+<li><p>lib: Add FastLED color correction option <a class="reference external" href="https://github.com/esphome/esphome-core/pull/234">core#234</a> (new-feature)</p></li>
+<li><p>docs: Add FastLED color correction option <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/64">docs#64</a> (new-feature)</p></li>
+<li><p>yaml: Add update component action and scripts <a class="reference external" href="https://github.com/esphome/esphome/pull/196">esphome#196</a> (new-feature)</p></li>
+<li><p>yaml: Add PMSX003 Particulate Matter Sensor <a class="reference external" href="https://github.com/esphome/esphome/pull/192">esphome#192</a> (new-feature)</p></li>
+<li><p>yaml: Add FastLED color correction option <a class="reference external" href="https://github.com/esphome/esphome/pull/200">esphome#200</a> (new-feature)</p></li>
+<li><p>yaml: Fix triggers being interpreted as a sequence of automations <a class="reference external" href="https://github.com/esphome/esphome/pull/199">esphome#199</a></p></li>
+<li><p>yaml: Fix value range trigger :expressionless: <a class="reference external" href="https://github.com/esphome/esphome/pull/201">esphome#201</a></p></li>
+<li><p>lib: Make naming convention consistent <a class="reference external" href="https://github.com/esphome/esphome-core/pull/231">core#231</a> (breaking-change)</p></li>
+<li><p>docs: Make naming convention consistent <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/62">docs#62</a> (breaking-change)</p></li>
+<li><p>docs: Fix some typos <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/65">docs#65</a></p></li>
+<li><p>yaml: Improve API naming convention consistency <a class="reference external" href="https://github.com/esphome/esphome/pull/197">esphome#197</a> (breaking-change)</p></li>
+<li><p>yaml: Fix some typos <a class="reference external" href="https://github.com/esphome/esphome/pull/202">esphome#202</a></p></li>
+<li><p>docs: Add logger.log action <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/63">docs#63</a> (new-feature)</p></li>
+<li><p>yaml: Add logger.log action <a class="reference external" href="https://github.com/esphome/esphome/pull/198">esphome#198</a> (new-feature)</p></li>
+<li><p>docs: Fix template sensor docs <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/66">docs#66</a></p></li>
+<li><p>docs: Fix text sensor outdated API docs <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/70">docs#70</a></p></li>
+<li><p>docs: Add Stepper Support <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/68">docs#68</a> (new-feature)</p></li>
+<li><p>lib: Add stepper motor support <a class="reference external" href="https://github.com/esphome/esphome-core/pull/239">core#239</a> (new-feature)</p></li>
+<li><p>lib: Add send_first_at option to sliding window sensor filter <a class="reference external" href="https://github.com/esphome/esphome-core/pull/240">core#240</a> (new-feature)</p></li>
+<li><p>docs: Add send_first_at option to sliding window sensor filter <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/69">docs#69</a> (new-feature)</p></li>
+<li><p>lib: Fix display line drawing algorithm <a class="reference external" href="https://github.com/esphome/esphome-core/pull/241">core#241</a></p></li>
+<li><p>lib: Fix availability calculation <a class="reference external" href="https://github.com/esphome/esphome-core/pull/242">core#242</a></p></li>
+<li><p>yaml: Add Stepper Motor Support <a class="reference external" href="https://github.com/esphome/esphome/pull/206">esphome#206</a> (new-feature)</p></li>
+<li><p>yaml: Add send_first_at option to sliding window sensor filter <a class="reference external" href="https://github.com/esphome/esphome/pull/207">esphome#207</a> (new-feature)</p></li>
+<li><p>docs: Switch example to Dehumidifier, minor grammar/puncuation <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/67">docs#67</a> by <a class="reference external" href="https://github.com/rorpage">&#64;rorpage</a></p></li>
+<li><p>docs: Tiny typo fix. <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/73">docs#73</a> by <a class="reference external" href="https://github.com/corbanmailloux">&#64;corbanmailloux</a></p></li>
+<li><p>yaml: Auto-Decode stacktraces <a class="reference external" href="https://github.com/esphome/esphome/pull/214">esphome#214</a> (new-feature)</p></li>
+<li><p>docs: Fix a broken link to setting up a BLE tracker. <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/72">docs#72</a> by <a class="reference external" href="https://github.com/corbanmailloux">&#64;corbanmailloux</a></p></li>
+<li><p>yaml: Add generate home assistant config command <a class="reference external" href="https://github.com/esphome/esphome/pull/208">esphome#208</a> (new-feature)</p></li>
+<li><p>yaml: Update Gitlab Build Script <a class="reference external" href="https://github.com/esphome/esphome/pull/215">esphome#215</a></p></li>
+<li><p>lib: Fix status binary sensor always reporting false internally <a class="reference external" href="https://github.com/esphome/esphome-core/pull/257">core#257</a></p></li>
+<li><p>yaml: Fix HLW8012 Voltage Divider option not being added to source <a class="reference external" href="https://github.com/esphome/esphome/pull/224">esphome#224</a></p></li>
+<li><p>lib: Fix HLW8012 Initial Value Reporting <a class="reference external" href="https://github.com/esphome/esphome-core/pull/254">core#254</a></p></li>
+<li><p>lib: Clean up Time API <a class="reference external" href="https://github.com/esphome/esphome-core/pull/253">core#253</a></p></li>
+<li><p>yaml: Better typing to components <a class="reference external" href="https://github.com/esphome/esphome/pull/225">esphome#225</a></p></li>
+<li><p>lib: Support uploading OTA updates over web server <a class="reference external" href="https://github.com/esphome/esphome-core/pull/255">core#255</a> (new-feature)</p></li>
+<li><p>lib: Save and Restore states from RTC memory <a class="reference external" href="https://github.com/esphome/esphome-core/pull/258">core#258</a> (new-feature)</p></li>
+<li><p>docs: Revert add power_on_value to gpio switch <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/78">docs#78</a></p></li>
+<li><p>lib: Improve default log levels and log sources <a class="reference external" href="https://github.com/esphome/esphome-core/pull/264">core#264</a></p></li>
+<li><p>lib: OTA Read back server acknowledgement <a class="reference external" href="https://github.com/esphome/esphome-core/pull/263">core#263</a></p></li>
+<li><p>lib: Add Multi Click Trigger to binary sensor <a class="reference external" href="https://github.com/esphome/esphome-core/pull/262">core#262</a> (new-feature)</p></li>
+<li><p>docs: Add binary sensor on multi click trigger <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/77">docs#77</a> (new-feature)</p></li>
+<li><p>lib: ESP32 BLE Release Bluetooth Classic Memory <a class="reference external" href="https://github.com/esphome/esphome-core/pull/261">core#261</a></p></li>
+<li><p>yaml: Add restore state option to template switch <a class="reference external" href="https://github.com/esphome/esphome/pull/222">esphome#222</a></p></li>
+<li><p>docs: Advertise esphomeflasher <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/76">docs#76</a> (new-feature)</p></li>
+<li><p>docs: Replace table generator with custom RST directive <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/75">docs#75</a></p></li>
+<li><p>yaml: Clean up time API <a class="reference external" href="https://github.com/esphome/esphome/pull/221">esphome#221</a></p></li>
+<li><p>yaml: Revert Add power on value to GPIO switch <a class="reference external" href="https://github.com/esphome/esphome/pull/223">esphome#223</a></p></li>
+<li><p>yaml: Add binary sensor multi click trigger <a class="reference external" href="https://github.com/esphome/esphome/pull/226">esphome#226</a> (new-feature)</p></li>
+<li><p>lib: Add Total Daily Energy Sensor <a class="reference external" href="https://github.com/esphome/esphome-core/pull/256">core#256</a> (new-feature)</p></li>
+<li><p>yaml: Add total daily energy sensor <a class="reference external" href="https://github.com/esphome/esphome/pull/220">esphome#220</a> (new-feature)</p></li>
+<li><p>docs: Add total daily energy sensor <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/79">docs#79</a></p></li>
+<li><p>lib: Introduce new setup phase: “dump config” to allow fully-offline operation <a class="reference external" href="https://github.com/esphome/esphome-core/pull/267">core#267</a></p></li>
+<li><p>yaml: Let esphomeyaml know about class inheritance <a class="reference external" href="https://github.com/esphome/esphome/pull/229">esphome#229</a></p></li>
+<li><p>docs: ESP32 deep sleep wake up multiple pins <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/81">docs#81</a></p></li>
+<li><p>yaml: Deep Sleep Wake Up From Multiple Pins <a class="reference external" href="https://github.com/esphome/esphome/pull/230">esphome#230</a></p></li>
+<li><p>lib: Deep Sleep Multi Wakeup <a class="reference external" href="https://github.com/esphome/esphome-core/pull/268">core#268</a></p></li>
+<li><p>lib: MY9231/MY9291 LED driver support <a class="reference external" href="https://github.com/esphome/esphome-core/pull/266">core#266</a> by <a class="reference external" href="https://github.com/puuu">&#64;puuu</a> (new-feature)</p></li>
+<li><p>yaml: Add MY9231 support <a class="reference external" href="https://github.com/esphome/esphome/pull/227">esphome#227</a> by <a class="reference external" href="https://github.com/puuu">&#64;puuu</a> (new-feature)</p></li>
+<li><p>docs: MY9231/MY9291 LED driver documentation <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/80">docs#80</a> by <a class="reference external" href="https://github.com/puuu">&#64;puuu</a> (new-feature)</p></li>
+<li><p>docs: SEO Optimization <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/82">docs#82</a></p></li>
+</ul>
+</section>
+<section id="past-changelogs">
+<h2>Past Changelogs<a class="headerlink" href="#past-changelogs" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="v1.8.0.html"><span class="doc">Version 1.8.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.7.0.html"><span class="doc">Version 1.7.0</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

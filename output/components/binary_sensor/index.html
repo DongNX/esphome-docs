@@ -1,0 +1,671 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Information about the base representation of all binary sensors.">
+<meta itemprop="name" content="Binary Sensor Component">
+<meta itemprop="description" content="Information about the base representation of all binary sensors.">
+<meta itemprop="image" content="https://esphome.io/_images/folder-open.png">
+<meta name="twitter:title" content="Binary Sensor Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/folder-open.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Information about the base representation of all binary sensors.">
+<meta property="og:title" content="Binary Sensor Component">
+<meta property="og:image" content="https://esphome.io/_images/folder-open.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Information about the base representation of all binary sensors.">
+
+    <title>Binary Sensor Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/binary_sensor/index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Analog Threshold Binary Sensor" href="analog_threshold.html" />
+    <link rel="prev" title="Components" href="../index.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Binary Sensor Component</a><ul>
+<li><a class="reference internal" href="#base-binary-sensor-configuration">Base Binary Sensor Configuration</a></li>
+<li><a class="reference internal" href="#binary-sensor-filters">Binary Sensor Filters</a><ul>
+<li><a class="reference internal" href="#invert"><code class="docutils literal notranslate"><span class="pre">invert</span></code></a></li>
+<li><a class="reference internal" href="#delayed-on"><code class="docutils literal notranslate"><span class="pre">delayed_on</span></code></a></li>
+<li><a class="reference internal" href="#delayed-off"><code class="docutils literal notranslate"><span class="pre">delayed_off</span></code></a></li>
+<li><a class="reference internal" href="#delayed-on-off"><code class="docutils literal notranslate"><span class="pre">delayed_on_off</span></code></a></li>
+<li><a class="reference internal" href="#autorepeat"><code class="docutils literal notranslate"><span class="pre">autorepeat</span></code></a></li>
+<li><a class="reference internal" href="#lambda"><code class="docutils literal notranslate"><span class="pre">lambda</span></code></a></li>
+<li><a class="reference internal" href="#settle"><code class="docutils literal notranslate"><span class="pre">settle</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#binary-sensor-automation">Binary Sensor Automation</a><ul>
+<li><a class="reference internal" href="#on-press"><code class="docutils literal notranslate"><span class="pre">on_press</span></code></a></li>
+<li><a class="reference internal" href="#on-release"><code class="docutils literal notranslate"><span class="pre">on_release</span></code></a></li>
+<li><a class="reference internal" href="#on-state"><code class="docutils literal notranslate"><span class="pre">on_state</span></code></a></li>
+<li><a class="reference internal" href="#on-click"><code class="docutils literal notranslate"><span class="pre">on_click</span></code></a></li>
+<li><a class="reference internal" href="#on-double-click"><code class="docutils literal notranslate"><span class="pre">on_double_click</span></code></a></li>
+<li><a class="reference internal" href="#on-multi-click"><code class="docutils literal notranslate"><span class="pre">on_multi_click</span></code></a></li>
+<li><a class="reference internal" href="#binary-sensor-is-on-binary-sensor-is-off-condition"><code class="docutils literal notranslate"><span class="pre">binary_sensor.is_on</span></code> / <code class="docutils literal notranslate"><span class="pre">binary_sensor.is_off</span></code> Condition</a></li>
+<li><a class="reference internal" href="#lambda-calls">lambda calls</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li>Binary Sensor Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="binary-sensor-component">
+<h1>Binary Sensor Component<a class="headerlink" href="#binary-sensor-component" title="Permalink to this heading">¶</a></h1>
+<p>With ESPHome you can use different types of binary sensors. They will
+automatically appear in the Home Assistant front-end and have several
+configuration options.</p>
+<section id="base-binary-sensor-configuration">
+<span id="config-binary-sensor"></span><h2>Base Binary Sensor Configuration<a class="headerlink" href="#base-binary-sensor-configuration" title="Permalink to this heading">¶</a></h2>
+<p>All binary sensors have a platform and an optional device class. By
+default, the binary will chose the appropriate device class itself, but
+you can always override it.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">motion</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the binary sensor.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have a <a class="reference internal" href="../esphome.html#esphome-configuration-variables"><span class="std std-ref">friendly_name</span></a> set for your device and
+you want the binary sensor to use that name, you can set <code class="docutils literal notranslate"><span class="pre">name:</span> <span class="pre">None</span></code>.</p>
+</div>
+</li>
+<li><p><strong>device_class</strong> (<em>Optional</em>, string): The device class for the
+sensor. See <a class="reference external" href="https://www.home-assistant.io/integrations/binary_sensor/#device-class">https://www.home-assistant.io/integrations/binary_sensor/#device-class</a>
+for a list of available options.</p></li>
+<li><p><strong>icon</strong> (<em>Optional</em>, icon): Manually set the icon to use for the binary sensor in the frontend.</p></li>
+<li><p><strong>filters</strong> (<em>Optional</em>, list): A list of filters to apply on the binary sensor values such as
+inverting signals. See <a class="reference internal" href="#binary-sensor-filters"><span class="std std-ref">Binary Sensor Filters</span></a>.</p></li>
+</ul>
+<p>Automations:</p>
+<ul class="simple">
+<li><p><strong>on_press</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the button is pressed. See <a class="reference internal" href="#binary-sensor-on-press"><span class="std std-ref">on_press</span></a>.</p></li>
+<li><p><strong>on_release</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the button is released. See <a class="reference internal" href="#binary-sensor-on-release"><span class="std std-ref">on_release</span></a>.</p></li>
+<li><p><strong>on_state</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when a state change is published. See <a class="reference internal" href="#binary-sensor-on-state"><span class="std std-ref">on_state</span></a>.</p></li>
+<li><p><strong>on_click</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the button is held down for a specified period of time.
+See <a class="reference internal" href="#binary-sensor-on-click"><span class="std std-ref">on_click</span></a>.</p></li>
+<li><p><strong>on_double_click</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the button is pressed twice for specified periods of time.
+See <a class="reference internal" href="#binary-sensor-on-double-click"><span class="std std-ref">on_double_click</span></a>.</p></li>
+<li><p><strong>on_multi_click</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the button is pressed in a specific sequence.
+See <a class="reference internal" href="#binary-sensor-on-multi-click"><span class="std std-ref">on_multi_click</span></a>.</p></li>
+</ul>
+<p>Advanced options:</p>
+<ul class="simple">
+<li><p><strong>internal</strong> (<em>Optional</em>, boolean): Mark this component as internal. Internal components will
+not be exposed to the frontend (like Home Assistant). Only specifying an <code class="docutils literal notranslate"><span class="pre">id</span></code> without
+a <code class="docutils literal notranslate"><span class="pre">name</span></code> will implicitly set this to true.</p></li>
+<li><p><strong>disabled_by_default</strong> (<em>Optional</em>, boolean): If true, then this entity should not be added to any client’s frontend,
+(usually Home Assistant) without the user manually enabling it (via the Home Assistant UI).
+Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>publish_initial_state</strong> (<em>Optional</em>, boolean): If true, then the sensor will publish its initial state at boot or when
+HA first connects, depending on the platform.  This means that any applicable triggers will be run. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>entity_category</strong> (<em>Optional</em>, string): The category of the entity.
+See <a class="reference external" href="https://developers.home-assistant.io/docs/core/entity/#generic-properties">https://developers.home-assistant.io/docs/core/entity/#generic-properties</a>
+for a list of available options.
+Set to <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> to remove the default entity category.</p></li>
+<li><p>If MQTT enabled, all other options from <a class="reference internal" href="../mqtt.html#config-mqtt-component"><span class="std std-ref">MQTT Component</span></a>.</p></li>
+</ul>
+</section>
+<section id="binary-sensor-filters">
+<span id="id1"></span><h2>Binary Sensor Filters<a class="headerlink" href="#binary-sensor-filters" title="Permalink to this heading">¶</a></h2>
+<p>With binary sensor filters you can customize how ESPHome handles your binary sensor values even more.
+They are similar to <a class="reference internal" href="../sensor/index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a>. All filters are processed in a pipeline.
+This means all binary sensor filters are processed in the order given in the configuration (so order
+of these entries matters!)</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">invert</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100ms</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100ms</span>
+<span class="w">      </span><span class="c1"># Templated, delays for 1s (1000ms) only if a reed switch is active</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_on_off</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&quot;if</span><span class="nv"> </span><span class="s">(id(reed_switch).state)</span><span class="nv"> </span><span class="s">return</span><span class="nv"> </span><span class="s">1000;</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">return</span><span class="nv"> </span><span class="s">0;&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_on_off</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">time_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">          </span><span class="nt">time_off</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&quot;if</span><span class="nv"> </span><span class="s">(id(reed_switch).state)</span><span class="nv"> </span><span class="s">return</span><span class="nv"> </span><span class="s">1000;</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">return</span><span class="nv"> </span><span class="s">0;&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">autorepeat</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+<span class="w">          </span><span class="nt">time_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100ms</span>
+<span class="w">          </span><span class="nt">time_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">900ms</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">          </span><span class="nt">time_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100ms</span>
+<span class="w">          </span><span class="nt">time_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">400ms</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">if (id(other_binary_sensor).state) {</span>
+<span class="w">            </span><span class="no">return x;</span>
+<span class="w">          </span><span class="no">} else {</span>
+<span class="w">            </span><span class="no">return {};</span>
+<span class="w">          </span><span class="no">}</span>
+</pre></div>
+</div>
+<section id="invert">
+<h3><code class="docutils literal notranslate"><span class="pre">invert</span></code><a class="headerlink" href="#invert" title="Permalink to this heading">¶</a></h3>
+<p>Simple filter that just inverts every value from the binary sensor.</p>
+</section>
+<section id="delayed-on">
+<h3><code class="docutils literal notranslate"><span class="pre">delayed_on</span></code><a class="headerlink" href="#delayed-on" title="Permalink to this heading">¶</a></h3>
+<p>(<strong>Required</strong>, time, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): When a signal ON is received,
+wait for the specified time period until publishing an ON state. If an OFF value is received
+while waiting, the ON action is discarded. Or in other words:
+Only send an ON value if the binary sensor has stayed ON for at least the specified time period.
+When using a lambda call, you should return the delay value in milliseconds.
+<strong>Useful for debouncing push buttons</strong>.</p>
+</section>
+<section id="delayed-off">
+<h3><code class="docutils literal notranslate"><span class="pre">delayed_off</span></code><a class="headerlink" href="#delayed-off" title="Permalink to this heading">¶</a></h3>
+<p>(<strong>Required</strong>, time, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): When a signal OFF is received,
+wait for the specified time period until publishing an OFF state. If an ON value is received
+while waiting, the OFF action is discarded. Or in other words:
+Only send an OFF value if the binary sensor has stayed OFF for at least the specified time period.
+When using a lambda call, you should return the delay value in milliseconds.
+<strong>Useful for debouncing push buttons</strong>.</p>
+</section>
+<section id="delayed-on-off">
+<h3><code class="docutils literal notranslate"><span class="pre">delayed_on_off</span></code><a class="headerlink" href="#delayed-on-off" title="Permalink to this heading">¶</a></h3>
+<p>Only send an ON or OFF value if the binary sensor has stayed in the same state for at least the specified time period.</p>
+<p>This filter uses two time delays: on and off.</p>
+<p>If the delays are equal, then you can configure the filter in short form by passing the time parameter:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_on_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+</pre></div>
+</div>
+<p>(<strong>Required</strong>, time, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): ON and OFF delay.
+When using a lambda call, you should return the delay value in milliseconds.
+<strong>Useful for debouncing binary switches</strong>.</p>
+<p>If the delays are different, then you need to pass them as in the example below:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delayed_on_off</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">time_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">          </span><span class="nt">time_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20s</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>time_on</strong> (<strong>Required</strong>, time, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): ON delay.</p></li>
+<li><p><strong>time_off</strong> (<strong>Required</strong>, time, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): OFF delay.</p></li>
+</ul>
+<p>When using a lambda call, you should return the delay value in milliseconds.</p>
+</section>
+<section id="autorepeat">
+<h3><code class="docutils literal notranslate"><span class="pre">autorepeat</span></code><a class="headerlink" href="#autorepeat" title="Permalink to this heading">¶</a></h3>
+<p>A filter implementing the autorepeat behavior. The filter is parametrized by a list of timing descriptions.
+When a signal ON is received it is passed to the output and the first <code class="docutils literal notranslate"><span class="pre">delay</span></code> is started. When this
+interval expires the output is turned OFF and toggles using the <code class="docutils literal notranslate"><span class="pre">time_off</span></code> and <code class="docutils literal notranslate"><span class="pre">time_on</span></code> durations
+for the OFF and ON state respectively. At the same time the <code class="docutils literal notranslate"><span class="pre">delay</span></code> of the second timing description
+is started and the process is repeated until the list is exhausted, in which case the timing of the
+last description remains in use. Receiving an OFF signal stops the whole process and immediately outputs OFF.</p>
+<p>The example thus waits one second with the output being ON, toggles it once per second for five seconds,
+then toggles twice per second until OFF is received.</p>
+<p>An <code class="docutils literal notranslate"><span class="pre">autorepeat</span></code> filter with no timing description is equivalent to one timing with all the parameters
+set to default values.</p>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>delay</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Delay to proceed to the next timing. Defaults to <code class="docutils literal notranslate"><span class="pre">1s</span></code>.</p></li>
+<li><p><strong>time_off</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Interval to hold the output at OFF. Defaults to <code class="docutils literal notranslate"><span class="pre">100ms</span></code>.</p></li>
+<li><p><strong>time_on</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Interval to hold the output at ON. Defaults to <code class="docutils literal notranslate"><span class="pre">900ms</span></code>.</p></li>
+</ul>
+</section>
+<section id="lambda">
+<h3><code class="docutils literal notranslate"><span class="pre">lambda</span></code><a class="headerlink" href="#lambda" title="Permalink to this heading">¶</a></h3>
+<p>Specify any <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a> for more complex filters. The input value from
+the binary sensor is <code class="docutils literal notranslate"><span class="pre">x</span></code> and you can return <code class="docutils literal notranslate"><span class="pre">true</span></code> for ON, <code class="docutils literal notranslate"><span class="pre">false</span></code> for OFF, and <code class="docutils literal notranslate"><span class="pre">{}</span></code> to stop
+the filter chain.</p>
+</section>
+<section id="settle">
+<h3><code class="docutils literal notranslate"><span class="pre">settle</span></code><a class="headerlink" href="#settle" title="Permalink to this heading">¶</a></h3>
+<p>(<strong>Required</strong>, time, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): When a signal is received, publish the state
+but wait for the received state to remain the same for specified time period before publishing any
+additional state changes. This filter complements the <code class="docutils literal notranslate"><span class="pre">delayed_on_off</span></code> filter but publishes value changes at
+the beginning of the delay period.
+When using a lambda call, you should return the delay value in milliseconds.
+<strong>Useful for debouncing binary switches</strong>.</p>
+</section>
+</section>
+<section id="binary-sensor-automation">
+<h2>Binary Sensor Automation<a class="headerlink" href="#binary-sensor-automation" title="Permalink to this heading">¶</a></h2>
+<p>The triggers for binary sensors in ESPHome use the lingo from computer mouses.
+For example, a <code class="docutils literal notranslate"><span class="pre">press</span></code> is triggered in the first moment when the button on your mouse is pushed down.</p>
+<p>You can access the current state of the binary sensor in <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a> using
+<code class="docutils literal notranslate"><span class="pre">id(binary_sensor_id).state</span></code>.</p>
+<section id="on-press">
+<span id="binary-sensor-on-press"></span><h3><code class="docutils literal notranslate"><span class="pre">on_press</span></code><a class="headerlink" href="#on-press" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when the button is first pressed down, or in other words on the leading
+edge of the signal.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_1</span>
+</pre></div>
+</div>
+<p>Configuration variables: See <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p>
+</section>
+<section id="on-release">
+<span id="binary-sensor-on-release"></span><h3><code class="docutils literal notranslate"><span class="pre">on_release</span></code><a class="headerlink" href="#on-release" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when a button press ends, or in other words on the falling
+edge of the signal.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_release</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_1</span>
+</pre></div>
+</div>
+<p>Configuration variables: See <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p>
+</section>
+<section id="on-state">
+<span id="binary-sensor-on-state"></span><h3><code class="docutils literal notranslate"><span class="pre">on_state</span></code><a class="headerlink" href="#on-state" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when a new state is received (and thus combines <code class="docutils literal notranslate"><span class="pre">on_press</span></code>
+and <code class="docutils literal notranslate"><span class="pre">on_release</span></code> into one trigger). The new state will be given as the variable <code class="docutils literal notranslate"><span class="pre">x</span></code> as a boolean
+and can be used in <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_state</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_1</span>
+</pre></div>
+</div>
+<p>Configuration variables: See <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p>
+</section>
+<section id="on-click">
+<span id="binary-sensor-on-click"></span><h3><code class="docutils literal notranslate"><span class="pre">on_click</span></code><a class="headerlink" href="#on-click" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when a button is pressed down for a time period of length
+<code class="docutils literal notranslate"><span class="pre">min_length</span></code> to <code class="docutils literal notranslate"><span class="pre">max_length</span></code>. Any click longer or shorter than this will not trigger the automation.
+The automation is therefore also triggered on the falling edge of the signal.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_click</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">min_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50ms</span>
+<span class="w">      </span><span class="nt">max_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">350ms</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_1</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>min_length</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The minimum duration the click should last. Defaults to <code class="docutils literal notranslate"><span class="pre">50ms</span></code>.</p></li>
+<li><p><strong>max_length</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The maximum duration the click should last. Defaults to <code class="docutils literal notranslate"><span class="pre">350ms</span></code>.</p></li>
+<li><p>See <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Multiple <code class="docutils literal notranslate"><span class="pre">on_click</span></code> entries can be defined like this (see also <a class="reference internal" href="#binary-sensor-on-multi-click"><span class="std std-ref">on_multi_click</span></a>
+for more complex matching):</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_click</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">min_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50ms</span>
+<span class="w">      </span><span class="nt">max_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">350ms</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_1</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">min_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500ms</span>
+<span class="w">      </span><span class="nt">max_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000ms</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_1</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="on-double-click">
+<span id="binary-sensor-on-double-click"></span><h3><code class="docutils literal notranslate"><span class="pre">on_double_click</span></code><a class="headerlink" href="#on-double-click" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when a button is pressed down twice, with the first click lasting between
+<code class="docutils literal notranslate"><span class="pre">min_length</span></code> and <code class="docutils literal notranslate"><span class="pre">max_length</span></code>. When a second leading edge then happens within <code class="docutils literal notranslate"><span class="pre">min_length</span></code> and
+<code class="docutils literal notranslate"><span class="pre">max_length</span></code>, the automation is triggered.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_double_click</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">min_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50ms</span>
+<span class="w">      </span><span class="nt">max_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">350ms</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_1</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>min_length</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The minimum duration the click should last. Defaults to <code class="docutils literal notranslate"><span class="pre">50ms</span></code>.</p></li>
+<li><p><strong>max_length</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The maximum duration the click should last. Defaults to <code class="docutils literal notranslate"><span class="pre">350ms</span></code>.</p></li>
+<li><p>See <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p></li>
+</ul>
+</section>
+<section id="on-multi-click">
+<span id="binary-sensor-on-multi-click"></span><h3><code class="docutils literal notranslate"><span class="pre">on_multi_click</span></code><a class="headerlink" href="#on-multi-click" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when a button is pressed in a user-specified sequence.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_multi_click</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">timing</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ON for at most 1s</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF for at most 1s</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ON for 0.5s to 1s</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF for at least 0.2s</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Double-Clicked&quot;</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>timing</strong> (<strong>Required</strong>): The timing of the multi click. This uses a language-based grammar using
+these styles:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;ON/OFF&gt;</span> <span class="pre">for</span> <span class="pre">&lt;TIME&gt;</span> <span class="pre">to</span> <span class="pre">&lt;TIME&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;ON/OFF&gt;</span> <span class="pre">for</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">&lt;TIME&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;ON/OFF&gt;</span> <span class="pre">for</span> <span class="pre">at</span> <span class="pre">most</span> <span class="pre">&lt;TIME&gt;</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>invalid_cooldown</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): If a multi click is started, but the timing
+set in <code class="docutils literal notranslate"><span class="pre">timing</span></code> does not match, a “cool down” period will be activated during which no timing
+will be matched. Defaults to <code class="docutils literal notranslate"><span class="pre">1s</span></code>.</p></li>
+<li><p>See <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Getting the timing right for your use-case can sometimes be a bit difficult. If you set the
+<a class="reference internal" href="../logger.html#logger-log-levels"><span class="std std-ref">global log level</span></a> to <code class="docutils literal notranslate"><span class="pre">VERBOSE</span></code>, the multi click trigger shows logs
+about what stopped the trigger from happening.</p>
+</div>
+<p>You can use an <code class="docutils literal notranslate"><span class="pre">OFF</span></code> timing at the end of the timing sequence to differentiate between different
+kinds of presses. For example the configuration below will differentiate between double, long and short
+presses.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_multi_click</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">timing</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ON for at most 1s</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF for at most 1s</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ON for at most 1s</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF for at least 0.2s</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Double</span><span class="nv"> </span><span class="s">Clicked&quot;</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">timing</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ON for 1s to 2s</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF for at least 0.5s</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Single</span><span class="nv"> </span><span class="s">Long</span><span class="nv"> </span><span class="s">Clicked&quot;</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">timing</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ON for at most 1s</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF for at least 0.5s</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Single</span><span class="nv"> </span><span class="s">Short</span><span class="nv"> </span><span class="s">Clicked&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="binary-sensor-is-on-binary-sensor-is-off-condition">
+<span id="binary-sensor-is-off-condition"></span><span id="binary-sensor-is-on-condition"></span><h3><code class="docutils literal notranslate"><span class="pre">binary_sensor.is_on</span></code> / <code class="docutils literal notranslate"><span class="pre">binary_sensor.is_off</span></code> Condition<a class="headerlink" href="#binary-sensor-is-on-binary-sensor-is-off-condition" title="Permalink to this heading">¶</a></h3>
+<p>This <a class="reference internal" href="../../guides/automations.html#config-condition"><span class="std std-ref">Condition</span></a> checks if the given binary sensor is ON (or OFF).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In some trigger:</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># Same syntax for is_off</span>
+<span class="w">      </span><span class="nt">binary_sensor.is_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_binary_sensor</span>
+</pre></div>
+</div>
+</section>
+<section id="lambda-calls">
+<span id="binary-sensor-lambda-calls"></span><h3>lambda calls<a class="headerlink" href="#lambda-calls" title="Permalink to this heading">¶</a></h3>
+<p>From <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>, you can call several methods on all binary sensors to do some
+advanced stuff.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">publish_state()</span></code>: Manually cause the binary sensor to publish and store a state from anywhere
+in the program.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">// Within lambda, publish an OFF state.</span>
+<span class="l l-Scalar l-Scalar-Plain">id(my_binary_sensor).publish_state(false);</span>
+
+<span class="l l-Scalar l-Scalar-Plain">// Within lambda, publish an ON state.</span>
+<span class="l l-Scalar l-Scalar-Plain">id(my_binary_sensor).publish_state(true);</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.state</span></code>: Retrieve the current state of the binary sensor.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">// Within lambda, get the binary sensor state and conditionally do something</span>
+<span class="l l-Scalar l-Scalar-Plain">if (id(my_binary_sensor).state) {</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Binary sensor is ON, do something here</span>
+<span class="l l-Scalar l-Scalar-Plain">} else {</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Binary sensor is OFF, do something else here</span>
+<span class="l l-Scalar l-Scalar-Plain">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/api/binary__sensor_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/binary_sensor/index.rst">Edit this page on GitHub</a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="analog_threshold.html">Analog Threshold Binary Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ble_presence.html">ESP32 Bluetooth Low Energy Device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cap1188.html">CAP1188 Capacitive Touch Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom.html">Custom Binary Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="esp32_touch.html">ESP32 Touch Pad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gpio.html">GPIO Binary Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="haier.html">Haier Climate Binary Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homeassistant.html">Home Assistant Binary Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hydreon_rgxx.html">Hydreon Rain Sensor Binary Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modbus_controller.html">Modbus Controller Binary Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mpr121.html">MPR121 Capacitive Touch Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nextion.html">Nextion Binary Sensor Component</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nfc.html">NFC Binary Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pn532.html">PN532 NFC/RFID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pn532.html#ndef">NDEF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qwiic_pir.html">Qwiic PIR Motion Binary Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rc522.html">RC522 NFC/RFID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rdm6300.html">RDM6300 NFC/RFID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="status.html">Status Binary Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template.html">Template Binary Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ttp229.html">TTP229 Capacitive Touch Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuya.html">Tuya Binary Sensor</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

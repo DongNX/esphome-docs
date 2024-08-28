@@ -1,0 +1,422 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Sen5x Series Environmental sensor for PM, RH/T, VOC, and NOx measurements.">
+<meta itemprop="name" content="Sen5x Series Environmental sensor">
+<meta itemprop="description" content="Instructions for setting up Sen5x Series Environmental sensor for PM, RH/T, VOC, and NOx measurements.">
+<meta itemprop="image" content="https://esphome.io/_images/sen54.jpg">
+<meta name="twitter:title" content="Sen5x Series Environmental sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/sen54.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Sen5x Series Environmental sensor for PM, RH/T, VOC, and NOx measurements.">
+<meta property="og:title" content="Sen5x Series Environmental sensor">
+<meta property="og:image" content="https://esphome.io/_images/sen54.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Sen5x Series Environmental sensor for PM, RH/T, VOC, and NOx measurements.">
+
+    <title>Sen5x Series Environmental sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/sen5x.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="SenseAir CO_2 Sensor" href="senseair.html" />
+    <link rel="prev" title="SEN21231 Person Sensor from Useful Sensors" href="sen21231.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Sen5x Series Environmental sensor</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#wiring">Wiring:</a></li>
+<li><a class="reference internal" href="#automatic-cleaning">Automatic Cleaning:</a></li>
+<li><a class="reference internal" href="#sen5x-start-fan-autoclean-action"><code class="docutils literal notranslate"><span class="pre">sen5x.start_fan_autoclean</span></code> Action</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>Sen5x Series Environmental sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="sen5x-series-environmental-sensor">
+<h1>Sen5x Series Environmental sensor<a class="headerlink" href="#sen5x-series-environmental-sensor" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">sen5x</span></code> sensor platform allows you to use your Sensirion <a class="reference external" href="https://sensirion.com/products/catalog/SEN50/">SEN50</a>, <a class="reference external" href="https://sensirion.com/products/catalog/SEN54/">SEN54</a> and <a class="reference external" href="https://sensirion.com/products/catalog/SEN55/">SEN55</a> Environmental sensor (<a class="reference external" href="https://sensirion.com/media/documents/6791EFA0/62A1F68F/Sensirion_Datasheet_Environmental_Node_SEN5x.pdf">datasheet</a>) sensors with ESPHome.
+The <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a> is required to be set up in your configuration for this sensor to work.
+This sensor supports both UART and I²C communication. Only I²C communication is implemented in this component.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/sen54-web.png"><img alt="../../_images/sen54-web.png" src="../../_images/sen54-web.png" style="width: 100.0%;" /></a>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sen5x</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sen54</span>
+<span class="w">    </span><span class="nt">pm_1_0</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">PM</span><span class="nv"> </span><span class="s">&lt;1µm</span><span class="nv"> </span><span class="s">Weight</span><span class="nv"> </span><span class="s">concentration&quot;</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pm_1_0</span>
+<span class="w">      </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">pm_2_5</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">PM</span><span class="nv"> </span><span class="s">&lt;2.5µm</span><span class="nv"> </span><span class="s">Weight</span><span class="nv"> </span><span class="s">concentration&quot;</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pm_2_5</span>
+<span class="w">      </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">pm_4_0</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">PM</span><span class="nv"> </span><span class="s">&lt;4µm</span><span class="nv"> </span><span class="s">Weight</span><span class="nv"> </span><span class="s">concentration&quot;</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pm_4_0</span>
+<span class="w">      </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">pm_10_0</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">PM</span><span class="nv"> </span><span class="s">&lt;10µm</span><span class="nv"> </span><span class="s">Weight</span><span class="nv"> </span><span class="s">concentration&quot;</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pm_10_0</span>
+<span class="w">      </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Temperature&quot;</span>
+<span class="w">      </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Humidity&quot;</span>
+<span class="w">      </span><span class="nt">accuracy_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">voc</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;VOC&quot;</span>
+<span class="w">      </span><span class="nt">algorithm_tuning</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">index_offset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">        </span><span class="nt">learning_time_offset_hours</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+<span class="w">        </span><span class="nt">learning_time_gain_hours</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+<span class="w">        </span><span class="nt">gating_max_duration_minutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">180</span>
+<span class="w">        </span><span class="nt">std_initial</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+<span class="w">        </span><span class="nt">gain_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">230</span>
+<span class="w">    </span><span class="nt">temperature_compensation</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">offset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">      </span><span class="nt">normalized_offset_slope</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">      </span><span class="nt">time_constant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">acceleration_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">low</span>
+<span class="w">    </span><span class="nt">store_baseline</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x69</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><strong>pm_1_0</strong> (<em>Optional</em>): The information for the <strong>Weight Concentration</strong> sensor for fine particles up to 1μm. Readings in µg/m³.</p>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for this sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in automation and lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>pm_2_5</strong> (<em>Optional</em>): The information for the <strong>Weight Concentration</strong> sensor for fine particles up to 2.5μm. Readings in µg/m³.</p>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for this sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in automation and lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>pm_4_0</strong> (<em>Optional</em>): The information for the <strong>Weight Concentration</strong> sensor for coarse particles up to 4μm. Readings in µg/m³.</p>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for this sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in automation and lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>pm_10_0</strong> (<em>Optional</em>): The information for the <strong>Weight Concentration</strong> sensor for coarse particles up to 10μm. Readings in µg/m³.</p>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for this sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in automation and lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>auto_cleaning_interval</strong> (<em>Optional</em>): Reads/Writes the interval in seconds of the periodic fan-cleaning.</p></li>
+<li><p><strong>temperature</strong> (<em>Optional</em>): Temperature.Note only available with Sen54 or Sen55. The sensor will be ignored on unsupported models.</p>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>humidity</strong> (<em>Optional</em>): Relative Humidity. Note only available with Sen54 or Sen55. The sensor will be ignored on unsupported models.</p></li>
+<li><p><strong>voc</strong> (<em>Optional</em>): VOC Index. Note only available with Sen54 or Sen55. The sensor will be ignored on unsupported models.</p>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>algorithm_tuning</strong> (<em>Optional</em>): The VOC algorithm can be customized by tuning 6 different parameters. For more details see <a class="reference external" href="https://sensirion.com/media/documents/25AB572C/62B463AA/Sensirion_Engineering_Guidelines_SEN5x.pdf">Engineering Guidelines for SEN5x</a></p>
+<ul>
+<li><p><strong>index_offset</strong> (<em>Optional</em>): VOC index representing typical (average) conditions. Allowed values are in range 1..250. The default value is 100.</p></li>
+<li><p><strong>learning_time_offset_hours</strong> (<em>Optional</em>): Time constant to estimate the VOC algorithm offset from the history in hours. Past events will be forgotten after about twice the  learning time. Allowed values are in range 1..1000. The default value is 12 hour</p></li>
+<li><p><strong>learning_time_gain_hours</strong> (<em>Optional</em>): Time constant to estimate the VOC algorithm gain from the history in hours. Past events will be forgotten after about twice the learning time. Allowed values are in range 1..1000. The default value is 12 hours.</p></li>
+<li><p><strong>gating_max_duration_minutes</strong> (<em>Optional</em>): Maximum duration of gating in minutes (freeze of estimator during high VOC index signal). Zero disables the gating. Allowed values are in range 0..3000. The default value is 180 minutes</p></li>
+<li><p><strong>std_initial</strong> (<em>Optional</em>): Initial estimate for standard deviation. Lower value boosts events during initial learning period, but may result in larger device-todevice variations. Allowed values are in range 10..5000. The default value is 50.</p></li>
+<li><p><strong>gain_factor</strong> (<em>Optional</em>): Gain factor to amplify or to attenuate the VOC index output. Allowed values are in range 1..1000. The default value is 230.</p></li>
+</ul>
+</li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>nox</strong> (<em>Optional</em>): NOx Index. Note: Only available with Sen55. The sensor will be ignored on unsupported models.</p>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>algorithm_tuning</strong> (<em>Optional</em>): The NOx algorithm can be customized by tuning 5 different parameters.For more details see <a class="reference external" href="https://sensirion.com/media/documents/25AB572C/62B463AA/Sensirion_Engineering_Guidelines_SEN5x.pdf">Engineering Guidelines for SEN5x</a></p>
+<ul>
+<li><p><strong>index_offset</strong> (<em>Optional</em>): NOx index representing typical (average) conditions. Allowed values are in range 1..250. The default value is 100.</p></li>
+<li><p><strong>learning_time_offset_hours</strong> (<em>Optional</em>): Time constant to estimate the NOx algorithm offset from the history in hours. Past events will be forgotten after about twice the  learning time. Allowed values are in range 1..1000. The default value is 12 hour</p></li>
+<li><p><strong>learning_time_gain_hours</strong> (<em>Optional</em>): Time constant to estimate the NOx algorithm gain from the history in hours. Past events will be forgotten after about twice the learning time. Allowed values are in range 1..1000. The default value is 12 hours.</p></li>
+<li><p><strong>gating_max_duration_minutes</strong> (<em>Optional</em>): Maximum duration of gating in minutes (freeze of estimator during high NOx index signal). Zero disables the gating. Allowed values are in range 0..3000. The default value is 180 minutes</p></li>
+<li><p><strong>std_initial</strong> (<em>Optional</em>): The initial estimate for standard deviation parameter has no impact for NOx. This parameter is still in place for consistency reasons with the VOC tuning parameters command. This parameter must always be set to 50.</p></li>
+<li><p><strong>gain_factor</strong> (<em>Optional</em>): Gain factor to amplify or to attenuate the VOC index output. Allowed values are in range 1..1000. The default value is 230.</p></li>
+</ul>
+</li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>store_baseline</strong> (<em>Optional</em>, boolean): Stores and retrieves the baseline VOC and NOx information for quicker startups. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code></p></li>
+<li><p><strong>temperature_compensation</strong> (<em>Optional</em>): These parameters allow to compensate temperature effects of the design-in at customer side by applying a custom temperature offset to the ambient temperature.</p>
+<p>The compensated ambient temperature is calculated as follows:</p>
+<blockquote>
+<div><p>T_Ambient_Compensated = T_Ambient + (slope*T_Ambient) + offset</p>
+</div></blockquote>
+<p>Where slope and offset are the values set with this command, smoothed with the specified time constant. The time constant is how fast the slope and offset are applied. After the specified value in seconds, 63% of the new slope and offset are applied.
+More details about the tuning of these parameters are included in the application note <a class="reference external" href="https://sensirion.com/media/documents/9B9DE2A7/61E957EB/Sensirion_Temperature_Acceleration_and_Compensation_Instructions_SEN.pdf">Temperature Acceleration and Compensation Instructions for SEN5x.</a></p>
+<ul class="simple">
+<li><p><strong>offset</strong> (<em>Optional</em>): Temperature offset [°C]. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><strong>normalized_offset_slope</strong> (<em>Optional</em>): Normalized temperature offset slope. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><strong>time_constant</strong> (<em>Optional</em>): Time constant in seconds. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>acceleration_mode</strong> (<em>Optional</em>): Allowed value are <code class="docutils literal notranslate"><span class="pre">low</span></code>, <code class="docutils literal notranslate"><span class="pre">medium</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code>. (default is <code class="docutils literal notranslate"><span class="pre">low</span></code>)</p>
+<p>By default, the RH/T acceleration algorithm is optimized for a sensor which is positioned in free air. If the sensor is integrated into another device, the ambient RH/T output values might not be optimal due to different thermal behavior.
+This parameter can be used to adapt the RH/T acceleration behavior for the actual use-case, leading in an improvement of the ambient RH/T output accuracy. There is a limited set of different modes available.
+Medium and high accelerations are particularly indicated for air quality monitors which are subjected to large temperature changes. Low acceleration is advised for stationary devices not subject to large variations in temperature</p>
+</li>
+<li><p><strong>address</strong> (<em>Optional</em>, int): Manually specify the I²C address of the sensor.
+Defaults to <code class="docutils literal notranslate"><span class="pre">0x69</span></code>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The sensor needs about a minute “warm-up”. The VOC and NOx gas index algorithm needs a number of samples before the values stabilize.</p>
+</div>
+</section>
+<section id="wiring">
+<h2>Wiring:<a class="headerlink" href="#wiring" title="Permalink to this heading">¶</a></h2>
+<p>The sensor has a JST GHR-06V-S 6 pin type connector, with a 1.25mm pitch. The cable needs this connector:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/jst6pin.png"><img alt="../../_images/jst6pin.png" src="../../_images/jst6pin.png" style="width: 50.0%;" /></a>
+</figure>
+<p>To force the sensor into I²C mode, the SEL pin (Interface Select pin no.5) must be shorted to ground (pin no.2). Pin 6 is not used.</p>
+<p>For better stability, the SDA and SCL lines require suitable pull-up resistors.</p>
+</section>
+<section id="automatic-cleaning">
+<h2>Automatic Cleaning:<a class="headerlink" href="#automatic-cleaning" title="Permalink to this heading">¶</a></h2>
+<p>When the module is in Measurement-Mode an automatic fan-cleaning procedure will be triggered periodically following a defined cleaning interval. This will accelerate the fan to maximum speed for 10 seconds to blow out the accumulated dust inside the fan.</p>
+<ul class="simple">
+<li><p>Measurement values are not updated while the fan-cleaning is running.</p></li>
+<li><p>The cleaning interval is set to 604’800 seconds (i.e., 168 hours or 1 week).</p></li>
+<li><p>The interval can be configured using the Set Automatic Cleaning Interval command.</p></li>
+<li><p>Set the interval to 0 to disable the automatic cleaning.</p></li>
+<li><p>A sensor reset, resets the cleaning interval to its default value</p></li>
+<li><p>If the sensor is switched off, the time counter is reset to 0. Make sure to trigger a cleaning cycle at least every week if the sensor is switched off and on periodically (e.g., once per day).</p></li>
+<li><p>The cleaning procedure can also be started manually with the <code class="docutils literal notranslate"><span class="pre">start_autoclean_fan</span></code> Action</p></li>
+</ul>
+<p>The Sen5x sensor has an automatic fan-cleaning which will accelerate the built-in fan to maximum speed for 10 seconds in order to blow out the dust accumulated inside the fan.
+The default automatic-cleaning interval is 168 hours (1 week) of uninterrupted use. Switching off the sensor resets this time counter.</p>
+</section>
+<section id="sen5x-start-fan-autoclean-action">
+<span id="start-autoclean-fan-action"></span><h2><code class="docutils literal notranslate"><span class="pre">sen5x.start_fan_autoclean</span></code> Action<a class="headerlink" href="#sen5x-start-fan-autoclean-action" title="Permalink to this heading">¶</a></h2>
+<p>This <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">action</span></a> manually starts fan-cleaning.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">sen5x.start_fan_autoclean</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sen54</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference internal" href="absolute_humidity.html"><span class="doc">Absolute Humidity</span></a></p></li>
+<li><p><a class="reference internal" href="sds011.html"><span class="doc">SDS011 Particulate Matter Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="pmsx003.html"><span class="doc">PMSX003 Particulate Matter Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="ccs811.html"><span class="doc">CCS811 eCO_2 and Volatile Organic Compound Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="scd4x.html"><span class="doc">SCD4X CO₂, Temperature and Relative Humidity Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="sps30.html"><span class="doc">SPS30 Particulate Matter Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="sgp4x.html"><span class="doc">SGP40 Volatile Organic Compound Sensor and SGP41 VOC and NOx Sensor</span></a></p></li>
+<li><p><a class="reference external" href="/api/sen5x_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/sen5x.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

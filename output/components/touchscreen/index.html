@@ -1,0 +1,514 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instruction for using touchscreen components.">
+<meta itemprop="name" content="Touchscreen Components">
+<meta itemprop="description" content="Instruction for using touchscreen components.">
+<meta itemprop="image" content="https://esphome.io/_images/folder-open.png">
+<meta name="twitter:title" content="Touchscreen Components">
+<meta name="twitter:image:src" content="https://esphome.io/_images/folder-open.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instruction for using touchscreen components.">
+<meta property="og:title" content="Touchscreen Components">
+<meta property="og:image" content="https://esphome.io/_images/folder-open.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instruction for using touchscreen components.">
+
+    <title>Touchscreen Components &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/touchscreen/index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="cst226 Touch Screen Controller" href="cst226.html" />
+    <link rel="prev" title="Stepper Component" href="../stepper/index.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Touchscreen Components</a><ul>
+<li><a class="reference internal" href="#base-touchscreen-configuration">Base Touchscreen Configuration</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#touchpoint-argument-type"><code class="docutils literal notranslate"><span class="pre">TouchPoint</span></code> Argument Type</a></li>
+<li><a class="reference internal" href="#calibration">Calibration</a></li>
+<li><a class="reference internal" href="#on-touch-trigger"><code class="docutils literal notranslate"><span class="pre">on_touch</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-update-trigger"><code class="docutils literal notranslate"><span class="pre">on_update</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-release-trigger"><code class="docutils literal notranslate"><span class="pre">on_release</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#binary-sensor">Binary Sensor</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li>Touchscreen Components</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="touchscreen-components">
+<h1>Touchscreen Components<a class="headerlink" href="#touchscreen-components" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">touchscreen</span></code> component contains the base code for most touchscreen driver components
+available in ESPHome and is responsible for passing the touch events to
+<code class="docutils literal notranslate"><span class="pre">binary_sensors</span></code> with the <code class="docutils literal notranslate"><span class="pre">touchscreen</span></code> platform.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As of version <strong>2023.12</strong> the way how the touchscreen component has changed a bit.
+The following variables are now obsolite:
+*  <strong>rotation</strong> is (temporary) removed in favor the <em>new</em> <strong>transform:</strong>
+*  <strong>size_x_y</strong> is moved inside the <strong>transform:</strong> and renamed to <strong>size_xy</strong>
+*  <strong>report_interval</strong> is removed in favor of using the <strong>update_interval</strong>
+The display id is only just to calculate the touch position reletive to the displays <em>height</em> and <em>width</em></p>
+</div>
+<section id="base-touchscreen-configuration">
+<span id="config-touchscreen"></span><h2>Base Touchscreen Configuration<a class="headerlink" href="#base-touchscreen-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example touchscreen</span>
+<span class="nt">touchscreen</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">display</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">display1</span>
+<span class="w">    </span><span class="nt">transform</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">mirror_x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">mirror_y</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">swap_xy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">calibration</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">x_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">240</span>
+<span class="w">      </span><span class="nt">y_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">320</span>
+
+<span class="w">    </span><span class="nt">on_touch</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">on_update</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">on_release</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><p><strong>display</strong> (<em>Required</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The display to use this touchscreen with.</p></li>
+<li><p><strong>transform</strong> (<em>Optional</em>): Transform the touchscreen presentation using hardware. All defaults are <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>swap_xy</strong> (<em>Optional</em>, boolean): If true, exchange the x and y axes.</p></li>
+<li><p><strong>mirror_x</strong> (<em>Optional</em>, boolean): If true, mirror the x axis.</p></li>
+<li><p><strong>mirror_y</strong> (<em>Optional</em>, boolean): If true, mirror the y axis.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to check the touchscreen. Defaults to <code class="docutils literal notranslate"><span class="pre">never</span></code>. <strong>NOTE:</strong> Set this to <code class="docutils literal notranslate"><span class="pre">50ms</span></code> when you dont have set the <strong>interupt_pin</strong>.</p></li>
+<li><p><strong>touch_timeout</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The time to automatically check if touch was released. Defaults to <code class="docutils literal notranslate"><span class="pre">never</span></code>.</p></li>
+<li><p><strong>calibration</strong> (<em>Optional</em>): When the touchscreen is not given the right configuration settings. You can set them here.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>x_min</strong> (<em>Optional</em>, int): The raw value corresponding to the left
+(or top if <code class="docutils literal notranslate"><span class="pre">swap_xy</span></code> is specified) edge of the touchscreen. See <a class="reference internal" href="#touchscreen-calibration"><span class="std std-ref">Calibration</span></a>
+for the process to calibrate the touchscreen. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p><strong>x_max</strong> (<em>Optional</em>, int): The raw value corresponding to the right
+(or bottom if <code class="docutils literal notranslate"><span class="pre">swap_xy</span></code> is specified) edge of the touchscreen. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p><strong>y_min</strong> (<em>Optional</em>, int): The raw value corresponding to the top
+(or left if <code class="docutils literal notranslate"><span class="pre">swap_xy</span></code> is specified) edge of the touchscreen. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p><strong>y_max</strong> (<em>Optional</em>, int): The raw value corresponding to the bottom
+(or right if <code class="docutils literal notranslate"><span class="pre">swap_xy</span></code> is specified) edge of the touchscreen. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>on_touch</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the touchscreen is touched. See <a class="reference internal" href="#touchscreen-on-touch"><span class="std std-ref">on_touch Trigger</span></a>.</p></li>
+<li><p><strong>on_update</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the touchscreen is touched. See <a class="reference internal" href="#touchscreen-on-update"><span class="std std-ref">on_update Trigger</span></a>.</p></li>
+<li><p><strong>on_release</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when the touchscreen is no longer touched. See <a class="reference internal" href="#touchscreen-on-release"><span class="std std-ref">on_release Trigger</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="touchpoint-argument-type">
+<span id="touchscreen-touchpoint"></span><h2><code class="docutils literal notranslate"><span class="pre">TouchPoint</span></code> Argument Type<a class="headerlink" href="#touchpoint-argument-type" title="Permalink to this heading">¶</a></h2>
+<p>Both the <a class="reference internal" href="#touchscreen-on-touch"><span class="std std-ref">on_touch Trigger</span></a> and <a class="reference internal" href="#touchscreen-on-update"><span class="std std-ref">on_update Trigger</span></a> have an argument of the type <a class="reference external" href="/api/structesphome_1_1touchscreen_1_1_touch_point.html">touchscreen::TouchPoint</a> in a
+list (<code class="docutils literal notranslate"><span class="pre">on_update</span></code>) or as an <code class="docutils literal notranslate"><span class="pre">optional</span></code> (<code class="docutils literal notranslate"><span class="pre">on_touch</span></code>).</p>
+<p>The integer members for the touch positions below are in relation to the display width and height:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code> is a number provided by the touchscreen to uniquely identify the touch on a multi-touch screen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">state</span></code> indicates the state of the touch. This can be <strong>1</strong>, indicating it is an initial touch, or <strong>2</strong> indicating the touch position has changed/moved.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are the current position.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_last</span></code> and <code class="docutils literal notranslate"><span class="pre">y_last</span></code> are the previous position.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_first</span></code> and <code class="docutils literal notranslate"><span class="pre">y_first</span></code> are the position of the touch when it was first detected.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x_raw</span></code> and <code class="docutils literal notranslate"><span class="pre">y_raw</span></code> are for calibrating the touchscreen in relation of the display. This replaces the properties with the same name in the touchscreen classes.</p></li>
+</ul>
+</section>
+<section id="calibration">
+<span id="touchscreen-calibration"></span><h2>Calibration<a class="headerlink" href="#calibration" title="Permalink to this heading">¶</a></h2>
+<p>For most of the touchscreen drivers the dimensions of the touchscreen are automatically set when the driver is setup.
+In some cases like for the <strong>XPT2046</strong> this can be different per used display panel.
+Then you can set the values using the <strong>calibrate</strong> values.</p>
+<p>To match the point of the touch to the display coordinates the touch screen has to be calibrated.
+The touchscreen component returns raw values in the 0 to 4095 range. Those raw values are available
+as the <code class="docutils literal notranslate"><span class="pre">x_raw</span></code> and <code class="docutils literal notranslate"><span class="pre">y_raw</span></code> member variables and for example write them out as in the example
+<a class="reference internal" href="#touchscreen-on-touch"><span class="std std-ref">on_touch Trigger</span></a>. The goal of the calibration is to identify the raw values corresponding
+to the edges of the screen.</p>
+<p>The calibration assumes a display oriented in a way that you will be using it, i.e. your
+<a class="reference internal" href="../display/index.html#display-engine"><span class="std std-ref">Display Rendering Engine</span></a> component has to have the [0,0] logical coordinate at the top left.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do not set any calibration values nor <code class="docutils literal notranslate"><span class="pre">transform</span></code> settings.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Touchscreen</span>
+<span class="nt">touchscreen</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xpt2046</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_touchscreen</span>
+<span class="w">  </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">on_touch</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">ESP_LOGI(&quot;cal&quot;, &quot;x=%d, y=%d, x_raw=%d, y_raw=%0d&quot;,</span>
+<span class="w">              </span><span class="no">touch.x,</span>
+<span class="w">              </span><span class="no">touch.y,</span>
+<span class="w">              </span><span class="no">touch.x_raw,</span>
+<span class="w">              </span><span class="no">touch.y_raw</span>
+<span class="w">              </span><span class="no">);</span>
+</pre></div>
+</div>
+<p>Get a stylus or a similar object, run the project and touch the corners of the screen at
+the edge pixels. Repeat several times and note minimum and maximum x and y raw values.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As long the calibrate settings are not correctly set, the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> coordinates are not calculated.</p>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>... top left ...
+[21:07:48][I][cal:071]: x=217, y=34, x_raw=3718, y_raw=445
+[21:07:49][I][cal:071]: x=222, y=32, x_raw=3804, y_raw=419
+... top right ...
+[21:07:52][I][cal:071]: x=19, y=36, x_raw=334, y_raw=370
+[21:07:52][I][cal:071]: x=22, y=35, x_raw=386, y_raw=347
+... bottom left ...
+[21:08:00][I][cal:071]: x=224, y=299, x_raw=3836, y_raw=3835
+[21:08:00][I][cal:071]: x=225, y=303, x_raw=3848, y_raw=3878
+[21:08:01][I][cal:071]: x=223, y=299, x_raw=3807, y_raw=3829
+... bottom right ...
+[21:08:11][I][cal:071]: x=16, y=299, x_raw=281, y_raw=3839
+[21:08:12][I][cal:071]: x=19, y=302, x_raw=328, y_raw=3866
+[21:08:13][I][cal:071]: x=20, y=296, x_raw=358, y_raw=3799
+</pre></div>
+</div>
+<p>That means that the minimum raw x is 281, maximum 3848, minimum y 347 and maximum 3878.</p>
+<p>Identify which raw value is the display’s x direction and what the y one. In our case
+moving right decreases the x raw value and going down increases the y one so the axes
+match and we <em>don’t</em> need to use <code class="docutils literal notranslate"><span class="pre">swap_xy</span></code>. If the raw x is the display’s y,
+use <code class="docutils literal notranslate"><span class="pre">swap_xy</span> <span class="pre">=</span> <span class="pre">true</span></code>.</p>
+<p>If one of the coordinates goes in the “wrong” direction it needs to be inverted.
+The inversion is performed by setting the <code class="docutils literal notranslate"><span class="pre">mirror_x</span></code> and/or <code class="docutils literal notranslate"><span class="pre">mirror_y</span></code> to true.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">touchscreen</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xpt2046</span>
+<span class="w">  </span><span class="nt">calibration</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">x_min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">281</span>
+<span class="w">    </span><span class="nt">x_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3848</span>
+<span class="w">    </span><span class="nt">y_min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">347</span>
+<span class="w">    </span><span class="nt">y_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3878</span>
+<span class="w">  </span><span class="nt">transform</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">mirror_x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">mirror_y</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">swap_xy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<p>Compile, run and click on the edges again. The x and y should now match the coordinates
+of the display.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[21:32:34][I][cal:071]: x=7, y=6, x_raw=3755, y_raw=407
+[21:32:37][I][cal:071]: x=237, y=4, x_raw=313, y_raw=385
+[21:32:43][I][cal:071]: x=239, y=318, x_raw=284, y_raw=3845
+[21:33:05][I][cal:071]: x=2, y=313, x_raw=3821, y_raw=3793
+</pre></div>
+</div>
+<p>Note that the touch screen is not extremely precise and there might be nonlinearities
+or similar errors so don’t expect a pixel-perfect precision. You can verify the touchpoint
+using a display lambda similar to the following.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ili9341</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">auto touch = id(my_touchscreen)-&gt;get_touch();</span>
+<span class="w">      </span><span class="no">if (touch) // or touch.has_value()</span>
+<span class="w">        </span><span class="no">it.filled_circle(touch.value().x, touch.value().y, 10, RED);</span>
+</pre></div>
+</div>
+<p>To be exact, the component does the following</p>
+<ul class="simple">
+<li><p>reads the raw x and y and normalizes it using (non-inverted) min and max values</p></li>
+<li><p>swaps x and y if needed</p></li>
+<li><p>inverts if needed</p></li>
+<li><p>scales to the display dimensions</p></li>
+</ul>
+</section>
+<section id="on-touch-trigger">
+<span id="touchscreen-on-touch"></span><h2><code class="docutils literal notranslate"><span class="pre">on_touch</span></code> Trigger<a class="headerlink" href="#on-touch-trigger" title="Permalink to this heading">¶</a></h2>
+<p>This automation will be triggered when the touchscreen initially detects a touch on the touchscreen; it will not be fired again until
+all touches (for multi-touch supported drivers) are released.</p>
+<p>NOTE: This has changed (from ESPHome 2023.11.6.) To receive continuous updates from touch drags, use <a class="reference internal" href="#touchscreen-on-update"><span class="std std-ref">on_update Trigger</span></a>.</p>
+<p>This trigger provides two arguments named <code class="docutils literal notranslate"><span class="pre">touch</span></code> of type <em>touchpoint</em> and <code class="docutils literal notranslate"><span class="pre">touches</span></code> with a list of all touches.</p>
+</section>
+<section id="on-update-trigger">
+<span id="touchscreen-on-update"></span><h2><code class="docutils literal notranslate"><span class="pre">on_update</span></code> Trigger<a class="headerlink" href="#on-update-trigger" title="Permalink to this heading">¶</a></h2>
+<p>This new automation will be triggered when the touchscreen detects an extra touch or that a touch has moved around on the screen.</p>
+<dl class="simple">
+<dt>This trigger provides one argument named <code class="docutils literal notranslate"><span class="pre">touches</span></code> of type <a class="reference external" href="/api/touchscreen_1_1_touch_points__t.html">API Reference</a> which has a list of</dt><dd><p><a class="reference internal" href="#touchscreen-touchpoint"><span class="std std-ref">TouchPoint Argument Type</span></a>.</p>
+</dd>
+</dl>
+<p>This trigger may be useful to detect gestures such as swiping across the display.</p>
+<p>For example you could do:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_update</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">for (auto touch: touches)  {</span>
+<span class="w">              </span><span class="no">if (touch.state &lt;= 2) {</span>
+<span class="w">                 </span><span class="no">ESP_LOGI(&quot;Touch points:&quot;, &quot;id=%d x=%d, y=%d&quot;, touch.id, touch.x, touch.y);</span>
+<span class="w">              </span><span class="no">}</span>
+<span class="w">          </span><span class="no">}</span>
+</pre></div>
+</div>
+<p>Be aware that you need to check the state flag every time to see if the touch is still valid.</p>
+<ul class="simple">
+<li><p>state value 0. means the touch is invalid as the touch is no longer detected.</p></li>
+<li><p>state value 1 means is being the first time detected.</p></li>
+<li><p>state value 2 means the touch is still being detected but is moved on the screen.</p></li>
+<li><p>state value 4 and higher means a touch release is detected.</p></li>
+</ul>
+</section>
+<section id="on-release-trigger">
+<span id="touchscreen-on-release"></span><h2><code class="docutils literal notranslate"><span class="pre">on_release</span></code> Trigger<a class="headerlink" href="#on-release-trigger" title="Permalink to this heading">¶</a></h2>
+<p>This automation will be triggered when all touches are released from the touchscreen.</p>
+<p>At this point of time it has no extra arguments.</p>
+</section>
+<section id="binary-sensor">
+<h2>Binary Sensor<a class="headerlink" href="#binary-sensor" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">touchscreen</span></code> binary sensor allows you to setup areas on the touch screen as virtual
+buttons.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">touchscreen</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Top Left Touch Button</span>
+<span class="w">    </span><span class="nt">x_min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">x_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">y_min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">y_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">page_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">home_page_id</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>name</strong> (<em>Optional</em>, string): The name for the binary sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>touchscreen_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the touchscreen.</p></li>
+<li><p><strong>x_min</strong> (<strong>Required</strong>, int): Left coordinate of the screen area to be detected as the virtual button.</p></li>
+<li><p><strong>x_max</strong> (<strong>Required</strong>, int): Right coordinate of the screen area to be detected as the virtual button.</p></li>
+<li><p><strong>y_min</strong> (<strong>Required</strong>, int): Top coordinate of the screen area to be detected as the virtual button.</p></li>
+<li><p><strong>y_max</strong> (<strong>Required</strong>, int): Bottom coordinate of the screen area to be detected as the virtual button.</p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Only trigger this binary sensor if the display is showing this page.</p></li>
+<li><p>All other options from <a class="reference internal" href="../binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../binary_sensor/index.html#binary-sensor-filters"><span class="std std-ref">Binary Sensor Filters</span></a></p></li>
+<li><p><a class="reference internal" href="../display/inkplate6.html"><span class="doc">Inkplate 6 Plus</span></a></p></li>
+<li><p><a class="reference internal" href="ektf2232.html"><span class="doc">EKTF2232</span></a></p></li>
+<li><p><a class="reference internal" href="xpt2046.html"><span class="doc">XPT2046</span></a></p></li>
+<li><p><a class="reference internal" href="tt21100.html"><span class="doc">TT21100</span></a></p></li>
+<li><p><a class="reference internal" href="gt911.html"><span class="doc">GT911</span></a></p></li>
+<li><p><a class="reference external" href="/api/touchscreen_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="/api/touchscreen__binary__sensor_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/touchscreen/index.rst">Edit this page on GitHub</a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cst226.html">cst226 Touch Screen Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cst816.html">cst816 Touch Screen Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ektf2232.html">EKTF2232 Touchscreen Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ft5x06.html">FT5X06 Touch Screen Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ft63x6.html">FT63X6 Touchscreen Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gt911.html">gt911 Touch Screen Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lilygo_t5_47.html">Lilygo T5 4.7” Touchscreen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tt21100.html">TT21100 Touch Screen Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xpt2046.html">XPT2046 Touch Screen Controller (Updated version)</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

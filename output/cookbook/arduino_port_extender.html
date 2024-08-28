@@ -1,0 +1,512 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions on using an Arduino board, like the Pro Mini for expanding ports of an ESPHome node">
+<meta name="keywords" content="Arduino port expander extender ESPHome">
+<meta itemprop="name" content="Arduino Port Expander">
+<meta itemprop="description" content="Instructions on using an Arduino board, like the Pro Mini for expanding ports of an ESPHome node">
+<meta itemprop="image" content="https://esphome.io/_images/arduino_logo.png">
+<meta name="twitter:title" content="Arduino Port Expander">
+<meta name="twitter:image:src" content="https://esphome.io/_images/arduino_logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions on using an Arduino board, like the Pro Mini for expanding ports of an ESPHome node">
+<meta property="og:title" content="Arduino Port Expander">
+<meta property="og:image" content="https://esphome.io/_images/arduino_logo.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions on using an Arduino board, like the Pro Mini for expanding ports of an ESPHome node">
+
+    <title>Arduino Port Expander &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/cookbook/arduino_port_extender.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="BME280 Environment" href="bme280_environment.html" />
+    <link rel="prev" title="Cookbook" href="index.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Arduino Port Expander</a><ul>
+<li><a class="reference internal" href="#binary-sensor">Binary_Sensor</a></li>
+<li><a class="reference internal" href="#sensor">Sensor</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
+<li><a class="reference internal" href="#full-example">Full Example</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Cookbook</a> ➔</li>
+      <li>Arduino Port Expander</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="arduino-port-expander">
+<h1>Arduino Port Expander<a class="headerlink" href="#arduino-port-expander" title="Permalink to this heading">¶</a></h1>
+<p>With this sketch you can control pins of a remote Arduino board through ESPHome. The Arduino acts as a port
+expander, allowing you to use more pins than a standard ESP8266/ESP32 has.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/arduino_pro_mini.jpg"><img alt="../_images/arduino_pro_mini.jpg" src="../_images/arduino_pro_mini.jpg" style="width: 75.0%;" /></a>
+</figure>
+<p>The Arduino is connected to the ESP via I²C. Most Arduinos use the <code class="docutils literal notranslate"><span class="pre">A4</span></code> and <code class="docutils literal notranslate"><span class="pre">A5</span></code> pins for the I²C bus
+so those pins are not available to read from ESPHome.
+It is recommended to use a 3.3V I/O level Arduino, however using 5V Arduinos seems to work too. In the latter
+case you should power your 5V Arduino with 3.3V otherwise you will need a level converter for the
+I²C bus.</p>
+<p>Currently it is supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>reading digital inputs</p></li>
+<li><p>reading analog inputs</p></li>
+<li><p>writing digital outputs</p></li>
+</ul>
+</div></blockquote>
+<p>The Arduino sketch can be retrieved from <a class="reference external" href="https://gist.github.com/glmnet/49ca3d6a9742fc3649f4fbdeaa4cdf5d#file-arduino_port_expander_sketch-ino">here</a>
+you can rename it to <code class="docutils literal notranslate"><span class="pre">.ino</span></code> and use the Arduino IDE to program it.</p>
+<p>You need to download <a class="reference external" href="https://gist.github.com/glmnet/49ca3d6a9742fc3649f4fbdeaa4cdf5d#file-arduino_port_expander-h">arduino_port_expander.h</a>
+and include the arduino_port_expander.h in the ESPHome configuration.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">includes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arduino_port_expander.h</span>
+</pre></div>
+</div>
+<p>Setup your <a class="reference internal" href="../components/i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a> and assign it an <code class="docutils literal notranslate"><span class="pre">id</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">i2c</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">i2c_component</span>
+</pre></div>
+</div>
+<p>By default ESP8266 uses <code class="docutils literal notranslate"><span class="pre">SDA</span></code> pin <code class="docutils literal notranslate"><span class="pre">GPIO4</span></code> which you need to connect to Arduino’s <code class="docutils literal notranslate"><span class="pre">A4</span></code> and the <code class="docutils literal notranslate"><span class="pre">SCL</span></code>
+is <code class="docutils literal notranslate"><span class="pre">GPIO5</span></code> which goes to Arduino’s <code class="docutils literal notranslate"><span class="pre">A5</span></code>.</p>
+<p>Then create a <code class="docutils literal notranslate"><span class="pre">custom_component</span></code>, this will be the main component we will be referencing later when creating
+individual IOs.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">custom_component</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ape</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">auto ape_component = new ArduinoPortExpander(i2c_component, 0x08);</span>
+<span class="w">      </span><span class="no">return {ape_component};</span>
+</pre></div>
+</div>
+<p>By default the I²C address is <code class="docutils literal notranslate"><span class="pre">0x08</span></code> but you can change it on the Arduino sketch so you can have more devices
+on the same bus.</p>
+<p>Now it is time to add the ports.</p>
+<section id="binary-sensor">
+<h2>Binary_Sensor<a class="headerlink" href="#binary-sensor" title="Permalink to this heading">¶</a></h2>
+<p>When adding binary sensors the pins are configured as INPUT_PULLUP, you can use any PIN from 0 to 13 or
+<code class="docutils literal notranslate"><span class="pre">A0</span></code> to <code class="docutils literal notranslate"><span class="pre">A3</span></code> (<code class="docutils literal notranslate"><span class="pre">A4</span></code> and <code class="docutils literal notranslate"><span class="pre">A5</span></code> are used for I²C and <code class="docutils literal notranslate"><span class="pre">A6</span></code> and <code class="docutils literal notranslate"><span class="pre">A7</span></code> do not support internal pull up)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Arduino PIN 13 usually has a LED connected to it and using it as digital input with the built in internal
+pull up might be problematic, using it as an output is preferred.</p>
+</div>
+<p>To setup binary sensors, create a custom platform as below, list in braces all the sensors you want,
+in the example below two binary sensors are declared on pin 9 and A0 (number 14)</p>
+<p>Then declare the ESPHome reference of the binary sensor in the same order as declared in the lambda:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">return {ape_binary_sensor(ape, 9),</span>
+<span class="w">              </span><span class="no">ape_binary_sensor(ape, 14) // 14 = A0</span>
+<span class="w">              </span><span class="no">};</span>
+
+<span class="w">    </span><span class="nt">binary_sensors</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor_pin2</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Binary sensor pin 2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor_pin3</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Binary sensor pin 3</span>
+<span class="w">        </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+<p>The listed <code class="docutils literal notranslate"><span class="pre">binary_sensors</span></code> supports all options from <a class="reference internal" href="../components/binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a> like
+automations and filters.</p>
+</section>
+<section id="sensor">
+<h2>Sensor<a class="headerlink" href="#sensor" title="Permalink to this heading">¶</a></h2>
+<p>Sensors allows for reading the analog value of an analog pin, those are from <code class="docutils literal notranslate"><span class="pre">A0</span></code> to <code class="docutils literal notranslate"><span class="pre">A7</span></code> except for
+<code class="docutils literal notranslate"><span class="pre">A4</span></code> and <code class="docutils literal notranslate"><span class="pre">A5</span></code>. The value returned goes from 0 to 1023 (the value returned by the Arduino <code class="docutils literal notranslate"><span class="pre">analogRead</span></code>
+function).</p>
+<p>Arduino analog inputs measures voltage. By default the sketch is configured to use the Arduino internal VREF
+comparer setup to 1 volt, so voltages bigger are read as 1023. You can configure Arduino to compare the
+voltage to VIN voltage, this voltage might be 5 volts or 3.3 volts, depending on how you are powering it. To
+do so, pass an additional true value to the hub constructor:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">ape_component</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArduinoPortExpander</span><span class="p">(</span><span class="n">i2c_component</span><span class="p">,</span><span class="w"> </span><span class="mh">0x08</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To setup sensors, create a custom platform as below, list in braces all the sensors you want,
+in the example below two sensors are declared on pin <code class="docutils literal notranslate"><span class="pre">A1</span></code> and <code class="docutils literal notranslate"><span class="pre">A2</span></code></p>
+<p>Then declare the ESPHome reference of the sensor in the same order as declared in the lambda:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">return {ape_analog_input(ape, 1),  // 1 = A1</span>
+<span class="w">              </span><span class="no">ape_analog_input(ape, 2)};</span>
+<span class="w">    </span><span class="nt">sensors</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Analog A1</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">analog_a1</span>
+<span class="w">        </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">throttle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Analog A2</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">analog_a2</span>
+<span class="w">        </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">throttle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2s</span>
+</pre></div>
+</div>
+<p>The listed <code class="docutils literal notranslate"><span class="pre">sensors</span></code> supports all options from <a class="reference internal" href="../components/sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a> like
+automations and filters.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sensors are polled by default every loop cycle so it is recommended to use the <code class="docutils literal notranslate"><span class="pre">throttle</span></code> filter
+to not flood the network.</p>
+</div>
+</section>
+<section id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this heading">¶</a></h2>
+<p>Arduinos binary outputs are supported in pins from 0 to 13.</p>
+<p>To setup outputs, create a custom platform as below, list in braces all the outputs you want,
+in the example below two outputs are declared on pin <code class="docutils literal notranslate"><span class="pre">3</span></code> and <code class="docutils literal notranslate"><span class="pre">4</span></code></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">output</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">  </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">    </span><span class="no">return {ape_binary_output(ape, 3),</span>
+<span class="w">            </span><span class="no">ape_binary_output(ape, 4)};</span>
+<span class="w">  </span><span class="nt">outputs</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_pin_3</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_pin_4</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Switch pin 3</span>
+<span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_pin_3</span>
+
+<span class="nt">light</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Switch pin 4</span>
+<span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output_pin_4</span>
+</pre></div>
+</div>
+</section>
+<section id="full-example">
+<h2>Full Example<a class="headerlink" href="#full-example" title="Permalink to this heading">¶</a></h2>
+<p>Let’s connect a 4 channel relay board and 2 push buttons to toggle the relays, a PIR sensor, a window and a door
+a LM35 temperature sensor and a voltage sensor. Seems a bit too much for an ESP8266? You’ll still have some
+spares I/Os.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test_arduino</span>
+<span class="w">  </span><span class="nt">includes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arduino_port_expander.h</span>
+
+<span class="nt">esp8266</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodemcu</span>
+
+<span class="nt">wifi</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ssid</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wifi_ssid</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wifi_password</span>
+
+<span class="nt">api</span><span class="p">:</span>
+
+<span class="nt">ota</span><span class="p">:</span>
+
+<span class="c1"># define i2c device</span>
+<span class="c1"># for an ESP8266 SDA is D2 and goes to Arduino&#39;s A4</span>
+<span class="c1">#                SCL is D1 and goes to Arduino&#39;s A5</span>
+<span class="nt">i2c</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">i2c_component</span>
+
+<span class="nt">logger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span>
+
+<span class="c1"># define the port expander hub, here we define one with id &#39;expander1&#39;,</span>
+<span class="c1"># but you can define many</span>
+<span class="nt">custom_component</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">expander1</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">auto expander = new ArduinoPortExpander(i2c_component, 0x08, true);</span>
+<span class="w">      </span><span class="no">return {expander};</span>
+
+<span class="c1"># define binary outputs, here we have 4, as the relays are inverse logic</span>
+<span class="c1"># (a path to ground turns the relay ON), we defined the inverted: true</span>
+<span class="c1"># option of ESPHome outputs.</span>
+<span class="nt">output</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">  </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">    </span><span class="no">return {ape_binary_output(expander1, 2),</span>
+<span class="w">            </span><span class="no">ape_binary_output(expander1, 3),</span>
+<span class="w">            </span><span class="no">ape_binary_output(expander1, 4),</span>
+<span class="w">            </span><span class="no">ape_binary_output(expander1, 5)};</span>
+
+<span class="w">  </span><span class="nt">outputs</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_1</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_2</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_3</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_4</span>
+<span class="w">      </span><span class="nt">inverted</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="c1"># connect lights to the first 2 relays</span>
+<span class="nt">light</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceiling_light</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ceiling light</span>
+<span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_1</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">room_light</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Living room light</span>
+<span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_2</span>
+
+<span class="c1"># connect a fan to the third relay</span>
+<span class="nt">fan</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceiling_fan</span>
+<span class="w">  </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_3</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ceiling fan</span>
+
+<span class="c1"># connect a pump to the 4th relay</span>
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Tank pump</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tank_pump</span>
+<span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_4</span>
+
+
+<span class="c1"># define binary sensors, use the Arduino PIN number for digital pins and</span>
+<span class="c1"># for analog use 14 for A0, 15 for A1 and so on...</span>
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">return {ape_binary_sensor(expander1, 7),</span>
+<span class="w">              </span><span class="no">ape_binary_sensor(expander1, 8),</span>
+<span class="w">              </span><span class="no">ape_binary_sensor(expander1, 9),</span>
+<span class="w">              </span><span class="no">ape_binary_sensor(expander1, 10),</span>
+<span class="w">              </span><span class="no">ape_binary_sensor(expander1, 14) // 14 = A0</span>
+<span class="w">              </span><span class="no">};</span>
+
+<span class="w">    </span><span class="nt">binary_sensors</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">push_button1</span>
+<span class="w">        </span><span class="nt">internal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># don&#39;t show on HA</span>
+<span class="w">        </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceiling_light</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">push_button2</span>
+<span class="w">        </span><span class="nt">internal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># don&#39;t show on HA</span>
+<span class="w">        </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">room_light</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pir_sensor</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Living PIR</span>
+<span class="w">        </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">motion</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">window_reed_switch</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Living Window</span>
+<span class="w">        </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">window</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">garage_door</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Garage garage</span>
+<span class="w">        </span><span class="nt">device_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">garage_door</span>
+
+<span class="c1"># define analog sensors</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">return {ape_analog_input(expander1, 1),  // 1 = A1</span>
+<span class="w">              </span><span class="no">ape_analog_input(expander1, 2)};</span>
+<span class="w">    </span><span class="nt">sensors</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LM35 Living room temperature</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lm35_temp</span>
+<span class="w">        </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">          </span><span class="c1"># update every 60s</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">throttle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+<span class="w">          </span><span class="c1"># LM35 outputs 0.01v per ºC, and 1023 means 3.3 volts</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return x * 330.0 / 1023.0;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Analog A2</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">analog_a2</span>
+<span class="w">        </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">throttle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2s</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/cookbook/arduino_port_extender.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

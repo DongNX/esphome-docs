@@ -1,0 +1,317 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Share data directly between ESPHome nodes &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/cookbook/http_request_sensor.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Infostripe" href="infostrip.html" />
+    <link rel="prev" title="Simple Garage Door" href="garage-door.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Share data directly between ESPHome nodes</a><ul>
+<li><a class="reference internal" href="#server-part">Server part</a></li>
+<li><a class="reference internal" href="#client-part">Client part</a><ul>
+<li><a class="reference internal" href="#pulling-the-data">Pulling the data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#result">Result</a></li>
+<li><a class="reference internal" href="#increasing-security">Increasing security</a><ul>
+<li><a class="reference internal" href="#id1">Server part</a></li>
+<li><a class="reference internal" href="#id2">Client part</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Cookbook</a> ➔</li>
+      <li>Share data directly between ESPHome nodes</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="share-data-directly-between-esphome-nodes">
+<h1>Share data directly between ESPHome nodes<a class="headerlink" href="#share-data-directly-between-esphome-nodes" title="Permalink to this heading">¶</a></h1>
+<p>In certain special cases it might be desired to avoid placing any middleware like an MQTT or a home automation server just to transfer small bits of data from one node to another. Direct data polling is possible using HTTP, but beware that the involved components are resource hungry and may be less stable on long term. The webserver embedded in the node is not designed to constantly serve a large amount of requests.</p>
+<p>The primary node holding the data we need to retrieve from will be the server, and the others polling for it will be the clients (can be multiple).</p>
+<section id="server-part">
+<h2>Server part<a class="headerlink" href="#server-part" title="Permalink to this heading">¶</a></h2>
+<p>Setting up a webserver using the  <a class="reference internal" href="../components/web_server.html"><span class="doc">Web Server Component</span></a> on the primary node will make available the required sensor data through a <a class="reference internal" href="../web-api/index.html#api-rest"><span class="std std-ref">REST API</span></a> interface.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">web_server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+</pre></div>
+</div>
+</section>
+<section id="client-part">
+<h2>Client part<a class="headerlink" href="#client-part" title="Permalink to this heading">¶</a></h2>
+<p>On the client nodes we need an <a class="reference internal" href="../components/http_request.html"><span class="doc">HTTP Request</span></a> with an <code class="docutils literal notranslate"><span class="pre">id</span></code> set, and a <a class="reference internal" href="../components/sensor/template.html"><span class="doc">Template Sensor</span></a> to make it accessible locally.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">http_request</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">useragent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome/device</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http_request_id</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Template</span><span class="nv"> </span><span class="s">sensor</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">client&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template_sensor_id</span>
+</pre></div>
+</div>
+<section id="pulling-the-data">
+<h3>Pulling the data<a class="headerlink" href="#pulling-the-data" title="Permalink to this heading">¶</a></h3>
+<p>To automate the request for data, we use an <a class="reference internal" href="../guides/automations.html#interval"><span class="std std-ref">interval Component</span></a> requesting the URL pointing to the sensor id for which the state is needed. See <a class="reference internal" href="../web-api/index.html#api-rest"><span class="std std-ref">REST API</span></a> on how to build up the URL for your sensors.</p>
+<p>In the example below we request the value of a sensor from the server node, and after parsing the resulted JSON string we publish it to the local template sensor:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">interval</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http_request.get</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://ip or nodename.local/sensor/ID_of_the_sensor</span>
+<span class="w">          </span><span class="nt">on_response</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">                  </span><span class="no">json::parse_json(id(http_request_id).get_string(), [](JsonObject root) {</span>
+<span class="w">                      </span><span class="no">id(template_sensor_id).publish_state(root[&quot;value&quot;]);</span>
+<span class="w">                  </span><span class="no">});</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="result">
+<h2>Result<a class="headerlink" href="#result" title="Permalink to this heading">¶</a></h2>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../_images/server.png"><img alt="../_images/server.png" src="../_images/server.png" style="width: 95.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Server side real sensor</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="../_images/clients.png"><img alt="../_images/clients.png" src="../_images/clients.png" style="width: 95.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Client side template sensor</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="increasing-security">
+<h2>Increasing security<a class="headerlink" href="#increasing-security" title="Permalink to this heading">¶</a></h2>
+<p>For security reasons, it’s always recommended to protect the web interface of the nodes with authentication, even if you’re using them on your local network.</p>
+<section id="id1">
+<h3>Server part<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<p>Add authentication to the <code class="docutils literal notranslate"><span class="pre">web_server</span></code> component on the primary node:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">web_server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">  </span><span class="nt">auth</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_server_password</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Client part<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<p>Add an <code class="docutils literal notranslate"><span class="pre">Authorization</span></code> header to your <code class="docutils literal notranslate"><span class="pre">http_request.get</span></code> action. The simplest way to determine a working authorization header is to visit the password-protected REST URL of the primary node using a browser while watching the network traffic in the browser’s developer tools. If you look at the headers of the request sent by the browser, you’ll find the <code class="docutils literal notranslate"><span class="pre">Authorization</span></code> header it sends to the node, and you can copy it for your own replay:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">interval</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">http_request.get</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://ip or nodename.local/sensor/ID_of_the_sensor</span>
+<span class="w">          </span><span class="nt">headers</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">Authorization</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Digest</span><span class="nv"> </span><span class="s">username=&quot;admin&quot;,</span><span class="nv"> </span><span class="s">realm=&quot;asyncesp&quot;,</span><span class="nv"> </span><span class="s">nonce=&quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;,</span><span class="nv"> </span><span class="s">uri=&quot;/sensor/ID_of_the_sensor&quot;,</span><span class="nv"> </span><span class="s">response=&quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;,</span><span class="nv"> </span><span class="s">opaque=&quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;,</span><span class="nv"> </span><span class="s">qop=auth,</span><span class="nv"> </span><span class="s">nc=xxxxxxxx,</span><span class="nv"> </span><span class="s">cnonce=&quot;xxxxxxxxxxxxxxxx&quot;&#39;</span>
+<span class="w">          </span><span class="nt">on_response</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">                  </span><span class="no">json::parse_json(id(http_request_id).get_string(), [](JsonObject root) {</span>
+<span class="w">                      </span><span class="no">id(template_sensor_id).publish_state(root[&quot;value&quot;]);</span>
+<span class="w">                  </span><span class="no">});</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../components/web_server.html"><span class="doc">Web Server Component</span></a></p></li>
+<li><p><a class="reference internal" href="../components/http_request.html"><span class="doc">HTTP Request</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sensor/template.html"><span class="doc">Template Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="../guides/automations.html#interval"><span class="std std-ref">interval Component</span></a></p></li>
+<li><p><a class="reference internal" href="../web-api/index.html#api-rest"><span class="std std-ref">REST API</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/cookbook/http_request_sensor.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,198 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for using nodemcu ESP8266 boards in ESPHome together with a description of their pins and uses.">
+<meta name="keywords" content="NodeMCU, ESP8266">
+<meta itemprop="name" content="NodeMCU ESP8266">
+<meta itemprop="description" content="Instructions for using nodemcu ESP8266 boards in ESPHome together with a description of their pins and uses.">
+<meta itemprop="image" content="https://esphome.io/_images/nodemcu_esp8266.jpg">
+<meta name="twitter:title" content="NodeMCU ESP8266">
+<meta name="twitter:image:src" content="https://esphome.io/_images/nodemcu_esp8266.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for using nodemcu ESP8266 boards in ESPHome together with a description of their pins and uses.">
+<meta property="og:title" content="NodeMCU ESP8266">
+<meta property="og:image" content="https://esphome.io/_images/nodemcu_esp8266.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for using nodemcu ESP8266 boards in ESPHome together with a description of their pins and uses.">
+
+    <title>NodeMCU ESP8266 &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/devices/nodemcu_esp8266.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <link rel="stylesheet" href="../_static/custom.css?hash=ab494674" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">NodeMCU ESP8266</a><ul>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  
+
+
+          <div class="body" role="main">
+            
+  <section id="nodemcu-esp8266">
+<h1>NodeMCU ESP8266<a class="headerlink" href="#nodemcu-esp8266" title="Permalink to this heading">¶</a></h1>
+<p>The NodeMCU board is fully supported by ESPHome. Simply select <code class="docutils literal notranslate"><span class="pre">ESP8266</span></code> when
+the ESPHome wizard asks you for your platform and <a class="reference external" href="http://docs.platformio.org/en/latest/platforms/espressif8266.html#nodemcu"><code class="docutils literal notranslate"><span class="pre">nodemcuv2</span></code></a> as the board type.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Most NodeMCU that can be purchased now are version 2 or upwards. If you’re using an
+original v1 board, set the board type to <a class="reference external" href="http://docs.platformio.org/en/latest/platforms/espressif8266.html#nodemcu"><code class="docutils literal notranslate"><span class="pre">nodemcu</span></code></a>.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">livingroom</span>
+
+<span class="nt">esp8266</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodemcuv2</span>
+</pre></div>
+</div>
+<p>The NodeMCU’s pin numbering as seen on the board (the <code class="docutils literal notranslate"><span class="pre">D0</span></code> etc pins) is different from
+the internal pin numbering. For example, the <code class="docutils literal notranslate"><span class="pre">D3</span></code> pin number maps to the internal
+<code class="docutils literal notranslate"><span class="pre">GPIO0</span></code> pin. Fortunately ESPHome knows the mapping from the on-board pin numbers
+to the internal pin numbering, but you need to prefix the pin numbers with <code class="docutils literal notranslate"><span class="pre">D</span></code> as in
+the image below in order for this automatic mapping to occur.</p>
+<p>In general, it is best to just use the <code class="docutils literal notranslate"><span class="pre">D0</span></code>, <code class="docutils literal notranslate"><span class="pre">D1</span></code>, … pin numbering to avoid confusion</p>
+<figure class="align-center" id="id1">
+<img alt="../_images/nodemcu_esp8266-full.jpg" src="../_images/nodemcu_esp8266-full.jpg" />
+<figcaption>
+<p><span class="caption-text">Pins on the NodeMCU ESP8266 development board.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Note that in certain conditions you <em>can</em> use the pins marked as <code class="docutils literal notranslate"><span class="pre">INTERNAL</span></code> in above image.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">D0</span></code> also can be used to wake the device up from <a class="reference internal" href="../components/deep_sleep.html"><span class="doc">deep sleep</span></a> if
+the pin is connected to the <code class="docutils literal notranslate"><span class="pre">RESET</span></code> pin. On some boards <code class="docutils literal notranslate"><span class="pre">D0</span></code> is additionally connected to the LED
+next to the UART chip, but in an inverted mode.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">D3</span></code>, <code class="docutils literal notranslate"><span class="pre">D4</span></code> and <code class="docutils literal notranslate"><span class="pre">D8</span></code> are used on startup to determine the boot mode, therefore these pins should
+not be pulled low on startup. You can, however, still use them as output pins.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">D4</span></code> additionally is connected to the blue LED next to the antenna, but in an inverted mode.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A0</span></code>: This pin can be used as a normal GPIO pin (like <code class="docutils literal notranslate"><span class="pre">D1</span></code> etc) but additionally can measure
+voltages from 0 to 1.0V using the <a class="reference internal" href="../components/sensor/adc.html"><span class="doc">Analog To Digital Sensor</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VIN</span></code>: This board can be powered by an external power supply by using this pin. Supply a voltage depends on the board you use. Some boards support up to 12V, some up to 5V.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ENABLE</span></code>/<code class="docutils literal notranslate"><span class="pre">RESET</span></code>: When these pins are triggered, the board resets. The difference between the pins
+is how they can handle voltages above 3.3V.</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">livingroom</span>
+
+<span class="nt">esp8266</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">board</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodemcuv2</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Pin</span><span class="nv"> </span><span class="s">D0&quot;</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D0</span>
+</pre></div>
+</div>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../components/esp8266.html"><span class="doc">ESP8266 Platform</span></a></p></li>
+<li><p><a class="reference internal" href="nodemcu_esp32.html"><span class="doc">NodeMCU ESP32</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/devices/nodemcu_esp8266.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been release since you last visited this page: 2023.11.6 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2023.11.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2023.11");
+    } else if (old !== "2023.11") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2023.11");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

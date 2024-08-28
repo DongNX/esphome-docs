@@ -1,0 +1,571 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up the native ESPHome API for communication with Home Assistant.">
+<meta name="keywords" content="Native API, ESPHome, Home Assistant">
+<meta itemprop="name" content="Native API Component">
+<meta itemprop="description" content="Instructions for setting up the native ESPHome API for communication with Home Assistant.">
+<meta itemprop="image" content="https://esphome.io/_images/server-network.png">
+<meta name="twitter:title" content="Native API Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/server-network.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up the native ESPHome API for communication with Home Assistant.">
+<meta property="og:title" content="Native API Component">
+<meta property="og:image" content="https://esphome.io/_images/server-network.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up the native ESPHome API for communication with Home Assistant.">
+
+    <title>Native API Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/api.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="AirTouch AT581x Radar" href="at581x.html" />
+    <link rel="prev" title="Template Valve" href="valve/template.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Native API Component</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#actions">Actions</a><ul>
+<li><a class="reference internal" href="#homeassistant-event-action"><code class="docutils literal notranslate"><span class="pre">homeassistant.event</span></code> Action</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#homeassistant-service-action"><code class="docutils literal notranslate"><span class="pre">homeassistant.service</span></code> Action</a><ul>
+<li><a class="reference internal" href="#id2">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#homeassistant-tag-scanned-action"><code class="docutils literal notranslate"><span class="pre">homeassistant.tag_scanned</span></code> Action</a><ul>
+<li><a class="reference internal" href="#id3">Configuration variables:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#triggers">Triggers</a><ul>
+<li><a class="reference internal" href="#on-client-connected-trigger"><code class="docutils literal notranslate"><span class="pre">on_client_connected</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-client-disconnected-trigger"><code class="docutils literal notranslate"><span class="pre">on_client_disconnected</span></code> Trigger</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api-connected-condition"><code class="docutils literal notranslate"><span class="pre">api.connected</span></code> Condition</a></li>
+<li><a class="reference internal" href="#user-defined-services">User-defined Services</a></li>
+<li><a class="reference internal" href="#advantages-over-mqtt">Advantages over MQTT</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>Native API Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="native-api-component">
+<h1>Native API Component<a class="headerlink" href="#native-api-component" title="Permalink to this heading">¶</a></h1>
+<p>The ESPHome native API is used to communicate with clients directly, with a highly-optimized
+network protocol. Currently, only the ESPHome tool, Home Assistant and ioBroker use this native API.</p>
+<p>After adding an <code class="docutils literal notranslate"><span class="pre">api:</span></code> line to your ESPHome configuration you can go to the Home Assistant
+web interface and navigate to the “Integrations” screen in the “Configuration” panel. Then wait
+for the ESPHome device to show up under the discovered section (can take up to 5 minutes) or add
+the device manually by choosing “ESPHome” from the integration overview and entering
+“&lt;NODE_NAME&gt;.local” or the IP address of the unit in the “Host” field.</p>
+<p>The ESPHome native API is based on a custom TCP protocol using protocol buffers. You can find
+the protocol data structure definitions here: <a class="reference external" href="https://github.com/esphome/esphome/blob/dev/esphome/components/api/api.proto">api.proto</a>
+A Python library that implements this protocol is <a class="reference external" href="https://github.com/esphome/aioesphomeapi">aioesphomeapi</a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">api</span><span class="p">:</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><strong>port</strong> (<em>Optional</em>, int): The port to run the API Server on. Defaults to <code class="docutils literal notranslate"><span class="pre">6053</span></code>.</p></li>
+<li><p><strong>encryption</strong> (<em>Optional</em>): Enable transport encryption of the API layer.</p>
+<ul>
+<li><p><strong>key</strong> (<strong>Required</strong>, string): The pre-shared key for the encryption. This is a 32-byte base64 encoded string.
+Below you can copy a key randomly generated in your browser:</p>
+<input type="text" id="api-key" onclick="this.focus();this.select()" style="width: 350px; max-width: 75vw;" readonly="readonly">
+<script>
+  // https://stackoverflow.com/a/62362724
+  function bytesArrToBase64(arr) {
+    const abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"; // base64 alphabet
+    const bin = n => n.toString(2).padStart(8,0); // convert num to 8-bit binary string
+    const l = arr.length
+    let result = '';
+
+    for(let i=0; i<=(l-1)/3; i++) {
+      let c1 = i*3+1>=l; // case when "=" is on end
+      let c2 = i*3+2>=l; // case when "=" is on end
+      let chunk = bin(arr[3*i]) + bin(c1? 0:arr[3*i+1]) + bin(c2? 0:arr[3*i+2]);
+      let r = chunk.match(/.{1,6}/g).map((x,j)=> j==3&&c2 ? '=' :(j==2&&c1 ? '=':abc[+('0b'+x)]));
+      result += r.join('');
+    }
+
+    return result;
+  }
+
+  let array = new Uint8Array(32);
+  window.crypto.getRandomValues(array);
+  document.getElementById("api-key").value = bytesArrToBase64(array);
+</script></li>
+</ul>
+</li>
+<li><p><strong>services</strong> (<em>Optional</em>, list): A list of user-defined services. See <a class="reference internal" href="#api-services"><span class="std std-ref">User-defined Services</span></a>.</p></li>
+<li><p><strong>reboot_timeout</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The amount of time to wait before rebooting when no
+client connects to the API. This is needed because sometimes the low level ESP functions report that
+the ESP is connected to the network, when in fact it is not - only a full reboot fixes it.
+Can be disabled by setting this to <code class="docutils literal notranslate"><span class="pre">0s</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">15min</span></code>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>password</strong> (<em>Optional</em>, <strong>Deprecated</strong>, string): The password to protect the API Server with. Defaults
+to no password. It is recommended to use the <code class="docutils literal notranslate"><span class="pre">encryption</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">key</span></code> above instead of the the <code class="docutils literal notranslate"><span class="pre">password</span></code>.</p></li>
+<li><p><strong>on_client_connected</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform when a client
+connects to the API. See <a class="reference internal" href="#api-on-client-connected-trigger"><span class="std std-ref">on_client_connected Trigger</span></a>.</p></li>
+<li><p><strong>on_client_disconnected</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform when a client
+disconnects from the API. See <a class="reference internal" href="#api-on-client-disconnected-trigger"><span class="std std-ref">on_client_disconnected Trigger</span></a>.</p></li>
+</ul>
+</section>
+<section id="actions">
+<span id="api-actions"></span><h2>Actions<a class="headerlink" href="#actions" title="Permalink to this heading">¶</a></h2>
+<p>Before using any of the actions below, you’ll need to tell Home Assistant to allow your device to
+make service calls.</p>
+<p>Open the ESPHome integration page on your Home Assistant instance:</p>
+<a href="https://my.home-assistant.io/redirect/integration/?domain=esphome" target="_blank" rel="noreferrer noopener"><img src="https://my.home-assistant.io/badges/integration.svg" alt="Open your Home Assistant instance and show an integration." /></a><p>Then:</p>
+<ol class="arabic simple">
+<li><p>Fnd your device in the device list</p></li>
+<li><p>Click the “configure” button next to it</p></li>
+<li><p>Check the “Allow the device to make Home Assistant service calls” box</p></li>
+<li><p>Then click “submit”.</p></li>
+</ol>
+<section id="homeassistant-event-action">
+<span id="api-homeassistant-event-action"></span><h3><code class="docutils literal notranslate"><span class="pre">homeassistant.event</span></code> Action<a class="headerlink" href="#homeassistant-event-action" title="Permalink to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to <a class="reference internal" href="#api-actions"><span class="std std-ref">follow the instructions above</span></a> to tell Home Assistant to allow
+your device to make service calls.</p>
+</div>
+<p>When using the native API with Home Assistant, you can create events in the Home Assistant event bus
+straight from ESPHome <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automations</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In some trigger</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Simple</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.event</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.button_pressed</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Button was pressed</span>
+</pre></div>
+</div>
+<section id="id1">
+<h4>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>event</strong> (<strong>Required</strong>, string): The event to create - must begin with <code class="docutils literal notranslate"><span class="pre">esphome.</span></code></p></li>
+<li><p><strong>data</strong> (<em>Optional</em>, mapping): Optional <em>static</em> data to pass along with the event.</p></li>
+<li><p><strong>data_template</strong> (<em>Optional</em>, mapping): Optional template data to pass along with the event.
+This is evaluated on the Home Assistant side with Home Assistant’s templating engine.</p></li>
+<li><p><strong>variables</strong> (<em>Optional</em>, mapping): Optional variables that can be used in the <code class="docutils literal notranslate"><span class="pre">data_template</span></code>.
+Values are <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a> and will be evaluated before sending the request.</p></li>
+</ul>
+</section>
+</section>
+<section id="homeassistant-service-action">
+<span id="api-homeassistant-service-action"></span><h3><code class="docutils literal notranslate"><span class="pre">homeassistant.service</span></code> Action<a class="headerlink" href="#homeassistant-service-action" title="Permalink to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to <a class="reference internal" href="#api-actions"><span class="std std-ref">follow the instructions above</span></a> to tell Home Assistant to allow
+your device to make service calls.</p>
+</div>
+<p>When using the native API with Home Assistant, you can create Home Assistant service
+calls straight from ESPHome <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automations</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In some trigger</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Simple</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.service</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notify.html5</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Button was pressed</span>
+<span class="w">  </span><span class="c1"># With templates and variables</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.service</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notify.html5</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">New Humidity</span>
+<span class="w">      </span><span class="nt">data_template</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The humidity is {{ my_variable }}%.</span>
+<span class="w">      </span><span class="nt">variables</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">my_variable</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">return id(my_sensor).state;</span>
+</pre></div>
+</div>
+<section id="id2">
+<h4>Configuration variables:<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>service</strong> (<strong>Required</strong>, string): The Home Assistant <a class="reference external" href="https://www.home-assistant.io/docs/scripts/service-calls/">Service</a>
+to call.</p></li>
+<li><p><strong>data</strong> (<em>Optional</em>, mapping): Optional <em>static</em> data to pass along with the service call.</p></li>
+<li><p><strong>data_template</strong> (<em>Optional</em>, mapping): Optional template data to pass along with the service call.
+This is evaluated on the Home Assistant side with Home Assistant’s templating engine.</p></li>
+<li><p><strong>variables</strong> (<em>Optional</em>, mapping): Optional variables that can be used in the <code class="docutils literal notranslate"><span class="pre">data_template</span></code>.
+Values are <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a> and will be evaluated before sending the request.</p></li>
+</ul>
+<p>Data structures are not possible, but you can create a script in Home Assistant and call with all
+the parameters in plain format.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Home Assistant Configuration</span>
+<span class="nt">script</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">set_light_rgb</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ESPHome</span><span class="nv"> </span><span class="s">RGB</span><span class="nv"> </span><span class="s">light</span><span class="nv"> </span><span class="s">set&#39;</span>
+<span class="w">    </span><span class="nt">sequence</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">light.turn_on</span>
+<span class="w">      </span><span class="nt">data_template</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">entity_id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{{</span><span class="nv"> </span><span class="s">light_name</span><span class="nv"> </span><span class="s">}}&#39;</span>
+<span class="w">        </span><span class="nt">rgb_color</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;{{</span><span class="nv"> </span><span class="s">red</span><span class="nv"> </span><span class="s">}}&#39;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;{{</span><span class="nv"> </span><span class="s">green</span><span class="nv"> </span><span class="s">}}&#39;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;{{</span><span class="nv"> </span><span class="s">blue</span><span class="nv"> </span><span class="s">}}&#39;</span>
+</pre></div>
+</div>
+<p>Then, in ESPHome:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In some trigger</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.service</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">script.set_light_rgb</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">light_name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;my_light&#39;</span>
+<span class="w">        </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;255&#39;</span>
+<span class="w">        </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;199&#39;</span>
+<span class="w">        </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;71&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="homeassistant-tag-scanned-action">
+<span id="api-homeassistant-tag-scanned-action"></span><h3><code class="docutils literal notranslate"><span class="pre">homeassistant.tag_scanned</span></code> Action<a class="headerlink" href="#homeassistant-tag-scanned-action" title="Permalink to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to <a class="reference internal" href="#api-actions"><span class="std std-ref">follow the instructions above</span></a> to tell Home Assistant to allow
+your device to make service calls.</p>
+</div>
+<p>When using the native API with Home Assistant, you can push tag_scanned to Home Assistant
+straight from ESPHome <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automations</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In some trigger</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Simple</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.tag_scanned</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some-tag</span>
+</pre></div>
+</div>
+<section id="id3">
+<h4>Configuration variables:<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>tag</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>, string): The id of the scanned tag</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="triggers">
+<h2>Triggers<a class="headerlink" href="#triggers" title="Permalink to this heading">¶</a></h2>
+<section id="on-client-connected-trigger">
+<span id="api-on-client-connected-trigger"></span><h3><code class="docutils literal notranslate"><span class="pre">on_client_connected</span></code> Trigger<a class="headerlink" href="#on-client-connected-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This trigger is activated each time a client connects to the API. Two variables of
+type <code class="docutils literal notranslate"><span class="pre">std::string</span></code> are available for use by actions called from within this trigger:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">client_address</span></code>: the IP address of the client that connected</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">client_info</span></code>: the name of the client that connected</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_client_connected</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Client</span><span class="nv"> </span><span class="s">%s</span><span class="nv"> </span><span class="s">connected</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">API</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">IP</span><span class="nv"> </span><span class="s">%s&quot;</span>
+<span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;client_info.c_str()&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;client_address.c_str()&quot;</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="on-client-disconnected-trigger">
+<span id="api-on-client-disconnected-trigger"></span><h3><code class="docutils literal notranslate"><span class="pre">on_client_disconnected</span></code> Trigger<a class="headerlink" href="#on-client-disconnected-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This trigger is activated each time the API disconnects from the API. Two variables of
+type <code class="docutils literal notranslate"><span class="pre">std::string</span></code> are available for use by actions called from within this trigger:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">client_address</span></code>: the IP address of the client that disconnected</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">client_info</span></code>: the name of the client that disconnected</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">on_client_disconnected</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;API</span><span class="nv"> </span><span class="s">client</span><span class="nv"> </span><span class="s">disconnected!&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="api-connected-condition">
+<span id="id4"></span><h2><code class="docutils literal notranslate"><span class="pre">api.connected</span></code> Condition<a class="headerlink" href="#api-connected-condition" title="Permalink to this heading">¶</a></h2>
+<p>This <a class="reference internal" href="../guides/automations.html#config-condition"><span class="std std-ref">Condition</span></a> checks if at least one client is connected to the ESPHome
+native API. Please note client not only includes Home Assistant, but also ESPHome’s OTA log output
+if logs are shown remotely.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">api.connected</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API is connected!</span>
+</pre></div>
+</div>
+</section>
+<section id="user-defined-services">
+<span id="api-services"></span><h2>User-defined Services<a class="headerlink" href="#user-defined-services" title="Permalink to this heading">¶</a></h2>
+<p>It is also possible to get data from Home Assistant to ESPHome with user-defined services.
+When you declare services in your ESPHome YAML file, they will automatically show up in
+Home Assistant and you can call them directly.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">services</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">start_laundry</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3h</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay</span>
+</pre></div>
+</div>
+<p>For example with the configuration seen above, after uploading you will see a service
+called <code class="docutils literal notranslate"><span class="pre">esphome.livingroom_start_laundry</span></code> (livingroom is the node name) which you can
+then call.</p>
+<p>Additionally, you can also transmit data from Home Assistant to ESPHome with this method:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">services</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">start_effect</span>
+<span class="w">      </span><span class="nt">variables</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">my_brightness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">        </span><span class="nt">my_effect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.turn_on</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_light</span>
+<span class="w">            </span><span class="nt">brightness</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">my_brightness;&#39;</span>
+<span class="w">            </span><span class="nt">effect</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">my_effect;&#39;</span>
+</pre></div>
+</div>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">variables</span></code> key you can tell ESPHome which variables to expect from Home Assistant.
+For example the service seen above would be executed with something like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example Home Assistant Service Call</span>
+<span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.livingroom_start_effect</span>
+<span class="nt">data_template</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">my_brightness</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">states.brightness.state</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">  </span><span class="nt">my_effect</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Rainbow&quot;</span>
+</pre></div>
+</div>
+<p>Then each variable you define in the <code class="docutils literal notranslate"><span class="pre">variables</span></code> section is accessible in the automation
+triggered by the user-defined service through the name you gave it in the variables section
+(note: this is a local variable, so do not wrap it in <code class="docutils literal notranslate"><span class="pre">id(...)</span></code> to access it).</p>
+<p>There are currently 4 types of variables:</p>
+<ul class="simple">
+<li><p>bool: A boolean (ON/OFF). C++ type: <code class="docutils literal notranslate"><span class="pre">bool</span></code></p></li>
+<li><p>int: An integer. C++ type: <code class="docutils literal notranslate"><span class="pre">int</span></code>/<code class="docutils literal notranslate"><span class="pre">int32_t</span></code></p></li>
+<li><p>float: A floating point number. C++ type: <code class="docutils literal notranslate"><span class="pre">float</span></code></p></li>
+<li><p>string: A string. C++ type: <code class="docutils literal notranslate"><span class="pre">std::string</span></code></p></li>
+</ul>
+<p>Each of these also exist in array form:</p>
+<ul class="simple">
+<li><p>bool[]: An array of boolean values. C++ type: <code class="docutils literal notranslate"><span class="pre">std::vector&lt;bool&gt;</span></code></p></li>
+<li><p>… - Same for other types.</p></li>
+</ul>
+</section>
+<section id="advantages-over-mqtt">
+<h2>Advantages over MQTT<a class="headerlink" href="#advantages-over-mqtt" title="Permalink to this heading">¶</a></h2>
+<p>The ESPHome native API has many advantages over using MQTT for communication with Home
+Automation software (currently only Home Assistant and ioBroker). But MQTT is a great protocol and will
+never be removed. Features of native API (vs. MQTT):</p>
+<ul class="simple">
+<li><p><strong>Much more efficient:</strong> ESPHome encodes all messages in a highly optimized format with
+protocol buffers - for example binary sensor state messages are about 1/10 of the size.</p></li>
+<li><p><strong>One-click configuration:</strong> ESPHome just needs one click to set up in Home Assistant -
+no more messing around with retained MQTT discovery messages and alike.</p></li>
+<li><p><strong>One less single point of failure:</strong> In the ESPHome native API each ESP is its own server.
+With MQTT, when the broker shuts off nothing can communicate anymore.</p></li>
+<li><p><strong>Stability:</strong> Since ESPHome has far more control over the protocol than with MQTT,
+it’s really easy for us to roll out stability improvements.</p></li>
+<li><p><strong>Low Latency:</strong> The native API is optimized for very low latency, usually this is only
+a couple of milliseconds and far less than can be noticed by the eye.</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/api/api__server_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/api.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

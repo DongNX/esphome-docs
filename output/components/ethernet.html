@@ -1,0 +1,481 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up the Ethernet configuration for your ESP32 node in ESPHome.">
+<meta name="keywords" content="Ethernet, ESP32">
+<meta itemprop="name" content="Ethernet Component">
+<meta itemprop="description" content="Instructions for setting up the Ethernet configuration for your ESP32 node in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/ethernet.png">
+<meta name="twitter:title" content="Ethernet Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/ethernet.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up the Ethernet configuration for your ESP32 node in ESPHome.">
+<meta property="og:title" content="Ethernet Component">
+<meta property="og:image" content="https://esphome.io/_images/ethernet.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up the Ethernet configuration for your ESP32 node in ESPHome.">
+
+    <title>Ethernet Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/ethernet.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Exposure Notification Listener" href="exposure_notifications.html" />
+    <link rel="prev" title="ESPHome Core Configuration" href="esphome.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Ethernet Component</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a><ul>
+<li><a class="reference internal" href="#rmii-configuration-variables">RMII configuration variables:</a></li>
+<li><a class="reference internal" href="#spi-configuration-variables">SPI configuration variables:</a></li>
+<li><a class="reference internal" href="#advanced-common-configuration-variables">Advanced common configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration-examples">Configuration examples</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>Ethernet Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="ethernet-component">
+<h1>Ethernet Component<a class="headerlink" href="#ethernet-component" title="Permalink to this heading">¶</a></h1>
+<p>This ESPHome component enables <em>wired</em> Ethernet connections for ESP32s.</p>
+<p>Ethernet for ESP8266 is not supported.</p>
+<p>This component and the Wi-Fi component may <strong>not</strong> be used simultaneously, even if both are physically available.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry for RMII chips</span>
+<span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LAN8720</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">clk_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO0_IN</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+
+<span class="w">  </span><span class="c1"># Optional manual IP</span>
+<span class="w">  </span><span class="nt">manual_ip</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">static_ip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.42</span>
+<span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.1</span>
+<span class="w">    </span><span class="nt">subnet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry for SPI chips</span>
+<span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">W5500</span>
+<span class="w">  </span><span class="nt">clk_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">mosi_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">miso_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">interrupt_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><strong>type</strong> (<strong>Required</strong>, string): The type of LAN chipset/phy.</p>
+<p>Supported chipsets are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LAN8720</span></code> (RMII)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RTL8201</span></code> (RMII)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DP83848</span></code> (RMII)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IP101</span></code> (RMII)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">JL1101</span></code> (RMII)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KSZ8081</span></code> (RMII)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KSZ8081RNA</span></code> (RMII)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">W5500</span></code> (SPI)</p></li>
+</ul>
+</li>
+</ul>
+<section id="rmii-configuration-variables">
+<h3>RMII configuration variables:<a class="headerlink" href="#rmii-configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>mdc_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The MDC pin of the board.
+Usually this is <code class="docutils literal notranslate"><span class="pre">GPIO23</span></code>.</p></li>
+<li><p><strong>mdio_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The MDIO pin of the board.
+Usually this is <code class="docutils literal notranslate"><span class="pre">GPIO18</span></code>.</p></li>
+<li><p><strong>clk_mode</strong> (<em>Optional</em>, string): The clock mode of the data lines. See your board’s
+datasheet for more details. Must be one of the following values:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">GPIO0_IN</span></code> (Default) - External clock</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GPIO0_OUT</span></code> - Internal clock</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GPIO16_OUT</span></code> - Internal clock</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GPIO17_OUT</span></code> - Internal clock</p></li>
+</ul>
+</li>
+<li><p><strong>phy_addr</strong> (<em>Optional</em>, int): The PHY addr type of the Ethernet controller. Defaults to 0.</p></li>
+<li><p><strong>power_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-pin-schema"><span class="std std-ref">Pin Schema</span></a>): The pin controlling the
+power/reset status of the Ethernet controller. Leave unspecified for no power pin (default).</p></li>
+</ul>
+</section>
+<section id="spi-configuration-variables">
+<h3>SPI configuration variables:<a class="headerlink" href="#spi-configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>clk_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The SPI clock pin.</p></li>
+<li><p><strong>mosi_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The SPI MOSI pin.</p></li>
+<li><p><strong>miso_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The SPI MISO pin.</p></li>
+<li><p><strong>cs_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The SPI chip select pin.</p></li>
+<li><p><strong>interrupt_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The interrupt pin.</p></li>
+<li><p><strong>reset_pin</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The reset pin.</p></li>
+<li><p><strong>clock_speed</strong> (<em>Optional</em>, float): The SPI clock speed.
+Any frequency between <cite>8Mhz</cite> and <cite>80Mhz</cite> is allowed, but the nearest integer division
+of <cite>80Mhz</cite> is used, i.e. <cite>16Mhz</cite> (<cite>80Mhz</cite> / 5) is used when <cite>15Mhz</cite> is configured.
+Default: <cite>26.67Mhz</cite>.</p></li>
+</ul>
+</section>
+<section id="advanced-common-configuration-variables">
+<h3>Advanced common configuration variables:<a class="headerlink" href="#advanced-common-configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>manual_ip</strong> (<em>Optional</em>): Manually configure the static IP of the node.</p>
+<ul>
+<li><p><strong>static_ip</strong> (<strong>Required</strong>, IPv4 address): The static IP of your node.</p></li>
+<li><p><strong>gateway</strong> (<strong>Required</strong>, IPv4 address): The gateway of the local network.</p></li>
+<li><p><strong>subnet</strong> (<strong>Required</strong>, IPv4 address): The subnet of the local network.</p></li>
+<li><p><strong>dns1</strong> (<em>Optional</em>, IPv4 address): The main DNS server to use.</p></li>
+<li><p><strong>dns2</strong> (<em>Optional</em>, IPv4 address): The backup DNS server to use.</p></li>
+</ul>
+</li>
+<li><p><strong>use_address</strong> (<em>Optional</em>, string): Manually override what address to use to connect
+to the ESP. Defaults to auto-generated value. For example, if you have changed your
+static IP and want to flash OTA to the previously configured IP address.</p></li>
+<li><p><strong>domain</strong> (<em>Optional</em>, string): Set the domain of the node hostname used for uploading.
+For example, if it’s set to <code class="docutils literal notranslate"><span class="pre">.local</span></code>, all uploads will be sent to <code class="docutils literal notranslate"><span class="pre">&lt;HOSTNAME&gt;.local</span></code>.
+Defaults to <code class="docutils literal notranslate"><span class="pre">.local</span></code>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your Ethernet board is not designed with an ESP32 built in, it’s common to attempt
+to use flying leads, dupont wires, etc. to connect the Ethernet controller to the ESP32.
+This approach is likely to fail, however, as the Ethernet interface uses a high frequency
+clock signal that will not travel reliably over these types of connections. For more
+information and wiring details refer to the link in the <em>See also</em> section.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SPI based chips do <em>not</em> use <a class="reference internal" href="spi.html"><span class="doc">SPI Bus</span></a>. This means that SPI pins can’t be shared with other devices.</p>
+</div>
+</section>
+</section>
+<section id="configuration-examples">
+<h2>Configuration examples<a class="headerlink" href="#configuration-examples" title="Permalink to this heading">¶</a></h2>
+<p><strong>Olimex ESP32-POE</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LAN8720</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO18</span>
+<span class="w">  </span><span class="nt">clk_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO17_OUT</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">power_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO12</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>WROVER version of Olimex POE cards change CLK to ping GPIO0, configuration must be <cite>clk_mode: GPIO0_OUT</cite>.</p>
+</div>
+<p><strong>Olimex ESP32-EVB</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LAN8720</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO18</span>
+<span class="w">  </span><span class="nt">clk_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO0_IN</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+<p><strong>Olimex ESP32-GATEWAY</strong> and <strong>LILYGO TTGO T-Internet-POE ESP32-WROOM LAN8270A</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LAN8720</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO18</span>
+<span class="w">  </span><span class="nt">clk_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO17_OUT</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+<p><strong>LILYGO TTGO T-Internet ESP32-WROVER-E LAN8270</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LAN8720</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO18</span>
+<span class="w">  </span><span class="nt">clk_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO0_OUT</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">power_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO04</span>
+</pre></div>
+</div>
+<p><strong>Wireless Tag WT32-ETH01</strong> and <strong>SMLIGHT SLZB-06 PoE Zigbee</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LAN8720</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO18</span>
+<span class="w">  </span><span class="nt">clk_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO0_IN</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">power_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO16</span>
+</pre></div>
+</div>
+<p><strong>M5Stack PoESP32</strong> and <strong>ESP32-Ethernet-Kit</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IP101</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO18</span>
+<span class="w">  </span><span class="nt">clk_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO0_IN</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">power_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO5</span>
+</pre></div>
+</div>
+<p><strong>AiThinker ESP32-G Gateway</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LAN8720</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO18</span>
+<span class="w">  </span><span class="nt">clk_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO17_OUT</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">power_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO5</span>
+</pre></div>
+</div>
+<p><strong>wESP32</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># for board up to rev.5</span>
+<span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LAN8720</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO16</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO17</span>
+<span class="w">  </span><span class="nt">clk_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO0_IN</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+
+<span class="c1"># for board rev.7 and up</span>
+<span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RTL8201</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO16</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO17</span>
+<span class="w">  </span><span class="nt">clk_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO0_IN</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Revision 5 and below of the wESP32 board use the LAN8720 Ethernet PHY. Revision 7 and newer of it use the RTL8201 Ethernet PHY. Support for RTL8201 is available from ESPHome version 2022.12 upwards.</p>
+</div>
+<p><strong>OpenHacks LAN8720</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LAN8720</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO18</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This board has an issue that might cause the ESP32 to boot in program mode. When testing, make sure
+you are monitoring the serial output and reboot the device several times to see if it boots into the
+program properly.</p>
+</div>
+<p><strong>Esp32-Stick-Eth</strong> and <strong>Esp32-Stick-PoE-P</strong> and <strong>Esp32-Stick-PoE-A</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LAN8720</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO18</span>
+<span class="w">  </span><span class="nt">clk_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO17_OUT</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p><strong>LILYGO T-ETH-Lite ESP32</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ethernet</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RTL8201</span>
+<span class="w">  </span><span class="nt">mdc_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span>
+<span class="w">  </span><span class="nt">mdio_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO18</span>
+<span class="w">  </span><span class="nt">clk_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO0_IN</span>
+<span class="w">  </span><span class="nt">phy_addr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">power_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO12</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="network.html"><span class="doc">Network component</span></a></p></li>
+<li><p><a class="reference internal" href="text_sensor/ethernet_info.html"><span class="doc">Ethernet Info Text Sensor</span></a></p></li>
+<li><p><a class="reference external" href="/api/ethernet__component_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://pcbartists.com/design/embedded/esp32-ethernet-phy-schematic-design/">ESP32 Ethernet PHY connection info</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/ethernet.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

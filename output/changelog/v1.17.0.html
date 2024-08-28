@@ -1,0 +1,475 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Changelog for ESPHome version 1.17.0.">
+<meta itemprop="name" content="Changelog - Version 1.17.0 - 4th May 2021">
+<meta itemprop="description" content="Changelog for ESPHome version 1.17.0.">
+<meta itemprop="image" content="https://esphome.io/_static/changelog-1.17.0.png">
+<meta name="twitter:title" content="Changelog - Version 1.17.0 - 4th May 2021">
+<meta name="twitter:image:src" content="https://esphome.io/_static/changelog-1.17.0.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:creator" content="@esphome_">
+<meta name="twitter:description" content="Changelog for ESPHome version 1.17.0.">
+<meta property="og:title" content="Changelog - Version 1.17.0 - 4th May 2021">
+<meta property="og:image" content="https://esphome.io/_static/changelog-1.17.0.png">
+<meta property="og:type" content="article">
+<meta property="og:description" content="Changelog for ESPHome version 1.17.0.">
+
+    <title>Changelog - Version 1.17.0 - 4th May 2021 &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/changelog/v1.17.0.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Changelog - Version 1.18.0 - 19th May 2021" href="v1.18.0.html" />
+    <link rel="prev" title="Changelog - Version 1.16.0 - February 3, 2021" href="v1.16.0.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Changelog - Version 1.17.0 - 4th May 2021</a><ul>
+<li><a class="reference internal" href="#new-features">New Features</a></li>
+<li><a class="reference internal" href="#new-integrations">New Integrations</a></li>
+<li><a class="reference internal" href="#breaking-changes">Breaking Changes</a></li>
+<li><a class="reference internal" href="#notable-changes">Notable Changes</a></li>
+<li><a class="reference internal" href="#release-1-17-1-may-5">Release 1.17.1 - May 5</a></li>
+<li><a class="reference internal" href="#release-1-17-2-may-9">Release 1.17.2 - May 9</a></li>
+<li><a class="reference internal" href="#all-changes">All changes</a></li>
+<li><a class="reference internal" href="#past-changelogs">Past Changelogs</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Changelog</a> ➔</li>
+      <li>Changelog - Version 1.17.0 - 4th May 2021</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="changelog-version-1-17-0-4th-may-2021">
+<h1>Changelog - Version 1.17.0 - 4th May 2021<a class="headerlink" href="#changelog-version-1-17-0-4th-may-2021" title="Permalink to this heading">¶</a></h1>
+<table class="table-center docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference external" href="/components/sensor/inkbird_ibsth1_mini.html"><img alt="Inkbird IBS-TH1 Mini" class="component-image" src="../_images/inkbird_isbth1_mini.jpg" /></a></p></td>
+<td><p><a class="reference external" href="/components/output/mcp4725.html"><img alt="MCP4725" class="component-image" src="../_images/mcp4725.jpg" /></a></p></td>
+<td><p><a class="reference external" href="/components/sensor/xiaomi_miscale.html"><img alt="Xiaomi Miscale" class="component-image" src="../_images/xiaomi_miscale1.jpg" /></a></p></td>
+<td><p><a class="reference external" href="/components/sensor/xiaomi_miscale2.html"><img alt="Xiaomi Miscale2" class="component-image" src="../_images/xiaomi_miscale2.jpg" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="/components/sensor/inkbird_ibsth1_mini.html">Inkbird IBS-TH1 Mini</a></p></td>
+<td><p><a class="reference external" href="/components/output/mcp4725.html">MCP4725</a></p></td>
+<td><p><a class="reference external" href="/components/sensor/xiaomi_miscale.html">Xiaomi Miscale</a></p></td>
+<td><p><a class="reference external" href="/components/sensor/xiaomi_miscale2.html">Xiaomi Miscale2</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="/components/climate/midea_ac.html"><img alt="Midea Air Conditioner" class="component-image" src="../_images/midea.svg" /></a></p></td>
+<td><p><a class="reference external" href="/components/display/addressable_light.html"><img alt="Addressable Light Display" class="component-image" src="../_images/addressable_light1.jpg" /></a></p></td>
+<td><p><a class="reference external" href="/components/sensor/pulse_meter.html"><img alt="Pulse Meter" class="component-image dark-invert" src="../_images/pulse.svg" /></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="/components/climate/midea_ac.html">Midea Air Conditioner</a></p></td>
+<td><p><a class="reference external" href="/components/display/addressable_light.html">Addressable Light Display</a></p></td>
+<td><p><a class="reference external" href="/components/sensor/pulse_meter.html">Pulse Meter</a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>So, ESPHome was acquired by Nabu Casa. That was big and unexpected, but awesome news for the project as now I have been hired
+by Nabu Casa full-time to work on ESPHome. I know I said this in the last release, but hopefully now that it is literally
+my job, the releases will move to a (yet to be defined) schedule.</p>
+<p>A lot of fixes and updates to existing components in this release, and a couple of new integrations and features too. Check them out
+if you have the hardware but could not use it before.</p>
+<p>Hopefully I can get some help and pointers from the Nabu Casa team to tidy up these release notes and make them all fancy and
+actually something to look forward to reading.</p>
+<p>Jesse</p>
+<section id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>esphome: Vl53l0x change address <a class="reference external" href="https://github.com/esphome/esphome/pull/1126">esphome#1126</a> by <a class="reference external" href="https://github.com/kkellner">&#64;kkellner</a> (new-feature)</p></li>
+<li><p>esphome: Background calibration &amp; ABC commands for SenseAir S8 <a class="reference external" href="https://github.com/esphome/esphome/pull/1623">esphome#1623</a> by <a class="reference external" href="https://github.com/nmaggioni">&#64;nmaggioni</a> (new-feature)</p></li>
+<li><p>esphome: Add trigger for http actions to receive the status code <a class="reference external" href="https://github.com/esphome/esphome/pull/1599">esphome#1599</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a> (new-feature)</p></li>
+</ul>
+</section>
+<section id="new-integrations">
+<h2>New Integrations<a class="headerlink" href="#new-integrations" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>esphome: Adding support for the Inkbird IBS-TH1 Mini sensor <a class="reference external" href="https://github.com/esphome/esphome/pull/1099">esphome#1099</a> by <a class="reference external" href="https://github.com/fkirill">&#64;fkirill</a> (new-integration)</p></li>
+<li><p>esphome: Add MCP4725 DAC Component <a class="reference external" href="https://github.com/esphome/esphome/pull/1418">esphome#1418</a> by <a class="reference external" href="https://github.com/JJK801">&#64;JJK801</a> (new-integration)</p></li>
+<li><p>esphome: Add Xiaomi Miscale v1 and v2 <a class="reference external" href="https://github.com/esphome/esphome/pull/1368">esphome#1368</a> by <a class="reference external" href="https://github.com/dckiller51">&#64;dckiller51</a> (new-integration)</p></li>
+<li><p>esphome: Add support for the SM300D2 7-in-1 sensor module <a class="reference external" href="https://github.com/esphome/esphome/pull/1524">esphome#1524</a> by <a class="reference external" href="https://github.com/moritzgloeckl">&#64;moritzgloeckl</a> (new-integration)</p></li>
+<li><p>esphome: Midea climate support <a class="reference external" href="https://github.com/esphome/esphome/pull/1328">esphome#1328</a> by <a class="reference external" href="https://github.com/dudanov">&#64;dudanov</a> (new-integration)</p></li>
+<li><p>esphome: Add addressable_light display platform <a class="reference external" href="https://github.com/esphome/esphome/pull/1272">esphome#1272</a> by <a class="reference external" href="https://github.com/justfalter">&#64;justfalter</a> (new-integration) (notable-change)</p></li>
+<li><p>esphome: Implement pulse_meter as an improvement on pulse_counter and pulse_width for meters <a class="reference external" href="https://github.com/esphome/esphome/pull/1434">esphome#1434</a> by <a class="reference external" href="https://github.com/stevebaxter">&#64;stevebaxter</a> (new-integration)</p></li>
+</ul>
+</section>
+<section id="breaking-changes">
+<h2>Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>esphome: MCP23XXX Refactor <a class="reference external" href="https://github.com/esphome/esphome/pull/1560">esphome#1560</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a> (breaking-change)</p></li>
+</ul>
+</section>
+<section id="notable-changes">
+<h2>Notable Changes<a class="headerlink" href="#notable-changes" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>esphome: Device class attribute for sensor component <a class="reference external" href="https://github.com/esphome/esphome/pull/1525">esphome#1525</a> by <a class="reference external" href="https://github.com/marecabo">&#64;marecabo</a> (notable-change)</p></li>
+<li><p>esphome: Add default device classes to sensor components <a class="reference external" href="https://github.com/esphome/esphome/pull/1533">esphome#1533</a> by <a class="reference external" href="https://github.com/marecabo">&#64;marecabo</a> (notable-change)</p></li>
+<li><p>esphome: Add addressable_light display platform <a class="reference external" href="https://github.com/esphome/esphome/pull/1272">esphome#1272</a> by <a class="reference external" href="https://github.com/justfalter">&#64;justfalter</a> (new-integration) (notable-change)</p></li>
+</ul>
+</section>
+<section id="release-1-17-1-may-5">
+<h2>Release 1.17.1 - May 5<a class="headerlink" href="#release-1-17-1-may-5" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>esphome: Fix BLE UUID matching <a class="reference external" href="https://github.com/esphome/esphome/pull/1637">esphome#1637</a> by <a class="reference external" href="https://github.com/buxtronix">&#64;buxtronix</a></p></li>
+<li><p>esphome: Add optional bindkey support for CGG1. <a class="reference external" href="https://github.com/esphome/esphome/pull/1407">esphome#1407</a> by <a class="reference external" href="https://github.com/Flameeyes">&#64;Flameeyes</a></p></li>
+<li><p>docs: Update CGG1 documentation around bindkey <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/876">docs#876</a> by <a class="reference external" href="https://github.com/Flameeyes">&#64;Flameeyes</a></p></li>
+<li><p>esphome: buffer allocation and TRUEFALSE templates <a class="reference external" href="https://github.com/esphome/esphome/pull/1644">esphome#1644</a> by <a class="reference external" href="https://github.com/SenexCrenshaw">&#64;SenexCrenshaw</a></p></li>
+<li><p>esphome: fix servo not reattaching with same target <a class="reference external" href="https://github.com/esphome/esphome/pull/1649">esphome#1649</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>esphome: Fix colorlog removing colors and refactor color code <a class="reference external" href="https://github.com/esphome/esphome/pull/1671">esphome#1671</a></p></li>
+<li><p>esphome: Fix servo detach chopped PWM <a class="reference external" href="https://github.com/esphome/esphome/pull/1650">esphome#1650</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>esphome: Fix sensor.sensor_schema interface changed <a class="reference external" href="https://github.com/esphome/esphome/pull/1659">esphome#1659</a></p></li>
+<li><p>esphome: Sensor Average Filter Fix Floating Pointer Error Accumulating <a class="reference external" href="https://github.com/esphome/esphome/pull/1624">esphome#1624</a></p></li>
+<li><p>esphome: Added / to default glyphs <a class="reference external" href="https://github.com/esphome/esphome/pull/1691">esphome#1691</a> by <a class="reference external" href="https://github.com/richardklingler">&#64;richardklingler</a></p></li>
+<li><p>esphome: RC522 fixes <a class="reference external" href="https://github.com/esphome/esphome/pull/1479">esphome#1479</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>docs: Fixed typo in 1.17.0 changelogs <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1132">docs#1132</a> by <a class="reference external" href="https://github.com/spacegaier">&#64;spacegaier</a></p></li>
+<li><p>esphome: Do not call component update on failed components <a class="reference external" href="https://github.com/esphome/esphome/pull/1392">esphome#1392</a> by <a class="reference external" href="https://github.com/alexyao2015">&#64;alexyao2015</a></p></li>
+</ul>
+</section>
+<section id="release-1-17-2-may-9">
+<h2>Release 1.17.2 - May 9<a class="headerlink" href="#release-1-17-2-may-9" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>esphome: fixes #858 - esphome crashes with neolightbus and RMT <a class="reference external" href="https://github.com/esphome/esphome/pull/1667">esphome#1667</a> by <a class="reference external" href="https://github.com/angelnu">&#64;angelnu</a></p></li>
+<li><p>docs: Fix abundant apostrophes <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1137">docs#1137</a> by <a class="reference external" href="https://github.com/jmartens">&#64;jmartens</a></p></li>
+<li><p>docs: Add output part to binary light example <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1061">docs#1061</a> by <a class="reference external" href="https://github.com/klaasnicolaas">&#64;klaasnicolaas</a></p></li>
+</ul>
+</section>
+<section id="all-changes">
+<h2>All changes<a class="headerlink" href="#all-changes" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>esphome: Bump voluptuous from 0.12.0 to 0.12.1 <a class="reference external" href="https://github.com/esphome/esphome/pull/1411">esphome#1411</a> by <a class="reference external" href="https://github.com/dependabot[bot]">&#64;dependabot[bot]</a></p></li>
+<li><p>esphome: add http request tests <a class="reference external" href="https://github.com/esphome/esphome/pull/1448">esphome#1448</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>esphome: codegen: Lambda improvements <a class="reference external" href="https://github.com/esphome/esphome/pull/1476">esphome#1476</a> by <a class="reference external" href="https://github.com/balrog-kun">&#64;balrog-kun</a></p></li>
+<li><p>docs: Add options to control pulse duration on Climate_IR_LG Component <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/963">docs#963</a> by <a class="reference external" href="https://github.com/mhentschke">&#64;mhentschke</a></p></li>
+<li><p>esphome: Add options to control pulse duration on Climate_IR_LG Component <a class="reference external" href="https://github.com/esphome/esphome/pull/1470">esphome#1470</a> by <a class="reference external" href="https://github.com/mhentschke">&#64;mhentschke</a></p></li>
+<li><p>esphome: Adding support for the Inkbird IBS-TH1 Mini sensor <a class="reference external" href="https://github.com/esphome/esphome/pull/1099">esphome#1099</a> by <a class="reference external" href="https://github.com/fkirill">&#64;fkirill</a> (new-integration)</p></li>
+<li><p>docs: Adding documentation for Inkbird IBS-TH1 Mini sensor <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/657">docs#657</a> by <a class="reference external" href="https://github.com/fkirill">&#64;fkirill</a></p></li>
+<li><p>esphome: Add config validator location <a class="reference external" href="https://github.com/esphome/esphome/pull/1490">esphome#1490</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>esphome: Add MCP4725 DAC Component <a class="reference external" href="https://github.com/esphome/esphome/pull/1418">esphome#1418</a> by <a class="reference external" href="https://github.com/JJK801">&#64;JJK801</a> (new-integration)</p></li>
+<li><p>docs: Add MCP4725 docs <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/889">docs#889</a> by <a class="reference external" href="https://github.com/JJK801">&#64;JJK801</a></p></li>
+<li><p>docs: Fix format consistency <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/989">docs#989</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>esphome: Added codeowners to max7219digit <a class="reference external" href="https://github.com/esphome/esphome/pull/1487">esphome#1487</a> by <a class="reference external" href="https://github.com/rspaargaren">&#64;rspaargaren</a></p></li>
+<li><p>esphome: Correct Native API Wire Format Documentation <a class="reference external" href="https://github.com/esphome/esphome/pull/1528">esphome#1528</a> by <a class="reference external" href="https://github.com/justin-gerhardt">&#64;justin-gerhardt</a></p></li>
+<li><p>esphome: st7735_conf_fixes <a class="reference external" href="https://github.com/esphome/esphome/pull/1530">esphome#1530</a> by <a class="reference external" href="https://github.com/SenexCrenshaw">&#64;SenexCrenshaw</a></p></li>
+<li><p>docs: ST7735 Changed configuration items to snake_case <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1000">docs#1000</a> by <a class="reference external" href="https://github.com/SenexCrenshaw">&#64;SenexCrenshaw</a></p></li>
+<li><p>esphome: Device class attribute for sensor component <a class="reference external" href="https://github.com/esphome/esphome/pull/1525">esphome#1525</a> by <a class="reference external" href="https://github.com/marecabo">&#64;marecabo</a> (notable-change)</p></li>
+<li><p>docs: Add doc for device_class attribute of sensor <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/996">docs#996</a> by <a class="reference external" href="https://github.com/marecabo">&#64;marecabo</a></p></li>
+<li><p>docs: Add sleep duration to enter deep sleep action <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/995">docs#995</a> by <a class="reference external" href="https://github.com/nuttytree">&#64;nuttytree</a></p></li>
+<li><p>esphome: Add duration option to action start deep sleep <a class="reference external" href="https://github.com/esphome/esphome/pull/1526">esphome#1526</a> by <a class="reference external" href="https://github.com/nuttytree">&#64;nuttytree</a></p></li>
+<li><p>esphome: fix substitution losing track of document range <a class="reference external" href="https://github.com/esphome/esphome/pull/1547">esphome#1547</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>docs: Update esp32_camera.rst <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1020">docs#1020</a> by <a class="reference external" href="https://github.com/lukaszrud">&#64;lukaszrud</a></p></li>
+<li><p>docs: Fix format next <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1023">docs#1023</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>docs: Add another project to diy.rst <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1019">docs#1019</a> by <a class="reference external" href="https://github.com/shish">&#64;shish</a></p></li>
+<li><p>docs: Update esphome-configs URL <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1018">docs#1018</a> by <a class="reference external" href="https://github.com/shish">&#64;shish</a></p></li>
+<li><p>docs: Icon is ignored by HA when device class is set <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1011">docs#1011</a> by <a class="reference external" href="https://github.com/marecabo">&#64;marecabo</a></p></li>
+<li><p>docs: Update pid.rst <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1006">docs#1006</a> by <a class="reference external" href="https://github.com/boradwell">&#64;boradwell</a></p></li>
+<li><p>docs: Mention that Hyperion.NG works with E1.31 <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/975">docs#975</a> by <a class="reference external" href="https://github.com/rradar">&#64;rradar</a></p></li>
+<li><p>esphome: Add Xiaomi Miscale v1 and v2 <a class="reference external" href="https://github.com/esphome/esphome/pull/1368">esphome#1368</a> by <a class="reference external" href="https://github.com/dckiller51">&#64;dckiller51</a> (new-integration)</p></li>
+<li><p>docs: Add docs for Xiaomi Miscale v1 and v2 <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1021">docs#1021</a> by <a class="reference external" href="https://github.com/dckiller51">&#64;dckiller51</a></p></li>
+<li><p>docs: Add missing closing parenthesis in example <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1029">docs#1029</a> by <a class="reference external" href="https://github.com/lepinkainen">&#64;lepinkainen</a></p></li>
+<li><p>docs: Update Inkplate.rst <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1026">docs#1026</a> by <a class="reference external" href="https://github.com/jakommo">&#64;jakommo</a></p></li>
+<li><p>docs: typo in st7735 model number <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1025">docs#1025</a> by <a class="reference external" href="https://github.com/wjcarpenter">&#64;wjcarpenter</a></p></li>
+<li><p>docs: Fix mcp23sXX id config <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1017">docs#1017</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>docs: Update bme680.rst <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1007">docs#1007</a> by <a class="reference external" href="https://github.com/wifwucite">&#64;wifwucite</a></p></li>
+<li><p>docs: Sim800l dial <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1027">docs#1027</a> by <a class="reference external" href="https://github.com/spilin">&#64;spilin</a></p></li>
+<li><p>esphome: Add dial support for sim800l component <a class="reference external" href="https://github.com/esphome/esphome/pull/1558">esphome#1558</a> by <a class="reference external" href="https://github.com/spilin">&#64;spilin</a></p></li>
+<li><p>esphome: Climate IR LG -keep previous temp and fan if swing <a class="reference external" href="https://github.com/esphome/esphome/pull/1556">esphome#1556</a> by <a class="reference external" href="https://github.com/Otamay">&#64;Otamay</a></p></li>
+<li><p>esphome: Vl53l0x change address <a class="reference external" href="https://github.com/esphome/esphome/pull/1126">esphome#1126</a> by <a class="reference external" href="https://github.com/kkellner">&#64;kkellner</a> (new-feature)</p></li>
+<li><p>docs: Update vl53l0x docs <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/679">docs#679</a> by <a class="reference external" href="https://github.com/kkellner">&#64;kkellner</a></p></li>
+<li><p>esphome: tuya: Use queue for sending command messages <a class="reference external" href="https://github.com/esphome/esphome/pull/1404">esphome#1404</a> by <a class="reference external" href="https://github.com/stubs12">&#64;stubs12</a></p></li>
+<li><p>esphome: Replace substitutions in substitutions first <a class="reference external" href="https://github.com/esphome/esphome/pull/1567">esphome#1567</a> by <a class="reference external" href="https://github.com/edenhaus">&#64;edenhaus</a></p></li>
+<li><p>esphome: Added heater to climate_ir_lg <a class="reference external" href="https://github.com/esphome/esphome/pull/1555">esphome#1555</a> by <a class="reference external" href="https://github.com/Otamay">&#64;Otamay</a></p></li>
+<li><p>esphome: More yaml validation <a class="reference external" href="https://github.com/esphome/esphome/pull/1568">esphome#1568</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>esphome: Add default device classes to sensor components <a class="reference external" href="https://github.com/esphome/esphome/pull/1533">esphome#1533</a> by <a class="reference external" href="https://github.com/marecabo">&#64;marecabo</a> (notable-change)</p></li>
+<li><p>docs: Document recurring data in uart switch <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/986">docs#986</a> by <a class="reference external" href="https://github.com/gabe565">&#64;gabe565</a></p></li>
+<li><p>esphome: Add support for recurring data in uart switch <a class="reference external" href="https://github.com/esphome/esphome/pull/1514">esphome#1514</a> by <a class="reference external" href="https://github.com/gabe565">&#64;gabe565</a></p></li>
+<li><p>esphome: Added samsung36 ir protocol <a class="reference external" href="https://github.com/esphome/esphome/pull/1438">esphome#1438</a> by <a class="reference external" href="https://github.com/tuxBurner">&#64;tuxBurner</a></p></li>
+<li><p>docs: Added remote samsung36 protocol docs <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/904">docs#904</a> by <a class="reference external" href="https://github.com/tuxBurner">&#64;tuxBurner</a></p></li>
+<li><p>docs: Add IWOOLE Table Lamp cookbook entry <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/947">docs#947</a> by <a class="reference external" href="https://github.com/Deinara">&#64;Deinara</a></p></li>
+<li><p>docs: Update uart.rst example to read all available characters <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1031">docs#1031</a> by <a class="reference external" href="https://github.com/RoganDawes">&#64;RoganDawes</a></p></li>
+<li><p>esphome: ADC fix: GPIO0 not usable as output if ADC_VCC is used <a class="reference external" href="https://github.com/esphome/esphome/pull/1557">esphome#1557</a> by <a class="reference external" href="https://github.com/ferbar">&#64;ferbar</a></p></li>
+<li><p>esphome: Add constants for device classes of binary_sensor <a class="reference external" href="https://github.com/esphome/esphome/pull/1549">esphome#1549</a> by <a class="reference external" href="https://github.com/marecabo">&#64;marecabo</a></p></li>
+<li><p>esphome: fix path on windows escape <a class="reference external" href="https://github.com/esphome/esphome/pull/1573">esphome#1573</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>esphome: Migrate ESPColor to Color <a class="reference external" href="https://github.com/esphome/esphome/pull/1551">esphome#1551</a> by <a class="reference external" href="https://github.com/SenexCrenshaw">&#64;SenexCrenshaw</a></p></li>
+<li><p>docs: Migrate ESPColor to Color <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1036">docs#1036</a> by <a class="reference external" href="https://github.com/SenexCrenshaw">&#64;SenexCrenshaw</a></p></li>
+<li><p>esphome: Add support for the SM300D2 7-in-1 sensor module <a class="reference external" href="https://github.com/esphome/esphome/pull/1524">esphome#1524</a> by <a class="reference external" href="https://github.com/moritzgloeckl">&#64;moritzgloeckl</a> (new-integration)</p></li>
+<li><p>docs: Added documentation for the SM300D2 sensor <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/993">docs#993</a> by <a class="reference external" href="https://github.com/moritzgloeckl">&#64;moritzgloeckl</a></p></li>
+<li><p>esphome: changed color temp from float to int <a class="reference external" href="https://github.com/esphome/esphome/pull/1522">esphome#1522</a> by <a class="reference external" href="https://github.com/codyjamestechnical">&#64;codyjamestechnical</a></p></li>
+<li><p>esphome: Bump pytest-cov from 2.10.1 to 2.11.1 <a class="reference external" href="https://github.com/esphome/esphome/pull/1483">esphome#1483</a> by <a class="reference external" href="https://github.com/dependabot[bot]">&#64;dependabot[bot]</a></p></li>
+<li><p>esphome: Bump colorlog from 4.6.2 to 4.7.2 <a class="reference external" href="https://github.com/esphome/esphome/pull/1473">esphome#1473</a> by <a class="reference external" href="https://github.com/dependabot[bot]">&#64;dependabot[bot]</a></p></li>
+<li><p>esphome: pins: Add three new boards <a class="reference external" href="https://github.com/esphome/esphome/pull/1576">esphome#1576</a> by <a class="reference external" href="https://github.com/balrog-kun">&#64;balrog-kun</a></p></li>
+<li><p>esphome: Bump pytest from 6.2.1 to 6.2.2 <a class="reference external" href="https://github.com/esphome/esphome/pull/1574">esphome#1574</a> by <a class="reference external" href="https://github.com/dependabot[bot]">&#64;dependabot[bot]</a></p></li>
+<li><p>esphome: Bump pytz from 2020.5 to 2021.1 <a class="reference external" href="https://github.com/esphome/esphome/pull/1575">esphome#1575</a> by <a class="reference external" href="https://github.com/dependabot[bot]">&#64;dependabot[bot]</a></p></li>
+<li><p>esphome: Fix for waveshare 2.13in-ttgo-b73 <a class="reference external" href="https://github.com/esphome/esphome/pull/1543">esphome#1543</a> by <a class="reference external" href="https://github.com/nikito7">&#64;nikito7</a></p></li>
+<li><p>docs: Added new blogpost <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1038">docs#1038</a> by <a class="reference external" href="https://github.com/pieterbrink123">&#64;pieterbrink123</a></p></li>
+<li><p>esphome: Add min/max filters <a class="reference external" href="https://github.com/esphome/esphome/pull/1569">esphome#1569</a> by <a class="reference external" href="https://github.com/gabe565">&#64;gabe565</a></p></li>
+<li><p>docs: Document new min/max filters <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1032">docs#1032</a> by <a class="reference external" href="https://github.com/gabe565">&#64;gabe565</a></p></li>
+<li><p>esphome: Bump pylint from 2.6.0 to 2.7.2 <a class="reference external" href="https://github.com/esphome/esphome/pull/1582">esphome#1582</a> by <a class="reference external" href="https://github.com/dependabot[bot]">&#64;dependabot[bot]</a></p></li>
+<li><p>esphome: Extend ‘uart:’ with ‘invert:’ for esp32 <a class="reference external" href="https://github.com/esphome/esphome/pull/1586">esphome#1586</a> by <a class="reference external" href="https://github.com/needspeed">&#64;needspeed</a></p></li>
+<li><p>docs: Uart invert option for ESP32 <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1039">docs#1039</a> by <a class="reference external" href="https://github.com/Mynasru">&#64;Mynasru</a></p></li>
+<li><p>esphome: Bump platformio from 5.0.4 to 5.1.0 <a class="reference external" href="https://github.com/esphome/esphome/pull/1581">esphome#1581</a> by <a class="reference external" href="https://github.com/dependabot[bot]">&#64;dependabot[bot]</a></p></li>
+<li><p>esphome: fix servo warning <a class="reference external" href="https://github.com/esphome/esphome/pull/1591">esphome#1591</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>docs: add-black <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1044">docs#1044</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>esphome: add-black <a class="reference external" href="https://github.com/esphome/esphome/pull/1593">esphome#1593</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>esphome: MCP23XXX Refactor <a class="reference external" href="https://github.com/esphome/esphome/pull/1560">esphome#1560</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a> (breaking-change)</p></li>
+<li><p>docs: Update MCP23XXX docs with interrupts and pin schemas <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1028">docs#1028</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>esphome: Improve error checking: too many component id candidates <a class="reference external" href="https://github.com/esphome/esphome/pull/1570">esphome#1570</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>esphome: Schema dump <a class="reference external" href="https://github.com/esphome/esphome/pull/1564">esphome#1564</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>docs: Dump schema <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1030">docs#1030</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>docs: Update i2c.rst <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1043">docs#1043</a> by <a class="reference external" href="https://github.com/webeling67">&#64;webeling67</a></p></li>
+<li><p>docs: Update rf_bridge.rst <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1042">docs#1042</a> by <a class="reference external" href="https://github.com/samnewman86">&#64;samnewman86</a></p></li>
+<li><p>esphome: Inkplate 6 Optimizations <a class="reference external" href="https://github.com/esphome/esphome/pull/1592">esphome#1592</a> by <a class="reference external" href="https://github.com/Sizurka">&#64;Sizurka</a></p></li>
+<li><p>docs: Fix RF Bridge link to Portisch Repo <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1045">docs#1045</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>docs: pin schema and other fixes <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1047">docs#1047</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>esphome: schema-dump-pins <a class="reference external" href="https://github.com/esphome/esphome/pull/1596">esphome#1596</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>docs: Adding that mpr121_id is a valid option for binary_sensor <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/966">docs#966</a> by <a class="reference external" href="https://github.com/minideezel">&#64;minideezel</a></p></li>
+<li><p>esphome: change lcd clear() to clear the buffer <a class="reference external" href="https://github.com/esphome/esphome/pull/1600">esphome#1600</a> by <a class="reference external" href="https://github.com/ssieb">&#64;ssieb</a></p></li>
+<li><p>esphome: PN532 - don’t read extra page and fix size <a class="reference external" href="https://github.com/esphome/esphome/pull/1565">esphome#1565</a> by <a class="reference external" href="https://github.com/ssieb">&#64;ssieb</a></p></li>
+<li><p>docs: schema-filters <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1052">docs#1052</a> by <a class="reference external" href="https://github.com/glmnet">&#64;glmnet</a></p></li>
+<li><p>esphome: Fix component_tests config <a class="reference external" href="https://github.com/esphome/esphome/pull/1608">esphome#1608</a> by <a class="reference external" href="https://github.com/madron">&#64;madron</a></p></li>
+<li><p>esphome: Added receive for Fujitsu ACs <a class="reference external" href="https://github.com/esphome/esphome/pull/1577">esphome#1577</a> by <a class="reference external" href="https://github.com/alex-richards">&#64;alex-richards</a></p></li>
+<li><p>esphome: Change COLOR_ON to be 255 values instead of 1 <a class="reference external" href="https://github.com/esphome/esphome/pull/1594">esphome#1594</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>esphome: a4988 wait 1ms when coming out of sleep <a class="reference external" href="https://github.com/esphome/esphome/pull/1597">esphome#1597</a> by <a class="reference external" href="https://github.com/WeekendWarrior1">&#64;WeekendWarrior1</a></p></li>
+<li><p>docs: Remove cs_pin from rc522 i2c example <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1059">docs#1059</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>esphome: Support fan speed levels <a class="reference external" href="https://github.com/esphome/esphome/pull/1541">esphome#1541</a> by <a class="reference external" href="https://github.com/blejdfist">&#64;blejdfist</a></p></li>
+<li><p>docs: Documentation for fan speed levels <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1056">docs#1056</a> by <a class="reference external" href="https://github.com/blejdfist">&#64;blejdfist</a></p></li>
+<li><p>docs: Add CLI logs section <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1060">docs#1060</a> by <a class="reference external" href="https://github.com/Tmin10">&#64;Tmin10</a></p></li>
+<li><p>esphome: Add option to suffix name with mac address <a class="reference external" href="https://github.com/esphome/esphome/pull/1615">esphome#1615</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>esphome: Midea climate support <a class="reference external" href="https://github.com/esphome/esphome/pull/1328">esphome#1328</a> by <a class="reference external" href="https://github.com/dudanov">&#64;dudanov</a> (new-integration)</p></li>
+<li><p>docs: Midea Climate support <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/804">docs#804</a> by <a class="reference external" href="https://github.com/dudanov">&#64;dudanov</a></p></li>
+<li><p>docs: Add docs for <cite>name_add_mac_suffix</cite> config <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1058">docs#1058</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>esphome: SPI transfer fix. Use write when no miso pin is set <a class="reference external" href="https://github.com/esphome/esphome/pull/1563">esphome#1563</a> by <a class="reference external" href="https://github.com/SenexCrenshaw">&#64;SenexCrenshaw</a></p></li>
+<li><p>esphome: SPI Improvements <a class="reference external" href="https://github.com/esphome/esphome/pull/1617">esphome#1617</a> by <a class="reference external" href="https://github.com/SenexCrenshaw">&#64;SenexCrenshaw</a></p></li>
+<li><p>esphome: Add addressable_light display platform <a class="reference external" href="https://github.com/esphome/esphome/pull/1272">esphome#1272</a> by <a class="reference external" href="https://github.com/justfalter">&#64;justfalter</a> (new-integration) (notable-change)</p></li>
+<li><p>docs: Add docs for addressable_light display <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/755">docs#755</a> by <a class="reference external" href="https://github.com/justfalter">&#64;justfalter</a></p></li>
+<li><p>esphome: Implement pulse_meter as an improvement on pulse_counter and pulse_width for meters <a class="reference external" href="https://github.com/esphome/esphome/pull/1434">esphome#1434</a> by <a class="reference external" href="https://github.com/stevebaxter">&#64;stevebaxter</a> (new-integration)</p></li>
+<li><p>esphome: e131: fix issue 1579: limitation of maximum light count <a class="reference external" href="https://github.com/esphome/esphome/pull/1619">esphome#1619</a> by <a class="reference external" href="https://github.com/docteurzoidberg">&#64;docteurzoidberg</a></p></li>
+<li><p>docs: Add documentation for pulse_meter <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/900">docs#900</a> by <a class="reference external" href="https://github.com/stevebaxter">&#64;stevebaxter</a></p></li>
+<li><p>esphome: Bump platformio from 5.1.0 to 5.1.1 <a class="reference external" href="https://github.com/esphome/esphome/pull/1618">esphome#1618</a> by <a class="reference external" href="https://github.com/dependabot[bot]">&#64;dependabot[bot]</a></p></li>
+<li><p>esphome: Fix pulse-meter with device_class and black <a class="reference external" href="https://github.com/esphome/esphome/pull/1621">esphome#1621</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>esphome: Declare Color objects in main.cpp <a class="reference external" href="https://github.com/esphome/esphome/pull/1395">esphome#1395</a> by <a class="reference external" href="https://github.com/kbx81">&#64;kbx81</a></p></li>
+<li><p>esphome: Add 2.13in-ttgo-b1 waveshare epaper module. <a class="reference external" href="https://github.com/esphome/esphome/pull/1326">esphome#1326</a> by <a class="reference external" href="https://github.com/matikij">&#64;matikij</a></p></li>
+<li><p>docs: Add docs for ttgo-b1 version (next branch) <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/808">docs#808</a> by <a class="reference external" href="https://github.com/matikij">&#64;matikij</a></p></li>
+<li><p>esphome: Bump flake8 from 3.8.4 to 3.9.0 <a class="reference external" href="https://github.com/esphome/esphome/pull/1612">esphome#1612</a> by <a class="reference external" href="https://github.com/dependabot[bot]">&#64;dependabot[bot]</a></p></li>
+<li><p>esphome: Bundle platformio lib_deps in docker images <a class="reference external" href="https://github.com/esphome/esphome/pull/1625">esphome#1625</a></p></li>
+<li><p>esphome: Bump protobuf from 3.13.0 to 3.15.6 <a class="reference external" href="https://github.com/esphome/esphome/pull/1607">esphome#1607</a> by <a class="reference external" href="https://github.com/dependabot[bot]">&#64;dependabot[bot]</a></p></li>
+<li><p>esphome: Bump pyyaml from 5.3.1 to 5.4.1 <a class="reference external" href="https://github.com/esphome/esphome/pull/1482">esphome#1482</a> by <a class="reference external" href="https://github.com/dependabot[bot]">&#64;dependabot[bot]</a></p></li>
+<li><p>esphome: Switch docker images to debian <a class="reference external" href="https://github.com/esphome/esphome/pull/1626">esphome#1626</a></p></li>
+<li><p>esphome: Background calibration &amp; ABC commands for SenseAir S8 <a class="reference external" href="https://github.com/esphome/esphome/pull/1623">esphome#1623</a> by <a class="reference external" href="https://github.com/nmaggioni">&#64;nmaggioni</a> (new-feature)</p></li>
+<li><p>docs: SenseAir: background calibration &amp; ABC commands <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1066">docs#1066</a> by <a class="reference external" href="https://github.com/nmaggioni">&#64;nmaggioni</a></p></li>
+<li><p>esphome: Add trigger for http actions to receive the status code <a class="reference external" href="https://github.com/esphome/esphome/pull/1599">esphome#1599</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a> (new-feature)</p></li>
+<li><p>docs: Add docs for http_request on_response trigger <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1049">docs#1049</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+<li><p>docs: Fix typo lambada -&gt; lambda in multiple display compoments <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1071">docs#1071</a> by <a class="reference external" href="https://github.com/rheinz">&#64;rheinz</a></p></li>
+<li><p>docs: Consistent spelling of “ID” <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1068">docs#1068</a> by <a class="reference external" href="https://github.com/spacegaier">&#64;spacegaier</a></p></li>
+<li><p>docs: Change GREYSCALE to GRAYSCALE <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1073">docs#1073</a> by <a class="reference external" href="https://github.com/adrienbrault">&#64;adrienbrault</a></p></li>
+<li><p>docs: SPI: fix Example <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1076">docs#1076</a> by <a class="reference external" href="https://github.com/ferbar">&#64;ferbar</a></p></li>
+<li><p>docs: Update diy.rst <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1106">docs#1106</a> by <a class="reference external" href="https://github.com/electrofun-smart">&#64;electrofun-smart</a></p></li>
+<li><p>docs: Make changelog banner dismissable <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1113">docs#1113</a> by <a class="reference external" href="https://github.com/manutenfruits">&#64;manutenfruits</a></p></li>
+<li><p>docs: Correct typo: “between between” -&gt; “between” <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1109">docs#1109</a> by <a class="reference external" href="https://github.com/janosrusiczki">&#64;janosrusiczki</a></p></li>
+<li><p>docs: Update canbus.rst <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1115">docs#1115</a> by <a class="reference external" href="https://github.com/meijerwynand">&#64;meijerwynand</a></p></li>
+<li><p>docs: Update diy.rst <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1114">docs#1114</a> by <a class="reference external" href="https://github.com/murilobaliego">&#64;murilobaliego</a></p></li>
+<li><p>docs: Update email addresses <a class="reference external" href="https://github.com/esphome/esphome-docs/pull/1122">docs#1122</a> by <a class="reference external" href="https://github.com/jesserockz">&#64;jesserockz</a></p></li>
+</ul>
+</section>
+<section id="past-changelogs">
+<h2>Past Changelogs<a class="headerlink" href="#past-changelogs" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="v1.16.0.html"><span class="doc">Changelog - Version 1.16.0 - February 3, 2021</span></a></p></li>
+<li><p><a class="reference internal" href="v1.15.0.html"><span class="doc">Changelog - Version 1.15.0 - September 13, 2020</span></a></p></li>
+<li><p><a class="reference internal" href="v1.14.0.html"><span class="doc">Changelog - Version 1.14.0 - November 1</span></a></p></li>
+<li><p><a class="reference internal" href="v1.13.0.html"><span class="doc">Changelog - Version 1.13.0 - May 30th 2019</span></a></p></li>
+<li><p><a class="reference internal" href="v1.12.0.html"><span class="doc">Changelog - Version 1.12.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.11.0.html"><span class="doc">Changelog - Version 1.11.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.10.0.html"><span class="doc">Changelog - Version 1.10.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.9.0.html"><span class="doc">Changelog - Version 1.9.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.8.0.html"><span class="doc">Version 1.8.0</span></a></p></li>
+<li><p><a class="reference internal" href="v1.7.0.html"><span class="doc">Version 1.7.0</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

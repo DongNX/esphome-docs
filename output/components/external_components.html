@@ -1,0 +1,400 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up ESPHome External Components.">
+<meta name="keywords" content="External, Custom, Components, ESPHome">
+<meta itemprop="name" content="External Components">
+<meta itemprop="description" content="Instructions for setting up ESPHome External Components.">
+<meta name="twitter:title" content="External Components">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up ESPHome External Components.">
+<meta property="og:title" content="External Components">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up ESPHome External Components.">
+
+    <title>External Components &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/external_components.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Atlas Scientific Peristaltic Pump" href="ezo_pmp.html" />
+    <link rel="prev" title="Exposure Notification Listener" href="exposure_notifications.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">External Components</a><ul>
+<li><a class="reference internal" href="#local">Local</a><ul>
+<li><a class="reference internal" href="#example-of-local-components">Example of local components</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#git">Git</a><ul>
+<li><a class="reference internal" href="#example-of-git-repositories">Example of git repositories</a></li>
+<li><a class="reference internal" href="#refresh">Refresh</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>External Components</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="external-components">
+<h1>External Components<a class="headerlink" href="#external-components" title="Permalink to this heading">¶</a></h1>
+<p>You can easily import community or personal components using the external components feature.
+Bundled components can be overridden using this feature.</p>
+<p>You can find some basic documentation on creating your own components at <a class="reference internal" href="../guides/contributing.html#contributing-to-esphome"><span class="std std-ref">Contributing to ESPHome</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">external_components</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># use rtttl and dfplayer from ESPHome&#39;s dev branch in GitHub</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git</span>
+<span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/esphome/esphome</span>
+<span class="w">      </span><span class="nt">ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class="w">    </span><span class="nt">components</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">rtttl</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">dfplayer</span><span class="w"> </span><span class="p p-Indicator">]</span>
+
+<span class="w">  </span><span class="c1"># equivalent shorthand for GitHub</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github://esphome/esphome@dev</span>
+<span class="w">    </span><span class="nt">components</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">rtttl</span><span class="w"> </span><span class="p p-Indicator">]</span>
+
+<span class="w">  </span><span class="c1"># equivalent shorthand for GitHub pull request</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github://pr#2639</span>
+<span class="w">    </span><span class="nt">components</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">rtttl</span><span class="w"> </span><span class="p p-Indicator">]</span>
+
+<span class="w">  </span><span class="c1"># use all components from a local folder</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_components</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul>
+<li><p><strong>source</strong>: The location of the components you want to retrieve. See <a class="reference internal" href="#external-components-local"><span class="std std-ref">Local</span></a>
+and <a class="reference internal" href="#external-components-git"><span class="std std-ref">Git</span></a>.</p>
+<ul class="simple">
+<li><p><strong>type</strong> (<strong>Required</strong>): Repository type. One of <code class="docutils literal notranslate"><span class="pre">local</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span></code>.</p></li>
+</ul>
+<p>git options:</p>
+<ul class="simple">
+<li><p><strong>url</strong> (<strong>Required</strong>, url): HTTP git repository url. See <a class="reference internal" href="#external-components-git"><span class="std std-ref">Git</span></a>.</p></li>
+<li><p><strong>ref</strong> (<em>Optional</em>, string): Git ref (branch or tag). If not specified the default branch is used.</p></li>
+<li><p><strong>username</strong> (<em>Optional</em>, string): Username for the Git server, if one is required</p></li>
+<li><p><strong>password</strong> (<em>Optional</em>, string): Password for the Git server, if one is required</p></li>
+<li><p><strong>path</strong> (<em>Optional</em>, string): Path inside the repo, if different from <code class="docutils literal notranslate"><span class="pre">components</span></code> or <code class="docutils literal notranslate"><span class="pre">esphome/components</span></code></p></li>
+</ul>
+<p>local options:</p>
+<ul class="simple">
+<li><p><strong>path</strong> (<strong>Required</strong>):  Path to use when using local components. See <a class="reference internal" href="#external-components-local"><span class="std std-ref">Local</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>components</strong> (<em>Optional</em>, list): The list of components to use from the external source.
+By default, all available components are used.</p></li>
+<li><p><strong>refresh</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval the source will be checked. Has no
+effect on <code class="docutils literal notranslate"><span class="pre">local</span></code>. See <a class="reference internal" href="#external-components-refresh"><span class="std std-ref">Refresh</span></a>. for more info. Defaults to <code class="docutils literal notranslate"><span class="pre">1day</span></code>.</p></li>
+</ul>
+<section id="local">
+<span id="external-components-local"></span><h2>Local<a class="headerlink" href="#local" title="Permalink to this heading">¶</a></h2>
+<p>You can specify a local path containing external components. This is most useful when developing a
+component or if you want to manually control the origin of the files.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">external_components</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/copied_components</span>
+
+<span class="c1"># shorthand</span>
+<span class="nt">external_components</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_components</span>
+</pre></div>
+</div>
+<p>Notice that relative paths are supported, so you can enter <code class="docutils literal notranslate"><span class="pre">my_components</span></code> as the source path and then
+ESPHome will load components from a <code class="docutils literal notranslate"><span class="pre">my_components</span></code> folder in the same folder where your YAML configuration
+is.</p>
+<section id="example-of-local-components">
+<h3>Example of local components<a class="headerlink" href="#example-of-local-components" title="Permalink to this heading">¶</a></h3>
+<p>Given the above example of <code class="docutils literal notranslate"><span class="pre">my_components</span></code>, the folder structure must look like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;CONFIG_DIR&gt;
+├── node1.yaml
+├── node2.yaml
+└── my_components
+    ├── my_component1
+    │   ├── __init__.py
+    │   ├── component1.cpp
+    │   ├── component1.h
+    │   └── sensor.py
+    └── my_component2
+        ├── __init__.py
+        ├── component2.cpp
+        ├── component2.h
+        └── switch.py
+</pre></div>
+</div>
+</section>
+</section>
+<section id="git">
+<span id="external-components-git"></span><h2>Git<a class="headerlink" href="#git" title="Permalink to this heading">¶</a></h2>
+<p>Retrieving components from git is the easiest way to use components not included in ESPHome by default.
+The source components should be inside a <code class="docutils literal notranslate"><span class="pre">components</span></code> folder or inside an <code class="docutils literal notranslate"><span class="pre">esphome/components</span></code>
+folder. The latter makes sharing a component from a forked ESPHome repository easier.</p>
+<section id="example-of-git-repositories">
+<h3>Example of git repositories<a class="headerlink" href="#example-of-git-repositories" title="Permalink to this heading">¶</a></h3>
+<p>For repositories where you share one or a few components:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>components
+├── my_component1
+│   ├── __init__.py
+│   ├── component1.cpp
+│   ├── component1.h
+│   └── sensor.py
+└── my_component2
+    ├── __init__.py
+    ├── component2.cpp
+    ├── component2.h
+    └── switch.py
+example_component1.yaml        &lt;- not required but recommended
+README.md
+</pre></div>
+</div>
+<p>or, this structure is also supported, which makes handy to share components from a <strong>forked</strong> ESPHome
+repository:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>esphome
+├── components
+│   ├── my_component1
+│   │   ├── __init__.py
+│   │   ├── component1.cpp
+│   │   ├── component1.h
+│   │   └── sensor.py
+│   ├── my_component2
+│   │   ├── __init__.py
+│   │   ├── component2.cpp
+│   │   ├── component2.h
+│   │   └── switch.py
+│  ...
+...
+</pre></div>
+</div>
+<p>HTTP git repositories in general are supported with this configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">external_components</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://repository_url/</span>
+<span class="w">    </span><span class="nt">ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">branch_or_tag</span>
+</pre></div>
+</div>
+<p>The source field accepts a short hand <strong>github://</strong> resource:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">external_components</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># shorthand</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github://&lt;user or org&gt;/&lt;repository name&gt;[@&lt;branch or tag&gt;]</span>
+</pre></div>
+</div>
+<p>The source field also accepts a short hand <strong>github://</strong> pull request from the ESPHome repository:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">external_components</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># shorthand</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github://pr#&lt;number&gt;</span>
+</pre></div>
+</div>
+<p>Under the hood, during validation, ESPHome will clone the git repository into the hidden <code class="docutils literal notranslate"><span class="pre">.esphome</span></code>
+folder and components will then be loaded from this local copy. The local path of the cloned repository
+varies per repository name and ref name, so repositories with different refs are considered different
+repositories and updated independently.</p>
+<p>If required, you can supply a username and password to use when authenticating with the remote git
+server using the <code class="docutils literal notranslate"><span class="pre">username</span></code> and <code class="docutils literal notranslate"><span class="pre">password</span></code> fields. This is most useful when combined with the
+<code class="docutils literal notranslate"><span class="pre">!secret</span></code>  feature, to load the values in from a <code class="docutils literal notranslate"><span class="pre">secrets.yaml</span></code> file. This is not a comprehensive
+security measure; your username and password will necessarily be stored in clear text within the
+<code class="docutils literal notranslate"><span class="pre">.esphome</span></code> directory.</p>
+</section>
+<section id="refresh">
+<span id="external-components-refresh"></span><h3>Refresh<a class="headerlink" href="#refresh" title="Permalink to this heading">¶</a></h3>
+<p>Components are initially cloned into a cache directory, then the repository is checked for updates
+(via <em>git pull</em>) after the <code class="docutils literal notranslate"><span class="pre">refresh:</span></code> time passes since last check.</p>
+<p>You can make ESPHome check the repository every time by setting this option to <code class="docutils literal notranslate"><span class="pre">0s</span></code>, however since
+ESPHome is validating the configuration continuously while using the dashboard or the vscode extension,
+it is not recommended to set this value to less than a few minutes to avoid validation slow down and
+excessive repository checks.</p>
+<p>Likewise, you can set this setting to <code class="docutils literal notranslate"><span class="pre">never</span></code> and ESPHome will never
+<strong>update</strong> the repository, useful e.g. when <code class="docutils literal notranslate"><span class="pre">ref</span></code> points to a <strong>tag</strong>.</p>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/external_components.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

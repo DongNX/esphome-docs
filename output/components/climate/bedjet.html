@@ -1,0 +1,407 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a BedJet climate device.">
+<meta itemprop="name" content="BedJet">
+<meta itemprop="description" content="Instructions for setting up a BedJet climate device.">
+<meta itemprop="image" content="https://esphome.io/_images/bedjet.png">
+<meta name="twitter:title" content="BedJet">
+<meta name="twitter:image:src" content="https://esphome.io/_images/bedjet.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a BedJet climate device.">
+<meta property="og:title" content="BedJet">
+<meta property="og:image" content="https://esphome.io/_images/bedjet.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a BedJet climate device.">
+
+    <title>BedJet &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/climate/bedjet.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="IR Remote Climate" href="climate_ir.html" />
+    <link rel="prev" title="Bang Bang Climate Controller" href="bang_bang.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">BedJet</a><ul>
+<li><a class="reference internal" href="#component-hub">Component/Hub</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#lambda-calls">lambda calls</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bedjet-climate"><code class="docutils literal notranslate"><span class="pre">bedjet</span></code> Climate</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bedjet-fan"><code class="docutils literal notranslate"><span class="pre">bedjet</span></code> Fan</a><ul>
+<li><a class="reference internal" href="#id2">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#known-issues">Known issues:</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Climate Component</a> ➔</li>
+      <li>BedJet</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="bedjet">
+<h1>BedJet<a class="headerlink" href="#bedjet" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">bedjet</span></code> component allows you to communicate with a BedJet V3 Climate Comfort
+Sleep System.</p>
+<p>This component supports the following functionality:</p>
+<ul class="simple">
+<li><p>Set the operating mode: off, heat, cool, turbo (boost)</p></li>
+<li><p>Set the desired target temperature</p></li>
+<li><p>Set the desired fan speed</p></li>
+<li><p>Start one of the saved memory presets, including “Biorhythm” programs</p></li>
+<li><p>Show the current status of the BedJet</p></li>
+</ul>
+<p>This component uses the BLE peripheral on an ESP32, so you also need to enable
+this component. Please see the <a class="reference internal" href="../ble_client.html"><span class="doc">BLE Client</span></a> docs for how to discover the MAC
+address of your BedJet device.</p>
+<section id="component-hub">
+<h2>Component/Hub<a class="headerlink" href="#component-hub" title="Permalink to this heading">¶</a></h2>
+<p>This component is a global hub that maintains the connection to the BedJet device
+and delegates status updates to individual platform components.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+
+<span class="nt">ble_client</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">C4:4F:33:00:00:01</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedjet_ble_id1</span>
+
+<span class="nt">bedjet</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedjet_1</span>
+<span class="w">    </span><span class="nt">ble_client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedjet_ble_id1</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>ble_client_id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the BLE Client.</p></li>
+<li><p><strong>time_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of a <a class="reference internal" href="../time/index.html"><span class="doc">Time Component</span></a> which
+can be used to set the time on the BedJet device.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to dispatch status
+changes to child components. Defaults to <code class="docutils literal notranslate"><span class="pre">5s</span></code>. Each child component can decide whether to
+publish its own updated state on this interval, or use another (longer) update interval to
+throttle its own updates.</p></li>
+</ul>
+</section>
+<section id="lambda-calls">
+<h3>lambda calls<a class="headerlink" href="#lambda-calls" title="Permalink to this heading">¶</a></h3>
+<p>From <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>, you can call methods to do some advanced stuff.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">.upgrade_firmware</span></code>: Check for and install updated BedJet firmware.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">button</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Check</span><span class="nv"> </span><span class="s">Bedjet(1)</span><span class="nv"> </span><span class="s">Firmware&quot;</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">id(bedjet_1).upgrade_firmware();</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.send_local_time</span></code>: If <cite>time_id</cite> is set, attempt to sync the clock now.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">button</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sync</span><span class="nv"> </span><span class="s">Clock&quot;</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">id(my_bedjet_fan).send_local_time();</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.set_clock</span></code>: Set the BedJet clock to a specified time; works with or without a <cite>time_id</cite>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">button</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Set</span><span class="nv"> </span><span class="s">Clock</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">10:10pm&quot;</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">id(my_bedjet_fan).set_clock(22, 10);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="bedjet-climate">
+<h2><code class="docutils literal notranslate"><span class="pre">bedjet</span></code> Climate<a class="headerlink" href="#bedjet-climate" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">climate</span></code> platform exposes the BedJet’s climate-related functionality, including
+setting the mode and target temperature.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedjet</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_bedjet_climate_entity</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My</span><span class="nv"> </span><span class="s">BedJet&quot;</span>
+<span class="w">    </span><span class="nt">bedjet_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedjet_1</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the climate device.</p></li>
+<li><p><strong>bedjet_id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the Bedjet component.</p></li>
+<li><p><strong>heat_mode</strong> (<em>Optional</em>, string): The primary heating mode to use for <code class="docutils literal notranslate"><span class="pre">HVACMode.HEAT</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">heat</span></code> (Default) - Setting <code class="docutils literal notranslate"><span class="pre">hvac_mode=heat</span></code> uses the BedJet “HEAT” mode.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">extended</span></code> - Setting <code class="docutils literal notranslate"><span class="pre">hvac_mode=heat</span></code> uses BedJet “EXT HEAT” mode.</p></li>
+</ul>
+<p>Whichever is not selected will be made available as a custom preset.</p>
+</div></blockquote>
+</li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-climate"><span class="std std-ref">Climate</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="bedjet-fan">
+<h2><code class="docutils literal notranslate"><span class="pre">bedjet</span></code> Fan<a class="headerlink" href="#bedjet-fan" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">fan</span></code> platform exposes the BedJet’s fan-related functionality, including
+on/off and speed control.</p>
+<p>When the BedJet is already on, turning the Fan component off will set the BedJet unit’s mode to
+<code class="docutils literal notranslate"><span class="pre">OFF</span></code>. If it was not already on, it will be turned on to mode <code class="docutils literal notranslate"><span class="pre">FAN_ONLY</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">fan</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedjet</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_bedjet_fan_entity</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My</span><span class="nv"> </span><span class="s">BedJet</span><span class="nv"> </span><span class="s">Fan&quot;</span>
+<span class="w">    </span><span class="nt">bedjet_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedjet_1</span>
+</pre></div>
+</div>
+<section id="id2">
+<h3>Configuration variables:<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the fan device.</p></li>
+<li><p><strong>bedjet_id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the Bedjet component.</p></li>
+<li><p>Other options from <a class="reference internal" href="../fan/index.html#config-fan"><span class="std std-ref">Fan</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="known-issues">
+<h2>Known issues:<a class="headerlink" href="#known-issues" title="Permalink to this heading">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>BedJet V2 and other devices are not currently supported. Only BedJet V3 is supported.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only one client can be connected to the BedJet BLE service at a time, so you cannot
+use the BedJet mobile app to monitor or control the BedJet device while this component
+is connected. To use the mobile app, you should disconnect the ESP client first.</p>
+<p>To set up a (dis-)connect switch, see <a class="reference internal" href="../switch/ble_client.html"><span class="doc">BLE Client Switch</span></a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When more than one device is configured and connected, the ESP device may become
+overwhelmed and lead to timeouts while trying to install an updated version of the
+configuration. If this occurs, see the previous note about adding disconnect switches,
+and toggle those off while performing the installation. This will free up resources
+on the ESP and allow the installation to complete.</p>
+<p>Additionally, you may use an <a class="reference internal" href="../ota.html#ota-on-begin"><span class="std std-ref">ota.on_begin</span></a> <a class="reference internal" href="../../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>
+to do this automatically:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ota</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_begin</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Disconnecting</span><span class="nv"> </span><span class="s">clients</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">OTA</span><span class="nv"> </span><span class="s">update...&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedjet_1_monitor</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedjet_2_monitor</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../ble_client.html"><span class="doc">BLE Client</span></a></p></li>
+<li><p><a class="reference internal" href="index.html"><span class="doc">Climate Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/bedjet_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/climate/bedjet.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

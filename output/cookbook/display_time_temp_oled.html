@@ -1,0 +1,369 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a display in ESPHome to show sensor values from Home Assistant">
+<meta name="keywords" content="Display">
+<meta itemprop="name" content="Time &amp; Temperature on OLED Display">
+<meta itemprop="description" content="Instructions for setting up a display in ESPHome to show sensor values from Home Assistant">
+<meta name="twitter:title" content="Time &amp; Temperature on OLED Display">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a display in ESPHome to show sensor values from Home Assistant">
+<meta property="og:title" content="Time &amp; Temperature on OLED Display">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a display in ESPHome to show sensor values from Home Assistant">
+
+    <title>Time &amp; Temperature on OLED Display &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/cookbook/display_time_temp_oled.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ehmtx a matrix status display" href="ehmtx.html" />
+    <link rel="prev" title="BME280 Environment" href="bme280_environment.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Time &amp; Temperature on OLED Display</a><ul>
+<li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
+<li><a class="reference internal" href="#software-configuration">Software configuration</a><ul>
+<li><a class="reference internal" href="#getting-time">Getting Time</a></li>
+<li><a class="reference internal" href="#getting-temperature">Getting Temperature</a></li>
+<li><a class="reference internal" href="#define-the-fonts">Define the Fonts</a></li>
+<li><a class="reference internal" href="#display-definition">Display Definition</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rendering">Rendering</a></li>
+<li><a class="reference internal" href="#add-a-text-based-sensor">Add a Text-Based Sensor</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Cookbook</a> ➔</li>
+      <li>Time &amp; Temperature on OLED Display</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="time-temperature-on-oled-display">
+<h1>Time &amp; Temperature on OLED Display<a class="headerlink" href="#time-temperature-on-oled-display" title="Permalink to this heading">¶</a></h1>
+<figure class="align-left">
+<a class="reference internal image-reference" href="../_images/display_time_temp_oled_1.jpg"><img alt="../_images/display_time_temp_oled_1.jpg" src="../_images/display_time_temp_oled_1.jpg" style="width: 75.0%;" /></a>
+</figure>
+<p>In this example I have used a <a class="reference internal" href="../components/display/ssd1306.html"><span class="doc">SSD1306 OLED Display over I²C</span></a> to
+show current time and two different temperature values from Home Assistant.</p>
+<p>ESPHome has support for several different types of displays. The display used here is 1.3” with 128x64 monochrome pixels (<code class="docutils literal notranslate"><span class="pre">SH1106</span> <span class="pre">128x64</span></code>).</p>
+<section id="hardware-configuration">
+<h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Permalink to this heading">¶</a></h2>
+<p>Hardware is easy! Only four connections are needed:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">VCC</span></code> - Power (my display could use either 3.3V or 5V)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GND</span></code> - Ground</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SDA</span></code> - Serial Data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SCL</span></code> - Serial Clock</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ensure your display handles 5V if you use that.</p>
+</div>
+</section>
+<section id="software-configuration">
+<h2>Software configuration<a class="headerlink" href="#software-configuration" title="Permalink to this heading">¶</a></h2>
+<section id="getting-time">
+<h3>Getting Time<a class="headerlink" href="#getting-time" title="Permalink to this heading">¶</a></h3>
+<p>Get the time from Home Assistant to sync the onboard real-time clock.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">time</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">homeassistant</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esptime</span>
+</pre></div>
+</div>
+</section>
+<section id="getting-temperature">
+<h3>Getting Temperature<a class="headerlink" href="#getting-temperature" title="Permalink to this heading">¶</a></h3>
+<p>Next, we want to get two temperature sensors imported from Home Assistant.</p>
+<p>I named them <code class="docutils literal notranslate"><span class="pre">inside_temperature</span></code> and <code class="docutils literal notranslate"><span class="pre">outside_temperature</span></code>. You will use those references later.</p>
+<p>By adding <code class="docutils literal notranslate"><span class="pre">internal:</span> <span class="pre">true</span></code> to the sensors they won’t be published back to Home Assistant.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">homeassistant</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inside_temperature</span>
+<span class="w">    </span><span class="nt">entity_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.mellanvaning_temperature</span>
+<span class="w">    </span><span class="nt">internal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">homeassistant</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">outside_temperature</span>
+<span class="w">    </span><span class="nt">entity_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.10_00080192969d_temperature</span>
+<span class="w">    </span><span class="nt">internal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</section>
+<section id="define-the-fonts">
+<h3>Define the Fonts<a class="headerlink" href="#define-the-fonts" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>TrueType fonts are used. If you ever worked with fonts on microcontrollers you will love this!</p></li>
+<li><p>Save font files in <code class="docutils literal notranslate"><span class="pre">/config/esphome</span></code> folder where your ESPHome configuration is stored.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">.ttf</span></code> suffix must be lowercase and of course match your filename.</p></li>
+<li><p>Selection of fonts can be a little bit tricky for small sizes to look good. Experiment and share your findings in the comments below!</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">font</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;slkscr.ttf&#39;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">font1</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;BebasNeue-Regular.ttf&#39;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">font2</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">48</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;arial.ttf&#39;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">font3</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">14</span>
+</pre></div>
+</div>
+</section>
+<section id="display-definition">
+<h3>Display Definition<a class="headerlink" href="#display-definition" title="Permalink to this heading">¶</a></h3>
+<p>Now setup the communication to the display and start fill the screen with live data!</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">reset_pin</span></code> was not used in my hardware configuration as the display didn’t have that pin exposed.</p>
+<p>Note your <code class="docutils literal notranslate"><span class="pre">address</span></code> and <code class="docutils literal notranslate"><span class="pre">model</span></code> might be different, use the scan option to find the address of your display.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">i2c</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">scl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">  </span><span class="nt">scan</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssd1306_i2c</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SH1106</span><span class="nv"> </span><span class="s">128x64&quot;</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x3C</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Print &quot;Mitt Smarta Hus&quot; in top center.</span>
+<span class="w">      </span><span class="no">it.printf(64, 0, id(font1), TextAlign::TOP_CENTER, &quot;Mitt Smarta Hus&quot;);</span>
+
+<span class="w">      </span><span class="no">// Print time in HH:MM format</span>
+<span class="w">      </span><span class="no">it.strftime(0, 60, id(font2), TextAlign::BASELINE_LEFT, &quot;%H:%M&quot;, id(esptime).now());</span>
+
+<span class="w">      </span><span class="no">// Print inside temperature (from homeassistant sensor)</span>
+<span class="w">      </span><span class="no">if (id(inside_temperature).has_state()) {</span>
+<span class="w">        </span><span class="no">it.printf(127, 23, id(font3), TextAlign::TOP_RIGHT , &quot;%.1f°&quot;, id(inside_temperature).state);</span>
+<span class="w">      </span><span class="no">}</span>
+
+<span class="w">      </span><span class="no">// Print outside temperature (from homeassistant sensor)</span>
+<span class="w">      </span><span class="no">if (id(outside_temperature).has_state()) {</span>
+<span class="w">        </span><span class="no">it.printf(127, 60, id(font3), TextAlign::BASELINE_RIGHT , &quot;%.1f°&quot;, id(outside_temperature).state);</span>
+<span class="w">      </span><span class="no">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="rendering">
+<h2>Rendering<a class="headerlink" href="#rendering" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Alignment of text can use different reference points, for example <code class="docutils literal notranslate"><span class="pre">TOP_RIGHT</span></code> or <code class="docutils literal notranslate"><span class="pre">BASELINE_LEFT</span></code>, which all are defined in <a class="reference external" href="/api/display__buffer_8h.html">API Reference</a>.</p></li>
+<li><p>The property <code class="docutils literal notranslate"><span class="pre">has_state()</span></code> on a sensor is useful as it can take some seconds to get the data from Home Assistant and you may not want to display <code class="docutils literal notranslate"><span class="pre">Nan</span></code></p></li>
+<li><p>Refer to the rendering engine <a class="reference internal" href="../components/display/index.html#display-engine"><span class="std std-ref">Display Rendering Engine</span></a> for more features (it can draw lines and circles too!)</p></li>
+</ul>
+</section>
+<section id="add-a-text-based-sensor">
+<h2>Add a Text-Based Sensor<a class="headerlink" href="#add-a-text-based-sensor" title="Permalink to this heading">¶</a></h2>
+<p>Below follows an example that replaces the “Mitt smarta hem” top printout with the alarm status from the alarm component in Home Assistant.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">text_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">homeassistant</span>
+<span class="w">    </span><span class="nt">entity_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alarm_control_panel.my_alarm_system</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">State&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alarm_state</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssd1306_i2c</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SH1106</span><span class="nv"> </span><span class="s">128x64&quot;</span>
+<span class="w">    </span><span class="nt">reset_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x3C</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">// Print &quot;Alarm State: &lt;state&gt;&quot; in top center</span>
+<span class="w">      </span><span class="no">it.printf(64, 0, id(font1), TextAlign::TOP_CENTER, &quot;Alarm State: %s&quot;, id(alarm_state).state.c_str());</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../components/display/ssd1306.html"><span class="doc">SSD1306 OLED Display</span></a></p></li>
+<li><p><a class="reference internal" href="../components/display/index.html"><span class="doc">Display Component</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sensor/homeassistant.html"><span class="doc">Home Assistant Sensor</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/cookbook/display_time_temp_oled.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

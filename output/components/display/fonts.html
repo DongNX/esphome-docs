@@ -1,0 +1,379 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up fonts in ESPHome.">
+<meta itemprop="name" content="Font Renderer Component">
+<meta itemprop="description" content="Instructions for setting up fonts in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/format-font.png">
+<meta name="twitter:title" content="Font Renderer Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/format-font.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up fonts in ESPHome.">
+<meta property="og:title" content="Font Renderer Component">
+<meta property="og:image" content="https://esphome.io/_images/format-font.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up fonts in ESPHome.">
+
+    <title>Font Renderer Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/display/fonts.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ILI9xxx TFT LCD Series" href="ili9xxx.html" />
+    <link rel="prev" title="DIGO 7-Segment Display" href="digo.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Font Renderer Component</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Display Component</a> ➔</li>
+      <li>Font Renderer Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="font-renderer-component">
+<span id="display-fonts"></span><h1>Font Renderer Component<a class="headerlink" href="#font-renderer-component" title="Permalink to this heading">¶</a></h1>
+<p>ESPHome’s graphical rendering engine also has a powerful font drawer which integrates seamlessly into the system. You have the option to use <strong>any</strong> OpenType/TrueType (<code class="docutils literal notranslate"><span class="pre">.ttf</span></code>, <code class="docutils literal notranslate"><span class="pre">.otf</span></code>, <code class="docutils literal notranslate"><span class="pre">.woff</span></code>) font file at <strong>any</strong> size, as well as fixed-size <a class="reference external" href="https://en.wikipedia.org/wiki/Portable_Compiled_Format">PCF</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Glyph_Bitmap_Distribution_Format">BDF</a> bitmap fonts.</p>
+<p>These fonts can be used in ESPHome’s <a class="reference internal" href="index.html#display-engine"><span class="std std-ref">own rendering engine</span></a>.</p>
+<dl class="simple">
+<dt>To use fonts you can either</dt><dd><ul class="simple">
+<li><p>Just grab a <code class="docutils literal notranslate"><span class="pre">.ttf</span></code>, <code class="docutils literal notranslate"><span class="pre">.otf</span></code>, <code class="docutils literal notranslate"><span class="pre">.woff</span></code>, <code class="docutils literal notranslate"><span class="pre">.pcf</span></code>, or <code class="docutils literal notranslate"><span class="pre">.bdf</span></code> file from somewhere on the internet and place it, for example, inside a <code class="docutils literal notranslate"><span class="pre">fonts</span></code> folder next to your configuration file.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">gfonts://</span></code> short form to use Google Fonts directly.</p></li>
+<li><p>Load a font from a URL directly on build.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Next, create a <code class="docutils literal notranslate"><span class="pre">font:</span></code> section in your configuration:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Various ways to configure fonts</span>
+<span class="nt">font</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fonts/Comic</span><span class="nv"> </span><span class="s">Sans</span><span class="nv"> </span><span class="s">MS.ttf&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_font</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">    </span><span class="nt">bpp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fonts/tom-thumb.bdf&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tomthumb</span>
+
+<span class="w">    </span><span class="c1"># gfonts://family[@weight]</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;gfonts://Roboto&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roboto_20</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gfonts</span>
+<span class="w">      </span><span class="nt">family</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Roboto</span>
+<span class="w">      </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">900</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roboto_16</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;gfonts://Material+Symbols+Outlined&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">icons_50</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+<span class="w">    </span><span class="nt">glyphs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;</span><span class="se">\U0000e425</span><span class="s">&quot;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># mdi-timer</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fonts/RobotoCondensed-Regular.ttf&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roboto_special_28</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">28</span>
+<span class="w">    </span><span class="nt">bpp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">glyphs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span>
+<span class="w">      </span><span class="nv">a</span><span class="p p-Indicator">,</span><span class="nv">A</span><span class="p p-Indicator">,</span><span class="nv">á</span><span class="p p-Indicator">,</span><span class="nv">Á</span><span class="p p-Indicator">,</span><span class="nv">e</span><span class="p p-Indicator">,</span><span class="nv">E</span><span class="p p-Indicator">,</span><span class="nv">é</span><span class="p p-Indicator">,</span><span class="nv">É</span><span class="p p-Indicator">,</span>
+<span class="w">      </span><span class="nv">(</span><span class="p p-Indicator">,</span><span class="nv">)</span><span class="p p-Indicator">,</span><span class="nv">+</span><span class="p p-Indicator">,</span><span class="nv">-</span><span class="p p-Indicator">,</span><span class="nv">_</span><span class="p p-Indicator">,</span><span class="nv">.</span><span class="p p-Indicator">,</span><span class="nv">°</span><span class="p p-Indicator">,</span><span class="nv">•</span><span class="p p-Indicator">,</span><span class="nv">µ</span><span class="p p-Indicator">,</span>
+<span class="w">      </span><span class="s">&quot;</span><span class="se">\u0020</span><span class="s">&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="c1">#space</span>
+<span class="w">      </span><span class="s">&quot;</span><span class="se">\u0021</span><span class="s">&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="c1">#!</span>
+<span class="w">      </span><span class="s">&quot;</span><span class="se">\u0022</span><span class="s">&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="c1">#&quot;</span>
+<span class="w">      </span><span class="s">&quot;</span><span class="se">\u0027</span><span class="s">&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="c1">#&#39;</span>
+<span class="w">      </span><span class="p p-Indicator">]</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fonts/RobotoCondensed-Regular.ttf&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_font_with_icons</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">    </span><span class="nt">bpp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">extras</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fonts/materialdesignicons-webfont.ttf&quot;</span>
+<span class="w">        </span><span class="nt">glyphs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span>
+<span class="w">          </span><span class="s">&quot;</span><span class="se">\U000F02D1</span><span class="s">&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="c1"># mdi-heart</span>
+<span class="w">          </span><span class="s">&quot;</span><span class="se">\U000F05D4</span><span class="s">&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="c1"># mdi-airplane-landing</span>
+<span class="w">          </span><span class="p p-Indicator">]</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/IdreesInc/Monocraft/releases/download/v3.0/Monocraft.ttf&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_font</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/IdreesInc/Monocraft/releases/download/v3.0/Monocraft.ttf&quot;</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_font2</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span>
+
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p><strong>file</strong> (<strong>Required</strong>, string): The path (relative to where the .yaml file is) of the font
+file. You can also use the <code class="docutils literal notranslate"><span class="pre">gfonts://</span></code> short form to use Google Fonts, or use the below structure:</p>
+<ul class="simple">
+<li><p><strong>type</strong> (<strong>Required</strong>, string): Can be <code class="docutils literal notranslate"><span class="pre">local</span></code>, <code class="docutils literal notranslate"><span class="pre">gfonts</span></code> or <code class="docutils literal notranslate"><span class="pre">web</span></code>.</p></li>
+</ul>
+<p><strong>Local Fonts</strong>:</p>
+<ul class="simple">
+<li><p><strong>path</strong> (<strong>Required</strong>, string): The path (relative to where the .yaml file is) of the OpenType/TrueType or bitmap font file.</p></li>
+</ul>
+<p><strong>Google Fonts</strong>:</p>
+<blockquote>
+<div><p>Each Google Font will be downloaded once and cached for future use. This can also be used to download Material
+Symbols or Icons as in the example above.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>family</strong> (<strong>Required</strong>, string): The name of the Google Font family.</p></li>
+<li><p><strong>italic</strong> (<em>Optional</em>, boolean): Whether the font should be italic.</p></li>
+<li><dl class="simple">
+<dt><strong>weight</strong> (<em>Optional</em>, enum): The weight of the font. Can be either the text name or the integer value:</dt><dd><ul>
+<li><p><strong>thin</strong>: 100</p></li>
+<li><p><strong>extra-light</strong>: 200</p></li>
+<li><p><strong>light</strong>: 300</p></li>
+<li><p><strong>regular</strong>: 400 (<strong>default</strong>)</p></li>
+<li><p><strong>medium</strong>: 500</p></li>
+<li><p><strong>semi-bold</strong>: 600</p></li>
+<li><p><strong>bold</strong>: 700</p></li>
+<li><p><strong>extra-bold</strong>: 800</p></li>
+<li><p><strong>black</strong>: 900</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p><strong>Web Fonts</strong>:</p>
+<ul class="simple">
+<li><p><strong>url</strong> (<strong>Required</strong>, string): The URL of the TrueType or bitmap font file.</p></li>
+</ul>
+</li>
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID with which you will be able to reference the font later
+in your display code.</p></li>
+<li><p><strong>size</strong> (<em>Optional</em>, int): The size of the font in pt (not pixel!).
+If you want to use the same font in different sizes, create two font objects. Note: <em>size</em> is ignored
+by bitmap fonts. Defaults to <code class="docutils literal notranslate"><span class="pre">20</span></code>.</p></li>
+<li><p><strong>bpp</strong> (<em>Optional</em>, int): The bit depth of the rendered font from OpenType/TrueType, for anti-aliasing. Can be <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">4</span></code>, <code class="docutils literal notranslate"><span class="pre">8</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>glyphs</strong> (<em>Optional</em>, list): A list of characters you plan to use. Only the characters you specify
+here will be compiled into the binary. Adjust this if you need some special characters or want to
+reduce the size of the binary if you don’t plan to use some glyphs. You can also specify glyphs by their codepoint (see below). Defaults to <code class="docutils literal notranslate"><span class="pre">!&quot;%()+=,-_.:°/?0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ</span> <span class="pre">abcdefghijklmnopqrstuvwxyz</span></code>.</p></li>
+<li><p><strong>extras</strong> (<em>Optional</em>, enum): A list of font glyph configurations you’d like to include within this font, from other OpenType/TrueType files (eg. icons from other font, but at the same size as the main font):</p>
+<ul class="simple">
+<li><p><strong>file</strong> (<strong>Required</strong>, string): The path of the font file with the extra glyphs.</p></li>
+<li><p><strong>glyphs</strong> (<strong>Required</strong>, list): A list of glyphs you want to include. Can’t repeat the same glyph codepoint if it was declared in the level above.</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>OpenType/TrueType font files offer icons at codepoints far from what’s reachable on a standard keyboard, for these it’s needed
+to specify the unicode codepoint of the glyph as a hex address escaped with <code class="docutils literal notranslate"><span class="pre">\u</span></code> or <code class="docutils literal notranslate"><span class="pre">\U</span></code>.</p>
+<ul class="simple">
+<li><p>Code points up to <code class="docutils literal notranslate"><span class="pre">0xFFFF</span></code> are encoded like <code class="docutils literal notranslate"><span class="pre">\uE6E8</span></code>. Lowercase <code class="docutils literal notranslate"><span class="pre">\u</span></code> and exactly 4 hexadecimal digits.</p></li>
+<li><p>Code points above <code class="docutils literal notranslate"><span class="pre">0xFFFF</span></code> are encoded like <code class="docutils literal notranslate"><span class="pre">\U0001F5E9</span></code>. Capital <code class="docutils literal notranslate"><span class="pre">\U</span></code> and exactly 8 hexadecimal digits.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">extras</span></code> section only supports OpenType/TrueType files, <code class="docutils literal notranslate"><span class="pre">size</span></code> and <code class="docutils literal notranslate"><span class="pre">bpp</span></code> will be the same as the above level. This will allow printing icons alongside the characters in the same string, like <code class="docutils literal notranslate"><span class="pre">I</span> <span class="pre">\uF004</span> <span class="pre">You</span> <span class="pre">\uF001</span></code>.</p>
+<p>Many font sizes with multiple glyphs at high bit depths will increase the binary size considerably. Make your choices carefully.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To use fonts you will need to have the python <code class="docutils literal notranslate"><span class="pre">pillow</span></code> package installed, as ESPHome uses that package
+to translate the OpenType/TrueType and bitmap font files into an internal format. If you’re running this as a Home Assistant add-on or with the official ESPHome docker image, it should already be installed. Otherwise you need
+to install it using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;pillow==10.2.0&quot;</span></code>.</p>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/api/display__buffer_8h.html">API Reference</a></p></li>
+<li><p><a class="reference internal" href="index.html#display-engine"><span class="std std-ref">Display Rendering Engine</span></a></p></li>
+<li><p><a class="reference external" href="https://pictogrammers.com/library/mdi/">MDI cheatsheet</a></p></li>
+<li><p><a class="reference external" href="https://github.com/Pictogrammers/pictogrammers.github.io/tree/main/%40mdi/font/">MDI font repository</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/display/fonts.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

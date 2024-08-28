@@ -1,0 +1,752 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Thermostat climate controllers with ESPHome.">
+<meta itemprop="name" content="Thermostat Climate Controller">
+<meta itemprop="description" content="Instructions for setting up Thermostat climate controllers with ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/air-conditioner.png">
+<meta name="twitter:title" content="Thermostat Climate Controller">
+<meta name="twitter:image:src" content="https://esphome.io/_images/air-conditioner.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Thermostat climate controllers with ESPHome.">
+<meta property="og:title" content="Thermostat Climate Controller">
+<meta property="og:image" content="https://esphome.io/_images/air-conditioner.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Thermostat climate controllers with ESPHome.">
+
+    <title>Thermostat Climate Controller &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/climate/thermostat.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Tuya Climate" href="tuya.html" />
+    <link rel="prev" title="PID Climate" href="pid.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Thermostat Climate Controller</a><ul>
+<li><a class="reference internal" href="#controller-behavior-and-hysteresis">Controller Behavior and Hysteresis</a></li>
+<li><a class="reference internal" href="#important-terminology">Important Terminology</a></li>
+<li><a class="reference internal" href="#configuration-variables">Configuration Variables:</a><ul>
+<li><a class="reference internal" href="#heating-and-cooling-actions">Heating and Cooling Actions</a></li>
+<li><a class="reference internal" href="#heating-and-cooling-modes">Heating and Cooling Modes</a></li>
+<li><a class="reference internal" href="#fan-mode-actions">Fan Mode Actions</a></li>
+<li><a class="reference internal" href="#swing-mode-actions">Swing Mode Actions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#advanced-configuration-behavior">Advanced Configuration/Behavior:</a><ul>
+<li><a class="reference internal" href="#set-point-options-behavior">Set Point Options/Behavior</a></li>
+<li><a class="reference internal" href="#presets">Presets</a></li>
+<li><a class="reference internal" href="#default-preset">Default Preset</a></li>
+<li><a class="reference internal" href="#additional-actions-behavior">Additional Actions/Behavior</a></li>
+<li><a class="reference internal" href="#hysteresis-values">Hysteresis Values</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bang-bang-vs-thermostat">Bang-Bang vs. Thermostat</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Climate Component</a> ➔</li>
+      <li>Thermostat Climate Controller</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="thermostat-climate-controller">
+<h1>Thermostat Climate Controller<a class="headerlink" href="#thermostat-climate-controller" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">thermostat</span></code> climate platform allows you to control a climate control system in much the same manner as a
+physical thermostat. Its operation is similar to the <a class="reference internal" href="bang_bang.html"><span class="doc">Bang-Bang</span></a> controller; a sensor measures a value
+(the air temperature) and the controller will try to keep this value within a range defined by the set point(s). To do this,
+the controller can activate devices like a heating unit and/or a cooling unit to change the value observed by the sensor.
+When configured for both heating and cooling, it is essentially two <a class="reference internal" href="bang_bang.html"><span class="doc">Bang-Bang</span></a> controllers in one; it
+differs, however, in that interaction with the thermostat component is nearly identical to that of a real thermostat.</p>
+<p>This component can operate in one of two ways:</p>
+<ul class="simple">
+<li><p><strong>Single-point</strong>: A single threshold (set point) is defined; cooling may be activated when the observed temperature
+exceeds the set point <strong>or</strong> heating may be activated when the observed temperature drops below the set point; that is,
+the controller can only raise the temperature or lower the temperature. It cannot do both in this mode.</p></li>
+<li><p><strong>Dual-point</strong>: Two thresholds (set points) are defined; cooling is activated when the observed temperature exceeds the
+upper set point while heating is activated when the observed temperature drops below the lower set point; in other words,
+the controller is able to both raise and lower the temperature as required.</p></li>
+</ul>
+<p>This component/controller automatically determines which mode it should operate in based on what <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">actions</span></a>
+are configured – more on this in a moment. Two parameters define the set points; they are <code class="docutils literal notranslate"><span class="pre">target_temperature_low</span></code> and
+<code class="docutils literal notranslate"><span class="pre">target_temperature_high</span></code>. In single-point mode, however, only one is used. The set point(s) may be adjusted through the
+front-end user interface. The screenshot below illustrates a thermostat controller in dual-point mode, where two set points
+are available.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/climate-ui.png"><img alt="../../_images/climate-ui.png" src="../../_images/climate-ui.png" style="width: 60.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Dual-setpoint climate UI</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This component works by triggering a number of <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">actions</span></a> as required to keep the observed
+temperature above/below/within the target range as defined by the set point(s). In general, when the observed temperature
+drops below <code class="docutils literal notranslate"><span class="pre">target_temperature_low</span></code> the controller will trigger the <code class="docutils literal notranslate"><span class="pre">heat_action</span></code> to activate heating. When the observed
+temperature exceeds <code class="docutils literal notranslate"><span class="pre">target_temperature_high</span></code>  the controller will trigger the <code class="docutils literal notranslate"><span class="pre">cool_action</span></code> or the <code class="docutils literal notranslate"><span class="pre">fan_only_action</span></code>
+(as determined by the climate mode) to activate cooling. When the temperature has reached a point within the desired range, the
+controller will trigger the <code class="docutils literal notranslate"><span class="pre">idle_action</span></code> to stop heating/cooling. Please see the next section for more detail.</p>
+<p>A number of fan control modes are built into the climate/thermostat interface in Home Assistant; this component may also be
+configured to trigger <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">actions</span></a> based on the entire range (at the time this document was written) of fan
+modes that Home Assistant offers.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example dual-point configuration entry</span>
+<span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thermostat</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Thermostat</span><span class="nv"> </span><span class="s">Climate</span><span class="nv"> </span><span class="s">Controller&quot;</span>
+<span class="w">    </span><span class="nt">sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_temperature_sensor</span>
+<span class="w">    </span><span class="nt">min_cooling_off_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300s</span>
+<span class="w">    </span><span class="nt">min_cooling_run_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300s</span>
+<span class="w">    </span><span class="nt">min_heating_off_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300s</span>
+<span class="w">    </span><span class="nt">min_heating_run_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300s</span>
+<span class="w">    </span><span class="nt">min_idle_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
+<span class="w">    </span><span class="nt">cool_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">air_cond</span>
+<span class="w">    </span><span class="nt">heat_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">heater</span>
+<span class="w">    </span><span class="nt">idle_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">air_cond</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">heater</span>
+<span class="w">    </span><span class="nt">default_preset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Home</span>
+<span class="w">    </span><span class="nt">preset</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Home</span>
+<span class="w">        </span><span class="nt">default_target_temperature_low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20 °C</span>
+<span class="w">        </span><span class="nt">default_target_temperature_high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22 °C</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example single-point configuration entry (for heating only)</span>
+<span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thermostat</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Thermostat</span><span class="nv"> </span><span class="s">Climate</span><span class="nv"> </span><span class="s">Controller&quot;</span>
+<span class="w">    </span><span class="nt">sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_temperature_sensor</span>
+<span class="w">    </span><span class="nt">min_heating_off_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300s</span>
+<span class="w">    </span><span class="nt">min_heating_run_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300s</span>
+<span class="w">    </span><span class="nt">min_idle_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
+<span class="w">    </span><span class="nt">heat_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">heater</span>
+<span class="w">    </span><span class="nt">idle_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">heater</span>
+<span class="w">    </span><span class="nt">default_preset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Home</span>
+<span class="w">    </span><span class="nt">preset</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Home</span>
+<span class="w">        </span><span class="nt">default_target_temperature_low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20 °C</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example single-point configuration entry (for cooling only)</span>
+<span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thermostat</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Thermostat</span><span class="nv"> </span><span class="s">Climate</span><span class="nv"> </span><span class="s">Controller&quot;</span>
+<span class="w">    </span><span class="nt">sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_temperature_sensor</span>
+<span class="w">    </span><span class="nt">min_cooling_off_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300s</span>
+<span class="w">    </span><span class="nt">min_cooling_run_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300s</span>
+<span class="w">    </span><span class="nt">min_idle_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
+<span class="w">    </span><span class="nt">cool_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">air_cond</span>
+<span class="w">    </span><span class="nt">idle_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">air_cond</span>
+<span class="w">    </span><span class="nt">default_preset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Home</span>
+<span class="w">    </span><span class="nt">preset</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Home</span>
+<span class="w">        </span><span class="nt">default_target_temperature_high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22 °C</span>
+</pre></div>
+</div>
+<section id="controller-behavior-and-hysteresis">
+<h2>Controller Behavior and Hysteresis<a class="headerlink" href="#controller-behavior-and-hysteresis" title="Permalink to this heading">¶</a></h2>
+<p>In addition to the set points, hysteresis values determine how far the temperature may vary from the set point value(s)
+before an <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">action</span></a> (cooling, heating, etc.) is triggered. They each default to 0.5 °C. They are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cool_deadband</span></code>: The minimum temperature differential (temperature above the set point) before <strong>engaging</strong> cooling</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cool_overrun</span></code>: The minimum temperature differential (cooling beyond the set point) before <strong>disengaging</strong> cooling</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">heat_deadband</span></code>: The minimum temperature differential (temperature below the set point) before <strong>engaging</strong> heat</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">heat_overrun</span></code>: The minimum temperature differential (heating beyond the set point) before <strong>disengaging</strong> heat</p></li>
+</ul>
+<p>A question that often surfaces about this component is, “What is the expected behavior?” Let’s quickly discuss
+<em>exactly when</em> the configured actions are called by the controller.</p>
+<p>Consider the low set point (the one that typically activates heating) for a moment, and assume it is set to a common room
+temperature of 22 °C. Let’s assume <code class="docutils literal notranslate"><span class="pre">heat_deadband</span></code> is set to 0.4 °C while <code class="docutils literal notranslate"><span class="pre">heat_overrun</span></code> is set to 0.6 °C. In this case,
+the controller will allow the temperature to drop as low as the set point’s value (22 °C) <em>minus</em> the <code class="docutils literal notranslate"><span class="pre">heat_deadband</span></code>
+value (0.4 °C), or 21.6 °C, before calling <code class="docutils literal notranslate"><span class="pre">heat_action</span></code> to activate heating.</p>
+<p>After heating has been activated, it will remain active until the observed temperature reaches the set point (22 °C) <em>plus</em>
+the <code class="docutils literal notranslate"><span class="pre">heat_overrun</span></code> value (0.6 °C), or 22.6 °C. Once this temperature is reached, <code class="docutils literal notranslate"><span class="pre">idle_action</span></code> will be called to deactivate
+heating.</p>
+<p>The same behavior applies to the high set point, although the behavior is reversed in a sense; given an upper set point of
+23 °C, <code class="docutils literal notranslate"><span class="pre">cool_deadband</span></code> set to 0.3 °C and <code class="docutils literal notranslate"><span class="pre">cool_overrun</span></code> set to 0.7 °C, <code class="docutils literal notranslate"><span class="pre">cool_action</span></code> would be called at 23.3 °C and
+<code class="docutils literal notranslate"><span class="pre">idle_action</span></code> would not be called until the temperature is reduced to 22.3 °C.</p>
+</section>
+<section id="important-terminology">
+<h2>Important Terminology<a class="headerlink" href="#important-terminology" title="Permalink to this heading">¶</a></h2>
+<p>Before we get into more configuration detail, let’s take a step back and talk about the word “action”; we
+need to carefully consider the context of the word in the upcoming section, as it has a double meaning and
+will otherwise lead to some ambiguity.</p>
+<ul class="simple">
+<li><p><strong>ESPHome Action</strong>: A task the ESPHome application performs as requested, such as
+turning on a switch. See <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>.</p></li>
+<li><p><strong>Climate Action</strong>: What the climate device is actively doing</p></li>
+<li><p><strong>Climate Mode</strong>: What the climate device should (or should not) do</p></li>
+</ul>
+<p>We’ll call out which definition “action” we are referring to as we describe them below – read carefully!</p>
+<p>With respect to climate control, it is important to understand the subtle difference between the terms
+“action” and “mode” as they <em>are not the same thing</em>:</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><strong>Heat Mode</strong>: The climate device may heat but may <strong>not</strong> cool.</p></li>
+<li><p><strong>Heat Action</strong>: The climate device is <em>actively distributing heated air</em> into the dwelling.</p></li>
+</ul>
+<p>Got all that? Great. Let’s take a closer look at some configuration.</p>
+</section>
+<section id="configuration-variables">
+<h2>Configuration Variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<p>The thermostat controller uses the sensor to determine whether it should heat or cool.</p>
+<ul class="simple">
+<li><p><strong>sensor</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The sensor that is used to measure the current temperature.</p></li>
+<li><p><strong>humidity_sensor</strong> (<strong>Optional</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): If specified, this sensor is used to measure the current humidity.
+This is used for information only and does not influence temperature control.</p></li>
+</ul>
+<section id="heating-and-cooling-actions">
+<h3>Heating and Cooling Actions<a class="headerlink" href="#heating-and-cooling-actions" title="Permalink to this heading">¶</a></h3>
+<p>These are triggered when the climate control <strong>action</strong> is changed by the thermostat controller. Here,
+“action” takes on both meanings described above, as these are both climate actions <em>and</em> ESPHome
+<a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">actions</span></a>. These should be used to activate heating, cooling, etc. devices.</p>
+<ul class="simple">
+<li><p><strong>idle_action</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device should enter its idle state (not cooling, not heating).</p></li>
+<li><p><strong>heat_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device should enter heating mode to increase the current temperature.</p></li>
+<li><p><strong>supplemental_heating_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action
+to call when the climate device should activate supplemental heating to (more aggressively)
+increase the current temperature. <em>This action is called repeatedly at an interval defined by</em>
+<code class="docutils literal notranslate"><span class="pre">max_heating_run_time</span></code> <em>(see below).</em></p></li>
+<li><p><strong>cool_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device should enter cooling mode to decrease the current temperature.</p></li>
+<li><p><strong>supplemental_cooling_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action
+to call when the climate device should activate supplemental cooling to (more aggressively)
+decrease the current temperature. <em>This action is called repeatedly at an interval defined by</em>
+<code class="docutils literal notranslate"><span class="pre">max_cooling_run_time</span></code> <em>(see below).</em></p></li>
+<li><p><strong>dry_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device should perform its drying (dehumidification) action. The thermostat
+controller does not trigger this action; it is invoked by <code class="docutils literal notranslate"><span class="pre">dry_mode</span></code> (see below).</p></li>
+<li><p><strong>fan_only_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device should activate its fan only (but does not heat or cool). When <code class="docutils literal notranslate"><span class="pre">fan_only_cooling</span></code>
+is set to <code class="docutils literal notranslate"><span class="pre">false</span></code>, the thermostat controller immediately triggers this action when set to
+<code class="docutils literal notranslate"><span class="pre">fan_only_mode</span></code>; however, when <code class="docutils literal notranslate"><span class="pre">fan_only_cooling</span></code> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, this action is called
+based on the upper target temperature (similar to <code class="docutils literal notranslate"><span class="pre">cool_action</span></code> above).</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-climate"><span class="std std-ref">Climate</span></a>.</p></li>
+</ul>
+<p><strong>At least one of</strong> <code class="docutils literal notranslate"><span class="pre">cool_action</span></code>, <code class="docutils literal notranslate"><span class="pre">fan_only_action</span></code>, <code class="docutils literal notranslate"><span class="pre">heat_action</span></code>, <strong>and</strong> <code class="docutils literal notranslate"><span class="pre">dry_action</span></code>
+<strong>must be specified.</strong></p>
+<p>If only one of <code class="docutils literal notranslate"><span class="pre">cool_action</span></code>, <code class="docutils literal notranslate"><span class="pre">fan_only_action</span></code>, <code class="docutils literal notranslate"><span class="pre">heat_action</span></code>, and <code class="docutils literal notranslate"><span class="pre">dry_action</span></code> is specified,
+the controller will configure itself to operate in single-point mode and, as such, Home Assistant will
+display the single-point climate user interface for the device.</p>
+</section>
+<section id="heating-and-cooling-modes">
+<h3>Heating and Cooling Modes<a class="headerlink" href="#heating-and-cooling-modes" title="Permalink to this heading">¶</a></h3>
+<p>These are triggered when the climate control <strong>mode</strong> is changed. Note the absence of “action” in the
+parameter name here – these are still ESPHome <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">actions</span></a>, however they are <em>not</em>
+climate actions. Instead, they are climate <em>modes</em>. These <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">actions</span></a> are useful
+in that they could be used, for example, to toggle a group of LEDs on and/or off to provide a visual
+indication of the current climate mode.</p>
+<ul class="simple">
+<li><p><strong>auto_mode</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device is placed into “auto” mode (it may both cool and heat as required).</p></li>
+<li><p><strong>off_mode</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device is placed into “off” mode (it is completely disabled).</p></li>
+<li><p><strong>heat_mode</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device is placed into heat mode (it may heat as required, but not cool).</p></li>
+<li><p><strong>cool_mode</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device is placed into cool mode (it may cool as required, but not heat).</p></li>
+<li><p><strong>dry_mode</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device is placed into dry mode (for dehumidification).</p></li>
+<li><p><strong>fan_only_mode</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device is placed into fan only mode (it may not heat or cool, but will activate
+its fan as needed based on the upper target temperature value).</p></li>
+</ul>
+<p><strong>The above actions are not to be used to activate cooling or heating devices!</strong>
+See the previous section for those.</p>
+</section>
+<section id="fan-mode-actions">
+<h3>Fan Mode Actions<a class="headerlink" href="#fan-mode-actions" title="Permalink to this heading">¶</a></h3>
+<p>These are triggered when the climate control fan mode is changed. These are ESPHome <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">actions</span></a>.
+These should be used to control the fan only, if available.</p>
+<ul class="simple">
+<li><p><strong>fan_mode_auto_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan
+should be set to “auto” mode (the fan is controlled by the climate control system as required).</p></li>
+<li><p><strong>fan_mode_on_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan
+should run continuously.</p></li>
+<li><p><strong>fan_mode_off_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan
+should never run.</p></li>
+<li><p><strong>fan_mode_low_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan
+should run at its minimum speed.</p></li>
+<li><p><strong>fan_mode_medium_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan
+should run at an intermediate speed.</p></li>
+<li><p><strong>fan_mode_high_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan
+should run at its maximum speed.</p></li>
+<li><p><strong>fan_mode_middle_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan
+should direct its airflow at an intermediate area.</p></li>
+<li><p><strong>fan_mode_focus_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan
+should direct its airflow at a specific area.</p></li>
+<li><p><strong>fan_mode_diffuse_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan
+should direct its airflow over a broad area.</p></li>
+<li><p><strong>fan_mode_quiet_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan
+should run at quiet speed.</p></li>
+</ul>
+</section>
+<section id="swing-mode-actions">
+<h3>Swing Mode Actions<a class="headerlink" href="#swing-mode-actions" title="Permalink to this heading">¶</a></h3>
+<p>These are triggered when the climate control swing mode is changed. These are ESPHome <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">actions</span></a>.
+These should be used to control the fan only, if available.</p>
+<ul class="simple">
+<li><p><strong>swing_off_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan should
+remain in a stationary position.</p></li>
+<li><p><strong>swing_horizontal_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan
+should oscillate in a horizontal direction.</p></li>
+<li><p><strong>swing_vertical_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan
+should oscillate in a vertical direction.</p></li>
+<li><p><strong>swing_both_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the fan
+should oscillate in horizontal and vertical directions.</p></li>
+</ul>
+</section>
+</section>
+<section id="advanced-configuration-behavior">
+<h2>Advanced Configuration/Behavior:<a class="headerlink" href="#advanced-configuration-behavior" title="Permalink to this heading">¶</a></h2>
+<section id="set-point-options-behavior">
+<h3>Set Point Options/Behavior<a class="headerlink" href="#set-point-options-behavior" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>set_point_minimum_differential</strong> (<em>Optional</em>, float): For dual-point/dual-function systems, the minimum
+required temperature difference between the heat and cool set points. Defaults to 0.5 °C.</p></li>
+<li><p><strong>supplemental_cooling_delta</strong> (<em>Required with</em> <code class="docutils literal notranslate"><span class="pre">supplemental_cooling_action</span></code>, float): When the temperature
+difference between the upper set point and the current temperature exceeds this value,
+<code class="docutils literal notranslate"><span class="pre">supplemental_cooling_action</span></code> will be called immediately.</p></li>
+<li><p><strong>supplemental_heating_delta</strong> (<em>Required with</em> <code class="docutils literal notranslate"><span class="pre">supplemental_heating_action</span></code>, float): When the temperature
+difference between the lower set point and the current temperature exceeds this value,
+<code class="docutils literal notranslate"><span class="pre">supplemental_heating_action</span></code> will be called immediately.</p></li>
+</ul>
+</section>
+<section id="presets">
+<span id="thermostat-preset"></span><h3>Presets<a class="headerlink" href="#presets" title="Permalink to this heading">¶</a></h3>
+<p>Presets allow you to define a combination of set points, climate, fan, and swing modes that can be recalled from
+the front end (Home Assistant) as a single operation for quick and easy access. This can simplify the user
+experience and automation.</p>
+<ul class="simple">
+<li><p><strong>preset</strong>: (<em>Optional</em>, list)</p>
+<ul>
+<li><p><strong>name</strong> (<em>Required</em>, string): Name of the preset. If this is one of the <em>standard</em> presets (<code class="docutils literal notranslate"><span class="pre">eco</span></code>, <code class="docutils literal notranslate"><span class="pre">away</span></code>,
+<code class="docutils literal notranslate"><span class="pre">boost</span></code>, <code class="docutils literal notranslate"><span class="pre">comfort</span></code>, <code class="docutils literal notranslate"><span class="pre">home</span></code>, <code class="docutils literal notranslate"><span class="pre">sleep</span></code>, or <code class="docutils literal notranslate"><span class="pre">activity</span></code>) it is considered a <em>standard</em> preset. Any other
+string will make the preset a <em>custom</em> preset. <em>Standard</em> and <em>custom</em> presets are functionally equivalent,
+the only difference is that when switching the mode via <a class="reference internal" href="index.html#climate-control-action"><span class="std std-ref">climate.control Action</span></a>
+you will need to use the <cite>preset</cite> or <cite>custom_preset</cite> property as appropriate. The Home Assistant
+<cite>climate.set_preset_mode</cite> service treats them identically</p></li>
+<li><p><strong>default_target_temperature_low</strong> (<em>Optional</em>, float): The default low target temperature when switching to
+this preset</p></li>
+<li><p><strong>default_target_temperature_high</strong> (<em>Optional</em>, float): The default high target temperature when switching
+to this preset.</p></li>
+<li><p><strong>mode</strong> (<em>Optional</em>, climate mode): The mode the thermostat should switch to when this preset is activated.
+If not specified, the thermostat’s mode will remain unchanged when the preset is activated. One of:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">heat_cool</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cool</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">heat</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dry</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fan_only</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auto</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>fan_mode</strong> (<em>Optional</em>, climate fan mode): The fan mode the thermostat should switch to when this preset
+is activated. If not specified, the thermostat’s fan mode will remain unchanged when the preset is activated.
+One of:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">on</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">off</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auto</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">low</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">medium</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">high</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">middle</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">focus</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">diffuse</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quiet</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>swing_mode</strong> (<em>Optional</em>, climate swing mode): The fan swing mode the thermostat should switch to when this
+preset is activated. If not specified, the thermostat’s fan swing mode will remain unchanged when the preset
+is activated. One of:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">off</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">both</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">horizontal</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vertical</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example climate controller with presets</span>
+<span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thermostat</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Thermostat</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">Presets&quot;</span>
+<span class="w">    </span><span class="nt">preset</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># Standard Preset</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sleep</span>
+<span class="w">        </span><span class="nt">default_target_temperature_low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">17</span>
+<span class="w">        </span><span class="nt">default_target_temperature_high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">26</span>
+<span class="w">        </span><span class="nt">fan_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LOW</span>
+<span class="w">        </span><span class="nt">swing_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF</span>
+<span class="w">      </span><span class="c1"># Custom preset</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A custom preset</span>
+<span class="w">        </span><span class="nt">default_target_temperature_low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">21</span>
+<span class="w">        </span><span class="nt">default_target_temperature_high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">23</span>
+<span class="w">        </span><span class="nt">fan_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HIGH</span>
+<span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HEAT_COOL</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>preset_change</strong>: (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the preset is changed. This
+will be called either when a user changes the mode through the Home Assistant UI or through a call to <code class="docutils literal notranslate"><span class="pre">climate.control</span></code></p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example climate controller with preset and change action</span>
+<span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thermostat</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Thermostat</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">Presets</span><span class="nv"> </span><span class="s">Actions&quot;</span>
+<span class="w">    </span><span class="nt">preset</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sleep</span>
+<span class="w">        </span><span class="nt">default_target_temperature_low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">17</span>
+<span class="w">        </span><span class="nt">default_target_temperature_high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">26</span>
+<span class="w">        </span><span class="nt">fan_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LOW</span>
+<span class="w">        </span><span class="nt">swing_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF</span>
+<span class="w">    </span><span class="nt">preset_change</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Preset has been changed!</span>
+</pre></div>
+</div>
+</section>
+<section id="default-preset">
+<h3>Default Preset<a class="headerlink" href="#default-preset" title="Permalink to this heading">¶</a></h3>
+<p>These configuration items determine default values the thermostat controller should use when it starts.</p>
+<ul>
+<li><p><strong>default_preset</strong> (<em>Optional</em>, string): The name of the preset to use by default. Must match a preset
+as per <a class="reference internal" href="#thermostat-preset"><span class="std std-ref">preset</span></a>.</p></li>
+<li><p><strong>on_boot_restore_from</strong>: (<em>Optional</em>, on_boot_restore_from): Controls what the thermostat will do when
+it first boots. One of:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">memory</span></code> (default): The thermostat will restore any settings from last time it was running.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">default_preset</span></code>: The thermostat will always switch to the preset specified by <strong>default_preset</strong></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can specify a <code class="docutils literal notranslate"><span class="pre">default_preset</span></code> and set <code class="docutils literal notranslate"><span class="pre">on_boot_restore_from</span></code> to <code class="docutils literal notranslate"><span class="pre">memory</span></code>. In this mode when
+the settings from last boot cannot be retrieved, for any reason, then the specified <code class="docutils literal notranslate"><span class="pre">default_preset</span></code>
+will be applied.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># This climate controller, on first boot, will switch to &quot;My Startup Preset&quot;. Subsequent boots would</span>
+<span class="c1"># restore to whatever mode it was in prior to the reboot</span>
+<span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thermostat</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;From</span><span class="nv"> </span><span class="s">Memory</span><span class="nv"> </span><span class="s">Thermostat&quot;</span>
+<span class="w">    </span><span class="nt">default_preset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Startup Preset</span>
+<span class="w">    </span><span class="nt">on_boot_restore_from</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">memory</span>
+<span class="w">    </span><span class="nt">preset</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Startup Preset</span>
+<span class="w">        </span><span class="nt">default_target_temperature_low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">17</span>
+<span class="w">        </span><span class="nt">default_target_temperature_high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">26</span>
+<span class="w">        </span><span class="nt">fan_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF</span>
+<span class="w">        </span><span class="nt">swing_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF</span>
+<span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF</span>
+<span class="w">      </span><span class="c1"># Custom preset</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A custom preset</span>
+<span class="w">        </span><span class="nt">default_target_temperature_low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">21</span>
+<span class="w">        </span><span class="nt">default_target_temperature_high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">23</span>
+<span class="w">        </span><span class="nt">fan_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HIGH</span>
+<span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HEAT_COOL</span>
+
+<span class="c1"># This climate controller will always switch to &quot;Every Start Preset&quot;</span>
+<span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thermostat</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Default</span><span class="nv"> </span><span class="s">Preset</span><span class="nv"> </span><span class="s">Thermostat&quot;</span>
+<span class="w">    </span><span class="nt">default_preset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Every Start Preset</span>
+<span class="w">    </span><span class="nt">on_boot_restore_from</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default_preset</span>
+<span class="w">    </span><span class="nt">preset</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Every Start Preset</span>
+<span class="w">        </span><span class="nt">default_target_temperature_low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">17</span>
+<span class="w">        </span><span class="nt">default_target_temperature_high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">26</span>
+<span class="w">        </span><span class="nt">fan_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF</span>
+<span class="w">        </span><span class="nt">swing_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF</span>
+<span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OFF</span>
+<span class="w">      </span><span class="c1"># Custom preset</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A custom preset</span>
+<span class="w">        </span><span class="nt">default_target_temperature_low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">21</span>
+<span class="w">        </span><span class="nt">default_target_temperature_high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">23</span>
+<span class="w">        </span><span class="nt">fan_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HIGH</span>
+<span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HEAT_COOL</span>
+</pre></div>
+</div>
+</section>
+<section id="additional-actions-behavior">
+<h3>Additional Actions/Behavior<a class="headerlink" href="#additional-actions-behavior" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>target_temperature_change_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when the
+thermostat’s target temperature(s) is/are changed.</p></li>
+<li><p><strong>startup_delay</strong> (<em>Optional</em>, boolean): If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, when ESPHome starts, <code class="docutils literal notranslate"><span class="pre">min_cooling_off_time</span></code>,
+<code class="docutils literal notranslate"><span class="pre">min_fanning_off_time</span></code>, and <code class="docutils literal notranslate"><span class="pre">min_heating_off_time</span></code> must elapse before each respective action may be invoked.
+This option provides a way to prevent damage to equipment (for example) disrupted by a power interruption.
+Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>fan_only_action_uses_fan_mode_timer</strong> (<em>Optional</em>, boolean): If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, the <code class="docutils literal notranslate"><span class="pre">fan_only_action</span></code> will
+share the same delay timer used for all <code class="docutils literal notranslate"><span class="pre">fan_mode</span></code> actions. The minimum fan switching delay is then determined
+by <code class="docutils literal notranslate"><span class="pre">min_fan_mode_switching_time</span></code> (see below). This is useful when <code class="docutils literal notranslate"><span class="pre">fan_only_action</span></code> controls the same physical
+fan as the <code class="docutils literal notranslate"><span class="pre">fan_mode</span></code> actions, common in forced-air HVAC systems.</p></li>
+<li><p><strong>fan_only_cooling</strong> (<em>Optional</em>, boolean): If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, when in the <code class="docutils literal notranslate"><span class="pre">fan_only_mode</span></code> climate mode,
+the <code class="docutils literal notranslate"><span class="pre">fan_only_action</span></code> will only be called when the observed temperature exceeds the upper set point plus
+<code class="docutils literal notranslate"><span class="pre">cool_deadband</span></code>. When set to <code class="docutils literal notranslate"><span class="pre">false</span></code> (the default), <code class="docutils literal notranslate"><span class="pre">fan_only_action</span></code> is called immediately when
+<code class="docutils literal notranslate"><span class="pre">fan_only_mode</span></code> is activated, regardless of the current temperature or set points. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>fan_with_cooling</strong> (<em>Optional</em>, boolean): If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">fan_only_action</span></code> will be called whenever
+<code class="docutils literal notranslate"><span class="pre">cool_action</span></code> is called. This is useful for forced-air systems where the fan typically runs with cooling.
+Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>fan_with_heating</strong> (<em>Optional</em>, boolean): If set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">fan_only_action</span></code> will be called whenever
+<code class="docutils literal notranslate"><span class="pre">heat_action</span></code> is called. This is useful for forced-air systems where the fan typically runs with heating.
+Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>max_cooling_run_time</strong> (<em>Required with</em> <code class="docutils literal notranslate"><span class="pre">supplemental_cooling_action</span></code>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Duration after
+which <code class="docutils literal notranslate"><span class="pre">supplemental_cooling_action</span></code> will be called when cooling is active. Note that
+<code class="docutils literal notranslate"><span class="pre">supplemental_cooling_action</span></code> will be called repeatedly at an interval defined by this parameter, as well,
+enabling multiple stages of supplemental (auxiliary/emergency) cooling.</p></li>
+<li><p><strong>max_heating_run_time</strong> (<em>Required with</em> <code class="docutils literal notranslate"><span class="pre">supplemental_heating_action</span></code>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Duration after
+which <code class="docutils literal notranslate"><span class="pre">supplemental_heating_action</span></code> will be called when heating is active. Note that
+<code class="docutils literal notranslate"><span class="pre">supplemental_heating_action</span></code> will be called repeatedly at an interval defined by this parameter, as well,
+enabling multiple stages of supplemental (auxiliary/emergency) heating.</p></li>
+<li><p><strong>min_cooling_off_time</strong> (<em>Required with</em> <code class="docutils literal notranslate"><span class="pre">cool_action</span></code>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Minimum duration the cooling action
+must be disengaged before it may be engaged.</p></li>
+<li><p><strong>min_cooling_run_time</strong> (<em>Required with</em> <code class="docutils literal notranslate"><span class="pre">cool_action</span></code>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Minimum duration the cooling action
+must be engaged before it may be disengaged.</p></li>
+<li><p><strong>min_fanning_off_time</strong> (<em>Required with</em> <code class="docutils literal notranslate"><span class="pre">fan_only_action</span></code>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Minimum duration the fanning
+action must be disengaged before it may be engaged.</p></li>
+<li><p><strong>min_fanning_run_time</strong> (<em>Required with</em> <code class="docutils literal notranslate"><span class="pre">fan_only_action</span></code>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Minimum duration the fanning
+action must be engaged before it may be disengaged.</p></li>
+<li><p><strong>min_heating_off_time</strong> (<em>Required with</em> <code class="docutils literal notranslate"><span class="pre">heat_action</span></code>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Minimum duration the heating action
+must be disengaged before it may be engaged.</p></li>
+<li><p><strong>min_heating_run_time</strong> (<em>Required with</em> <code class="docutils literal notranslate"><span class="pre">heat_action</span></code>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Minimum duration the heating action
+must be engaged before it may be disengaged.</p></li>
+<li><p><strong>min_idle_time</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Minimum duration the idle action must be active before calling
+another climate action.</p></li>
+<li><p><strong>min_fan_mode_switching_time</strong> (<em>Required with any</em> <code class="docutils literal notranslate"><span class="pre">fan_mode</span></code> <em>action</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Minimum duration
+any given fan mode must be active before it may be changed.</p></li>
+</ul>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">min_temperature</span></code> and <code class="docutils literal notranslate"><span class="pre">max_temperature</span></code> from the base climate component are used to define
+the range of allowed temperature values in the thermostat component. See <a class="reference internal" href="index.html"><span class="doc">Climate Component</span></a>.</p>
+</section>
+<section id="hysteresis-values">
+<h3>Hysteresis Values<a class="headerlink" href="#hysteresis-values" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>cool_deadband</strong> (<em>Optional</em>, float): The minimum temperature differential (temperature above the set point)
+before calling the cooling <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">action</span></a>. Defaults to 0.5 °C.</p></li>
+<li><p><strong>cool_overrun</strong> (<em>Optional</em>, float): The minimum temperature differential (cooling beyond the set point)
+before calling the idle <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">action</span></a>. Defaults to 0.5 °C.</p></li>
+<li><p><strong>heat_deadband</strong> (<em>Optional</em>, float): The minimum temperature differential (temperature below the set point)
+before calling the heating <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">action</span></a>. Defaults to 0.5 °C.</p></li>
+<li><p><strong>heat_overrun</strong> (<em>Optional</em>, float): The minimum temperature differential (heating beyond the set point)
+before calling the idle <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">action</span></a>. Defaults to 0.5 °C.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>While this platform uses the term temperature everywhere, it can also be used to regulate other values.
+For example, controlling humidity is also possible with this platform.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">min_temperature</span></code> and <code class="docutils literal notranslate"><span class="pre">max_temperature</span></code> from the base climate component are used the define the range of
+adjustability and the defaults will probably not make sense for control of things like humidity. See
+<a class="reference internal" href="index.html"><span class="doc">Climate Component</span></a>.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="bang-bang-vs-thermostat">
+<h2>Bang-Bang vs. Thermostat<a class="headerlink" href="#bang-bang-vs-thermostat" title="Permalink to this heading">¶</a></h2>
+<p>Please see the <a class="reference internal" href="bang_bang.html"><span class="doc">Bang-Bang</span></a> component’s documentation for a detailed comparison of these two components.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Climate Component</span></a></p></li>
+<li><p><a class="reference internal" href="../sensor/index.html"><span class="doc">Sensor Component</span></a></p></li>
+<li><p><a class="reference internal" href="bang_bang.html"><span class="doc">Bang-Bang</span></a></p></li>
+<li><p><a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Actions</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/climate/thermostat.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

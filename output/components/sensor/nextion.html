@@ -1,0 +1,385 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Nextion sensor.">
+<meta itemprop="name" content="Nextion Sensor Component">
+<meta itemprop="description" content="Instructions for setting up Nextion sensor.">
+<meta itemprop="image" content="https://esphome.io/_images/nextion.jpg">
+<meta name="twitter:title" content="Nextion Sensor Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/nextion.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Nextion sensor.">
+<meta property="og:title" content="Nextion Sensor Component">
+<meta property="og:image" content="https://esphome.io/_images/nextion.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Nextion sensor.">
+
+    <title>Nextion Sensor Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/nextion.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="NTC Sensor" href="ntc.html" />
+    <link rel="prev" title="MS8607 Temperature+Pressure+Humidity Sensor" href="ms8607.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Nextion Sensor Component</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a><ul>
+<li><a class="reference internal" href="#waveform-settings">Waveform Settings</a></li>
+<li><a class="reference internal" href="#globals">Globals</a></li>
+<li><a class="reference internal" href="#lambda-calls">Lambda Calls</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#how-things-update">How things Update</a></li>
+<li><a class="reference internal" href="#nextion-custom-sensor-protocol">Nextion Custom Sensor Protocol</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>Nextion Sensor Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="nextion-sensor-component">
+<span id="nextion-sensor"></span><h1>Nextion Sensor Component<a class="headerlink" href="#nextion-sensor-component" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">nextion</span></code> sensor platform supports integers or floats (Xfloat). It can be a component, a variable or a waveform in the Nextion display.
+It is best to set the component’s vscope to global in the Nextion Editor. This way the component will be available
+if the page is shown or not.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>The Nextion can receive an integer but it can only send 3 bytes for a negative integer. The range if using the <a class="reference internal" href="#nextion-custom-sensor-protocol"><span class="std std-ref">Nextion Custom Sensor Protocol</span></a> is:</dt><dd><p>-16777215 to 4294967295</p>
+</dd>
+</dl>
+</div>
+<p>See <a class="reference internal" href="../display/nextion.html"><span class="doc">Nextion TFT LCD Display</span></a> for setting up the display</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">display</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion1</span>
+<span class="w">    </span><span class="c1"># ...</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Current</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">component_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">humidity</span><span class="w"> </span><span class="c1"># pageX.humidity for a global</span>
+<span class="w">    </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4s</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion</span>
+<span class="w">    </span><span class="nt">nextion_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion1</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Current</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">variable_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s01</span>
+<span class="w">    </span><span class="nt">component_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">wave_channel_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">wave_max_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">waveform_send_last_value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">    </span><span class="nt">wave_max_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">400</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nextion</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s02</span>
+<span class="w">    </span><span class="nt">component_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">wave_channel_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">wave_max_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the sensor.</p></li>
+<li><p><strong>nextion_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the Nextion display.</p></li>
+<li><p><strong>component_name</strong> (<em>Optional</em>, string): Manually specify the name of the Nextion component.</p></li>
+<li><p><strong>variable_name</strong> (<em>Optional</em>, string): Manually specify the name of the Nextion variable.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>):  The duration to update the sensor</p></li>
+<li><p><strong>precision</strong> (<em>Optional</em>, int):  This is for Nextion float components. This sets
+the precision that the component is set to. This typically is the <code class="docutils literal notranslate"><span class="pre">vvs1</span></code> setting of the component.</p></li>
+<li><p><strong>background_color</strong> (<em>Optional</em>, <a class="reference internal" href="../display/index.html#config-color"><span class="std std-ref">Color</span></a>):  The background color</p></li>
+<li><p><strong>foreground_color</strong> (<em>Optional</em>, <a class="reference internal" href="../display/index.html#config-color"><span class="std std-ref">Color</span></a>):  The foreground color</p></li>
+<li><p><strong>visible</strong> (<em>Optional</em>, boolean):  Visible or not</p></li>
+</ul>
+<section id="waveform-settings">
+<h3>Waveform Settings<a class="headerlink" href="#waveform-settings" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>wave_channel_id</strong> (<em>Optional</em>, int): The waveform ID in a range of 0-3</p></li>
+<li><p><strong>wave_max_value</strong> (<em>Optional</em>, int): The max value. Set <code class="docutils literal notranslate"><span class="pre">dis</span></code> to the height of the component in the Nextion editor
+and this to the max value that will be sent. This will set up the proper scaling.</p></li>
+<li><p><strong>waveform_send_last_value</strong> (<em>Optional</em>, int): This will send the last value set during an update interval. Setting to true will give a timeseries style graph</p></li>
+<li><p><strong>wave_max_length</strong> (<em>Optional</em>, int): How many data points to store. Typically this is the width of the component in the Nextion</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>):  The duration to update the sensor. This typically should be set for waveforms to send periodic updates.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+<p><strong>Only one</strong> <em>component_name</em> <strong>or</strong> <em>variable_name</em> <strong>can be set</strong></p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">background_color</span></code> , <code class="docutils literal notranslate"><span class="pre">foreground_color</span></code> and <code class="docutils literal notranslate"><span class="pre">visible</span></code> do not retain their state on page change. <a class="reference internal" href="#nextion-sensor-settings"><span class="std std-ref">Sensor Settings</span></a>.
+A <a class="reference internal" href="#nextion-sensor"><span class="std std-ref">Nextion Sensor</span></a> with a custom protocol sending the current page can be used to execute the API call <a class="reference internal" href="../display/nextion.html#update-components-by-prefix"><span class="std std-ref">Update Components By Prefix</span></a> to update all the components for that page</p>
+</div>
+</div></blockquote>
+<p>See <a class="reference internal" href="#nextion-sensor-how-things-update"><span class="std std-ref">How things Update</span></a> for additional information</p>
+</section>
+<section id="globals">
+<h3>Globals<a class="headerlink" href="#globals" title="Permalink to this heading">¶</a></h3>
+<p>The Nextion does not retain data on Nextion page changes. Additionally if a page is changed and the <strong>component_name</strong> does not exist on that page then
+nothing will be updated. To get around this the Nextion components can be changed to have a vscope of <code class="docutils literal notranslate"><span class="pre">global</span></code>. If this is set then the <strong>component_name</strong>
+should be prefixed with the page name (page0/page1 or whatever you have changed it to).</p>
+<p><em>Example</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">component_name:</span> <span class="pre">page0.humidity</span></code></p>
+</section>
+<section id="lambda-calls">
+<span id="nextion-sensor-lambda-calls"></span><h3>Lambda Calls<a class="headerlink" href="#lambda-calls" title="Permalink to this heading">¶</a></h3>
+<p>From <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>, you can call several methods to access
+some more advanced functions (see the full <a class="reference external" href="/api/nextion__sensor_8h.html">API Reference</a> for more info).</p>
+<ul class="simple" id="nextion-sensor-set-state">
+<li><p><code class="docutils literal notranslate"><span class="pre">set_state(bool</span> <span class="pre">value,</span> <span class="pre">bool</span> <span class="pre">publish,</span> <span class="pre">bool</span> <span class="pre">send_to_nextion)</span></code>: Set the state to <strong>value</strong>. Publish the new state to HASS. Send_to_Nextion is to publish the state to the Nextion.</p></li>
+</ul>
+<ul class="simple" id="nextion-sensor-update">
+<li><p><code class="docutils literal notranslate"><span class="pre">update()</span></code>: Poll from the Nextion</p></li>
+</ul>
+<ul class="simple" id="nextion-sensor-settings">
+<li><p><code class="docutils literal notranslate"><span class="pre">set_background_color(Color</span> <span class="pre">color)</span></code>: Sets the background color to <strong>Color</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_foreground_color(Color</span> <span class="pre">color)</span></code>: Sets the background color to <strong>Color</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_visible(bool</span> <span class="pre">visible)</span></code> : Sets visible or not. If set to false, no updates will be sent to the component</p></li>
+</ul>
+</section>
+</section>
+<section id="how-things-update">
+<span id="nextion-sensor-how-things-update"></span><h2>How things Update<a class="headerlink" href="#how-things-update" title="Permalink to this heading">¶</a></h2>
+<p>A Nextion component with an integer value (.val) or Nextion variable will be automatically polled if <strong>update_interval</strong> is set.
+To have the Nextion send the data you can use the <a class="reference internal" href="#nextion-custom-sensor-protocol"><span class="std std-ref">Nextion Custom Sensor Protocol</span></a> for this. Add the <a class="reference internal" href="#nextion-custom-sensor-protocol"><span class="std std-ref">Nextion Custom Sensor Protocol</span></a> to the
+component or function you want to trigger the send. Typically this is in <em>Touch Press Event</em> but some components, like a slider, should have it
+set in the <em>Touch Release Event</em> to capture all the changes. Since this is a custom protocol it can be sent from anywhere (timers/functions/components)
+in the Nextion.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is no need to check the <em>Send Component ID</em> for the <em>Touch Press Event</em> or <em>Touch Release Event</em>
+since this will be sending the real value to esphome.</p>
+</div>
+<dl class="simple">
+<dt>Using the above yaml example:</dt><dd><ul class="simple">
+<li><p>“Current Humidity” will poll the Nextion for the <code class="docutils literal notranslate"><span class="pre">humidity.val</span></code> value and set the sensor accordingly.</p></li>
+<li><p>“Current Temperature” will NOT poll the Nextion. Either the Nextion will need to use the <a class="reference internal" href="#nextion-custom-sensor-protocol"><span class="std std-ref">Nextion Custom Sensor Protocol</span></a> or use a lambda:</p>
+<ul>
+<li><p><a class="reference internal" href="#nextion-sensor-lambda-calls"><span class="std std-ref">Lambda Calls</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No updates will be sent to the Nextion if it is sleeping. Once it wakes, the components will be updated. If a component is invisible, <code class="code docutils literal notranslate"><span class="pre">visible(false)</span></code>, then it won’t update until it is set to be visible.</p>
+</div>
+</section>
+<section id="nextion-custom-sensor-protocol">
+<span id="id1"></span><h2>Nextion Custom Sensor Protocol<a class="headerlink" href="#nextion-custom-sensor-protocol" title="Permalink to this heading">¶</a></h2>
+<p>All lines are required</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">printh</span><span class="w"> </span><span class="mi">91</span>
+<span class="n">prints</span><span class="w"> </span><span class="s">&quot;temperature&quot;</span><span class="p">,</span><span class="mi">0</span>
+<span class="n">printh</span><span class="w"> </span><span class="mo">00</span>
+<span class="n">prints</span><span class="w"> </span><span class="n">temperature</span><span class="p">.</span><span class="n">val</span><span class="p">,</span><span class="mi">0</span>
+<span class="n">printh</span><span class="w"> </span><span class="n">FF</span><span class="w"> </span><span class="n">FF</span><span class="w"> </span><span class="n">FF</span>
+</pre></div>
+</div>
+<p><em>Explanation</em></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">printh</span> <span class="pre">91</span></code> Tells the library this is a sensor (int) data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prints</span> <span class="pre">&quot;temperature&quot;,0</span></code> Sends the name that matches <strong>component_name</strong> or <strong>variable_name</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">printh</span> <span class="pre">00</span></code> Sends a NULL</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prints</span> <span class="pre">temperature.val,0</span></code> The actual value to send. For a variable use the Nextion variable name <code class="docutils literal notranslate"><span class="pre">temperature</span></code> with out <code class="docutils literal notranslate"><span class="pre">.val</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">printh</span> <span class="pre">FF</span> <span class="pre">FF</span> <span class="pre">FF</span></code> Nextion command ack</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../display/nextion.html"><span class="doc">Nextion TFT LCD Display</span></a></p></li>
+<li><p><a class="reference internal" href="index.html"><span class="doc">Sensor Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/nextion__sensor_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/nextion.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

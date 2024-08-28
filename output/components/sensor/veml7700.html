@@ -1,0 +1,377 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up VEML7700 / VEML6030 ambient light sensors in ESPHome.">
+<meta name="keywords" content="VEML7700, VEML6300">
+<meta itemprop="name" content="VEML7700 and VEML6030 Ambient Light Sensors">
+<meta itemprop="description" content="Instructions for setting up VEML7700 / VEML6030 ambient light sensors in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/veml7700.jpg">
+<meta name="twitter:title" content="VEML7700 and VEML6030 Ambient Light Sensors">
+<meta name="twitter:image:src" content="https://esphome.io/_images/veml7700.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up VEML7700 / VEML6030 ambient light sensors in ESPHome.">
+<meta property="og:title" content="VEML7700 and VEML6030 Ambient Light Sensors">
+<meta property="og:image" content="https://esphome.io/_images/veml7700.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up VEML7700 / VEML6030 ambient light sensors in ESPHome.">
+
+    <title>VEML7700 and VEML6030 Ambient Light Sensors &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/veml7700.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="VL53L0X Time Of Flight Distance Sensor" href="vl53l0x.html" />
+    <link rel="prev" title="VEML3235 Ambient Light Sensor" href="veml3235.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">VEML7700 and VEML6030 Ambient Light Sensors</a><ul>
+<li><a class="reference internal" href="#automatic-measurement-mode">Automatic measurement mode</a></li>
+<li><a class="reference internal" href="#lux-compensation">Lux compensation</a></li>
+<li><a class="reference internal" href="#available-data">Available data</a></li>
+<li><a class="reference internal" href="#example-configuration">Example configuration</a></li>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a><ul>
+<li><a class="reference internal" href="#sensors">Sensors</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>VEML7700 and VEML6030 Ambient Light Sensors</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="veml7700-and-veml6030-ambient-light-sensors">
+<h1>VEML7700 and VEML6030 Ambient Light Sensors<a class="headerlink" href="#veml7700-and-veml6030-ambient-light-sensors" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">veml7700</span></code> sensor platform allows you to use the Vishay VEML7700 and VEML6030 ambient light sensors with ESPHome.
+Communication with the device is over <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C</span></a>, which must be present in your configuration. VEML7700 and VEML6030
+are basically the same but in different packages. The VEML7700 uses a fixed address of <code class="docutils literal notranslate"><span class="pre">0x10</span></code>, while the smaller VEML6030
+can be configured to use either <code class="docutils literal notranslate"><span class="pre">0x10</span></code> or <code class="docutils literal notranslate"><span class="pre">0x48</span></code>.</p>
+<p>The VEML 7700/6030 devices are available on breakout boards from a number of vendors including <a class="reference external" href="http://www.adafruit.com/products/4162">Adafruit</a>, <a class="reference external" href="https://www.sparkfun.com/products/15436">SparkFun</a>,
+<a class="reference external" href="https://www.dfrobot.com/product-1620.html">DFRobot</a>, and others.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/veml7700-full.jpg"><img alt="../../_images/veml7700-full.jpg" src="../../_images/veml7700-full.jpg" style="width: 70.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">VEML7700 Ambient Light Sensor on a board and standalone sensors.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/veml7700-ui.png"><img alt="../../_images/veml7700-ui.png" src="../../_images/veml7700-ui.png" style="width: 60.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">VEML sensor in Home Assistant UI.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The sensor is a high accuracy ambient light digital 16-bit resolution sensor with dynamic range from 0 lux to about 120,000 lux.
+Its wide range of measurements is enabled by four configurable <em>gain</em> levels and six different <em>integration time</em> options.
+Higher gain values are typically used for lower light conditions.</p>
+<p>The sensor has two photodiodes with different spectral response represented by two channels: an <em>ALS</em> channel and a <em>WHITE</em> channel.
+The <em>ALS</em>, or <em>Ambient light</em> channel follows a so-called human eye curve very closely. The <em>WHITE</em> channel covers a much wider wavelength/spectrum, capturing quite a lot of near-infrared radiance.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../../_images/veml7700-spectral.png"><img alt="../../_images/veml7700-spectral.png" src="../../_images/veml7700-spectral.png" style="width: 100.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">ALS and WHITE channels spectral response</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Using this component’s automatic measurement mode is advised; in this mode, proper <em>gain</em> and <em>integration time</em> are automatically selected by the component after
+taking several  measurements. To do so, it follows a process recommended by the manufacturer.</p>
+<p>Should you desire to manually control those parameters - please note that:</p>
+<ul class="simple">
+<li><p>Gain levels of 1/8 and 1/4 shall be used in most cases.</p></li>
+<li><p>Gain levels of 1 an 2 are only intended to be used in low light conditions &lt; 100 lux. For very high illuminations it shows high non-linearity.</p></li>
+<li><p>In the range of 0 lux - 1000 lux the sensor measurements are stricly linear for Gain 1/4 and 1/8, after 1000 lux it shows non-linearity.</p></li>
+</ul>
+<p>A lux compensation formula is used to get better readings in bright conditions.
+However, it gives quite high error in very bright direct sunlight (instead of 100-120 kilolux it might give 150-200k+).</p>
+<p>This Wikipedia <a class="reference external" href="https://en.wikipedia.org/wiki/Lux">article</a> has a table of some lux values for comparison.</p>
+<section id="automatic-measurement-mode">
+<h2>Automatic measurement mode<a class="headerlink" href="#automatic-measurement-mode" title="Permalink to this heading">¶</a></h2>
+<p>In automatic measurement mode the component starts from Gain 1/8 and 100 ms (<em>default</em>).</p>
+<ul class="simple">
+<li><p>If illuminance is higher than 46 lx (100 counts) it gradually reduces integration time to get good reading (best in range 100 - 10,000 counts).</p></li>
+<li><p>In case of low illuminance (less than 46 lx) it tries to gradually increase gain and only then increase integration time.</p></li>
+</ul>
+<p>Please note, that in low light conditions measurement process might take several seconds due to long exposure periods and sensor reconfigurations.</p>
+<p>Starting values can be overriden by setting <code class="docutils literal notranslate"><span class="pre">gain</span></code> and <code class="docutils literal notranslate"><span class="pre">integration_time</span></code> parameters. The gain value gets adjusted first if possible.</p>
+</section>
+<section id="lux-compensation">
+<h2>Lux compensation<a class="headerlink" href="#lux-compensation" title="Permalink to this heading">¶</a></h2>
+<p>Lux compensation is done as recommended by the manufacturer, however it can be turned off by
+setting <code class="docutils literal notranslate"><span class="pre">lux_compensation:</span> <span class="pre">false</span></code> in your device’s configuration.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\displaystyle \begin{array}{l}
+lux &amp; = &amp; counts \times resolution(time, gain)\\
+lux_{comp} &amp; =&amp; 6.0135e \times 10^{-13} \times lux^4 - 9.3924e \times 10^{-9}  \times  lux^3\\
+&amp; &amp; + 8.1488e \times 10^{-5}  \times  lux^2 + 1.0023  \times  lux\\
+\\
+\text{Where:} &amp; &amp; \\
+counts &amp; - &amp; \text{sensor readings, counts}\\
+resolution &amp; - &amp; \text{sensor resolution for given integration time and gain, lx/counts}\\
+lux &amp; - &amp; \text{calculated illumination, lx}\\
+lux_{comp} &amp; - &amp; \text{compensated illumniation, lx}\\
+\end{array}\end{split}\]</div>
+</section>
+<section id="available-data">
+<h2>Available data<a class="headerlink" href="#available-data" title="Permalink to this heading">¶</a></h2>
+<p>The implementation offers seven sensors:
+- Two providing <em>lux</em> value,
+- Two unitless data measurements directly from the device,
+- Two actual <em>gain</em> and <em>integration time</em> values used for the measurement (useful in automatic mode), and
+- One fully artificial, somewhat representing near-infrared part of spectrum.</p>
+<ul class="simple">
+<li><p><strong>ambient_light</strong>: Illuminance value for <em>ALS</em> channel representing human eye, lx</p></li>
+<li><p><strong>full_spectrum</strong>: Illuminance value for <em>WHITE</em> channel with wide spectrum, lx</p></li>
+<li><p><strong>infrared</strong>: Calculated illuminance value (<em>WHITE</em> minus <em>ALS</em>) representing near-infrared spectre, lx</p></li>
+<li><p><strong>ambient_light_counts</strong>: Raw 16 bit reading from <em>ALS</em> channel, counts</p></li>
+<li><p><strong>full_spectrum_counts</strong>: Raw 16 bit reading from <em>WHITE</em> channel, counts</p></li>
+<li><p><strong>actual_gain</strong>: The actual gain value being used for values reported, multiplier</p></li>
+<li><p><strong>actual_integration_time</strong>: The actual integration time being used for values reported, ms</p></li>
+</ul>
+</section>
+<section id="example-configuration">
+<h2>Example configuration<a class="headerlink" href="#example-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">veml7700</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x10</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+
+<span class="w">    </span><span class="c1"># short variant of sensor definition:</span>
+<span class="w">    </span><span class="nt">ambient_light</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Ambient</span><span class="nv"> </span><span class="s">light&quot;</span>
+<span class="w">    </span><span class="c1"># longer variant of sensor definition:</span>
+<span class="w">    </span><span class="nt">actual_gain</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Actual</span><span class="nv"> </span><span class="s">gain&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>auto_mode</strong> (<em>Optional</em>, boolean): Automatic gain and integration time selection. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>integration_time</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>):
+The amount of time the sensor is exposed. Valid values are <code class="docutils literal notranslate"><span class="pre">25ms</span></code>, <code class="docutils literal notranslate"><span class="pre">50ms</span></code>, <code class="docutils literal notranslate"><span class="pre">100ms</span></code> <em>(default)</em>,
+<code class="docutils literal notranslate"><span class="pre">200ms</span></code>, <code class="docutils literal notranslate"><span class="pre">400ms</span></code>, <code class="docutils literal notranslate"><span class="pre">800ms</span></code>. <em>In automatic mode it sets starting value</em>.</p></li>
+<li><p><strong>gain</strong> (<em>Optional</em>, string): The gain the device will use for the internal ADC. Valid values are
+<code class="docutils literal notranslate"><span class="pre">1/8x</span></code> <em>(default)</em>, <code class="docutils literal notranslate"><span class="pre">1/4x</span></code>, <code class="docutils literal notranslate"><span class="pre">1x</span></code>, <code class="docutils literal notranslate"><span class="pre">2x</span></code>. Higher values are better in low-light conditions.
+<em>In automatic mode it sets starting gain value</em>.</p></li>
+<li><p><strong>lux_compensation</strong> (<em>Optional</em>, boolean): Lux compensation formula is used as per manufacturer.
+Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>glass_attenuation_factor</strong> (<em>Optional</em>): The attenuation factor of glass if it’s behind some glass
+or plastic facia.  Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code> means <code class="docutils literal notranslate"><span class="pre">100%</span></code> transmissivity. <code class="docutils literal notranslate"><span class="pre">2</span></code> means <code class="docutils literal notranslate"><span class="pre">50%</span></code> transmissivity etc.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval for checking the sensors.
+Defaults to <code class="docutils literal notranslate"><span class="pre">60s</span></code>.</p></li>
+<li><p>All other options for I²C devices described at <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a>.
+The sensor supports bus modes “standard” and “fast”: 10 kHz to 400 kHz.</p></li>
+</ul>
+<section id="sensors">
+<h3>Sensors<a class="headerlink" href="#sensors" title="Permalink to this heading">¶</a></h3>
+<p>You can configure all or any subset of the sensors described earlier.
+Each configured sensor is reported separately on each <code class="docutils literal notranslate"><span class="pre">update_interval</span></code>. <strong>name</strong> (<strong>Required</strong>, string) is required for
+every sensor. All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p>
+<p>However, if you don’t need any other options, you can just use shorthands like this: <code class="docutils literal notranslate"><span class="pre">ambient_light:</span> <span class="pre">Ambient</span> <span class="pre">light</span></code>.</p>
+<ul class="simple">
+<li><p><strong>ambient_light</strong> (<em>Optional</em>): Illuminance for visible light (<em>ALS channel</em>), lx.</p></li>
+<li><p><strong>full_spectrum</strong> (<em>Optional</em>): Illuminance for the full spectrum sensor (<em>WHITE channel</em>), lx.</p></li>
+<li><p><strong>infrared</strong> (<em>Optional</em>): Calculated illuminance for the Near-IR spectrum (<em>WHITE</em> minus <em>ALS</em>), lx.</p></li>
+<li><p><strong>ambient_light_counts</strong> (<em>Optional</em>): The reading for visible light (<em>ALS channel</em>), counts.</p></li>
+<li><p><strong>full_spectrum_counts</strong> (<em>Optional</em>): The reading for the full spectrum sensor (<em>WHITE channel</em>), counts.</p></li>
+<li><p><strong>actual_gain</strong> (<em>Optional</em>): The value of gain used for reported values. Particularly useful when “auto_mode” is selected.</p></li>
+<li><p><strong>actual_integration_time</strong> (<em>Optional</em>): Integration time used for reported values, ms. Particularly useful when “auto_mode” is selected.</p></li>
+</ul>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/latonita/datasheets-storage/blob/main/sensors/VEML7700.pdf">VEML 7700 datasheet</a></p></li>
+<li><p>Application note <a class="reference external" href="https://github.com/latonita/datasheets-storage/blob/main/sensors/VEML7700-designing.pdf">Designing the VEML7700 Into an Application</a></p></li>
+<li><p><a class="reference external" href="https://github.com/latonita/datasheets-storage/blob/main/sensors/VEML6030.pdf">VEML 6030 datasheet</a></p></li>
+<li><p>Application note <a class="reference external" href="https://github.com/latonita/datasheets-storage/blob/main/sensors/VEML6030-designing.pdf">Designing the VEML6030 Into an Application</a></p></li>
+<li><p><a class="reference external" href="https://www.thorlabs.de/catalogPages/506.pdf">Radiometric vs. Photometric Units</a></p></li>
+<li><p><a class="reference external" href="/api/veml7700_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/veml7700.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

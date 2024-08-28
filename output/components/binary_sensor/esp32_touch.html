@@ -1,0 +1,460 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up the touch pad on the ESP32">
+<meta itemprop="name" content="ESP32 Touch Pad">
+<meta itemprop="description" content="Instructions for setting up the touch pad on the ESP32">
+<meta itemprop="image" content="https://esphome.io/_images/touch.png">
+<meta name="twitter:title" content="ESP32 Touch Pad">
+<meta name="twitter:image:src" content="https://esphome.io/_images/touch.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up the touch pad on the ESP32">
+<meta property="og:title" content="ESP32 Touch Pad">
+<meta property="og:image" content="https://esphome.io/_images/touch.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up the touch pad on the ESP32">
+
+    <title>ESP32 Touch Pad &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/binary_sensor/esp32_touch.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="GPIO Binary Sensor" href="gpio.html" />
+    <link rel="prev" title="Custom Binary Sensor" href="custom.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ESP32 Touch Pad</a><ul>
+<li><a class="reference internal" href="#component-hub">Component/Hub</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#binary-sensor">Binary Sensor</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#raw-values">Raw Values</a></li>
+<li><a class="reference internal" href="#touch-pad-pins">Touch Pad Pins</a></li>
+<li><a class="reference internal" href="#finding-thresholds">Finding Thresholds</a></li>
+<li><a class="reference internal" href="#a-note-about-s2-and-s3-variants">A Note About S2 and S3 Variants</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Binary Sensor Component</a> ➔</li>
+      <li>ESP32 Touch Pad</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="esp32-touch-pad">
+<h1>ESP32 Touch Pad<a class="headerlink" href="#esp32-touch-pad" title="Permalink to this heading">¶</a></h1>
+<p>Capacitive touch detection is possible on ESP32, ESP32-S2 or ESP32-S3 processors.
+In ESPHome, it is configured in two parts:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#esp32-touch-component"><span class="std std-ref">Component/Hub</span></a></p></li>
+<li><p><a class="reference internal" href="#esp32-touch-binary-sensor"><span class="std std-ref">Binary Sensor</span></a></p></li>
+</ul>
+<section id="component-hub">
+<span id="esp32-touch-component"></span><h2>Component/Hub<a class="headerlink" href="#component-hub" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">esp32_touch</span></code> component creates a global hub enabling (capacitive) touch detection on GPIO pins
+<a class="reference internal" href="#esp32-touch-pad-pins"><span class="std std-ref">supported by ESP32, ESP32-S2 or ESP32-S3 processors</span></a>. With this enabled,
+<a class="reference internal" href="#esp32-touch-binary-sensor"><span class="std std-ref">binary sensors</span></a> may then be configured to permit touch detection.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">esp32_touch</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">setup_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>setup_mode</strong> (<em>Optional</em>, boolean): Whether debug messages with the touch pad value should
+be displayed in the logs. Useful for finding out suitable thresholds for the binary sensors, but
+will spam the logs. See <a class="reference internal" href="#esp32-touch-binary-sensor"><span class="std std-ref">setting up touch pads</span></a>
+for more information. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID for code generation.</p></li>
+</ul>
+<p><strong>Advanced options</strong></p>
+<p>These variables may be added to the hub component’s configuration (above) and are useful for fine-tuning and/or when
+the sensors aren’t behaving as expected.</p>
+<p><em>All processors:</em></p>
+<ul class="simple">
+<li><p><strong>sleep_duration</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Set a time period
+denoting the amount of time the touch peripheral should sleep between measurements. This can decrease
+power usage but make the sensor slower. Default is about 27 milliseconds.</p></li>
+<li><p><strong>measurement_duration</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Set the conversion
+time for all touch pads. A longer conversion time means that more charge/discharge cycles of the touch pad
+can be performed, therefore increasing accuracy. Default is about 8ms, the maximum amount.</p></li>
+<li><p><strong>low_voltage_reference</strong> (<em>Optional</em>): The low voltage reference to use for the charge cycles. One of <code class="docutils literal notranslate"><span class="pre">0.5V</span></code>,
+<code class="docutils literal notranslate"><span class="pre">0.6V</span></code>, <code class="docutils literal notranslate"><span class="pre">0.7V</span></code>, <code class="docutils literal notranslate"><span class="pre">0.8V</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">0.5V</span></code>.</p></li>
+<li><p><strong>high_voltage_reference</strong> (<em>Optional</em>): The high voltage reference to use for the charge cycles. One of <code class="docutils literal notranslate"><span class="pre">2.4V</span></code>,
+<code class="docutils literal notranslate"><span class="pre">2.5V</span></code>, <code class="docutils literal notranslate"><span class="pre">2.6V</span></code>, <code class="docutils literal notranslate"><span class="pre">2.7V</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">2.7V</span></code>.</p></li>
+<li><p><strong>voltage_attenuation</strong> (<em>Optional</em>): The voltage attenuation to use for the charge cycles. One of <code class="docutils literal notranslate"><span class="pre">1.5V</span></code>, <code class="docutils literal notranslate"><span class="pre">1V</span></code>,
+<code class="docutils literal notranslate"><span class="pre">0.5V</span></code>, <code class="docutils literal notranslate"><span class="pre">0V</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">0V</span></code>.</p></li>
+</ul>
+<p>For a more detailed explanation of the parameters above, please see the
+<a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/touch_pad.html#optimization-of-measurements">ESP-IDF documentation.</a></p>
+<p><em>ESP32 only</em></p>
+<ul class="simple">
+<li><p><strong>iir_filter</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Optionally set up an
+<a class="reference external" href="https://en.wikipedia.org/wiki/Infinite_impulse_response">Infinite Impulse Response</a>
+filter should be applied to all touch pads. This can increase the accuracy of the touch pads a lot, but higher values
+decrease the response time. A good value to start with is <code class="docutils literal notranslate"><span class="pre">10ms</span></code>. By default, the IIR filter is inactive.</p></li>
+</ul>
+<p><em>ESP32-S2 and ESP32-S3 only</em></p>
+<p><strong>For each configuration category below, if one option is specified, all options must be specified.</strong> The configuration
+options below do not have any default values; in other words, they are inactive by default.</p>
+<p>Filter configuration:</p>
+<ul class="simple">
+<li><p><strong>filter_mode</strong> (<em>Optional</em>): Sets the filter mode. Must be one of <code class="docutils literal notranslate"><span class="pre">IIR_4</span></code>, <code class="docutils literal notranslate"><span class="pre">IIR_8</span></code>, <code class="docutils literal notranslate"><span class="pre">IIR_16</span></code>,
+<code class="docutils literal notranslate"><span class="pre">IIR_32</span></code>, <code class="docutils literal notranslate"><span class="pre">IIR_64</span></code>, <code class="docutils literal notranslate"><span class="pre">IIR_128</span></code>, <code class="docutils literal notranslate"><span class="pre">IIR_256</span></code> or <code class="docutils literal notranslate"><span class="pre">JITTER</span></code>.</p></li>
+<li><p><strong>debounce_count</strong> (<em>Optional</em>, <code class="docutils literal notranslate"><span class="pre">int</span></code> range 0-7): Sets the debounce count; if the measured values continue to
+exceed the threshold for <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">+</span> <span class="pre">1</span></code> times, the touch sensor state changes.</p></li>
+<li><p><strong>noise_threshold</strong> (<em>Optional</em>, <code class="docutils literal notranslate"><span class="pre">int</span></code> range 0-3): Noise threshold coefficient. Higher = More noise resistance. The
+actual noise should be less than (noise coefficient * touch threshold). The coefficient is 0: 4/8; 1: 3/8; 2: 2/8; 3: 1.</p></li>
+<li><p><strong>jitter_step</strong> (<em>Optional</em>, <code class="docutils literal notranslate"><span class="pre">int</span></code> range 0-15): Set jitter filter step size.</p></li>
+<li><p><strong>smooth_mode</strong> (<em>Optional</em>): Level of filter applied on the original data against large noise interference.
+Must be one of <code class="docutils literal notranslate"><span class="pre">OFF</span></code>, <code class="docutils literal notranslate"><span class="pre">IIR_2</span></code>, <code class="docutils literal notranslate"><span class="pre">IIR_4</span></code> or <code class="docutils literal notranslate"><span class="pre">IIR_8</span></code>.</p></li>
+</ul>
+<p>For a more detailed explanation of the filter configuration, please see the
+<a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/api-reference/peripherals/touch_pad.html#_CPPv419touch_filter_config">ESP-IDF documentation.</a></p>
+<p>Denoise configuration:</p>
+<ul class="simple">
+<li><p><strong>denoise_grade</strong> (<em>Optional</em>): Sets the denoise range of the denoise channel. Determined by measuring the noise
+amplitude of the denoise channel. Must be one of <code class="docutils literal notranslate"><span class="pre">BIT12</span></code>, <code class="docutils literal notranslate"><span class="pre">BIT10</span></code>, <code class="docutils literal notranslate"><span class="pre">BIT8</span></code> or <code class="docutils literal notranslate"><span class="pre">BIT4</span></code>.</p></li>
+<li><p><strong>denoise_cap_level</strong> (<em>Optional</em>): Select internal reference capacitance of denoise channel. Must be one
+of <code class="docutils literal notranslate"><span class="pre">L0</span></code>, <code class="docutils literal notranslate"><span class="pre">L1</span></code>, <code class="docutils literal notranslate"><span class="pre">L2</span></code>, <code class="docutils literal notranslate"><span class="pre">L3</span></code>, <code class="docutils literal notranslate"><span class="pre">L4</span></code>, <code class="docutils literal notranslate"><span class="pre">L5</span></code>, <code class="docutils literal notranslate"><span class="pre">L6</span></code> or <code class="docutils literal notranslate"><span class="pre">L7</span></code>.</p></li>
+</ul>
+<p>For a more detailed explanation of the denoise configuration, please see the
+<a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/api-reference/peripherals/touch_pad.html#_CPPv417touch_pad_denoise">ESP-IDF documentation.</a></p>
+<p>Waterproof configuration:</p>
+<ul class="simple">
+<li><p><strong>waterproof_guard_ring</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): Sets the touch channel to use for the guard pad. The guard
+pad is used to detect the large area of water covering the touch panel.</p></li>
+<li><p><strong>waterproof_shield_driver</strong> (<em>Optional</em>): Shield channel drive capability configuration; the larger the
+parasitic capacitance on the shielding channel, the higher the drive capability needs to be set. Must be one of
+<code class="docutils literal notranslate"><span class="pre">L0</span></code>, <code class="docutils literal notranslate"><span class="pre">L1</span></code>, <code class="docutils literal notranslate"><span class="pre">L2</span></code>, <code class="docutils literal notranslate"><span class="pre">L3</span></code>, <code class="docutils literal notranslate"><span class="pre">L4</span></code>, <code class="docutils literal notranslate"><span class="pre">L5</span></code>, <code class="docutils literal notranslate"><span class="pre">L6</span></code> or <code class="docutils literal notranslate"><span class="pre">L7</span></code>.</p></li>
+</ul>
+<p>For a more detailed explanation of the waterproof configuration, please see the
+<a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/api-reference/peripherals/touch_pad.html#_CPPv420touch_pad_waterproof">ESP-IDF documentation.</a></p>
+</section>
+</section>
+<section id="binary-sensor">
+<span id="esp32-touch-binary-sensor"></span><h2>Binary Sensor<a class="headerlink" href="#binary-sensor" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">esp32_touch</span></code> binary sensor platform lets you use the touch peripheral of the
+ESP32 to detect if a certain pin is being “touched”.</p>
+<p>First, you need to setup the <a class="reference internal" href="#esp32-touch-component"><span class="std std-ref">global touch hub</span></a>. Then
+you can add individual touch pads as binary sensors. When a touch is detected on these pins, the binary
+sensor will report an <code class="docutils literal notranslate"><span class="pre">ON</span></code> state. And, of course, if no touch is detected, the binary sensor will report
+an <code class="docutils literal notranslate"><span class="pre">OFF</span></code> state.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/esp32_touch-ui.png"><img alt="../../_images/esp32_touch-ui.png" src="../../_images/esp32_touch-ui.png" style="width: 80.0%;" /></a>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">esp32_touch</span><span class="p">:</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp32_touch</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ESP32</span><span class="nv"> </span><span class="s">Touch</span><span class="nv"> </span><span class="s">Pad&quot;</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): The pin to detect touch
+events on.</p></li>
+<li><p><strong>threshold</strong> (<strong>Required</strong>, <code class="docutils literal notranslate"><span class="pre">int</span></code>): The threshold to use to detect touch events. See
+<a class="reference internal" href="#esp32-finding-thresholds"><span class="std std-ref">Finding Thresholds</span></a> below for help determining this value.</p></li>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the binary sensor.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>wakeup_threshold</strong> (<em>Optional</em>, <code class="docutils literal notranslate"><span class="pre">int</span></code>): The threshold to use to detect touch events to wake-up from deep sleep.
+See <a class="reference internal" href="#esp32-finding-thresholds"><span class="std std-ref">Finding Thresholds</span></a> below for help determining this value. Touch pad sensors that should trigger a
+wake-up from deep sleep must specify this value. The <a class="reference internal" href="../deep_sleep.html#deep-sleep-component"><span class="std std-ref">Deep Sleep Component</span></a> must also be configured to enable
+wake-up from a touch event. Note that no filter(s) is/are active during deep sleep.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="raw-values">
+<h2>Raw Values<a class="headerlink" href="#raw-values" title="Permalink to this heading">¶</a></h2>
+<p>If access to the raw values is required, a template sensor can be created that polls for them:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry for accessing raw values</span>
+<span class="nt">esp32_touch</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp32_touch_1</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp32_touch</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp32_touch_pad</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Raw</span><span class="nv"> </span><span class="s">touch</span><span class="nv"> </span><span class="s">value&quot;</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">return id(esp32_touch_pad).get_value();</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3s</span>
+</pre></div>
+</div>
+<p>One example of use is a wide area pressure sensor that integrates a number of smaller sensors in an area. Make two strips
+of aluminium foil that sandwich paper, and connect one wire to a touch pin and the other to ground. Set up several sensors
+under a flexible object like a plastic mat, add the raw values, and apply a threshold.</p>
+</section>
+<section id="touch-pad-pins">
+<span id="esp32-touch-pad-pins"></span><h2>Touch Pad Pins<a class="headerlink" href="#touch-pad-pins" title="Permalink to this heading">¶</a></h2>
+<p>Various pins on the ESP32, ESP32-S2 and ESP32-S3 can be used to detect touches. They are as follows (using the default
+“raw” pin names/numbers):</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ESP32</p></th>
+<th class="head"><p>ESP32-S2</p></th>
+<th class="head"><p>ESP32-S3</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GPIO4, GPIO0, GPIO2, GPIO15, GPIO13, GPIO12, GPIO14, GPIO27, GPIO33, GPIO32</p></td>
+<td><p>GPIO1 - GPIO14</p></td>
+<td><p>GPIO1 - GPIO14</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="finding-thresholds">
+<span id="esp32-finding-thresholds"></span><h2>Finding Thresholds<a class="headerlink" href="#finding-thresholds" title="Permalink to this heading">¶</a></h2>
+<p>For each touch pad you want to monitor, you need to find a threshold value first. This threshold is used to determine
+if a pad is being touched or not using the raw values read from the processor’s internal sensor hardware. When no
+contact is made with the sensor, the values will typically hover within a certain range; when the sensor’s pad is
+touched, the value will change significantly, enabling the touch to be detected.</p>
+<p>Exact values reported by the sensor hardware will vary based on the processor, PCB layout and potentially even
+environmental factors.</p>
+<p>To find suitable threshold values, first configure the <a class="reference internal" href="#esp32-touch-component"><span class="std std-ref">ESP32 touch hub</span></a> to log measured
+values using the <code class="docutils literal notranslate"><span class="pre">setup_mode:</span></code> configuration option. Next, add some binary sensors for the touch pads you want to
+observe. You’ll also need to put some (temporary) threshold values into the configuration (as shown below) to make the
+validator happy; we’ll replace these in a moment once we determine suitable values.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry for finding threshold values</span>
+<span class="nt">esp32_touch</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">setup_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esp32_touch</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ESP32</span><span class="nv"> </span><span class="s">Touch</span><span class="nv"> </span><span class="s">Pad</span><span class="nv"> </span><span class="s">GPIO27&quot;</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIO27</span>
+<span class="w">    </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</pre></div>
+</div>
+<p>Upload the program/configuration and watch the device’s logs; you’ll see values being logged by the hub component.
+Touching the sensor’s pins/pads should result in a (significant) change in the values being logged. Experiment with
+different amounts of force applied to the touch pad; a pattern should emerge, revealing a value that falls between
+“touched” and “not touched” which the binary sensor will then use to differentiate between the two states.</p>
+<figure class="align-center">
+<img alt="../../_images/esp32_touch-finding_thresholds.png" src="../../_images/esp32_touch-finding_thresholds.png" />
+</figure>
+<p>Once you’ve determined an appropriate value, update the threshold parameter in your configuration and test the updated
+configuration. You may need to repeat this process a few times to fine-tune the behavior and get it just right.</p>
+<p>Finally, don’t forget to disable the <code class="docutils literal notranslate"><span class="pre">setup_mode</span></code> option by setting it back to <code class="docutils literal notranslate"><span class="pre">false</span></code>; leaving it enabled will
+reduce the ESP’s overall performance.</p>
+</section>
+<section id="a-note-about-s2-and-s3-variants">
+<span id="esp32-note-about-variants"></span><h2>A Note About S2 and S3 Variants<a class="headerlink" href="#a-note-about-s2-and-s3-variants" title="Permalink to this heading">¶</a></h2>
+<p>If you’re familiar with the ESP32 hardware and pick up an S2 or S3 variant, you’re likely to notice some behavioral
+differences between them. In particular:</p>
+<ul class="simple">
+<li><p>Raw touch sensor readings on the S2 and S3 variants will generally return larger numeric values than the original
+ESP32 hardware.</p></li>
+<li><p>Contact with the touch sensor on the S2 and S3 variants will result in the raw sensor value reading <em>increasing</em>; on
+the original ESP32, contact would cause this value to <em>decrease</em>.</p></li>
+</ul>
+<p>These behavioral differences are due to changes in the hardware and software (ESP-IDF) interfaces and should be
+expected – if you are moving your configuration from an original ESP32 to an S2 or S3 variant, expect that you’ll need
+to make some adjustments to your configuration to accommodate this behavior.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Binary Sensor Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/esp32__touch_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://esp-idf.readthedocs.io/en/latest/api-reference/peripherals/touch_pad.html">esp-idf Touch Sensor API</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/binary_sensor/esp32_touch.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

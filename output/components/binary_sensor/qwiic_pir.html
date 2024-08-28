@@ -1,0 +1,291 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up the Qwiic PIR Motion binary sensor.">
+<meta itemprop="name" content="Qwiic PIR Motion Binary Sensor">
+<meta itemprop="description" content="Instructions for setting up the Qwiic PIR Motion binary sensor.">
+<meta itemprop="image" content="https://esphome.io/_images/qwiic_pir.jpg">
+<meta name="twitter:title" content="Qwiic PIR Motion Binary Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/qwiic_pir.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up the Qwiic PIR Motion binary sensor.">
+<meta property="og:title" content="Qwiic PIR Motion Binary Sensor">
+<meta property="og:image" content="https://esphome.io/_images/qwiic_pir.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up the Qwiic PIR Motion binary sensor.">
+
+    <title>Qwiic PIR Motion Binary Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/binary_sensor/qwiic_pir.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="RC522 NFC/RFID" href="rc522.html" />
+    <link rel="prev" title="PN532 NFC/RFID" href="pn532.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Qwiic PIR Motion Binary Sensor</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a><ul>
+<li><a class="reference internal" href="#debounce-modes">Debounce Modes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Binary Sensor Component</a> ➔</li>
+      <li>Qwiic PIR Motion Binary Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="qwiic-pir-motion-binary-sensor">
+<h1>Qwiic PIR Motion Binary Sensor<a class="headerlink" href="#qwiic-pir-motion-binary-sensor" title="Permalink to this heading">¶</a></h1>
+<p>The Qwiic PIR Motion binary sensor allows you to use your Qwiic PIR (<a class="reference external" href="https://www.sparkfun.com/products/17374">EKMC4607112K based</a>, <a class="reference external" href="https://www.sparkfun.com/products/17375">EKMB1107112 based</a>, <a class="reference external" href="https://github.com/sparkfun/Qwiic_PIR">firmware documentation</a>)
+sensors from SparkFun with ESPHome.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/qwiic_pir.jpg"><img alt="../../_images/qwiic_pir.jpg" src="../../_images/qwiic_pir.jpg" style="width: 30.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">SparkFun Qwiic PIR sensor.
+(Credit: <a class="reference external" href="https://www.sparkfun.com/products/17374">Sparkfun</a>, image cropped and compressed)</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The SparkFun Qwiic PIR Motion binary sensor uses PIR sensors to detect motion. It communicates over I²C. There are two models currently available. One uses the <a class="reference external" href="https://cdn.sparkfun.com/assets/7/2/a/4/3/EKMC460711xK_Spec.pdf">Panasonic EKMC4607112K sensor</a>, and the other uses the <a class="reference external" href="https://cdn.sparkfun.com/assets/c/e/8/7/5/EKMB110711x_Spec.pdf">Panasonic EKMB1107112 sensor</a>.</p>
+<p>You can configure a debounce mode to reduce noise and false detections. See <a class="reference internal" href="#debounce-modes"><span class="std std-ref">Debounce Modes</span></a> for the available options.</p>
+<p>To use the sensor, first set up an <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a> and connect the sensor to the specified pins.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qwiic_pir</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Qwiic</span><span class="nv"> </span><span class="s">PIR</span><span class="nv"> </span><span class="s">Motion</span><span class="nv"> </span><span class="s">Sensor&quot;</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>debounce_mode</strong> (<em>Optional</em>, enum): How the component debounces the motion sensor’s signal. Must be one of <code class="docutils literal notranslate"><span class="pre">HYBRID</span></code>, <code class="docutils literal notranslate"><span class="pre">NATIVE</span></code>, or <code class="docutils literal notranslate"><span class="pre">RAW</span></code>. See <a class="reference internal" href="#debounce-modes"><span class="std std-ref">Debounce Modes</span></a> for details. Defaults to <code class="docutils literal notranslate"><span class="pre">HYBRID</span></code>.</p></li>
+<li><p><strong>debounce</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Only valid when using <code class="docutils literal notranslate"><span class="pre">NATIVE</span></code> debounce mode. Configures the debounce time on the sensor to reduce noise and false detections. Defaults to <code class="docutils literal notranslate"><span class="pre">1ms</span></code>.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+</ul>
+<section id="debounce-modes">
+<span id="id1"></span><h3>Debounce Modes<a class="headerlink" href="#debounce-modes" title="Permalink to this heading">¶</a></h3>
+<p>There are three options for <code class="docutils literal notranslate"><span class="pre">debounce_mode</span></code>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">HYBRID</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Use a combination of the raw sensor reading and the sensor’s native event detection to determine state.</p></li>
+<li><p>Very reliable for detecting both object’s being detected and no longer detected.</p></li>
+<li><p>Use binary sensor filters to reduce noise and false detections.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NATIVE</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Use the sensor’s native event detection to debounce the signal.</p></li>
+<li><p>Logic follows <a class="reference external" href="https://github.com/sparkfun/SparkFun_Qwiic_PIR_Arduino_Library/blob/master/examples/Example2_PrintPIRStatus/Example2_PrintPIRStatus.ino">SparkFun’s reference example implementation</a>.</p></li>
+<li><p>May be unreliable at detecting when an object is removed, especially at high debounce rates.</p></li>
+<li><p>Binary sensor filters are not necessary to reduce noise and false detections.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RAW</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Use the raw state of the PIR sensor as reported by the firmware.</p></li>
+<li><p>May miss a very short motion detection events if ESPHome’s loop time is slow.</p></li>
+<li><p>Use binary sensor filters to reduce noise and false detections.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Binary Sensor Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/qwiic__pir_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/sparkfun/SparkFun_Qwiic_PIR_Arduino_Library">SparkFun Qwiic PIR Library</a> by <a class="reference external" href="https://www.sparkfun.com/">SparkFun</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/binary_sensor/qwiic_pir.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

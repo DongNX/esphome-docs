@@ -1,0 +1,566 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up the base fan component.">
+<meta itemprop="name" content="Fan Component">
+<meta itemprop="description" content="Instructions for setting up the base fan component.">
+<meta itemprop="image" content="https://esphome.io/_images/folder-open.png">
+<meta name="twitter:title" content="Fan Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/folder-open.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up the base fan component.">
+<meta property="og:title" content="Fan Component">
+<meta property="og:image" content="https://esphome.io/_images/folder-open.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up the base fan component.">
+
+    <title>Fan Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/fan/index.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Binary Fan" href="binary.html" />
+    <link rel="prev" title="Tuya Cover" href="../cover/tuya.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Fan Component</a><ul>
+<li><a class="reference internal" href="#base-fan-configuration">Base Fan Configuration</a></li>
+<li><a class="reference internal" href="#fan-toggle-action"><code class="docutils literal notranslate"><span class="pre">fan.toggle</span></code> Action</a></li>
+<li><a class="reference internal" href="#fan-turn-off-action"><code class="docutils literal notranslate"><span class="pre">fan.turn_off</span></code> Action</a></li>
+<li><a class="reference internal" href="#fan-turn-on-action"><code class="docutils literal notranslate"><span class="pre">fan.turn_on</span></code> Action</a></li>
+<li><a class="reference internal" href="#fan-cycle-speed-action"><code class="docutils literal notranslate"><span class="pre">fan.cycle_speed</span></code> Action</a></li>
+<li><a class="reference internal" href="#fan-is-on-fan-is-off-condition"><code class="docutils literal notranslate"><span class="pre">fan.is_on</span></code> / <code class="docutils literal notranslate"><span class="pre">fan.is_off</span></code> Condition</a></li>
+<li><a class="reference internal" href="#fan-on-state-trigger"><code class="docutils literal notranslate"><span class="pre">fan.on_state</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#fan-on-turn-on-fan-on-turn-off-trigger"><code class="docutils literal notranslate"><span class="pre">fan.on_turn_on</span></code> / <code class="docutils literal notranslate"><span class="pre">fan.on_turn_off</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#fan-on-direction-set-trigger"><code class="docutils literal notranslate"><span class="pre">fan.on_direction_set</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#fan-on-oscillating-set-trigger"><code class="docutils literal notranslate"><span class="pre">fan.on_oscillating_set</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#fan-on-speed-set-trigger"><code class="docutils literal notranslate"><span class="pre">fan.on_speed_set</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#fan-on-preset-set-trigger"><code class="docutils literal notranslate"><span class="pre">fan.on_preset_set</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#lambda-calls">Lambda calls</a></li>
+<li><a class="reference internal" href="#full-fan-index">Full Fan Index</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li>Fan Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="fan-component">
+<h1>Fan Component<a class="headerlink" href="#fan-component" title="Permalink to this heading">¶</a></h1>
+<p>With the <code class="docutils literal notranslate"><span class="pre">fan</span></code> domain you can create components that appear as fans in
+the Home Assistant frontend. A fan can be switched on or off, optionally
+has a speed between 1 and the maximum supported speed of the fan, and can have an
+oscillation and direction output.</p>
+<figure class="align-center">
+<img alt="../../_images/fan-ui.png" src="../../_images/fan-ui.png" />
+</figure>
+<section id="base-fan-configuration">
+<span id="config-fan"></span><h2>Base Fan Configuration<a class="headerlink" href="#base-fan-configuration" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">fan</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name of the fan.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have a <a class="reference internal" href="../esphome.html#esphome-configuration-variables"><span class="std std-ref">friendly_name</span></a> set for your device and
+you want the fan to use that name, you can set <code class="docutils literal notranslate"><span class="pre">name:</span> <span class="pre">None</span></code>.</p>
+</div>
+</li>
+<li><p><strong>icon</strong> (<em>Optional</em>, icon): Manually set the icon to use for the fan in the frontend.</p></li>
+<li><p><strong>restore_mode</strong> (<em>Optional</em>): Control how the fan attempts to restore state on boot.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NO_RESTORE</span></code> - Don’t restore any state.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RESTORE_DEFAULT_OFF</span></code> - Attempt to restore state and default to OFF if not possible to restore.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RESTORE_DEFAULT_ON</span></code> - Attempt to restore state and default to ON.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RESTORE_INVERTED_DEFAULT_OFF</span></code> - Attempt to restore state inverted from the previous state and default to OFF.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RESTORE_INVERTED_DEFAULT_ON</span></code> - Attempt to restore state inverted from the previous state and default to ON.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ALWAYS_OFF</span></code> (Default) - Always initialize the fan as OFF on bootup.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ALWAYS_ON</span></code> - Always initialize the fan as ON on bootup.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>internal</strong> (<em>Optional</em>, boolean): Mark this component as internal. Internal components will
+not be exposed to the frontend (like Home Assistant). Only specifying an <code class="docutils literal notranslate"><span class="pre">id</span></code> without
+a <code class="docutils literal notranslate"><span class="pre">name</span></code> will implicitly set this to true.</p></li>
+<li><p><strong>disabled_by_default</strong> (<em>Optional</em>, boolean): If true, then this entity should not be added to any client’s frontend
+(usually Home Assistant) without the user manually enabling it (via the Home Assistant UI).
+Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>entity_category</strong> (<em>Optional</em>, string): The category of the entity.
+See <a class="reference external" href="https://developers.home-assistant.io/docs/core/entity/#generic-properties">https://developers.home-assistant.io/docs/core/entity/#generic-properties</a>
+for a list of available options.
+Set to <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> to remove the default entity category.</p></li>
+</ul>
+<p>MQTT options:</p>
+<ul class="simple">
+<li><p><strong>oscillation_state_topic</strong> (<em>Optional</em>, string): The topic to
+publish fan oscillation state changes to.</p></li>
+<li><p><strong>oscillation_command_topic</strong> (<em>Optional</em>, string): The topic to
+receive oscillation commands on.</p></li>
+<li><p><strong>speed_level_state_topic</strong> (<em>Optional</em>, int): The topic to publish
+numeric fan speed state changes to (range: 0 to speed count).</p></li>
+<li><p><strong>speed_level_command_topic</strong> (<em>Optional</em>, int): The topic to receive
+numeric speed commands on (range: 0 to speed count).</p></li>
+<li><p><strong>speed_state_topic</strong> (<em>Optional</em>, string): The topic to publish fan
+speed state changes to (options: LOW, MEDIUM, HIGH).</p></li>
+<li><p><strong>speed_command_topic</strong> (<em>Optional</em>, string): The topic to receive
+speed commands on (options: LOW, MEDIUM, HIGH).</p></li>
+<li><p>All other options from <a class="reference internal" href="../mqtt.html#config-mqtt-component"><span class="std std-ref">MQTT Component</span></a>.</p></li>
+</ul>
+<p>Automation triggers:</p>
+<ul class="simple">
+<li><p><strong>on_state</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the fan state is changed. See <a class="reference internal" href="#fan-on-state-trigger"><span class="std std-ref">fan.on_state Trigger</span></a>.</p></li>
+<li><p><strong>on_turn_on</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the fan is turned on. See <a class="reference internal" href="#fan-on-turn-on-off-trigger"><span class="std std-ref">fan.on_turn_on / fan.on_turn_off Trigger</span></a>.</p></li>
+<li><p><strong>on_turn_off</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the fan is turned off. See <a class="reference internal" href="#fan-on-turn-on-off-trigger"><span class="std std-ref">fan.on_turn_on / fan.on_turn_off Trigger</span></a>.</p></li>
+<li><p><strong>on_direction_set</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the fan direction is changed. See <a class="reference internal" href="#fan-on-direction-set-trigger"><span class="std std-ref">fan.on_direction_set Trigger</span></a>.</p></li>
+<li><p><strong>on_oscillating_set</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the fan oscillating state is changed. See <a class="reference internal" href="#fan-on-oscillating-set-trigger"><span class="std std-ref">fan.on_oscillating_set Trigger</span></a>.</p></li>
+<li><p><strong>on_speed_set</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the fan speed is changed. See <a class="reference internal" href="#fan-on-speed-set-trigger"><span class="std std-ref">fan.on_speed_set Trigger</span></a>.</p></li>
+<li><p><strong>on_preset_set</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): An automation to perform
+when the fan preset mode is changed. See <a class="reference internal" href="#fan-on-preset-set-trigger"><span class="std std-ref">fan.on_preset_set Trigger</span></a>.</p></li>
+</ul>
+</section>
+<section id="fan-toggle-action">
+<span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">fan.toggle</span></code> Action<a class="headerlink" href="#fan-toggle-action" title="Permalink to this heading">¶</a></h2>
+<p>Toggles the ON/OFF state of the fan with the given ID when executed.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fan.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fan_1</span>
+</pre></div>
+</div>
+</section>
+<section id="fan-turn-off-action">
+<span id="id2"></span><h2><code class="docutils literal notranslate"><span class="pre">fan.turn_off</span></code> Action<a class="headerlink" href="#fan-turn-off-action" title="Permalink to this heading">¶</a></h2>
+<p>Turns the fan with the given ID off when executed.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fan.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fan_1</span>
+</pre></div>
+</div>
+</section>
+<section id="fan-turn-on-action">
+<span id="id3"></span><h2><code class="docutils literal notranslate"><span class="pre">fan.turn_on</span></code> Action<a class="headerlink" href="#fan-turn-on-action" title="Permalink to this heading">¶</a></h2>
+<p>Turns the fan with the given ID on when executed.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fan.turn_on</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fan_1</span>
+<span class="w">    </span><span class="c1"># Shorthand:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fan.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fan_1</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the fan.</p></li>
+<li><p><strong>oscillating</strong> (<em>Optional</em>, boolean, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>):
+Set the oscillation state of the fan. Defaults to not affecting oscillation.</p></li>
+<li><p><strong>speed</strong> (<em>Optional</em>, int, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>):
+Set the speed level of the fan. Can be a number between 1 and the maximum speed level of the fan.</p></li>
+<li><p><strong>direction</strong> (<em>Optional</em>, string, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>):
+Set the direction of the fan. Can be either <code class="docutils literal notranslate"><span class="pre">forward</span></code> or <code class="docutils literal notranslate"><span class="pre">reverse</span></code>. Defaults to not changing the direction.</p></li>
+</ul>
+</section>
+<section id="fan-cycle-speed-action">
+<span id="id4"></span><h2><code class="docutils literal notranslate"><span class="pre">fan.cycle_speed</span></code> Action<a class="headerlink" href="#fan-cycle-speed-action" title="Permalink to this heading">¶</a></h2>
+<p>Increments through speed levels of the fan with the given ID when executed. If the fan’s speed level is set to maximum when executed, fan will cycle off unless <code class="docutils literal notranslate"><span class="pre">off_speed_cycle</span></code> is set to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fan.cycle_speed</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fan_1</span>
+<span class="w">        </span><span class="nt">off_speed_cycle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="c1"># Shorthand:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">fan.cycle_speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fan_1</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the fan.</p></li>
+<li><p><strong>off_speed_cycle</strong> (<em>Optional</em>, boolean, <a class="reference internal" href="../../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): Determines if the fan will cycle off after cycling though its highest speed. Can be <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>. If <code class="docutils literal notranslate"><span class="pre">false</span></code> fan will cycle to its lowest speed instead of turning off.  Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+</ul>
+</section>
+<section id="fan-is-on-fan-is-off-condition">
+<span id="fan-is-off-condition"></span><span id="fan-is-on-condition"></span><h2><code class="docutils literal notranslate"><span class="pre">fan.is_on</span></code> / <code class="docutils literal notranslate"><span class="pre">fan.is_off</span></code> Condition<a class="headerlink" href="#fan-is-on-fan-is-off-condition" title="Permalink to this heading">¶</a></h2>
+<p>This <a class="reference internal" href="../../guides/automations.html#config-condition"><span class="std std-ref">condition</span></a> passes if the given fan is on or off.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># in a trigger:</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">fan.is_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_fan</span>
+<span class="w">      </span><span class="c1"># same goes for is_off</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">script.execute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_script</span>
+</pre></div>
+</div>
+</section>
+<section id="fan-on-state-trigger">
+<span id="id5"></span><h2><code class="docutils literal notranslate"><span class="pre">fan.on_state</span></code> Trigger<a class="headerlink" href="#fan-on-state-trigger" title="Permalink to this heading">¶</a></h2>
+<p>This trigger is activated each time the fan state is changed. It will fire when the state is either set via API e.g. in Home Assistant or locally by an automation or a lambda function.
+A pointer to the <code class="docutils literal notranslate"><span class="pre">Fan</span></code> is available as a variable called <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">fan</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speed</span><span class="w"> </span><span class="c1"># or any other platform</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_state</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Fan</span><span class="nv"> </span><span class="s">State</span><span class="nv"> </span><span class="s">changed!</span><span class="nv">  </span><span class="s">Fan</span><span class="nv"> </span><span class="s">Speed</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">%d!&quot;</span>
+<span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">x-&gt;speed</span><span class="w"> </span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="fan-on-turn-on-fan-on-turn-off-trigger">
+<span id="fan-on-turn-on-off-trigger"></span><h2><code class="docutils literal notranslate"><span class="pre">fan.on_turn_on</span></code> / <code class="docutils literal notranslate"><span class="pre">fan.on_turn_off</span></code> Trigger<a class="headerlink" href="#fan-on-turn-on-fan-on-turn-off-trigger" title="Permalink to this heading">¶</a></h2>
+<p>This trigger is activated each time the fan is turned on or off. It does not fire
+if a command to turn the fan on or off already matches the current state.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">fan</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speed</span><span class="w"> </span><span class="c1"># or any other platform</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_turn_on</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Fan</span><span class="nv"> </span><span class="s">Turned</span><span class="nv"> </span><span class="s">On!&quot;</span>
+<span class="w">    </span><span class="nt">on_turn_off</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Fan</span><span class="nv"> </span><span class="s">Turned</span><span class="nv"> </span><span class="s">Off!&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="fan-on-direction-set-trigger">
+<span id="id6"></span><h2><code class="docutils literal notranslate"><span class="pre">fan.on_direction_set</span></code> Trigger<a class="headerlink" href="#fan-on-direction-set-trigger" title="Permalink to this heading">¶</a></h2>
+<p>This trigger is activated each time the fan direction is changed. It will fire when the direction is either set via API e.g. in Home Assistant or locally by an automation or a lambda function.
+The new direction is available as a variable called <code class="docutils literal notranslate"><span class="pre">x</span></code>.  (<code class="docutils literal notranslate"><span class="pre">0</span></code> is FORWARD, <code class="docutils literal notranslate"><span class="pre">1</span></code> is REVERSE)</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">fan</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speed</span><span class="w"> </span><span class="c1"># or any other platform</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_direction_set</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Fan</span><span class="nv"> </span><span class="s">Direction</span><span class="nv"> </span><span class="s">was</span><span class="nv"> </span><span class="s">changed</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">%s!&quot;</span>
+<span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">x == 0</span><span class="w"> </span><span class="p p-Indicator">?</span><span class="w"> </span><span class="s">&quot;FORWARD&quot;</span><span class="w"> </span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;REVERSE&quot;</span><span class="w"> </span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="fan-on-oscillating-set-trigger">
+<span id="id7"></span><h2><code class="docutils literal notranslate"><span class="pre">fan.on_oscillating_set</span></code> Trigger<a class="headerlink" href="#fan-on-oscillating-set-trigger" title="Permalink to this heading">¶</a></h2>
+<p>This trigger is activated each time the fan oscillating state is changed. It will fire when the state is either set via API e.g. in Home Assistant or locally by an automation or a lambda function.
+The new oscillating state is available as a variable called <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">fan</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speed</span><span class="w"> </span><span class="c1"># or any other platform</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_oscillating_set</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Fan</span><span class="nv"> </span><span class="s">Oscillating</span><span class="nv"> </span><span class="s">State</span><span class="nv"> </span><span class="s">was</span><span class="nv"> </span><span class="s">changed</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">%s!&quot;</span>
+<span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">ONOFF(x)</span><span class="w"> </span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="fan-on-speed-set-trigger">
+<span id="id8"></span><h2><code class="docutils literal notranslate"><span class="pre">fan.on_speed_set</span></code> Trigger<a class="headerlink" href="#fan-on-speed-set-trigger" title="Permalink to this heading">¶</a></h2>
+<p>This trigger is activated each time the fan speed is changed. It will fire when the speed is either set via API e.g. in Home Assistant or locally by an automation or a lambda function.
+The new speed is available as a variable called <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">fan</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speed</span><span class="w"> </span><span class="c1"># or any other platform</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_speed_set</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Fan</span><span class="nv"> </span><span class="s">Speed</span><span class="nv"> </span><span class="s">was</span><span class="nv"> </span><span class="s">changed</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">%d!&quot;</span>
+<span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">x</span><span class="w"> </span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="fan-on-preset-set-trigger">
+<span id="id9"></span><h2><code class="docutils literal notranslate"><span class="pre">fan.on_preset_set</span></code> Trigger<a class="headerlink" href="#fan-on-preset-set-trigger" title="Permalink to this heading">¶</a></h2>
+<p>This trigger is activated each time the fan preset mode is changed. It will fire when the preset mode is either set via API e.g. in Home Assistant or locally by an automation or a lambda function.
+The new mode is available as a variable called <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">fan</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speed</span><span class="w"> </span><span class="c1"># or any other platform</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_preset_set</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Fan</span><span class="nv"> </span><span class="s">preset</span><span class="nv"> </span><span class="s">mode</span><span class="nv"> </span><span class="s">was</span><span class="nv"> </span><span class="s">changed</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">%s!&quot;</span>
+<span class="w">          </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">x.c_str()</span><span class="w"> </span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="lambda-calls">
+<h2>Lambda calls<a class="headerlink" href="#lambda-calls" title="Permalink to this heading">¶</a></h2>
+<p>From <a class="reference internal" href="../../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>, you can call several methods on all fans to do some
+advanced stuff (see the full API Reference for more info).</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">state</span></code>: Retrieve the current state (on/off) of the fan.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">// Within lambda, get the fan state and conditionally do something</span>
+<span class="l l-Scalar l-Scalar-Plain">if (id(my_fan).state) {</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Fan is ON, do something here</span>
+<span class="l l-Scalar l-Scalar-Plain">} else {</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Fan is OFF, do something else here</span>
+<span class="l l-Scalar l-Scalar-Plain">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">speed</span></code>: Retrieve the current speed of the fan.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">// Within lambda, get the fan speed and conditionally do something</span>
+<span class="l l-Scalar l-Scalar-Plain">if (id(my_fan).speed == 2) {</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Fan speed is 2, do something here</span>
+<span class="l l-Scalar l-Scalar-Plain">} else {</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Fan speed is not 2, do something else here</span>
+<span class="l l-Scalar l-Scalar-Plain">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">oscillating</span></code>: Retrieve the current oscillating state of the fan.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">// Within lambda, get the fan oscillating state and conditionally do something</span>
+<span class="l l-Scalar l-Scalar-Plain">if (id(my_fan).oscillating) {</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Fan is oscillating, do something here</span>
+<span class="l l-Scalar l-Scalar-Plain">} else {</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Fan is not oscillating, do something else here</span>
+<span class="l l-Scalar l-Scalar-Plain">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">direction</span></code>: Retrieve the current direction of the fan.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">// Within lambda, get the fan direction and conditionally do something</span>
+<span class="l l-Scalar l-Scalar-Plain">if (id(my_fan).direction == FanDirection::FORWARD) {</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Fan direction is forward, do something here</span>
+<span class="l l-Scalar l-Scalar-Plain">} else {</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Fan direction is reverse, do something else here</span>
+<span class="l l-Scalar l-Scalar-Plain">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preset_mode</span></code>: Retrieve the current preset mode of the fan.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">// Within lambda, get the fan preset mode and conditionally do something</span>
+<span class="l l-Scalar l-Scalar-Plain">if (id(my_fan).preset_mode == &quot;auto&quot;) {</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Fan preset mode is &quot;auto&quot;, do something here</span>
+<span class="l l-Scalar l-Scalar-Plain">} else {</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Fan preset mode is not &quot;auto&quot;, do something else here</span>
+<span class="l l-Scalar l-Scalar-Plain">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">turn_off()</span></code>/<code class="docutils literal notranslate"><span class="pre">turn_on()</span></code>/<code class="docutils literal notranslate"><span class="pre">toggle()</span></code>: Manually turn the fan ON/OFF from code.
+Similar to the <code class="docutils literal notranslate"><span class="pre">fan.turn_on</span></code>, <code class="docutils literal notranslate"><span class="pre">fan.turn_off</span></code>, and <code class="docutils literal notranslate"><span class="pre">fan.toggle</span></code> actions,
+but can be used in complex lambda expressions.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">// Turn the fan off</span>
+<span class="l l-Scalar l-Scalar-Plain">auto call = id(my_fan).turn_off();</span>
+<span class="l l-Scalar l-Scalar-Plain">call.perform();</span>
+
+<span class="l l-Scalar l-Scalar-Plain">// Turn the fan on and set the speed, oscillating, and direction</span>
+<span class="l l-Scalar l-Scalar-Plain">auto call = id(my_fan).turn_on();</span>
+<span class="l l-Scalar l-Scalar-Plain">call.set_speed(2);</span>
+<span class="l l-Scalar l-Scalar-Plain">call.set_oscillating(true);</span>
+<span class="l l-Scalar l-Scalar-Plain">call.set_direction(FanDirection::REVERSE);</span>
+<span class="l l-Scalar l-Scalar-Plain">call.perform();</span>
+
+<span class="l l-Scalar l-Scalar-Plain">// Set a preset mode</span>
+<span class="l l-Scalar l-Scalar-Plain">auto call = id(my_fan).turn_on();</span>
+<span class="l l-Scalar l-Scalar-Plain">call.set_preset_mode(&quot;auto&quot;);</span>
+<span class="l l-Scalar l-Scalar-Plain">call.perform();</span>
+
+<span class="l l-Scalar l-Scalar-Plain">// Toggle the fan on/off</span>
+<span class="l l-Scalar l-Scalar-Plain">auto call = id(my_fan).toggle();</span>
+<span class="l l-Scalar l-Scalar-Plain">call.perform();</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="full-fan-index">
+<h2>Full Fan Index<a class="headerlink" href="#full-fan-index" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/api/fan__state_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/fan/index.rst">Edit this page on GitHub</a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="binary.html">Binary Fan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hbridge.html">H-bridge Fan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="speed.html">Speed Fan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template.html">Template Fan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuya.html">Tuya Fan</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

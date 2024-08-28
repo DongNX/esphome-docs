@@ -1,0 +1,342 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a web server in ESPHome.">
+<meta name="keywords" content="web server, http, REST API">
+<meta itemprop="name" content="Web Server Component">
+<meta itemprop="description" content="Instructions for setting up a web server in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/http.png">
+<meta name="twitter:title" content="Web Server Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/http.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a web server in ESPHome.">
+<meta property="og:title" content="Web Server Component">
+<meta property="og:image" content="https://esphome.io/_images/http.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a web server in ESPHome.">
+
+    <title>Web Server Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/web_server.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="WeiKai SPI/I²C UART/IO Expander" href="weikai.html" />
+    <link rel="prev" title="Voice Assistant" href="voice_assistant.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Web Server Component</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#example-configurations">Example configurations:</a></li>
+<li><a class="reference internal" href="#advanced-usage">Advanced usage</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>Web Server Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="web-server-component">
+<h1>Web Server Component<a class="headerlink" href="#web-server-component" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">web_server</span></code> component creates a simple web server on the node that can be accessed
+through any browser and a simple <a class="reference internal" href="../web-api/index.html#api-rest"><span class="std std-ref">REST API</span></a>. Please note that enabling this component
+will take up <em>a lot</em> of memory and may decrease stability, especially on ESP8266.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/web_server.png"><img alt="../_images/web_server.png" src="../_images/web_server.png" style="width: 86.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Web server version 1</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/web_server-v2.png"><img alt="../_images/web_server-v2.png" src="../_images/web_server-v2.png" style="width: 86.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Web server version 2</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>To navigate to the web server in your browser, either use the IP address of the node or
+use <code class="docutils literal notranslate"><span class="pre">&lt;node_name&gt;.local/</span></code> (note the trailing forward slash) via mDNS.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">web_server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>port</strong> (<em>Optional</em>, int): The port the web server should open its socket on.</p></li>
+<li><p><strong>css_url</strong> (<em>Optional</em>, url): The URL that should be used for the CSS stylesheet. Defaults
+to <a class="reference external" href="https://esphome.io/_static/webserver-v1.min.css">https://esphome.io/_static/webserver-v1.min.css</a> (updates will go to <code class="docutils literal notranslate"><span class="pre">v2</span></code>, <code class="docutils literal notranslate"><span class="pre">v3</span></code>, etc). Can be set to empty string.</p></li>
+<li><p><strong>css_include</strong> (<em>Optional</em>, local file): Path to local file to be included in web server index page.
+Contents of this file will be served as <code class="docutils literal notranslate"><span class="pre">/0.css</span></code> and used as CSS stylesheet by internal webserver.
+Useful when building device without internet access, where you want to use built-in AP and webserver.</p></li>
+<li><p><strong>js_url</strong> (<em>Optional</em>, url): The URL that should be used for the JS script. Defaults
+to <a class="reference external" href="https://esphome.io/_static/webserver-v1.min.js">https://esphome.io/_static/webserver-v1.min.js</a>. Can be set to empty string.</p></li>
+<li><p><strong>js_include</strong> (<em>Optional</em>, local file): Path to local file to be included in web server index page.
+Contents of this file will be served as <code class="docutils literal notranslate"><span class="pre">/0.js</span></code> and used as JS script by internal webserver.
+Useful when building device without internet access, where you want to use built-in AP and webserver.</p></li>
+<li><p><strong>auth</strong> (<em>Optional</em>): Enables a simple <em>Digest</em> authentication with username and password.</p>
+<ul>
+<li><p><strong>username</strong> (<strong>Required</strong>, string): The username to use for authentication.</p></li>
+<li><p><strong>password</strong> (<strong>Required</strong>, string): The password to check for authentication.</p></li>
+</ul>
+</li>
+<li><p><strong>include_internal</strong> (<em>Optional</em>, boolean): Whether <code class="docutils literal notranslate"><span class="pre">internal</span></code> entities should be displayed on the
+web interface. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>enable_private_network_access</strong> (<em>Optional</em>, boolean): Enables support for
+<a class="reference external" href="https://wicg.github.io/private-network-access">Private Network Access</a> and the
+<a class="reference external" href="https://wicg.github.io/private-network-access/#permission-prompt">Private Network Access Permission Prompt</a>.
+Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><strong>log</strong> (<em>Optional</em>, boolean): Turn on or off the log feature inside webserver. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><strong>ota</strong> (<em>Optional</em>, boolean): Turn on or off the OTA feature inside webserver. Strongly not suggested without enabled authentication settings. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>. Cannot be used with the <code class="docutils literal notranslate"><span class="pre">esp-idf</span></code> framework.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>local</strong> (<em>Optional</em>, boolean): Include supporting javascript locally allowing it to work without internet access. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>version</strong> (<em>Optional</em>, string): <code class="docutils literal notranslate"><span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">2</span></code>. Version 1 displays as a table. Version 2 uses web components and has more functionality. Defaults to <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+</ul>
+<p>To conserve flash size, the CSS and JS files used on the root page to show a simple user
+interface are hosted by esphome.io. If you want to use your own service, use the
+<code class="docutils literal notranslate"><span class="pre">css_url</span></code> and <code class="docutils literal notranslate"><span class="pre">js_url</span></code> options in your configuration.</p>
+</section>
+<section id="example-configurations">
+<h2>Example configurations:<a class="headerlink" href="#example-configurations" title="Permalink to this heading">¶</a></h2>
+<p>Enabling HTTP authentication:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">web_server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">  </span><span class="nt">auth</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_server_username</span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_server_password</span>
+</pre></div>
+</div>
+<p>Use version 1 user interface:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">web_server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>No internet/intranet required on the clients (all assets are inlined, compressed and served from flash):</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">web_server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">local</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</section>
+<section id="advanced-usage">
+<h2>Advanced usage<a class="headerlink" href="#advanced-usage" title="Permalink to this heading">¶</a></h2>
+<p>The following assume copies of the files with local paths - which are config dependant.</p>
+<p>Example <code class="docutils literal notranslate"><span class="pre">web_server</span></code> version 1 configuration with CSS and JS included from esphome-docs.
+CSS and JS URL’s are set to empty value, so no internet access is needed for this device to show it’s web interface.
+Force to turn off OTA function because the missing authentication.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">web_server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">ota</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">css_include</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;../../../esphome-docs/_static/webserver-v1.min.css&quot;</span>
+<span class="w">  </span><span class="nt">css_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">  </span><span class="nt">js_include</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;../../../esphome-docs/_static/webserver-v1.min.js&quot;</span>
+<span class="w">  </span><span class="nt">js_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+</pre></div>
+</div>
+<p>Example <code class="docutils literal notranslate"><span class="pre">web_server</span></code> version 2 configuration with JS included from a local file.
+CSS and JS URL’s are set to empty value, so no internet access is needed for this device to show it’s web interface.
+V2 embeds the css within the js file so is not required, however you could include your own CSS.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry v2</span>
+<span class="nt">web_server</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">js_include</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./v2/www.js&quot;</span>
+<span class="w">  </span><span class="nt">js_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+<p>Copy <a class="reference external" href="https://oi.esphome.io/v2/www.js">https://oi.esphome.io/v2/www.js</a> to a V2 folder in your yaml folder.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../web-api/index.html#api-event-source"><span class="std std-ref">Event Source API</span></a></p></li>
+<li><p><a class="reference internal" href="../web-api/index.html#api-rest"><span class="std std-ref">REST API</span></a></p></li>
+<li><p><a class="reference external" href="/api/web__server_8h.html">API Reference</a></p></li>
+<li><p><a class="reference internal" href="prometheus.html"><span class="doc">Prometheus Component</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/web_server.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

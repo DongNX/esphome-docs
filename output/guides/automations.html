@@ -1,0 +1,1110 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Getting started guide for automations in ESPHome.">
+<meta itemprop="name" content="Automations and Templates">
+<meta itemprop="description" content="Getting started guide for automations in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/auto-fix.png">
+<meta name="twitter:title" content="Automations and Templates">
+<meta name="twitter:image:src" content="https://esphome.io/_images/auto-fix.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Getting started guide for automations in ESPHome.">
+<meta property="og:title" content="Automations and Templates">
+<meta property="og:image" content="https://esphome.io/_images/auto-fix.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Getting started guide for automations in ESPHome.">
+
+    <title>Automations and Templates &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/guides/automations.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="Create audio clip files for use with I²S Speakers" href="audio_clips_for_i2s.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Automations and Templates</a><ul>
+<li><a class="reference internal" href="#actions">Actions</a></li>
+<li><a class="reference internal" href="#templates-lambdas">Templates (Lambdas)</a><ul>
+<li><a class="reference internal" href="#bonus-templating-actions">Bonus: Templating Actions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#global-variables">Global Variables</a></li>
+<li><a class="reference internal" href="#do-automations-work-without-a-network-connection">Do Automations Work Without a Network Connection</a></li>
+<li><a class="reference internal" href="#all-triggers">All Triggers</a></li>
+<li><a class="reference internal" href="#all-actions">All Actions</a></li>
+<li><a class="reference internal" href="#all-conditions">All Conditions</a></li>
+<li><a class="reference internal" href="#all-lambda-calls">All Lambda Calls</a></li>
+<li><a class="reference internal" href="#delay-action"><code class="docutils literal notranslate"><span class="pre">delay</span></code> Action</a></li>
+<li><a class="reference internal" href="#lambda-action"><code class="docutils literal notranslate"><span class="pre">lambda</span></code> Action</a></li>
+<li><a class="reference internal" href="#lambda-condition"><code class="docutils literal notranslate"><span class="pre">lambda</span></code> Condition</a></li>
+<li><a class="reference internal" href="#and-or-xor-not-condition"><code class="docutils literal notranslate"><span class="pre">and</span></code> / <code class="docutils literal notranslate"><span class="pre">or</span></code> / <code class="docutils literal notranslate"><span class="pre">xor</span></code> / <code class="docutils literal notranslate"><span class="pre">not</span></code> Condition</a></li>
+<li><a class="reference internal" href="#if-action"><code class="docutils literal notranslate"><span class="pre">if</span></code> Action</a></li>
+<li><a class="reference internal" href="#while-action"><code class="docutils literal notranslate"><span class="pre">while</span></code> Action</a></li>
+<li><a class="reference internal" href="#repeat-action"><code class="docutils literal notranslate"><span class="pre">repeat</span></code> Action</a></li>
+<li><a class="reference internal" href="#wait-until-action"><code class="docutils literal notranslate"><span class="pre">wait_until</span></code> Action</a></li>
+<li><a class="reference internal" href="#component-update-action"><code class="docutils literal notranslate"><span class="pre">component.update</span></code> Action</a></li>
+<li><a class="reference internal" href="#component-suspend-action"><code class="docutils literal notranslate"><span class="pre">component.suspend</span></code> Action</a></li>
+<li><a class="reference internal" href="#component-resume-action"><code class="docutils literal notranslate"><span class="pre">component.resume</span></code> Action</a></li>
+<li><a class="reference internal" href="#globals-set-action"><code class="docutils literal notranslate"><span class="pre">globals.set</span></code> Action</a></li>
+<li><a class="reference internal" href="#script-component"><code class="docutils literal notranslate"><span class="pre">script</span></code> Component</a></li>
+<li><a class="reference internal" href="#script-parameters"><code class="docutils literal notranslate"><span class="pre">Script</span> <span class="pre">Parameters</span></code></a></li>
+<li><a class="reference internal" href="#script-execute-action"><code class="docutils literal notranslate"><span class="pre">script.execute</span></code> Action</a></li>
+<li><a class="reference internal" href="#script-stop-action"><code class="docutils literal notranslate"><span class="pre">script.stop</span></code> Action</a></li>
+<li><a class="reference internal" href="#script-wait-action"><code class="docutils literal notranslate"><span class="pre">script.wait</span></code> Action</a></li>
+<li><a class="reference internal" href="#script-is-running-condition"><code class="docutils literal notranslate"><span class="pre">script.is_running</span></code> Condition</a></li>
+<li><a class="reference internal" href="#for-condition"><code class="docutils literal notranslate"><span class="pre">for</span></code> Condition</a></li>
+<li><a class="reference internal" href="#interval-component"><code class="docutils literal notranslate"><span class="pre">interval</span></code> Component</a></li>
+<li><a class="reference internal" href="#timers-and-timeouts">Timers and timeouts</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Guides</a> ➔</li>
+      <li>Automations and Templates</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="automations-and-templates">
+<span id="automation"></span><h1>Automations and Templates<a class="headerlink" href="#automations-and-templates" title="Permalink to this heading">¶</a></h1>
+<p>Automations and templates are two very powerful aspects of ESPHome. Automations
+allow you to perform actions under certain conditions and templates are a way to easily
+customize everything about your node without having to dive into the full ESPHome C++
+API.</p>
+<p>Let’s begin with an example to explain these concepts. Suppose you have this configuration file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Dehumidifier&quot;</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Dehumidifier</span><span class="nv"> </span><span class="s">Toggle</span><span class="nv"> </span><span class="s">Button&quot;</span>
+</pre></div>
+</div>
+<p>With this file you can already perform some basic tasks. You can control the ON/OFF state
+of the dehumidifier in your living room from Home Assistant’s front-end. But in many cases,
+controlling everything strictly from the frontend is quite a pain. That’s why you have
+decided to also install a simple push button next to the dehumidifier on pin GPIOXX.
+A simple push on this button should toggle the state of the dehumidifier.</p>
+<p>You <em>could</em> write an automation to do this task in Home Assistant’s automation engine, but
+ideally the IoT should work without an internet connection and should not break with
+the MQTT server being offline.</p>
+<p>That’s why, starting with ESPHome 1.7.0, there’s a new automation engine. With it, you
+can write some basic (and also some more advanced) automations using a syntax that is
+hopefully a bit easier to read and understand than Home Assistant’s.</p>
+<p>For example, this configuration would achieve your desired behavior:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Dehumidifier&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dehumidifier1</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Dehumidifier</span><span class="nv"> </span><span class="s">Toggle</span><span class="nv"> </span><span class="s">Button&quot;</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dehumidifier1</span>
+</pre></div>
+</div>
+<p>Woah, hold on there. Please explain what’s going on here! Sure :) Let’s step through what’s happening here.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">switch</span><span class="p">:</span>
+<span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">     </span><span class="c1"># ...</span>
+<span class="w">     </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dehumidifier1</span>
+</pre></div>
+</div>
+<p>First, we have to give the dehumidifier a <a class="reference internal" href="configuration-types.html#config-id"><span class="std std-ref">ID</span></a> so that we can
+later use it inside our awesome automation.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>We now attach a special attribute <code class="docutils literal notranslate"><span class="pre">on_press</span></code> to the toggle button. This part is called a “trigger”. In this example,
+the automation in the next few lines will execute whenever someone <em>begins</em> to press the button. Note the terminology
+follows what you would call these events on mouse buttons. A <em>press</em> happens when you begin pressing the button/mouse.
+There are also other triggers like <code class="docutils literal notranslate"><span class="pre">on_release</span></code>, <code class="docutils literal notranslate"><span class="pre">on_click</span></code> or <code class="docutils literal notranslate"><span class="pre">on_double_click</span></code> available.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># ...</span>
+<span class="nt">on_press</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dehumidifier1</span>
+</pre></div>
+</div>
+<section id="actions">
+<span id="config-action"></span><h2>Actions<a class="headerlink" href="#actions" title="Permalink to this heading">¶</a></h2>
+<p>Now comes the actual automation block. With <code class="docutils literal notranslate"><span class="pre">then</span></code>, you tell ESPHome what should happen when the press happens.
+Within this block, you can define several “actions” that will be executed sequentially.
+For example, <code class="docutils literal notranslate"><span class="pre">switch.toggle</span></code> and the line after that form an
+action. Each action is separated by a dash and multiple actions can be executed in series by just adding another <code class="docutils literal notranslate"><span class="pre">-</span></code>
+like so:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># ...</span>
+<span class="nt">on_press</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dehumidifier1</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2s</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dehumidifier1</span>
+</pre></div>
+</div>
+<p>With this automation, a press on the push button would cause the dehumidifier to turn on/off for 2 seconds, and then
+cycle back to its original state. Similarly you can have a single trigger with multiple automations:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># ...</span>
+<span class="nt">on_press</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dehumidifier1</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dehumidifier_indicator_light</span>
+
+<span class="c1"># Same as:</span>
+<span class="nt">on_press</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dehumidifier1</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dehumidifier_indicator_light</span>
+</pre></div>
+</div>
+<p>As a last example, let’s make our dehumidifier smart: Let’s make it turn on automatically when the humidity reported by a sensor
+is above 65%, and make it turn off again when it falls below 50%:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dht</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">      </span><span class="nt">on_value_range</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">above</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">65.0</span>
+<span class="w">          </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dehumidifier1</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">below</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50.0</span>
+<span class="w">          </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dehumidifier1</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Living</span><span class="nv"> </span><span class="s">Room</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+</pre></div>
+</div>
+<p>That’s a lot of indentation 😉 <code class="docutils literal notranslate"><span class="pre">on_value_range</span></code> is a special trigger for sensors that trigger when the value output
+of the sensor is within a certain range. In the first example, this range is defined as “any value above or including
+65.0”, and the second one refers to once the humidity reaches 50% or below.</p>
+<p>Now that concludes the introduction to automations in ESPHome. They’re a powerful tool to automate almost
+everything on your device with an easy-to-use syntax. For the cases where the “pure” YAML automations don’t work,
+ESPHome has another extremely powerful tool to offer: Templates.</p>
+</section>
+<section id="templates-lambdas">
+<span id="config-lambda"></span><h2>Templates (Lambdas)<a class="headerlink" href="#templates-lambdas" title="Permalink to this heading">¶</a></h2>
+<p>With templates inside ESPHome, you can do almost <em>everything</em>. If for example you want to only perform a certain
+automation if a certain complex formula evaluates to true, you can do that with templates. Let’s look at an example
+first:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpio</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Cover</span><span class="nv"> </span><span class="s">End</span><span class="nv"> </span><span class="s">Stop&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">top_end_stop</span>
+<span class="nt">cover</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Living Room Cover</span>
+<span class="w">    </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">      </span><span class="no">if (id(top_end_stop).state) {</span>
+<span class="w">        </span><span class="no">return COVER_OPEN;</span>
+<span class="w">      </span><span class="no">} else {</span>
+<span class="w">        </span><span class="no">return COVER_CLOSED;</span>
+<span class="w">      </span><span class="no">}</span>
+</pre></div>
+</div>
+<p>What’s happening here? First, we define a binary sensor (with the id <code class="docutils literal notranslate"><span class="pre">top_end_stop</span></code>) and then a
+<a class="reference internal" href="../components/cover/template.html"><span class="doc">template cover</span></a>. (If you’re new to Home Assistant, a ‘cover’ is
+something like a window blind, a roller shutter, or a garage door.) The <em>state</em> of the template cover is
+controlled by a template, or “lambda”. In lambdas you’re effectively writing C++ code and therefore the
+name lambda is used instead of Home Assistant’s “template” lingo to avoid confusion. But before you go
+shy away from using lambdas because you just hear C++ and think oh noes, I’m not going down <em>that</em> road:
+Writing lambdas is not that hard! Here’s a bit of a primer:</p>
+<p>First, you might have already wondered what the <code class="docutils literal notranslate"><span class="pre">lambda:</span> <span class="pre">!lambda</span> <span class="pre">|-</span></code> part is supposed to mean. <code class="docutils literal notranslate"><span class="pre">!lambda</span></code>
+tells ESPHome that the following block is supposed to be interpreted as a lambda, or C++ code. Note that
+here, the <code class="docutils literal notranslate"><span class="pre">lambda:</span></code> key would actually implicitly make the following block a lambda so in this context,
+you could have just written <code class="docutils literal notranslate"><span class="pre">lambda:</span> <span class="pre">|-</span></code>.</p>
+<p>Next, there’s the weird <code class="docutils literal notranslate"><span class="pre">|-</span></code> character combination. This effectively tells the YAML parser to treat the following
+<strong>indented</strong> (!) block as plaintext. Without it, the YAML parser would attempt to read the following block as if
+it were made up of YAML keys like <code class="docutils literal notranslate"><span class="pre">cover:</span></code> for example. (You may also have seen variations of this like <code class="docutils literal notranslate"><span class="pre">&gt;-</span></code>
+or just <code class="docutils literal notranslate"><span class="pre">|</span></code> or <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>. There’s a slight difference in how these different styles deal with whitespace, but for our
+purposes we can ignore that).</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(...)</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span> <span class="pre">else</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code> we create a <em>condition</em>. What this effectively says that if the thing inside
+the first parentheses evaluates to <code class="docutils literal notranslate"><span class="pre">true</span></code> then execute the first block (in this case <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">COVER_OPEN;</span></code>,
+or else evaluate the second block. <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">...;</span></code> makes the code block give back a value to the template. In this case,
+we’re either <em>returning</em> <code class="docutils literal notranslate"><span class="pre">COVER_OPEN</span></code> or <code class="docutils literal notranslate"><span class="pre">COVER_CLOSED</span></code> to indicate that the cover is closed or open.</p>
+<p>Finally, <code class="docutils literal notranslate"><span class="pre">id(...)</span></code> is a helper function that makes ESPHome fetch an object with the supplied ID (which you defined
+somewhere else, like <code class="docutils literal notranslate"><span class="pre">top_end_stop</span></code>) and lets you call any of ESPHome’s many APIs directly. For example, here
+we’re retrieving the current state of the end stop using <code class="docutils literal notranslate"><span class="pre">.state</span></code> and using it to construct our cover state.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ESPHome does not check the validity of lambda expressions you enter and will blindly copy
+them into the generated C++ code. If compilation fails or something else is not working as expected
+with lambdas, it’s always best to look at the generated C++ source file under <code class="docutils literal notranslate"><span class="pre">&lt;NODE_NAME&gt;/src/main.cpp</span></code>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To store local variables inside lambdas that retain their value across executions, you can create <code class="docutils literal notranslate"><span class="pre">static</span></code>
+variables like so. In this example the variable <code class="docutils literal notranslate"><span class="pre">num_executions</span></code> is incremented by one each time the
+lambda is executed and the current value is logged.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">  </span><span class="no">static int num_executions = 0;</span>
+<span class="w">  </span><span class="no">ESP_LOGD(&quot;main&quot;, &quot;I am at execution number %d&quot;, num_executions);</span>
+<span class="w">  </span><span class="no">num_executions += 1;</span>
+</pre></div>
+</div>
+</div>
+<section id="bonus-templating-actions">
+<span id="config-templatable"></span><h3>Bonus: Templating Actions<a class="headerlink" href="#bonus-templating-actions" title="Permalink to this heading">¶</a></h3>
+<p>Another feature of ESPHome is that you can template almost every parameter for actions in automations. For example
+if you have a light and want to set it to a pre-defined color when a button is pressed, you can do this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.turn_on</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some_light_id</span>
+<span class="w">        </span><span class="nt">transition_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5s</span>
+<span class="w">        </span><span class="nt">red</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span>
+<span class="w">        </span><span class="nt">green</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">        </span><span class="nt">blue</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">// The sensor outputs values from 0 to 100. The blue</span>
+<span class="w">          </span><span class="no">// part of the light color will be determined by the sensor value.</span>
+<span class="w">          </span><span class="no">return id(some_sensor).state / 100.0;</span>
+</pre></div>
+</div>
+<p>Every parameter in actions that has the label “templatable” in the docs can be templated like above, using
+all of the usual lambda syntax.</p>
+</section>
+</section>
+<section id="global-variables">
+<span id="config-globals"></span><h2>Global Variables<a class="headerlink" href="#global-variables" title="Permalink to this heading">¶</a></h2>
+<p>In some cases you might require to share a global variable across multiple lambdas. For example,
+global variables can be used to store the state of a garage door.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Example configuration entry</span>
+<span class="w"> </span><span class="nt">globals</span><span class="p">:</span>
+<span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_global_int</span>
+<span class="w">     </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">     </span><span class="nt">restore_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">no</span>
+<span class="w">     </span><span class="nt">initial_value</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0&#39;</span>
+<span class="w">   </span><span class="c1"># Example for global string variable</span>
+<span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_global_string</span>
+<span class="w">     </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">std::string</span>
+<span class="w">     </span><span class="nt">restore_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yes</span>
+<span class="w">     </span><span class="nt">max_restore_data_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span>
+<span class="w">     </span><span class="nt">initial_value</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&quot;Global</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">is&quot;&#39;</span>
+
+<span class="c1"># In an automation</span>
+<span class="nt">on_press</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">if (id(my_global_int) &gt; 5) {</span>
+<span class="w">          </span><span class="no">// global value is greater than 5</span>
+<span class="w">          </span><span class="no">id(my_global_int) += 1;</span>
+<span class="w">        </span><span class="no">} else {</span>
+<span class="w">          </span><span class="no">id(my_global_int) += 10;</span>
+<span class="w">        </span><span class="no">}</span>
+
+<span class="w">        </span><span class="no">ESP_LOGD(TAG, &quot;%s: %d&quot;, id(my_global_string).c_str(), id(my_global_int));</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Give the global variable an ID so that you can refer
+to it later in <a class="reference internal" href="#config-lambda"><span class="std std-ref">lambdas</span></a>.</p></li>
+<li><p><strong>type</strong> (<strong>Required</strong>, string): The C++ type of the global variable, for example <code class="docutils literal notranslate"><span class="pre">bool</span></code> (for <code class="docutils literal notranslate"><span class="pre">true</span></code>/<code class="docutils literal notranslate"><span class="pre">false</span></code>),
+<code class="docutils literal notranslate"><span class="pre">int</span></code> (for integers), <code class="docutils literal notranslate"><span class="pre">float</span></code> (for decimal numbers), <code class="docutils literal notranslate"><span class="pre">int[50]</span></code> for an array of 50 integers, etc.</p></li>
+<li><p><strong>restore_value</strong> (<em>Optional</em>, boolean): Whether to try to restore the state on boot up.
+Be careful: on the ESP8266, you only have a total of 96 bytes available for this! Defaults to <code class="docutils literal notranslate"><span class="pre">no</span></code>.
+This will use storage in “RTC memory”, so it won’t survive a power-cycle unless you use the <code class="docutils literal notranslate"><span class="pre">esp8266_restore_from_flash</span></code> option to save to flash. See <a class="reference internal" href="../components/esphome.html"><span class="doc">esp8266_restore_from_flash</span></a> for details.</p></li>
+<li><p><strong>max_restore_data_length</strong> (<em>Optional</em>, integer): Only applies to variables of type <code class="docutils literal notranslate"><span class="pre">std::string</span></code>.  ESPHome will allocate enough space for this many characters,
+plus single character of overhead. Strings longer than this will not be saved. The max value of this variable is 254 characters, and the default is 63 characters.</p></li>
+<li><p><strong>initial_value</strong> (<em>Optional</em>, string): The value with which to initialize this variable if the state
+can not be restored or if state restoration is not enabled. This needs to be wrapped in quotes! Defaults to
+the C++ default value for this type (for example <code class="docutils literal notranslate"><span class="pre">0</span></code> for integers).</p></li>
+</ul>
+</section>
+<section id="do-automations-work-without-a-network-connection">
+<span id="automation-networkless"></span><h2>Do Automations Work Without a Network Connection<a class="headerlink" href="#do-automations-work-without-a-network-connection" title="Permalink to this heading">¶</a></h2>
+<p>YES! All automations you define in ESPHome are executed on the ESP itself and will continue to
+work even if the WiFi network is down or the MQTT server is not reachable.</p>
+<p>There is one caveat though: ESPHome automatically reboots if no connection to the MQTT broker can be
+made. This is because the ESPs typically have issues in their network stacks that require a reboot to fix.
+You can adjust this behavior (or even disable automatic rebooting) using the <code class="docutils literal notranslate"><span class="pre">reboot_timeout</span></code> option
+in the <a class="reference internal" href="../components/wifi.html"><span class="doc">wifi component</span></a> and <a class="reference internal" href="../components/mqtt.html"><span class="doc">mqtt component</span></a>.
+(Beware that effectively disables the reboot watchdog, so you will need to power cycle the device
+if it fails to connect to the network without a reboot)</p>
+</section>
+<section id="all-triggers">
+<h2>All Triggers<a class="headerlink" href="#all-triggers" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../components/api.html#api-services"><span class="std std-ref">api.services</span></a> / <a class="reference internal" href="../components/api.html#api-on-client-connected-trigger"><span class="std std-ref">api.on_client_connected</span></a> / <a class="reference internal" href="../components/api.html#api-on-client-disconnected-trigger"><span class="std std-ref">api.on_client_disconnected</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sensor/index.html#sensor-on-value"><span class="std std-ref">sensor.on_value</span></a> / <a class="reference internal" href="../components/sensor/index.html#sensor-on-raw-value"><span class="std std-ref">sensor.on_raw_value</span></a> / <a class="reference internal" href="../components/sensor/index.html#sensor-on-value-range"><span class="std std-ref">sensor.on_value_range</span></a></p></li>
+<li><p><a class="reference internal" href="../components/binary_sensor/index.html#binary-sensor-on-press"><span class="std std-ref">binary_sensor.on_press</span></a> / <a class="reference internal" href="../components/binary_sensor/index.html#binary-sensor-on-release"><span class="std std-ref">binary_sensor.on_release</span></a> /
+<a class="reference internal" href="../components/binary_sensor/index.html#binary-sensor-on-state"><span class="std std-ref">binary_sensor.on_state</span></a></p></li>
+<li><p><a class="reference internal" href="../components/binary_sensor/index.html#binary-sensor-on-click"><span class="std std-ref">binary_sensor.on_click</span></a> / <a class="reference internal" href="../components/binary_sensor/index.html#binary-sensor-on-double-click"><span class="std std-ref">binary_sensor.on_double_click</span></a> /
+<a class="reference internal" href="../components/binary_sensor/index.html#binary-sensor-on-multi-click"><span class="std std-ref">binary_sensor.on_multi_click</span></a></p></li>
+<li><p><a class="reference internal" href="../components/esphome.html#esphome-on-boot"><span class="std std-ref">esphome.on_boot</span></a> / <a class="reference internal" href="../components/esphome.html#esphome-on-shutdown"><span class="std std-ref">esphome.on_shutdown</span></a> / <a class="reference internal" href="../components/esphome.html#esphome-on-loop"><span class="std std-ref">esphome.on_loop</span></a></p></li>
+<li><p><a class="reference internal" href="../components/light/index.html#light-on-turn-on-off-trigger"><span class="std std-ref">light.on_turn_on / light.on_turn_off</span></a></p></li>
+<li><p><a class="reference internal" href="../components/logger.html#logger-on-message"><span class="std std-ref">logger.on_message</span></a></p></li>
+<li><p><a class="reference internal" href="../components/time/index.html#time-on-time"><span class="std std-ref">time.on_time</span></a> / - <a class="reference internal" href="../components/time/index.html#time-on-time-sync"><span class="std std-ref">time.on_time_sync</span></a></p></li>
+<li><p><a class="reference internal" href="../components/mqtt.html#mqtt-on-message"><span class="std std-ref">mqtt.on_message</span></a> / <a class="reference internal" href="../components/mqtt.html#mqtt-on-json-message"><span class="std std-ref">mqtt.on_json_message</span></a> /
+<a class="reference internal" href="../components/mqtt.html#mqtt-on-connect-disconnect"><span class="std std-ref">mqtt.on_connect / mqtt.on_disconnect</span></a></p></li>
+<li><p><a class="reference internal" href="../components/binary_sensor/pn532.html#pn532-on-tag"><span class="std std-ref">pn532.on_tag</span></a> / <a class="reference internal" href="../components/binary_sensor/pn532.html#pn532-on-tag-removed"><span class="std std-ref">pn532.on_tag_removed</span></a> / <a class="reference internal" href="../components/binary_sensor/rc522.html#rc522-on-tag"><span class="std std-ref">rc522.on_tag</span></a>
+/ <a class="reference internal" href="../components/binary_sensor/rc522.html#rc522-on-tag-removed"><span class="std std-ref">rc522.on_tag_removed</span></a> / <a class="reference internal" href="../components/binary_sensor/rdm6300.html#rdm6300-on-tag"><span class="std std-ref">rdm6300.on_tag</span></a></p></li>
+<li><p><a class="reference internal" href="#interval"><span class="std std-ref">interval.interval</span></a></p></li>
+<li><p><a class="reference internal" href="../components/switch/index.html#switch-on-turn-on-off-trigger"><span class="std std-ref">switch.on_turn_on / switch.on_turn_off</span></a></p></li>
+<li><p><a class="reference internal" href="../components/remote_receiver.html"><span class="doc">remote_receiver.on_*</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sun.html"><span class="doc">sun.on_sunrise</span></a> / <a class="reference internal" href="../components/sun.html"><span class="doc">sun.on_sunset</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sim800l.html#sim800l-on-sms-received"><span class="std std-ref">sim800l.on_sms_received</span></a></p></li>
+<li><p><a class="reference internal" href="../components/rf_bridge.html#rf-bridge-on-code-received"><span class="std std-ref">rf_bridge.on_code_received</span></a></p></li>
+<li><p><a class="reference internal" href="../components/ota.html#ota-on-begin"><span class="std std-ref">ota.on_begin</span></a> / <a class="reference internal" href="../components/ota.html#ota-on-progress"><span class="std std-ref">ota.on_progress</span></a> /
+<a class="reference internal" href="../components/ota.html#ota-on-end"><span class="std std-ref">ota.on_end</span></a> / <a class="reference internal" href="../components/ota.html#ota-on-error"><span class="std std-ref">ota.on_error</span></a> /
+<a class="reference internal" href="../components/ota.html#ota-on-state-change"><span class="std std-ref">ota.on_state_change</span></a></p></li>
+<li><p><a class="reference internal" href="../components/display/index.html#display-on-page-change-trigger"><span class="std std-ref">display.on_page_change</span></a></p></li>
+<li><p><a class="reference internal" href="../components/cover/index.html#cover-on-open-trigger"><span class="std std-ref">cover.on_open</span></a> / <a class="reference internal" href="../components/cover/index.html#cover-on-closed-trigger"><span class="std std-ref">cover.on_closed</span></a></p></li>
+<li><p><a class="reference internal" href="../components/wifi.html#wifi-on-connect-disconnect"><span class="std std-ref">wifi.on_connect / wifi.on_disconnect</span></a></p></li>
+</ul>
+</section>
+<section id="all-actions">
+<h2>All Actions<a class="headerlink" href="#all-actions" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#delay-action"><span class="std std-ref">delay</span></a></p></li>
+<li><p><a class="reference internal" href="#lambda-action"><span class="std std-ref">lambda</span></a></p></li>
+<li><p><a class="reference internal" href="#if-action"><span class="std std-ref">if</span></a> / <a class="reference internal" href="#while-action"><span class="std std-ref">while</span></a> / <a class="reference internal" href="#wait-until-action"><span class="std std-ref">wait_until</span></a></p></li>
+<li><p><a class="reference internal" href="#component-update-action"><span class="std std-ref">component.update</span></a></p></li>
+<li><p><a class="reference internal" href="#component-suspend-action"><span class="std std-ref">component.suspend</span></a> / <a class="reference internal" href="#component-resume-action"><span class="std std-ref">component.resume</span></a></p></li>
+<li><p><a class="reference internal" href="#script-execute-action"><span class="std std-ref">script.execute</span></a> / <a class="reference internal" href="#script-stop-action"><span class="std std-ref">script.stop</span></a> / <a class="reference internal" href="#script-wait-action"><span class="std std-ref">script.wait</span></a></p></li>
+<li><p><a class="reference internal" href="../components/logger.html#logger-log-action"><span class="std std-ref">logger.log</span></a></p></li>
+<li><p><a class="reference internal" href="../components/api.html#api-homeassistant-service-action"><span class="std std-ref">homeassistant.service</span></a></p></li>
+<li><p><a class="reference internal" href="../components/api.html#api-homeassistant-event-action"><span class="std std-ref">homeassistant.event</span></a></p></li>
+<li><p><a class="reference internal" href="../components/api.html#api-homeassistant-tag-scanned-action"><span class="std std-ref">homeassistant.tag_scanned</span></a></p></li>
+<li><p><a class="reference internal" href="../components/mqtt.html#mqtt-publish-action"><span class="std std-ref">mqtt.publish</span></a> / <a class="reference internal" href="../components/mqtt.html#mqtt-publish-json-action"><span class="std std-ref">mqtt.publish_json</span></a></p></li>
+<li><p><a class="reference internal" href="../components/switch/index.html#switch-toggle-action"><span class="std std-ref">switch.toggle</span></a> / <a class="reference internal" href="../components/switch/index.html#switch-turn-off-action"><span class="std std-ref">switch.turn_off</span></a> / <a class="reference internal" href="../components/switch/index.html#switch-turn-on-action"><span class="std std-ref">switch.turn_on</span></a></p></li>
+<li><p><a class="reference internal" href="../components/light/index.html#light-toggle-action"><span class="std std-ref">light.toggle</span></a> / <a class="reference internal" href="../components/light/index.html#light-turn-off-action"><span class="std std-ref">light.turn_off</span></a> / <a class="reference internal" href="../components/light/index.html#light-turn-on-action"><span class="std std-ref">light.turn_on</span></a>
+/ <a class="reference internal" href="../components/light/index.html#light-control-action"><span class="std std-ref">light.control</span></a> / <a class="reference internal" href="../components/light/index.html#light-dim-relative-action"><span class="std std-ref">light.dim_relative</span></a>
+/ <a class="reference internal" href="../components/light/index.html#light-addressable-set-action"><span class="std std-ref">light.addressable_set</span></a></p></li>
+<li><p><a class="reference internal" href="../components/cover/index.html#cover-open-action"><span class="std std-ref">cover.open</span></a> / <a class="reference internal" href="../components/cover/index.html#cover-close-action"><span class="std std-ref">cover.close</span></a> / <a class="reference internal" href="../components/cover/index.html#cover-stop-action"><span class="std std-ref">cover.stop</span></a> /
+<a class="reference internal" href="../components/cover/index.html#cover-control-action"><span class="std std-ref">cover.control</span></a></p></li>
+<li><p><a class="reference internal" href="../components/fan/index.html#fan-toggle-action"><span class="std std-ref">fan.toggle</span></a> / <a class="reference internal" href="../components/fan/index.html#fan-turn-off-action"><span class="std std-ref">fan.turn_off</span></a> / <a class="reference internal" href="../components/fan/index.html#fan-turn-on-action"><span class="std std-ref">fan.turn_on</span></a></p></li>
+<li><p><a class="reference internal" href="../components/output/index.html#output-turn-off-action"><span class="std std-ref">output.turn_off</span></a> / <a class="reference internal" href="../components/output/index.html#output-turn-on-action"><span class="std std-ref">output.turn_on</span></a> / <a class="reference internal" href="../components/output/index.html#output-set-level-action"><span class="std std-ref">output.set_level</span></a></p></li>
+<li><p><a class="reference internal" href="../components/deep_sleep.html#deep-sleep-enter-action"><span class="std std-ref">deep_sleep.enter</span></a> / <a class="reference internal" href="../components/deep_sleep.html#deep-sleep-prevent-action"><span class="std std-ref">deep_sleep.prevent</span></a> / <a class="reference internal" href="../components/deep_sleep.html#deep-sleep-allow-action"><span class="std std-ref">deep_sleep.allow</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sensor/template.html#sensor-template-publish-action"><span class="std std-ref">sensor.template.publish</span></a> / <a class="reference internal" href="../components/binary_sensor/template.html#binary-sensor-template-publish-action"><span class="std std-ref">binary_sensor.template.publish</span></a>
+/ <a class="reference internal" href="../components/cover/template.html#cover-template-publish-action"><span class="std std-ref">cover.template.publish</span></a> / <a class="reference internal" href="../components/switch/template.html#switch-template-publish-action"><span class="std std-ref">switch.template.publish</span></a>
+/ <a class="reference internal" href="../components/text_sensor/template.html#text-sensor-template-publish-action"><span class="std std-ref">text_sensor.template.publish</span></a></p></li>
+<li><p><a class="reference internal" href="../components/stepper/index.html#stepper-set-target-action"><span class="std std-ref">stepper.set_target</span></a> / <a class="reference internal" href="../components/stepper/index.html#stepper-report-position-action"><span class="std std-ref">stepper.report_position</span></a>
+/ <a class="reference internal" href="../components/stepper/index.html#stepper-set-speed-action"><span class="std std-ref">stepper.set_speed</span></a></p></li>
+<li><p><a class="reference internal" href="../components/servo.html#servo-write-action"><span class="std std-ref">servo.write</span></a> / <a class="reference internal" href="../components/servo.html#servo-detach-action"><span class="std std-ref">servo.detach</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-start-full-cycle"><span class="std std-ref">sprinkler.start_full_cycle</span></a> /   <a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-start-from-queue"><span class="std std-ref">sprinkler.start_from_queue</span></a> /
+<a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-start-single-valve"><span class="std std-ref">sprinkler.start_single_valve</span></a> /   <a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-shutdown"><span class="std std-ref">sprinkler.shutdown</span></a> /
+<a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-next-valve"><span class="std std-ref">sprinkler.next_valve</span></a> /   <a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-previous-valve"><span class="std std-ref">sprinkler.previous_valve</span></a> /
+<a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-pause"><span class="std std-ref">sprinkler.pause</span></a> /   <a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-resume"><span class="std std-ref">sprinkler.resume</span></a> /
+<a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-resume-or-start-full-cycle"><span class="std std-ref">sprinkler.resume_or_start_full_cycle</span></a> /   <a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-queue-valve"><span class="std std-ref">sprinkler.queue_valve</span></a> /
+<a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-clear-queued-valves"><span class="std std-ref">sprinkler.clear_queued_valves</span></a> /   <a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-set-multiplier"><span class="std std-ref">sprinkler.set_multiplier</span></a> /
+<a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-set-repeat"><span class="std std-ref">sprinkler.set_repeat</span></a> /   <a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-set-divider"><span class="std std-ref">sprinkler.set_divider</span></a> /
+<a class="reference internal" href="../components/sprinkler.html#sprinkler-controller-action-set-valve-run-duration"><span class="std std-ref">sprinkler.set_valve_run_duration</span></a></p></li>
+<li><p><a class="reference internal" href="#globals-set-action"><span class="std std-ref">globals.set</span></a></p></li>
+<li><p><a class="reference internal" href="../components/remote_transmitter.html#remote-transmitter-transmit-action"><span class="std std-ref">remote_transmitter.transmit_*</span></a></p></li>
+<li><p><a class="reference internal" href="../components/climate/index.html#climate-control-action"><span class="std std-ref">climate.control</span></a></p></li>
+<li><p><a class="reference internal" href="../components/output/esp8266_pwm.html#output-esp8266-pwm-set-frequency-action"><span class="std std-ref">output.esp8266_pwm.set_frequency</span></a> / <a class="reference internal" href="../components/output/ledc.html#output-ledc-set-frequency-action"><span class="std std-ref">output.ledc.set_frequency</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sensor/integration.html#sensor-integration-reset-action"><span class="std std-ref">sensor.integration.reset</span></a></p></li>
+<li><p><a class="reference internal" href="../components/display/index.html#display-pages"><span class="std std-ref">display.page.show_*</span></a></p></li>
+<li><p><a class="reference internal" href="../components/uart.html#uart-write-action"><span class="std std-ref">uart.write</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sim800l.html#sim800l-send-sms-action"><span class="std std-ref">sim800l.send_sms</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sensor/mhz19.html#mhz19-calibrate-zero-action"><span class="std std-ref">mhz19.calibrate_zero</span></a> / <a class="reference internal" href="../components/sensor/mhz19.html#mhz19-abc-enable-action"><span class="std std-ref">mhz19.abc_enable</span></a> / <a class="reference internal" href="../components/sensor/mhz19.html#mhz19-abc-disable-action"><span class="std std-ref">mhz19.abc_disable</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sensor/rotary_encoder.html#sensor-rotary-encoder-set-value-action"><span class="std std-ref">sensor.rotary_encoder.set_value</span></a></p></li>
+<li><p><a class="reference internal" href="../components/http_request.html#http-request-get-action"><span class="std std-ref">http_request.get</span></a> / <a class="reference internal" href="../components/http_request.html#http-request-post-action"><span class="std std-ref">http_request.post</span></a> / <a class="reference internal" href="../components/http_request.html#http-request-send-action"><span class="std std-ref">http_request.send</span></a></p></li>
+<li><p><a class="reference internal" href="../components/rf_bridge.html#rf-bridge-send-code-action"><span class="std std-ref">rf_bridge.send_code</span></a></p></li>
+<li><p><a class="reference internal" href="../components/rf_bridge.html#rf-bridge-learn-action"><span class="std std-ref">rf_bridge.learn</span></a></p></li>
+<li><p><a class="reference internal" href="../components/time/ds1307.html#ds1307-read-time-action"><span class="std std-ref">ds1307.read_time</span></a> / <a class="reference internal" href="../components/time/ds1307.html#ds1307-write-time-action"><span class="std std-ref">ds1307.write_time</span></a></p></li>
+<li><p><a class="reference internal" href="../components/time/pcf85063.html#pcf85063-read-time-action"><span class="std std-ref">pcf85063.read_time</span></a> / <a class="reference internal" href="../components/time/pcf85063.html#pcf85063-write-time-action"><span class="std std-ref">pcf85063.write_time</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sensor/cs5460a.html#cs5460a-restart-action"><span class="std std-ref">cs5460a.restart</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sensor/pzemac.html#pzemac-reset-energy-action"><span class="std std-ref">pzemac.reset_energy</span></a></p></li>
+<li><p><a class="reference internal" href="../components/number/index.html#number-set-action"><span class="std std-ref">number.set</span></a> / <a class="reference internal" href="../components/number/index.html#number-to-min-action"><span class="std std-ref">number.to_min</span></a> / <a class="reference internal" href="../components/number/index.html#number-to-max-action"><span class="std std-ref">number.to_max</span></a> / <a class="reference internal" href="../components/number/index.html#number-decrement-action"><span class="std std-ref">number.decrement</span></a> / <a class="reference internal" href="../components/number/index.html#number-increment-action"><span class="std std-ref">number.increment</span></a> / <a class="reference internal" href="../components/number/index.html#number-operation-action"><span class="std std-ref">number.operation</span></a></p></li>
+<li><p><a class="reference internal" href="../components/select/index.html#select-set-action"><span class="std std-ref">select.set</span></a> / <a class="reference internal" href="../components/select/index.html#select-set-index-action"><span class="std std-ref">select.set_index</span></a> / <a class="reference internal" href="../components/select/index.html#select-first-action"><span class="std std-ref">select.first</span></a> / <a class="reference internal" href="../components/select/index.html#select-last-action"><span class="std std-ref">select.last</span></a> / <a class="reference internal" href="../components/select/index.html#select-previous-action"><span class="std std-ref">select.previous</span></a>  / <a class="reference internal" href="../components/select/index.html#select-next-action"><span class="std std-ref">select.next</span></a>  / <a class="reference internal" href="../components/select/index.html#select-operation-action"><span class="std std-ref">select.operation</span></a></p></li>
+<li><p><a class="reference internal" href="../components/media_player/index.html#media-player-play"><span class="std std-ref">media_player.play</span></a> / <a class="reference internal" href="../components/media_player/index.html#media-player-pause"><span class="std std-ref">media_player.pause</span></a> / <a class="reference internal" href="../components/media_player/index.html#media-player-stop"><span class="std std-ref">media_player.stop</span></a> / <a class="reference internal" href="../components/media_player/index.html#media-player-toggle"><span class="std std-ref">media_player.toggle</span></a>
+/ <a class="reference internal" href="../components/media_player/index.html#media-player-volume-up"><span class="std std-ref">media_player.volume_up</span></a> / <a class="reference internal" href="../components/media_player/index.html#media-player-volume-down"><span class="std std-ref">media_player.volume_down</span></a> / <a class="reference internal" href="../components/media_player/index.html#media-player-volume-set"><span class="std std-ref">media_player.volume_set</span></a></p></li>
+<li><p><a class="reference internal" href="../components/ble_client.html#ble-client-ble-write-action"><span class="std std-ref">ble_client.ble_write</span></a></p></li>
+<li><p><a class="reference internal" href="../components/wireguard.html#wireguard-actions"><span class="std std-ref">wireguard.disable</span></a> / <a class="reference internal" href="../components/wireguard.html#wireguard-actions"><span class="std std-ref">wireguard.enable</span></a></p></li>
+</ul>
+</section>
+<section id="all-conditions">
+<span id="config-condition"></span><h2>All Conditions<a class="headerlink" href="#all-conditions" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#lambda-condition"><span class="std std-ref">lambda</span></a></p></li>
+<li><p><a class="reference internal" href="#and-condition"><span class="std std-ref">and</span></a> / <a class="reference internal" href="#or-condition"><span class="std std-ref">or</span></a> / <a class="reference internal" href="#xor-condition"><span class="std std-ref">xor</span></a> / <a class="reference internal" href="#not-condition"><span class="std std-ref">not</span></a></p></li>
+<li><p><a class="reference internal" href="#for-condition"><span class="std std-ref">for</span></a></p></li>
+<li><p><a class="reference internal" href="../components/binary_sensor/index.html#binary-sensor-is-on-condition"><span class="std std-ref">binary_sensor.is_on</span></a> / <a class="reference internal" href="../components/binary_sensor/index.html#binary-sensor-is-off-condition"><span class="std std-ref">binary_sensor.is_off</span></a></p></li>
+<li><p><a class="reference internal" href="../components/switch/index.html#switch-is-on-condition"><span class="std std-ref">switch.is_on</span></a> / <a class="reference internal" href="../components/switch/index.html#switch-is-off-condition"><span class="std std-ref">switch.is_off</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sensor/index.html#sensor-in-range-condition"><span class="std std-ref">sensor.in_range</span></a></p></li>
+<li><p><a class="reference internal" href="../components/wifi.html#wifi-connected-condition"><span class="std std-ref">wifi.connected</span></a> / <a class="reference internal" href="../components/api.html#api-connected-condition"><span class="std std-ref">api.connected</span></a>
+/ <a class="reference internal" href="../components/mqtt.html#mqtt-connected-condition"><span class="std std-ref">mqtt.connected</span></a></p></li>
+<li><p><a class="reference internal" href="../components/time/index.html#time-has-time-condition"><span class="std std-ref">time.has_time</span></a></p></li>
+<li><p><a class="reference internal" href="#script-is-running-condition"><span class="std std-ref">script.is_running</span></a></p></li>
+<li><p><a class="reference internal" href="../components/sun.html#sun-is-above-below-horizon-condition"><span class="std std-ref">sun.is_above_horizon / sun.is_below_horizon</span></a></p></li>
+<li><p><a class="reference internal" href="../components/text_sensor/index.html#text-sensor-state-condition"><span class="std std-ref">text_sensor.state</span></a></p></li>
+<li><p><a class="reference internal" href="../components/light/index.html#light-is-on-condition"><span class="std std-ref">light.is_on</span></a> / <a class="reference internal" href="../components/light/index.html#light-is-off-condition"><span class="std std-ref">light.is_off</span></a></p></li>
+<li><p><a class="reference internal" href="../components/display/index.html#display-is-displaying-page-condition"><span class="std std-ref">display.is_displaying_page</span></a></p></li>
+<li><p><a class="reference internal" href="../components/number/index.html#number-in-range-condition"><span class="std std-ref">number.in_range</span></a></p></li>
+<li><p><a class="reference internal" href="../components/fan/index.html#fan-is-on-condition"><span class="std std-ref">fan.is_on</span></a> / <a class="reference internal" href="../components/fan/index.html#fan-is-off-condition"><span class="std std-ref">fan.is_off</span></a></p></li>
+<li><p><a class="reference internal" href="../components/wireguard.html#wireguard-conditions"><span class="std std-ref">wireguard.enabled</span></a> / <a class="reference internal" href="../components/wireguard.html#wireguard-conditions"><span class="std std-ref">wireguard.peer_online</span></a></p></li>
+</ul>
+</section>
+<section id="all-lambda-calls">
+<h2>All Lambda Calls<a class="headerlink" href="#all-lambda-calls" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../components/sensor/index.html#sensor-lambda-calls"><span class="std std-ref">Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="../components/binary_sensor/index.html#binary-sensor-lambda-calls"><span class="std std-ref">Binary Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="../components/switch/index.html#switch-lambda-calls"><span class="std std-ref">Switch</span></a></p></li>
+<li><p><a class="reference internal" href="../components/display/index.html#display-engine"><span class="std std-ref">Display</span></a></p></li>
+<li><p><a class="reference internal" href="../components/cover/index.html#cover-lambda-calls"><span class="std std-ref">Cover</span></a></p></li>
+<li><p><a class="reference internal" href="../components/text_sensor/index.html#text-sensor-lambda-calls"><span class="std std-ref">Text Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="../components/stepper/index.html#stepper-lambda-calls"><span class="std std-ref">Stepper</span></a></p></li>
+<li><p><a class="reference internal" href="../components/number/index.html#number-lambda-calls"><span class="std std-ref">Number</span></a></p></li>
+</ul>
+</section>
+<section id="delay-action">
+<span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">delay</span></code> Action<a class="headerlink" href="#delay-action" title="Permalink to this heading">¶</a></h2>
+<p>This action delays the execution of the next action in the action list by a specified
+time period.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_1</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2s</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_1</span>
+<span class="w">    </span><span class="c1"># Templated, waits for 1s (1000ms) only if a reed switch is active</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&quot;if</span><span class="nv"> </span><span class="s">(id(reed_switch).state)</span><span class="nv"> </span><span class="s">return</span><span class="nv"> </span><span class="s">1000;</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">return</span><span class="nv"> </span><span class="s">0;&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a “smart” asynchronous delay - other code will still run in the background while
+the delay is happening. When using a lambda call, you should return the delay value in milliseconds.</p>
+</div>
+</section>
+<section id="lambda-action">
+<span id="id2"></span><h2><code class="docutils literal notranslate"><span class="pre">lambda</span></code> Action<a class="headerlink" href="#lambda-action" title="Permalink to this heading">¶</a></h2>
+<p>This action executes an arbitrary piece of C++ code (see <a class="reference internal" href="#config-lambda"><span class="std std-ref">Lambda</span></a>).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">id(some_binary_sensor).publish_state(false);</span>
+</pre></div>
+</div>
+</section>
+<section id="lambda-condition">
+<span id="id3"></span><h2><code class="docutils literal notranslate"><span class="pre">lambda</span></code> Condition<a class="headerlink" href="#lambda-condition" title="Permalink to this heading">¶</a></h2>
+<p>This condition performs an arbitrary piece of C++ code (see <a class="reference internal" href="#config-lambda"><span class="std std-ref">Lambda</span></a>)
+and can be used to create conditional flow in actions.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">          </span><span class="c1"># Should return either true or false</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">            </span><span class="no">return id(some_sensor).state &lt; 30;</span>
+<span class="w">        </span><span class="c1"># ...</span>
+</pre></div>
+</div>
+</section>
+<section id="and-or-xor-not-condition">
+<span id="not-condition"></span><span id="xor-condition"></span><span id="or-condition"></span><span id="and-condition"></span><h2><code class="docutils literal notranslate"><span class="pre">and</span></code> / <code class="docutils literal notranslate"><span class="pre">or</span></code> / <code class="docutils literal notranslate"><span class="pre">xor</span></code> / <code class="docutils literal notranslate"><span class="pre">not</span></code> Condition<a class="headerlink" href="#and-or-xor-not-condition" title="Permalink to this heading">¶</a></h2>
+<p>Check a combination of conditions</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">          </span><span class="c1"># Same syntax for `and` as well as `xor` conditions</span>
+<span class="w">          </span><span class="nt">or</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">binary_sensor.is_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some_binary_sensor</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">binary_sensor.is_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">other_binary_sensor</span>
+<span class="w">        </span><span class="c1"># ...</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">not</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">binary_sensor.is_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some_binary_sensor</span>
+</pre></div>
+</div>
+</section>
+<section id="if-action">
+<span id="id4"></span><h2><code class="docutils literal notranslate"><span class="pre">if</span></code> Action<a class="headerlink" href="#if-action" title="Permalink to this heading">¶</a></h2>
+<p>This action first evaluated a certain condition (<code class="docutils literal notranslate"><span class="pre">if:</span></code>) and then either
+executes the <code class="docutils literal notranslate"><span class="pre">then:</span></code> branch or the <code class="docutils literal notranslate"><span class="pre">else:</span></code> branch depending on the output of the condition.</p>
+<p>After the chosen branch (<code class="docutils literal notranslate"><span class="pre">then</span></code> or <code class="docutils literal notranslate"><span class="pre">else</span></code>) is done with execution, the next action is performed.</p>
+<p>For example below you can see an automation that checks if a sensor value is below 30 and if so
+turns on a light for 5 seconds. Otherwise, the light is turned off immediately.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">id(some_sensor).state</span><span class="nv"> </span><span class="s">&lt;</span><span class="nv"> </span><span class="s">30;&#39;</span>
+<span class="w">        </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">sensor</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">below</span><span class="nv"> </span><span class="s">30!&quot;</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_light</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">        </span><span class="nt">else</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">sensor</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">above</span><span class="nv"> </span><span class="s">30!&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_light</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>condition</strong> (<strong>Required</strong>, <a class="reference internal" href="#config-condition"><span class="std std-ref">All Conditions</span></a>): The condition to check which branch to take. See <a class="reference internal" href="#config-condition"><span class="std std-ref">Conditions</span></a>.</p></li>
+<li><p><strong>then</strong> (<em>Optional</em>, <a class="reference internal" href="#config-action"><span class="std std-ref">Action</span></a>): The action to perform if the condition evaluates to true.
+Defaults to doing nothing.</p></li>
+<li><p><strong>else</strong> (<em>Optional</em>, <a class="reference internal" href="#config-action"><span class="std std-ref">Action</span></a>): The action to perform if the condition evaluates to false.
+Defaults to doing nothing.</p></li>
+</ul>
+</section>
+<section id="while-action">
+<span id="id5"></span><h2><code class="docutils literal notranslate"><span class="pre">while</span></code> Action<a class="headerlink" href="#while-action" title="Permalink to this heading">¶</a></h2>
+<p>This action is similar to the <a class="reference internal" href="#if-action"><span class="std std-ref">if</span></a> Action. The <code class="docutils literal notranslate"><span class="pre">while</span></code> action loops
+through a block as long as the given condition is true.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In a trigger:</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">while</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">binary_sensor.is_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some_binary_sensor</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Still</span><span class="nv"> </span><span class="s">executing&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some_light</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>condition</strong> (<strong>Required</strong>): The condition to check whether to execute. See <a class="reference internal" href="#config-condition"><span class="std std-ref">Conditions</span></a>.</p></li>
+<li><p><strong>then</strong> (<strong>Required</strong>, <a class="reference internal" href="#config-action"><span class="std std-ref">Action</span></a>): The action to perform until the condition evaluates to false.</p></li>
+</ul>
+</section>
+<section id="repeat-action">
+<span id="id6"></span><h2><code class="docutils literal notranslate"><span class="pre">repeat</span></code> Action<a class="headerlink" href="#repeat-action" title="Permalink to this heading">¶</a></h2>
+<p>This action allows you to repeat a block a given number of times.
+For example, the automation below will flash the light five times.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repeat</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some_light</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some_light</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>count</strong> (<strong>Required</strong>, int): The number of times the action should be repeated.</p></li>
+<li><p><strong>then</strong> (<strong>Required</strong>, <a class="reference internal" href="#config-action"><span class="std std-ref">Action</span></a>): The action to repeat.</p></li>
+</ul>
+</section>
+<section id="wait-until-action">
+<span id="id7"></span><h2><code class="docutils literal notranslate"><span class="pre">wait_until</span></code> Action<a class="headerlink" href="#wait-until-action" title="Permalink to this heading">¶</a></h2>
+<p>This action allows your automations to wait until a condition evaluates to true. (So this is just
+a shorthand way of writing a <code class="docutils literal notranslate"><span class="pre">while</span></code> action with an empty <code class="docutils literal notranslate"><span class="pre">then</span></code> block.)</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In a trigger:</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Waiting</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">binary</span><span class="nv"> </span><span class="s">sensor&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">wait_until</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">binary_sensor.is_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some_binary_sensor</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Binary</span><span class="nv"> </span><span class="s">sensor</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">ready&quot;</span>
+</pre></div>
+</div>
+<p>If you want to use a timeout, the term “condition” is required:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># In a trigger:</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Waiting</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">binary</span><span class="nv"> </span><span class="s">sensor&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">wait_until</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">binary_sensor.is_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some_binary_sensor</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8s</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Binary</span><span class="nv"> </span><span class="s">sensor</span><span class="nv"> </span><span class="s">might</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">ready&quot;</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>condition</strong> (<strong>Required</strong>): The condition to wait to become true. See <a class="reference internal" href="#config-condition"><span class="std std-ref">Conditions</span></a>.</p></li>
+<li><p><strong>timeout</strong> (<em>Optional</em>, <a class="reference internal" href="configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): Time to wait before timing out. Defaults to never timing out.</p></li>
+</ul>
+</section>
+<section id="component-update-action">
+<span id="id8"></span><h2><code class="docutils literal notranslate"><span class="pre">component.update</span></code> Action<a class="headerlink" href="#component-update-action" title="Permalink to this heading">¶</a></h2>
+<p>Using this action you can manually call the <code class="docutils literal notranslate"><span class="pre">update()</span></code> method of a component.</p>
+<p>Please note that this only works with some component types and others will result in a
+compile error.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">component.update</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_component</span>
+
+<span class="w">    </span><span class="c1"># The same as:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;id(my_component).update();&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="component-suspend-action">
+<span id="id9"></span><h2><code class="docutils literal notranslate"><span class="pre">component.suspend</span></code> Action<a class="headerlink" href="#component-suspend-action" title="Permalink to this heading">¶</a></h2>
+<p>Using this action you can manually call the <code class="docutils literal notranslate"><span class="pre">stop_poller()</span></code> method of a component.</p>
+<p>After this action the component will stop being refreshed.</p>
+<p>While the poller is suspendend, it’s still possible to trigger on-demand updates by
+using <a class="reference internal" href="#component-update-action"><span class="std std-ref">component.update</span></a></p>
+<p>Please note that this only works with PollingComponent types and others will result in a
+compile error.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">component.suspend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_component</span>
+
+<span class="w">    </span><span class="c1"># The same as:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;id(my_component).stop_poller();&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="component-resume-action">
+<span id="id10"></span><h2><code class="docutils literal notranslate"><span class="pre">component.resume</span></code> Action<a class="headerlink" href="#component-resume-action" title="Permalink to this heading">¶</a></h2>
+<p>Using this action you can manually call the <code class="docutils literal notranslate"><span class="pre">start_poller()</span></code> method of a component.</p>
+<p>After this action the component will refresh at the original update_interval rate</p>
+<p>This will allow the component to resume automatic update at the defined interval.</p>
+<p>This action also allows to change the update interval, calling it without suspend,
+replace the poller directly.</p>
+<p>Please note that this only works with PollingComponent types and others will result in a
+compile error.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">component.resume</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_component</span>
+
+<span class="w">    </span><span class="c1"># The same as:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;id(my_component).start_poller();&#39;</span>
+
+<span class="c1"># Change the poller interval</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">component.resume</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_component</span>
+<span class="w">        </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15s</span>
+</pre></div>
+</div>
+</section>
+<section id="globals-set-action">
+<span id="id11"></span><h2><code class="docutils literal notranslate"><span class="pre">globals.set</span></code> Action<a class="headerlink" href="#globals-set-action" title="Permalink to this heading">¶</a></h2>
+<p>This <a class="reference internal" href="#config-action"><span class="std std-ref">Action</span></a> allows you to change the value of a <a class="reference internal" href="#config-globals"><span class="std std-ref">global</span></a>
+variable without having to go through the lambda syntax.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">globals.set</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_global_var</span>
+<span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;10&#39;</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The <a class="reference internal" href="configuration-types.html#config-id"><span class="std std-ref">ID</span></a> of the global variable to set.</p></li>
+<li><p><strong>value</strong> (<strong>Required</strong>, <a class="reference internal" href="#config-templatable"><span class="std std-ref">templatable</span></a>): The value to set the global
+variable to.</p></li>
+</ul>
+</section>
+<section id="script-component">
+<h2><code class="docutils literal notranslate"><span class="pre">script</span></code> Component<a class="headerlink" href="#script-component" title="Permalink to this heading">¶</a></h2>
+<p>With the <code class="docutils literal notranslate"><span class="pre">script:</span></code> component you can define a list of steps in a central place, and then
+execute the script with a single call.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">script</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_script</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul>
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The <a class="reference internal" href="configuration-types.html#config-id"><span class="std std-ref">ID</span></a> of the script. Use this
+to interact with the script using the script actions.</p></li>
+<li><p><strong>mode</strong> (<em>Optional</em>, string): Controls what happens when a script is
+invoked while it is still running from one or more previous invocations. Default to <code class="docutils literal notranslate"><span class="pre">single</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">single</span></code>: Do not start a new run. Issue a warning.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">restart</span></code>: Start a new run after first stopping previous run.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">queued</span></code>: Start a new run after previous runs complete.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parallel</span></code>: Start a new, independent run in parallel with previous runs.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>max_runs</strong> (<em>Optional</em>, int): Allows limiting the maxiumun number of runs when using script
+modes <code class="docutils literal notranslate"><span class="pre">queued</span></code> and <code class="docutils literal notranslate"><span class="pre">parallel</span></code>, use value <code class="docutils literal notranslate"><span class="pre">0</span></code> for unlimited runs. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p><strong>parameters</strong> (<em>Optional</em>, <a class="reference internal" href="#script-parameters"><span class="std std-ref">Script Parameters</span></a>): A script can define one
+or more parameters that must be provided in order to execute. All parameters defined here are
+mandatory and must be given when calling the script.</p></li>
+<li><p><strong>then</strong> (<strong>Required</strong>, <a class="reference internal" href="#config-action"><span class="std std-ref">Action</span></a>): The action to perform.</p></li>
+</ul>
+</section>
+<section id="script-parameters">
+<span id="id12"></span><h2><code class="docutils literal notranslate"><span class="pre">Script</span> <span class="pre">Parameters</span></code><a class="headerlink" href="#script-parameters" title="Permalink to this heading">¶</a></h2>
+<p>Scripts can be defined with parameters. The arguments given when calling the script can be used within
+the script’s lambda actions. To define the parameters, add the parameter names under <cite>parameters:</cite> key
+and specify the data type for that parameter.</p>
+<p>Supported data types:</p>
+<ul class="simple">
+<li><p><cite>bool</cite>: A boolean true/false. C++ type: <cite>bool</cite></p></li>
+<li><p><cite>int</cite>: An integer. C++ type: <cite>int32_t</cite></p></li>
+<li><p><cite>float</cite>: A floating point number. C++ type: <cite>float</cite></p></li>
+<li><p><cite>string</cite>: A string. C++ type: <cite>std::string</cite></p></li>
+</ul>
+<p>Each of these also exist in array form:</p>
+<ul class="simple">
+<li><p><cite>bool[]</cite>: An array of boolean values. C++ type: <cite>std::vector&lt;bool&gt;</cite></p></li>
+<li><p>Same for other types.</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">script</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">blink_light</span>
+<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">delay_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status_light</span>
+<span class="w">      </span><span class="c1"># The param delay_ms is accessible using a lambda</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">return delay_ms;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status_light</span>
+</pre></div>
+</div>
+</section>
+<section id="script-execute-action">
+<span id="id13"></span><h2><code class="docutils literal notranslate"><span class="pre">script.execute</span></code> Action<a class="headerlink" href="#script-execute-action" title="Permalink to this heading">¶</a></h2>
+<p>This action executes the script. The script <strong>mode</strong> dictates what will happen if the
+script was already running.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># in a trigger:</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">script.execute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_script</span>
+
+<span class="w">    </span><span class="c1"># Calling a non-parameterised script in a lambda</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">id(my_script).execute();</span>
+
+<span class="w">    </span><span class="c1"># Calling a script with parameters</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">script.execute</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">blink_light</span>
+<span class="w">        </span><span class="nt">delay_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span>
+
+<span class="w">    </span><span class="c1"># Calling a parameterised script inside a lambda</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">id(blink_light)-&gt;execute(1000);</span>
+</pre></div>
+</div>
+</section>
+<section id="script-stop-action">
+<span id="id14"></span><h2><code class="docutils literal notranslate"><span class="pre">script.stop</span></code> Action<a class="headerlink" href="#script-stop-action" title="Permalink to this heading">¶</a></h2>
+<p>This action allows you to stop a given script during execution. If the
+script is not running, it does nothing.
+This is useful if you want to stop a script that contains a
+<code class="docutils literal notranslate"><span class="pre">delay</span></code> action, <code class="docutils literal notranslate"><span class="pre">wait_until</span></code> action, or is inside a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop, etc.
+You can also call this action from the script itself, and any subsequent action
+will not be executed.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">script</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_script</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch</span>
+
+<span class="c1"># in a trigger:</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">script.stop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_script</span>
+</pre></div>
+</div>
+<p>or as lambda</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;id(my_script).stop();&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="script-wait-action">
+<span id="id15"></span><h2><code class="docutils literal notranslate"><span class="pre">script.wait</span></code> Action<a class="headerlink" href="#script-wait-action" title="Permalink to this heading">¶</a></h2>
+<p>This action suspends execution of the automation until a script has finished executing.</p>
+<p>Note: If no script is executing, this will continue immediately. If multiple instances
+of the script are running in parallel, this will block until all of them have terminated.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">script</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_script</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_switch</span>
+
+<span class="c1"># in a trigger:</span>
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">script.execute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_script</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">script.wait</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_script</span>
+</pre></div>
+</div>
+<p>This can’t be used in a lambda as it would block all functioning of the device.  The script wouldn’t even get to run.</p>
+</section>
+<section id="script-is-running-condition">
+<span id="id16"></span><h2><code class="docutils literal notranslate"><span class="pre">script.is_running</span></code> Condition<a class="headerlink" href="#script-is-running-condition" title="Permalink to this heading">¶</a></h2>
+<p>This <a class="reference internal" href="#config-condition"><span class="std std-ref">condition</span></a> allows you to check if a given script is running.
+In case scripts are run in <code class="docutils literal notranslate"><span class="pre">parallel</span></code>, this condition only tells you if at least one script
+of the given id is running, not how many. Not designed for use with <a class="reference internal" href="#while-action"><span class="std std-ref">while</span></a>, instead try <a class="reference internal" href="#script-wait-action"><span class="std std-ref">script.wait</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">script.is_running</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_script</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Script is running!</span>
+</pre></div>
+</div>
+<p>or as lambda</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">    </span><span class="no">if (id(my_script).is_running()) {</span>
+<span class="w">        </span><span class="no">ESP_LOGI(&quot;main&quot;, &quot;Script is running!&quot;);</span>
+<span class="w">    </span><span class="no">}</span>
+</pre></div>
+</div>
+</section>
+<section id="for-condition">
+<span id="id17"></span><h2><code class="docutils literal notranslate"><span class="pre">for</span></code> Condition<a class="headerlink" href="#for-condition" title="Permalink to this heading">¶</a></h2>
+<p>This <a class="reference internal" href="#config-condition"><span class="std std-ref">Condition</span></a> allows you to check if a given condition has been
+true for at least a given amount of time.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">if</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">for</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5min</span>
+<span class="w">        </span><span class="nt">condition</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">api.connected</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">logger.log</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API has stayed connected for at least 5 minutes!</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>time</strong> (<strong>Required</strong>, <a class="reference internal" href="#config-templatable"><span class="std std-ref">templatable</span></a>, <a class="reference internal" href="configuration-types.html#config-time"><span class="std std-ref">Time</span></a>):
+The time for which the condition has to have been true.</p></li>
+<li><p><strong>condition</strong> (<strong>Required</strong>, <a class="reference internal" href="#config-condition"><span class="std std-ref">Condition</span></a>):
+The condition to check.</p></li>
+</ul>
+</section>
+<section id="interval-component">
+<span id="interval"></span><h2><code class="docutils literal notranslate"><span class="pre">interval</span></code> Component<a class="headerlink" href="#interval-component" title="Permalink to this heading">¶</a></h2>
+<p>This component allows you to run actions at fixed time intervals.
+For example if you want to toggle a switch every minute, you can use this component.
+Please note that it’s possible to achieve the same thing with the <a class="reference internal" href="../components/time/index.html#time-on-time"><span class="std std-ref">time.on_time</span></a>
+trigger, but this technique is more light-weight and user-friendly.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">interval</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1min</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.toggle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relay_1</span>
+</pre></div>
+</div>
+<p>If a startup delay is configured, the first execution of the actions will not occur before at least that time
+after boot.</p>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>interval</strong> (<strong>Required</strong>, <a class="reference internal" href="configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to execute the action with.</p></li>
+<li><p><strong>startup_delay</strong> (<em>Optional</em>, <a class="reference internal" href="configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): An optional startup delay - defaults to zero.</p></li>
+<li><p><strong>then</strong> (<strong>Required</strong>, <a class="reference internal" href="#config-action"><span class="std std-ref">Action</span></a>): The action to perform.</p></li>
+</ul>
+</section>
+<section id="timers-and-timeouts">
+<h2>Timers and timeouts<a class="headerlink" href="#timers-and-timeouts" title="Permalink to this heading">¶</a></h2>
+<p>While ESPHome does not provide a construction for timers, you can easily implement them by
+combining <code class="docutils literal notranslate"><span class="pre">script</span></code> and <code class="docutils literal notranslate"><span class="pre">delay</span></code>. You can have an absolute timeout or sliding timeout by
+using script modes <code class="docutils literal notranslate"><span class="pre">single</span></code> and <code class="docutils literal notranslate"><span class="pre">restart</span></code> respectively.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">script</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hallway_light_script</span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">restart</span><span class="w">     </span><span class="c1"># Light will be kept on during 1 minute since</span>
+<span class="w">                      </span><span class="c1"># the latest time the script is executed</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hallway_light</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1 min</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">light.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hallway_light</span>
+
+<span class="nn">...</span>
+<span class="w">  </span><span class="nt">on_...</span><span class="p">:</span><span class="w">           </span><span class="c1"># can be called from different wall switches</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">script.execute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hallway_light_script</span>
+</pre></div>
+</div>
+<p>Sometimes you’ll also need a timer which does not perform any action, that is ok too, just
+use a single <code class="docutils literal notranslate"><span class="pre">delay</span></code> action, then in your automation check <code class="docutils literal notranslate"><span class="pre">script.is_running</span></code> condition
+to know if your <em>timer</em> is going or due.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="configuration-types.html"><span class="doc">Configuration Types</span></a></p></li>
+<li><p><a class="reference internal" href="faq.html"><span class="doc">Frequently Asked Questions</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/guides/automations.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

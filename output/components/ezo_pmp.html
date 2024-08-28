@@ -1,0 +1,711 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up an Atlas Scientific Peristaltic Pump in ESPHome">
+<meta name="keywords" content="pump, peristaltic, atlas, ezo">
+<meta itemprop="name" content="Atlas Scientific Peristaltic Pump">
+<meta itemprop="description" content="Instructions for setting up an Atlas Scientific Peristaltic Pump in ESPHome">
+<meta itemprop="image" content="https://esphome.io/_images/ezo-pmp.jpg">
+<meta name="twitter:title" content="Atlas Scientific Peristaltic Pump">
+<meta name="twitter:image:src" content="https://esphome.io/_images/ezo-pmp.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up an Atlas Scientific Peristaltic Pump in ESPHome">
+<meta property="og:title" content="Atlas Scientific Peristaltic Pump">
+<meta property="og:image" content="https://esphome.io/_images/ezo-pmp.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up an Atlas Scientific Peristaltic Pump in ESPHome">
+
+    <title>Atlas Scientific Peristaltic Pump &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/ezo_pmp.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Grow Fingerprint Reader" href="fingerprint_grow.html" />
+    <link rel="prev" title="External Components" href="external_components.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Atlas Scientific Peristaltic Pump</a><ul>
+<li><a class="reference internal" href="#sensors">Sensors</a></li>
+<li><a class="reference internal" href="#current-volume-dosed"><code class="docutils literal notranslate"><span class="pre">current_volume_dosed</span></code></a></li>
+<li><a class="reference internal" href="#total-volume-dosed"><code class="docutils literal notranslate"><span class="pre">total_volume_dosed</span></code></a></li>
+<li><a class="reference internal" href="#absolute-total-volume-dosed"><code class="docutils literal notranslate"><span class="pre">absolute_total_volume_dosed</span></code></a></li>
+<li><a class="reference internal" href="#last-volume-requested"><code class="docutils literal notranslate"><span class="pre">last_volume_requested</span></code></a></li>
+<li><a class="reference internal" href="#max-flow-rate"><code class="docutils literal notranslate"><span class="pre">max_flow_rate</span></code></a></li>
+<li><a class="reference internal" href="#pump-voltage"><code class="docutils literal notranslate"><span class="pre">pump_voltage</span></code></a></li>
+<li><a class="reference internal" href="#binary-sensors">Binary Sensors</a></li>
+<li><a class="reference internal" href="#pump-state"><code class="docutils literal notranslate"><span class="pre">pump_state</span></code></a></li>
+<li><a class="reference internal" href="#is-paused"><code class="docutils literal notranslate"><span class="pre">is_paused</span></code></a></li>
+<li><a class="reference internal" href="#text-sensors">Text Sensors</a></li>
+<li><a class="reference internal" href="#dosing-mode"><code class="docutils literal notranslate"><span class="pre">dosing_mode</span></code></a></li>
+<li><a class="reference internal" href="#calibration-status"><code class="docutils literal notranslate"><span class="pre">calibration_status</span></code></a></li>
+<li><a class="reference internal" href="#actions">Actions</a></li>
+<li><a class="reference internal" href="#ezo-pmp-dose-continuously-action"><code class="docutils literal notranslate"><span class="pre">ezo_pmp.dose_continuously</span></code> Action</a></li>
+<li><a class="reference internal" href="#ezo-pmp-dose-volume-action"><code class="docutils literal notranslate"><span class="pre">ezo_pmp.dose_volume</span></code> Action</a></li>
+<li><a class="reference internal" href="#ezo-pmp-dose-volume-over-time-action"><code class="docutils literal notranslate"><span class="pre">ezo_pmp.dose_volume_over_time</span></code> Action</a></li>
+<li><a class="reference internal" href="#ezo-pmp-dose-with-constant-flow-rate-action"><code class="docutils literal notranslate"><span class="pre">ezo_pmp.dose_with_constant_flow_rate</span></code> Action</a></li>
+<li><a class="reference internal" href="#ezo-pmp-pause-dosing-action"><code class="docutils literal notranslate"><span class="pre">ezo_pmp.pause_dosing</span></code> Action</a></li>
+<li><a class="reference internal" href="#ezo-pmp-stop-dosing-action"><code class="docutils literal notranslate"><span class="pre">ezo_pmp.stop_dosing</span></code> Action</a></li>
+<li><a class="reference internal" href="#ezo-pmp-clear-total-volume-dosed-action"><code class="docutils literal notranslate"><span class="pre">ezo_pmp.clear_total_volume_dosed</span></code> Action</a></li>
+<li><a class="reference internal" href="#ezo-pmp-set-calibration-volume-action"><code class="docutils literal notranslate"><span class="pre">ezo_pmp.set_calibration_volume</span></code> Action</a></li>
+<li><a class="reference internal" href="#ezo-pmp-clear-calibration-action"><code class="docutils literal notranslate"><span class="pre">ezo_pmp.clear_calibration</span></code> Action</a></li>
+<li><a class="reference internal" href="#ezo-pmp-find-action"><code class="docutils literal notranslate"><span class="pre">ezo_pmp.find</span></code> Action</a></li>
+<li><a class="reference internal" href="#ezo-pmp-change-i2c-address-action"><code class="docutils literal notranslate"><span class="pre">ezo_pmp.change_i2c_address</span></code> Action</a></li>
+<li><a class="reference internal" href="#home-assistant-configuration">Home Assistant Configuration</a></li>
+<li><a class="reference internal" href="#lambda-calls">lambda calls</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>Atlas Scientific Peristaltic Pump</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="atlas-scientific-peristaltic-pump">
+<h1>Atlas Scientific Peristaltic Pump<a class="headerlink" href="#atlas-scientific-peristaltic-pump" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">ezo_pmp</span></code> component allows you to use an Atlas Scientific Peristaltic Pump with ESPHome.
+Both the EZO-PMP (<a class="reference external" href="https://files.atlas-scientific.com/EZO_PMP_Datasheet.pdf">datasheet</a>)
+and EZO-PMP-L (<a class="reference external" href="https://files.atlas-scientific.com/EZO_PMP_L_Datasheet.pdf">datasheet</a>) are supported.
+The <a class="reference internal" href="i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a> is required to be set up in your configuration for this sensor to work.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This component will not be directly controllable in the Home Assistant front-end automatically because
+Home Assistant doesn’t have support for pumps. In order to control the pump from the frontend you will need to use
+templates to offer access to the actions you need. Please see <a class="reference internal" href="#ezo-pmp-ha-config"><span class="std std-ref">Home Assistant Configuration</span></a>.</p>
+</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/ezo-pmp.jpg"><img alt="../_images/ezo-pmp.jpg" src="../_images/ezo-pmp.jpg" style="width: 80.0%;" /></a>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ezo_pmp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">  </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">103</span><span class="w">  </span><span class="c1"># Default Address for the EZO-PMP.</span>
+<span class="w">  </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Specify the ID of the pump so that you can control it.</p></li>
+<li><p><strong>address</strong> (<em>Optional</em>, int): Specify the I²C address of the sensor. Defaults to 103.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to check the
+sensor. Defaults to <code class="docutils literal notranslate"><span class="pre">60s</span></code>.</p></li>
+</ul>
+<section id="sensors">
+<h2>Sensors<a class="headerlink" href="#sensors" title="Permalink to this heading">¶</a></h2>
+<p>Since the EZO-PMP offers a large number of sensors and each sensor needs to be polled individually, the code has been
+optimized not to update a sensor that is not defined in the config. If you need very quick updates from the pump (under 3 seconds)
+only enable the sensors that you actually need.</p>
+</section>
+<section id="current-volume-dosed">
+<span id="ezo-pmp-current-volume-dosed-sensor"></span><h2><code class="docutils literal notranslate"><span class="pre">current_volume_dosed</span></code><a class="headerlink" href="#current-volume-dosed" title="Permalink to this heading">¶</a></h2>
+<p>This sensor indicates the volume (in milliliters) that has been dosed in the currently running or last ran dosing command.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">    </span><span class="nt">current_volume_dosed</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">current_volume_dosed</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Current Volume Dosed</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="total-volume-dosed">
+<span id="ezo-pmp-total-volume-dosed-sensor"></span><h2><code class="docutils literal notranslate"><span class="pre">total_volume_dosed</span></code><a class="headerlink" href="#total-volume-dosed" title="Permalink to this heading">¶</a></h2>
+<p>This sensor indicates total volume (in milliliters) that has been dosed since the last time the pump was turned on. Could be a
+negative number if the pump has been run in reverse.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">    </span><span class="nt">total_volume_dosed</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">total_volume_dosed</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Total Volume Dosed</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="absolute-total-volume-dosed">
+<span id="ezo-pmp-absolute-total-volume-dosed-sensor"></span><h2><code class="docutils literal notranslate"><span class="pre">absolute_total_volume_dosed</span></code><a class="headerlink" href="#absolute-total-volume-dosed" title="Permalink to this heading">¶</a></h2>
+<p>This sensor indicates the absolute total volume (in milliliters) that has been dosed since the last time the pump was turned on.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">    </span><span class="nt">absolute_total_volume_dosed</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">absolute_total_volume_dosed</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Absolute Total Volume Dosed</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="last-volume-requested">
+<span id="ezo-pmp-last-volume-requested-sensor"></span><h2><code class="docutils literal notranslate"><span class="pre">last_volume_requested</span></code><a class="headerlink" href="#last-volume-requested" title="Permalink to this heading">¶</a></h2>
+<p>Indicates the total volume (in milliliters) that is being dosed (or was if the pump has already finished) by a dose Action. When
+using dosing actions that have a duration, the sensor will have the right calculation for total volume.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">    </span><span class="nt">last_volume_requested</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">last_volume_requested</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Last Volume Requested</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="max-flow-rate">
+<span id="ezo-pmp-max-flow-rate-sensor"></span><h2><code class="docutils literal notranslate"><span class="pre">max_flow_rate</span></code><a class="headerlink" href="#max-flow-rate" title="Permalink to this heading">¶</a></h2>
+<p>The pump provides its own calculation of the maximum flow rate it can provide (in ml/minute). Dosing requests that exceed this rate
+will fail. When using the <a class="reference internal" href="#ezo-pmp-dose-continuously-action"><span class="std std-ref">Dose Continuously</span></a> Action, this is the volume the pump will
+dose every minute. This value will get updated after the pump is calibrated (see <a class="reference internal" href="#ezo-pmp-set-calibration-volume-action"><span class="std std-ref">ezo_pmp.set_calibration_volume Action</span></a>).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">    </span><span class="nt">max_flow_rate</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max_flow_rate</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Max Flow Rate</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="pump-voltage">
+<span id="ezo-pmp-pump-voltage-sensor"></span><h2><code class="docutils literal notranslate"><span class="pre">pump_voltage</span></code><a class="headerlink" href="#pump-voltage" title="Permalink to this heading">¶</a></h2>
+<p>The current voltage of the power supply that powers the pump. Not to be confused with the voltage that powers the electronics on the pump.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">    </span><span class="nt">pump_voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pump_voltage</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pump Voltage</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="binary-sensors">
+<h2>Binary Sensors<a class="headerlink" href="#binary-sensors" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="pump-state">
+<span id="ezo-pmp-pump-state-binary-sensor"></span><h2><code class="docutils literal notranslate"><span class="pre">pump_state</span></code><a class="headerlink" href="#pump-state" title="Permalink to this heading">¶</a></h2>
+<p>Indicates if the pump is currently running or not.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">    </span><span class="nt">pump_state</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pump_state</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pump State</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="is-paused">
+<span id="ezo-pmp-is-paused-binary-sensor"></span><h2><code class="docutils literal notranslate"><span class="pre">is_paused</span></code><a class="headerlink" href="#is-paused" title="Permalink to this heading">¶</a></h2>
+<p>Indicates if a dosing action is currently paused.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">    </span><span class="nt">is_paused</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">is_paused</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Is Paused</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="text-sensors">
+<h2>Text Sensors<a class="headerlink" href="#text-sensors" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="dosing-mode">
+<span id="ezo-pmp-dosing-mode-text-sensor"></span><h2><code class="docutils literal notranslate"><span class="pre">dosing_mode</span></code><a class="headerlink" href="#dosing-mode" title="Permalink to this heading">¶</a></h2>
+<p>Indicates the dosing mode the pump is currently running as. Can be any of <cite>Volume</cite>, <cite>Volume/Time</cite>, <cite>Constant Flow Rate</cite>, <cite>Continuous</cite>, <cite>None</cite>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">text_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">    </span><span class="nt">dosing_mode</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dosing_mode</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dosing Mode</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="calibration-status">
+<span id="ezo-pmp-calibration-status-text-sensor"></span><h2><code class="docutils literal notranslate"><span class="pre">calibration_status</span></code><a class="headerlink" href="#calibration-status" title="Permalink to this heading">¶</a></h2>
+<p>Indicates calibration status of the pump. Can be any of <cite>Fixed Volume</cite>, <cite>Volume/Time</cite>, <cite>Fixed Volume &amp; Volume/Time</cite> or <cite>Uncalibrated</cite>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">text_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">    </span><span class="nt">calibration_status</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">calibration_status</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Calibration Status</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Set the ID of this sensor for use in lambdas.</p></li>
+<li><p>All other options from <a class="reference internal" href="text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</section>
+<section id="actions">
+<h2>Actions<a class="headerlink" href="#actions" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="ezo-pmp-dose-continuously-action">
+<span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">ezo_pmp.dose_continuously</span></code> Action<a class="headerlink" href="#ezo-pmp-dose-continuously-action" title="Permalink to this heading">¶</a></h2>
+<p>Use this action in an <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">automations</span></a> to have the peristaltic pump dose continuously
+at the <a class="reference internal" href="#ezo-pmp-max-flow-rate-sensor"><span class="std std-ref">Maximum Flow Rate</span></a>. The pump will automatically stop after 20 days
+of running in continuous mode.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.find</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pump.</p></li>
+</ul>
+</section>
+<section id="ezo-pmp-dose-volume-action">
+<span id="id2"></span><h2><code class="docutils literal notranslate"><span class="pre">ezo_pmp.dose_volume</span></code> Action<a class="headerlink" href="#ezo-pmp-dose-volume-action" title="Permalink to this heading">¶</a></h2>
+<p>Use this action in an <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">automations</span></a> to have the peristaltic pump dose an specific volume (in milliliters)
+at the <a class="reference internal" href="#ezo-pmp-max-flow-rate-sensor"><span class="std std-ref">Maximum Flow Rate</span></a>. If the volume is negative the pump will run backwards.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.dose_volume</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">      </span><span class="nt">volume</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+
+<span class="w">  </span><span class="c1"># Templated</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.dose_volume</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">      </span><span class="nt">volume</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">return id(some_volume_sensor).state;</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pump.</p></li>
+<li><p><strong>volume</strong> (<strong>Required</strong>, float, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The volume to dose in milliliters. If negative, pump will run in reverse.</p></li>
+</ul>
+</section>
+<section id="ezo-pmp-dose-volume-over-time-action">
+<span id="id3"></span><h2><code class="docutils literal notranslate"><span class="pre">ezo_pmp.dose_volume_over_time</span></code> Action<a class="headerlink" href="#ezo-pmp-dose-volume-over-time-action" title="Permalink to this heading">¶</a></h2>
+<p>Use this action in an <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">automations</span></a> to have the peristaltic pump dose an specific <code class="docutils literal notranslate"><span class="pre">volume</span></code> (in milliliters)
+over the provided <code class="docutils literal notranslate"><span class="pre">duration</span></code> (in minutes). At the end of the time period the pump will have dosed the specified <code class="docutils literal notranslate"><span class="pre">volume</span></code>.
+If the volume is negative the pump will run backwards.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.dose_volume_over_time</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">      </span><span class="nt">volume</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">23.4</span>
+<span class="w">      </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+
+<span class="w">  </span><span class="c1"># Templated</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.dose_volume_over_time</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">      </span><span class="nt">volume</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">return id(some_volume_sensor).state;</span>
+<span class="w">      </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">return id(some_duration_sensor).state;</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pump.</p></li>
+<li><p><strong>volume</strong> (<strong>Required</strong>, float, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The volume to dose in milliliters. If negative, pump will run in reverse.</p></li>
+<li><p><strong>duration</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The time (in minutes) the pump will take to dose the volume requested.</p></li>
+</ul>
+</section>
+<section id="ezo-pmp-dose-with-constant-flow-rate-action">
+<span id="id4"></span><h2><code class="docutils literal notranslate"><span class="pre">ezo_pmp.dose_with_constant_flow_rate</span></code> Action<a class="headerlink" href="#ezo-pmp-dose-with-constant-flow-rate-action" title="Permalink to this heading">¶</a></h2>
+<p>Use this action in an <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">automations</span></a> to have the peristaltic pump dose an specific <code class="docutils literal notranslate"><span class="pre">volume</span></code> (in milliliters) every minute
+for the provided <code class="docutils literal notranslate"><span class="pre">duration</span></code> (in minutes). At the end of the time period the pump will have dosed the specified <code class="docutils literal notranslate"><span class="pre">volume</span></code> times the <code class="docutils literal notranslate"><span class="pre">duration</span></code>.
+If the volume is negative the pump will run backwards.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.dose_with_constant_flow_rate</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">      </span><span class="nt">volume_per_minute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.2</span>
+<span class="w">      </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+
+<span class="w">  </span><span class="c1"># Templated</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.dose_with_constant_flow_rate</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">      </span><span class="nt">volume_per_minute</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">return id(some_volume_sensor).state;</span>
+<span class="w">      </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">return id(some_duration_sensor).state;</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pump.</p></li>
+<li><p><strong>volume_per_minute</strong> (<strong>Required</strong>, float, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The volume to dose in milliliters every minute. If negative, pump will run in reverse.</p></li>
+<li><p><strong>duration</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The time (in minutes) the pump will dose the volume requested every minute.</p></li>
+</ul>
+</section>
+<section id="ezo-pmp-pause-dosing-action">
+<span id="id5"></span><h2><code class="docutils literal notranslate"><span class="pre">ezo_pmp.pause_dosing</span></code> Action<a class="headerlink" href="#ezo-pmp-pause-dosing-action" title="Permalink to this heading">¶</a></h2>
+<p>Use this action to pause a Dosing command that was previously issued. To determine if the dosing is paused or not, you can use the <a class="reference internal" href="#ezo-pmp-is-paused-binary-sensor"><span class="std std-ref">Is Paused</span></a> sensor.
+If the pump is currently paused, issuing this action again will unpause it.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.pause_dosing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pump.</p></li>
+</ul>
+</section>
+<section id="ezo-pmp-stop-dosing-action">
+<span id="id6"></span><h2><code class="docutils literal notranslate"><span class="pre">ezo_pmp.stop_dosing</span></code> Action<a class="headerlink" href="#ezo-pmp-stop-dosing-action" title="Permalink to this heading">¶</a></h2>
+<p>Use this action to stop the current Dosing command.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.stop_dosing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pump.</p></li>
+</ul>
+</section>
+<section id="ezo-pmp-clear-total-volume-dosed-action">
+<span id="id7"></span><h2><code class="docutils literal notranslate"><span class="pre">ezo_pmp.clear_total_volume_dosed</span></code> Action<a class="headerlink" href="#ezo-pmp-clear-total-volume-dosed-action" title="Permalink to this heading">¶</a></h2>
+<p>Clear the values of the <a class="reference internal" href="#ezo-pmp-current-volume-dosed-sensor"><span class="std std-ref">Current Volume Dosed</span></a>, <a class="reference internal" href="#ezo-pmp-total-volume-dosed-sensor"><span class="std std-ref">Total Volume Dosed</span></a>
+and <a class="reference internal" href="#ezo-pmp-absolute-total-volume-dosed-sensor"><span class="std std-ref">Absolute Total Volume Dosed</span></a> sensors.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.clear_total_volume_dosed</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pump.</p></li>
+</ul>
+</section>
+<section id="ezo-pmp-set-calibration-volume-action">
+<span id="id8"></span><h2><code class="docutils literal notranslate"><span class="pre">ezo_pmp.set_calibration_volume</span></code> Action<a class="headerlink" href="#ezo-pmp-set-calibration-volume-action" title="Permalink to this heading">¶</a></h2>
+<p>Use this action to calibrate the peristaltic pump. The EZO-PMP needs two forms of calibration: absolute volume and volume over time. You can check
+the calibration status by using the <a class="reference internal" href="#ezo-pmp-calibration-status-text-sensor"><span class="std std-ref">Calibration Status</span></a> sensor. For the procedure on calibrating the pump
+check the datasheet.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.set_calibration_volume</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">      </span><span class="nt">volume</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.01</span>
+
+<span class="w">  </span><span class="c1"># Templated</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.set_calibration_volume</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">      </span><span class="nt">volume</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">        </span><span class="no">return id(some_volume_sensor).state;</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pump.</p></li>
+<li><p><strong>volume</strong> (<strong>Required</strong>, float, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The volume measured as part of the calibration process.</p></li>
+</ul>
+</section>
+<section id="ezo-pmp-clear-calibration-action">
+<span id="id9"></span><h2><code class="docutils literal notranslate"><span class="pre">ezo_pmp.clear_calibration</span></code> Action<a class="headerlink" href="#ezo-pmp-clear-calibration-action" title="Permalink to this heading">¶</a></h2>
+<p>Clear the calibration values stored in the pump. You can check the calibration status by using the
+<a class="reference internal" href="#ezo-pmp-calibration-status-text-sensor"><span class="std std-ref">Calibration Status</span></a> sensor.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.clear_calibration</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pump.</p></li>
+</ul>
+</section>
+<section id="ezo-pmp-find-action">
+<span id="id10"></span><h2><code class="docutils literal notranslate"><span class="pre">ezo_pmp.find</span></code> Action<a class="headerlink" href="#ezo-pmp-find-action" title="Permalink to this heading">¶</a></h2>
+<p>Use this action to make the LED on the Pump control board to blink for a minute. The pump will not respond to any other action while the LED is blinking.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.find</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pump.</p></li>
+</ul>
+</section>
+<section id="ezo-pmp-change-i2c-address-action">
+<span id="id11"></span><h2><code class="docutils literal notranslate"><span class="pre">ezo_pmp.change_i2c_address</span></code> Action<a class="headerlink" href="#ezo-pmp-change-i2c-address-action" title="Permalink to this heading">¶</a></h2>
+<p>Changes the i2c address of the pump to the provided value. After the address is changed you must upload a new version of the ESPHome firmware with the updated I2C
+address for the pump to work.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.change_i2c_address</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+<span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the pump.</p></li>
+<li><p><strong>address</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The new I2C address for the pump.</p></li>
+</ul>
+</section>
+<section id="home-assistant-configuration">
+<span id="ezo-pmp-ha-config"></span><h2>Home Assistant Configuration<a class="headerlink" href="#home-assistant-configuration" title="Permalink to this heading">¶</a></h2>
+<p>In order to provide control of the pump from the home assistant frontend it is important to expose the actions
+as components that have UI rendering. This could be done using templates in ESPHome. Here is an example using a
+<cite>Template Button</cite> and <cite>Template Number</cite> to dose a certain volume over time.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">i2c</span><span class="p">:</span>
+
+<span class="nt">ezo_pmp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pmp</span>
+
+<span class="nt">number</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">volume</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Volume&quot;</span>
+<span class="w">    </span><span class="nt">optimistic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">min_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">max_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">duration</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Duration&quot;</span>
+<span class="w">    </span><span class="nt">optimistic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">min_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">max_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+
+<span class="nt">button</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Dose</span><span class="nv"> </span><span class="s">Over</span><span class="nv"> </span><span class="s">Time&quot;</span>
+<span class="w">    </span><span class="nt">on_press</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ezo_pmp.dose_volume_over_time</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ezo_pump</span>
+<span class="w">          </span><span class="nt">volume</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">                  </span><span class="no">return id(volume).state;</span>
+<span class="w">          </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">                  </span><span class="no">return id(duration).state;</span>
+</pre></div>
+</div>
+</section>
+<section id="lambda-calls">
+<span id="ezo-pmp-lambda-calls"></span><h2>lambda calls<a class="headerlink" href="#lambda-calls" title="Permalink to this heading">¶</a></h2>
+<p>From <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>, you can also access the actions on the peristaltic pump to do some
+advanced stuff (see the full API Reference for more info). The name of the functions is the same as the name
+of the actions in YAML config.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/api/ezo__pmp_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/ezo_pmp.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

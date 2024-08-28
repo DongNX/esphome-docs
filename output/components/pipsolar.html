@@ -1,0 +1,575 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up PipSolar Compatible PV Inverter in ESPHome.">
+<meta itemprop="name" content="PipSolar PV Inverter">
+<meta itemprop="description" content="Instructions for setting up PipSolar Compatible PV Inverter in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/pipsolar.jpg">
+<meta name="twitter:title" content="PipSolar PV Inverter">
+<meta name="twitter:image:src" content="https://esphome.io/_images/pipsolar.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up PipSolar Compatible PV Inverter in ESPHome.">
+<meta property="og:title" content="PipSolar PV Inverter">
+<meta property="og:image" content="https://esphome.io/_images/pipsolar.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up PipSolar Compatible PV Inverter in ESPHome.">
+
+    <title>PipSolar PV Inverter &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/pipsolar.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PN7150 NFC" href="pn7150.html" />
+    <link rel="prev" title="PCF8574 I/O Expander" href="pcf8574.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">PipSolar PV Inverter</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sensor">Sensor</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#binary-sensor">Binary Sensor</a><ul>
+<li><a class="reference internal" href="#id2">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#text-sensor">Text Sensor</a><ul>
+<li><a class="reference internal" href="#id3">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#switch">Switch</a><ul>
+<li><a class="reference internal" href="#id4">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#output">Output</a><ul>
+<li><a class="reference internal" href="#id5">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#output-pipsolar-set-level-action"><code class="docutils literal notranslate"><span class="pre">output.pipsolar.set_level</span></code> Action</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>PipSolar PV Inverter</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="pipsolar-pv-inverter">
+<h1>PipSolar PV Inverter<a class="headerlink" href="#pipsolar-pv-inverter" title="Permalink to this heading">¶</a></h1>
+<p>The PipSolar component allows you to integrate PIP-compatible Inverters in ESPHome.
+It uses <a class="reference internal" href="uart.html#uart"><span class="std std-ref">UART</span></a> for communication.</p>
+<p>Once configured, you can use sensors, binary sensors, switches and outputs as described below for your projects.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>All functionality is working fine on esp8266 and esp32 chips.
+If you configure a lot of the possible sensors etc. from below it could be that you run out of memory (on esp8266).
+If you configure more than one if this devices with nearly all sensors etc. you run in a stack-size issue. In this case you have to increase stack size.</p>
+</div>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="../_images/pipsolar.jpg"><img alt="../_images/pipsolar.jpg" src="../_images/pipsolar.jpg" style="width: 50.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">pip4048 compatible PV Inverter.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>You can connect a wide variety of PV Inverters as long as they provide a serial interface and talk the commands used (at least those you want to use).
+A documentation about the communication protocol mostly supported can be found <a class="reference external" href="https://github.com/jblance/mpp-solar/tree/master/docs"><code class="docutils literal notranslate"><span class="pre">here</span></code></a>.</p>
+<p>This component will poll the needed polling commands in a loop. If there is a command to send for controlling the inverter this command will be queued and fired as next after the current polling command ends.
+There is a buffer to buffer up to 10 commands.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">pipsolar</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The id to use for this pipsolar component.</p></li>
+<li><p><strong>uart_id</strong> (<em>Optional</em>): The uart Bus ID</p></li>
+</ul>
+</section>
+</section>
+<section id="sensor">
+<h2>Sensor<a class="headerlink" href="#sensor" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pipsolar</span>
+<span class="w">    </span><span class="nt">pipsolar_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0</span>
+<span class="w">    </span><span class="nt">grid_rating_voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_grid_rating_voltage</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_grid_rating_voltage</span>
+<span class="w">    </span><span class="nt">grid_rating_current</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_grid_rating_current</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_grid_rating_current</span>
+<span class="w">    </span><span class="nt">ac_output_apparent_power</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_ac_output_apparent_power</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_ac_output_apparent_power</span>
+<span class="w">    </span><span class="nt">ac_output_active_power</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_ac_output_active_power</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_ac_output_active_power</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<p>All sensors are normal sensors… so all sensor variables are working to.</p>
+<ul class="simple">
+<li><p><strong>grid_rating_voltage</strong> (<em>Optional</em>): grid rating voltage</p></li>
+<li><p><strong>grid_rating_current</strong> (<em>Optional</em>): grid rating current</p></li>
+<li><p><strong>ac_output_rating_voltage</strong> (<em>Optional</em>): AC output rating voltage</p></li>
+<li><p><strong>ac_output_rating_frequency</strong> (<em>Optional</em>): AC output rating frequency</p></li>
+<li><p><strong>ac_output_rating_current</strong> (<em>Optional</em>): AC output rating current</p></li>
+<li><p><strong>ac_output_rating_apparent_power</strong> (<em>Optional</em>): AC output rating apparent power</p></li>
+<li><p><strong>ac_output_rating_active_power</strong> (<em>Optional</em>): AC output rating active power</p></li>
+<li><p><strong>battery_rating_voltage</strong> (<em>Optional</em>): battery rating voltage</p></li>
+<li><p><strong>battery_recharge_voltage</strong> (<em>Optional</em>): battery recharge voltage</p></li>
+<li><p><strong>battery_under_voltage</strong> (<em>Optional</em>): battery under voltage</p></li>
+<li><p><strong>battery_bulk_voltage</strong> (<em>Optional</em>): battery bulk voltage</p></li>
+<li><p><strong>battery_float_voltage</strong> (<em>Optional</em>): battery float voltage</p></li>
+<li><p><strong>battery_type</strong> (<em>Optional</em>): battery type</p></li>
+<li><p><strong>current_max_ac_charging_current</strong> (<em>Optional</em>): current max ac charging current</p></li>
+<li><p><strong>current_max_charging_current</strong> (<em>Optional</em>): current max charging current</p></li>
+<li><p><strong>input_voltage_range</strong> (<em>Optional</em>): input voltage range</p></li>
+<li><p><strong>output_source_priority</strong> (<em>Optional</em>): output source priority</p></li>
+<li><p><strong>charger_source_priority</strong> (<em>Optional</em>): charger source priority</p></li>
+<li><p><strong>parallel_max_num</strong> (<em>Optional</em>): parallel max num</p></li>
+<li><p><strong>machine_type</strong> (<em>Optional</em>): machine type</p></li>
+<li><p><strong>topology</strong> (<em>Optional</em>): topology</p></li>
+<li><p><strong>output_mode</strong> (<em>Optional</em>): output mode</p></li>
+<li><p><strong>battery_redischarge_voltage</strong> (<em>Optional</em>): battery re-discharge voltage</p></li>
+<li><p><strong>pv_ok_condition_for_parallel</strong> (<em>Optional</em>): PV OK condition for parallel</p></li>
+<li><p><strong>pv_power_balance</strong> (<em>Optional</em>): PV power balance mode</p></li>
+<li><p><strong>grid_voltage</strong> (<em>Optional</em>): grid voltage</p></li>
+<li><p><strong>grid_frequency</strong> (<em>Optional</em>): grid frequency</p></li>
+<li><p><strong>ac_output_voltage</strong> (<em>Optional</em>): ac output voltage</p></li>
+<li><p><strong>ac_output_frequency</strong> (<em>Optional</em>): ac output frequency</p></li>
+<li><p><strong>ac_output_apparent_power</strong> (<em>Optional</em>): ac output apparent power</p></li>
+<li><p><strong>ac_output_active_power</strong> (<em>Optional</em>): ac output active power</p></li>
+<li><p><strong>output_load_percent</strong> (<em>Optional</em>): output load percentage</p></li>
+<li><p><strong>bus_voltage</strong> (<em>Optional</em>): bus voltage</p></li>
+<li><p><strong>battery_voltage</strong> (<em>Optional</em>): battery voltage</p></li>
+<li><p><strong>battery_charging_current</strong> (<em>Optional</em>): battery charging current</p></li>
+<li><p><strong>battery_capacity_percent</strong> (<em>Optional</em>): battery capacity percent</p></li>
+<li><p><strong>inverter_heat_sink_temperature</strong> (<em>Optional</em>): inverter heatsink temperature</p></li>
+<li><p><strong>pv_input_current_for_battery</strong> (<em>Optional</em>): pv input current for battery</p></li>
+<li><p><strong>pv_input_voltage</strong> (<em>Optional</em>): pv input voltage</p></li>
+<li><p><strong>battery_voltage_scc</strong> (<em>Optional</em>): battery voltage from scc</p></li>
+<li><p><strong>battery_discharge_current</strong> (<em>Optional</em>): battery discharge current</p></li>
+<li><p><strong>battery_voltage_offset_for_fans_on</strong> (<em>Optional</em>): battery voltage offset for fans on</p></li>
+<li><p><strong>eeprom_version</strong> (<em>Optional</em>): eeprom version</p></li>
+<li><p><strong>pv_charging_power</strong> (<em>Optional</em>): pc charging power</p></li>
+</ul>
+</section>
+</section>
+<section id="binary-sensor">
+<h2>Binary Sensor<a class="headerlink" href="#binary-sensor" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pipsolar</span>
+<span class="w">    </span><span class="nt">pipsolar_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0</span>
+<span class="w">    </span><span class="nt">add_sbu_priority_version</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_add_sbu_priority_version</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_add_sbu_priority_version</span>
+<span class="w">    </span><span class="nt">configuration_status</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_configuration_status</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_configuration_status</span>
+</pre></div>
+</div>
+<section id="id2">
+<h3>Configuration variables:<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<p>All sensors are normal binary sensors… so all binary sensor variables are working to.</p>
+<ul class="simple">
+<li><p><strong>add_sbu_priority_version</strong> (<em>Optional</em>): add sbu priority version</p></li>
+<li><p><strong>configuration_status</strong> (<em>Optional</em>): configuration status</p></li>
+<li><p><strong>scc_firmware_version</strong> (<em>Optional</em>): scc firmware version</p></li>
+<li><p><strong>load_status</strong> (<em>Optional</em>): load status</p></li>
+<li><p><strong>battery_voltage_to_steady_while_charging</strong> (<em>Optional</em>): battery voltage to steady while charging</p></li>
+<li><p><strong>charging_status</strong> (<em>Optional</em>): charging status</p></li>
+<li><p><strong>scc_charging_status</strong> (<em>Optional</em>): scc charging status</p></li>
+<li><p><strong>ac_charging_status</strong> (<em>Optional</em>): ac charging status</p></li>
+<li><p><strong>charging_to_floating_mode</strong> (<em>Optional</em>): charging to floating mode</p></li>
+<li><p><strong>switch_on</strong> (<em>Optional</em>): switch on</p></li>
+<li><p><strong>dustproof_installed</strong> (<em>Optional</em>): dustproof installed</p></li>
+<li><p><strong>silence_buzzer_open_buzzer</strong> (<em>Optional</em>): silence buzzer open buzzer</p></li>
+<li><p><strong>overload_bypass_function</strong> (<em>Optional</em>): overload bypass function</p></li>
+<li><p><strong>lcd_escape_to_default</strong> (<em>Optional</em>): lcd escape to default</p></li>
+<li><p><strong>overload_restart_function</strong> (<em>Optional</em>): overload restart function</p></li>
+<li><p><strong>over_temperature_restart_function</strong> (<em>Optional</em>): over temperature restart function</p></li>
+<li><p><strong>backlight_on</strong> (<em>Optional</em>): backlight on</p></li>
+<li><p><strong>alarm_on_when_primary_source_interrupt</strong> (<em>Optional</em>): alarm on when primary source interrupt</p></li>
+<li><p><strong>fault_code_record</strong> (<em>Optional</em>): fault code record</p></li>
+<li><p><strong>power_saving</strong> (<em>Optional</em>): power saving</p></li>
+<li><p><strong>warnings_present</strong> (<em>Optional</em>): warnings present</p></li>
+<li><p><strong>faults_present</strong> (<em>Optional</em>): faults present</p></li>
+<li><p><strong>warning_power_loss</strong> (<em>Optional</em>): warning power loss</p></li>
+<li><p><strong>fault_inverter_fault</strong> (<em>Optional</em>): fault inverter fault</p></li>
+<li><p><strong>fault_bus_over</strong> (<em>Optional</em>): fault bus over</p></li>
+<li><p><strong>fault_bus_under</strong> (<em>Optional</em>): fault bus under</p></li>
+<li><p><strong>fault_bus_soft_fail</strong> (<em>Optional</em>): fault bus soft fail</p></li>
+<li><p><strong>warning_line_fail</strong> (<em>Optional</em>): warning line fail</p></li>
+<li><p><strong>fault_opvshort</strong> (<em>Optional</em>): fault opvshort</p></li>
+<li><p><strong>fault_inverter_voltage_too_low</strong> (<em>Optional</em>): fault inverter voltage too low</p></li>
+<li><p><strong>fault_inverter_voltage_too_high</strong> (<em>Optional</em>): fault inverter voltage too high</p></li>
+<li><p><strong>warning_over_temperature</strong> (<em>Optional</em>): warning over temperature</p></li>
+<li><p><strong>warning_fan_lock</strong> (<em>Optional</em>): warning fan lock</p></li>
+<li><p><strong>warning_battery_voltage_high</strong> (<em>Optional</em>): warning battery voltage high</p></li>
+<li><p><strong>warning_battery_low_alarm</strong> (<em>Optional</em>): warning battery low alarm</p></li>
+<li><p><strong>warning_battery_under_shutdown</strong> (<em>Optional</em>): warning battery under shutdown</p></li>
+<li><p><strong>warning_battery_derating</strong> (<em>Optional</em>): warning battery derating</p></li>
+<li><p><strong>warning_over_load</strong> (<em>Optional</em>): warning over load</p></li>
+<li><p><strong>warning_eeprom_failed</strong> (<em>Optional</em>): warning eeprom failed</p></li>
+<li><p><strong>fault_inverter_over_current</strong> (<em>Optional</em>): fault inverter over current</p></li>
+<li><p><strong>fault_inverter_soft_failed</strong> (<em>Optional</em>): fault inverter soft failed</p></li>
+<li><p><strong>fault_self_test_failed</strong> (<em>Optional</em>): fault_self_test_failed</p></li>
+<li><p><strong>fault_op_dc_voltage_over</strong> (<em>Optional</em>): fault op dc voltage over</p></li>
+<li><p><strong>fault_battery_open</strong> (<em>Optional</em>): fault battery open</p></li>
+<li><p><strong>fault_current_sensor_failed</strong> (<em>Optional</em>): fault current sensor failed</p></li>
+<li><p><strong>fault_battery_short</strong> (<em>Optional</em>): fault battery short</p></li>
+<li><p><strong>warning_power_limit</strong> (<em>Optional</em>): warning power limit</p></li>
+<li><p><strong>warning_pv_voltage_high</strong> (<em>Optional</em>): warning pv voltage high</p></li>
+<li><p><strong>fault_mppt_overload</strong> (<em>Optional</em>): fault mppt overload</p></li>
+<li><p><strong>warning_mppt_overload</strong> (<em>Optional</em>): warning mppt overload</p></li>
+<li><p><strong>warning_battery_too_low_to_charge</strong> (<em>Optional</em>): warning battery too low to charge</p></li>
+<li><p><strong>fault_dc_dc_over_current</strong> (<em>Optional</em>): fault dc dc over current</p></li>
+<li><p><strong>fault_code</strong> (<em>Optional</em>): fault code</p></li>
+<li><p><strong>warnung_low_pv_energy</strong> (<em>Optional</em>): warnung low pv energy</p></li>
+<li><p><strong>warning_high_ac_input_during_bus_soft_start</strong> (<em>Optional</em>): warning high ac input during bus soft start</p></li>
+<li><p><strong>warning_battery_equalization</strong> (<em>Optional</em>): warning battery equalization</p></li>
+</ul>
+</section>
+</section>
+<section id="text-sensor">
+<h2>Text Sensor<a class="headerlink" href="#text-sensor" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">text_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pipsolar</span>
+<span class="w">    </span><span class="nt">pipsolar_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0</span>
+<span class="w">    </span><span class="nt">device_mode</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_device_mode</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_device_mode</span>
+<span class="w">    </span><span class="nt">last_qpigs</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_last_qpigs</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_last_qpigs</span>
+<span class="w">    </span><span class="nt">last_qpiri</span><span class="p">:</span>
+</pre></div>
+</div>
+<section id="id3">
+<h3>Configuration variables:<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<p>All sensors are normal text sensors… so all text sensor variables are working to.</p>
+<ul class="simple">
+<li><p><strong>device_mode</strong> (<em>Optional</em>): device mode response</p></li>
+<li><p><strong>last_qpigs</strong> (<em>Optional</em>): last qpigs reponse</p></li>
+<li><p><strong>last_qpiri</strong> (<em>Optional</em>): last qpiri reponse</p></li>
+<li><p><strong>last_qmod</strong> (<em>Optional</em>): last qmod reponse</p></li>
+<li><p><strong>last_qflag</strong> (<em>Optional</em>): last qflag reponse</p></li>
+<li><p><strong>last_qpiws</strong> (<em>Optional</em>): last qpiws reponse</p></li>
+<li><p><strong>last_qt</strong> (<em>Optional</em>): last qt reponse</p></li>
+<li><p><strong>last_qmn</strong> (<em>Optional</em>): last qmn reponse</p></li>
+</ul>
+</section>
+</section>
+<section id="switch">
+<h2>Switch<a class="headerlink" href="#switch" title="Permalink to this heading">¶</a></h2>
+<p>Not all possible switches are exposed as they lead to the possibility to make serious damage. They should only be set at the physical device itself.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pipsolar</span>
+<span class="w">    </span><span class="nt">pipsolar_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0</span>
+<span class="w">    </span><span class="nt">output_source_priority_utility</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_output_source_priority_utility</span>
+<span class="w">    </span><span class="nt">output_source_priority_solar</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_output_source_priority_solar</span>
+<span class="w">    </span><span class="nt">output_source_priority_battery</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_output_source_priority_battery</span>
+<span class="w">    </span><span class="nt">input_voltage_range</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_input_voltage_range</span>
+<span class="w">    </span><span class="nt">pv_ok_condition_for_parallel</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_pv_ok_condition_for_parallel</span>
+<span class="w">    </span><span class="nt">pv_power_balance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_pv_power_balance</span>
+</pre></div>
+</div>
+<section id="id4">
+<h3>Configuration variables:<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p>All sensors are normal text sensors… so all text sensor variables are working to.</p>
+<ul class="simple">
+<li><p><strong>output_source_priority_utility</strong> (<em>Optional</em>): output source priority utility</p></li>
+<li><p><strong>output_source_priority_solar</strong> (<em>Optional</em>): output source priority solar</p></li>
+<li><p><strong>output_source_priority_battery</strong> (<em>Optional</em>): output source priority battery</p></li>
+<li><p><strong>input_voltage_range</strong> (<em>Optional</em>): input voltage range</p></li>
+<li><p><strong>pv_ok_condition_for_parallel</strong> (<em>Optional</em>): pv ok condition for parallel</p></li>
+<li><p><strong>pv_power_balance</strong> (<em>Optional</em>): pv power balance</p></li>
+</ul>
+</section>
+</section>
+<section id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this heading">¶</a></h2>
+<p>Not all possible outputs are exposed as they lead to the possibility to make serious damage. They should only be set at the physical device itself.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">output</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pipsolar</span>
+<span class="w">    </span><span class="nt">pipsolar_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0</span>
+<span class="w">    </span><span class="nt">battery_recharge_voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inverter0_battery_recharge_voltage_out</span>
+</pre></div>
+</div>
+<section id="id5">
+<h3>Configuration variables:<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<p>All sensors are normal text sensors… so all text sensor variables are working to.</p>
+<ul class="simple">
+<li><p><strong>battery_recharge_voltage</strong> (<em>Optional</em>): battery recharge voltage;</p>
+<ul>
+<li><p><strong>possible_values</strong> (<em>Optional</em>, list): a list of possible values default: 44.0,45.0,46.0,47.0,48.0,49.0,50.0,51.0</p></li>
+</ul>
+</li>
+<li><p><strong>battery_under_voltage</strong> (<em>Optional</em>): battery under voltage;</p>
+<ul>
+<li><p><strong>possible_values</strong> (<em>Optional</em>, list): a list of possible values default: 40.0,40.1,42,43,44,45,46,47,48.0</p></li>
+</ul>
+</li>
+<li><p><strong>battery_float_voltage</strong> (<em>Optional</em>): battery float voltage;</p>
+<ul>
+<li><p><strong>possible_values</strong> (<em>Optional</em>, list): a list of possible values default: 48.0,49.0,50.0,51.0</p></li>
+</ul>
+</li>
+<li><p><strong>battery_type</strong> (<em>Optional</em>): battery type;</p>
+<ul>
+<li><p><strong>possible_values</strong> (<em>Optional</em>, list): a list of possible values default: 0,1,2</p></li>
+</ul>
+</li>
+<li><p><strong>current_max_ac_charging_current</strong> (<em>Optional</em>): current max ac charging current;</p>
+<ul>
+<li><p><strong>possible_values</strong> (<em>Optional</em>, list): a list of possible values default: 2,10,20</p></li>
+</ul>
+</li>
+<li><p><strong>current_max_charging_current</strong> (<em>Optional</em>): current max charging current;</p>
+<ul>
+<li><p><strong>possible_values</strong> (<em>Optional</em>, list): a list of possible values default: 10,20,30,40</p></li>
+</ul>
+</li>
+<li><p><strong>output_source_priority</strong> (<em>Optional</em>): output source priority;</p>
+<ul>
+<li><p><strong>possible_values</strong> (<em>Optional</em>, list): a list of possible values default: 0,1,2</p></li>
+</ul>
+</li>
+<li><p><strong>charger_source_priority</strong> (<em>Optional</em>): charger source priority;</p>
+<ul>
+<li><p><strong>possible_values</strong> (<em>Optional</em>, list): a list of possible values default: 0,1,2,3</p></li>
+</ul>
+</li>
+<li><p><strong>battery_redischarge_voltage</strong> (<em>Optional</em>): battery redischarge voltage;</p>
+<ul>
+<li><p><strong>possible_values</strong> (<em>Optional</em>, list): a list of possible values default: 00.0,48.0,49,50.0,51.0,52,53,54,55,56,57,58</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="output-pipsolar-set-level-action">
+<span id="pipsolaroutput-set-level-action"></span><h2><code class="docutils literal notranslate"><span class="pre">output.pipsolar.set_level</span></code> Action<a class="headerlink" href="#output-pipsolar-set-level-action" title="Permalink to this heading">¶</a></h2>
+<p>To use your outputs in <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">automations</span></a> or templates, you can use this action to set the
+target level of the output.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">output.pipsolar.set_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_pipsolar_output</span>
+<span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">48.0</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The ID of the output.</p></li>
+<li><p><strong>value</strong> (<em>Optional</em>, percentage, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): The target level.</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="uart.html#uart"><span class="std std-ref">UART Bus</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/pipsolar.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

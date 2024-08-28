@@ -1,0 +1,500 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up ESP32 bluetooth low energy device trackers using ESPHome.">
+<meta itemprop="name" content="ESP32 Bluetooth Low Energy Tracker Hub">
+<meta itemprop="description" content="Instructions for setting up ESP32 bluetooth low energy device trackers using ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/bluetooth.png">
+<meta name="twitter:title" content="ESP32 Bluetooth Low Energy Tracker Hub">
+<meta name="twitter:image:src" content="https://esphome.io/_images/bluetooth.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up ESP32 bluetooth low energy device trackers using ESPHome.">
+<meta property="og:title" content="ESP32 Bluetooth Low Energy Tracker Hub">
+<meta property="og:image" content="https://esphome.io/_images/bluetooth.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up ESP32 bluetooth low energy device trackers using ESPHome.">
+
+    <title>ESP32 Bluetooth Low Energy Tracker Hub &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/esp32_ble_tracker.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ESP32 Camera Component" href="esp32_camera.html" />
+    <link rel="prev" title="BLE Server" href="esp32_ble_server.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ESP32 Bluetooth Low Energy Tracker Hub</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#esp32-bluetooth-low-energy-tracker-automation">ESP32 Bluetooth Low Energy Tracker Automation</a><ul>
+<li><a class="reference internal" href="#on-ble-advertise-trigger"><code class="docutils literal notranslate"><span class="pre">on_ble_advertise</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-ble-manufacturer-data-advertise-trigger"><code class="docutils literal notranslate"><span class="pre">on_ble_manufacturer_data_advertise</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-ble-service-data-advertise-trigger"><code class="docutils literal notranslate"><span class="pre">on_ble_service_data_advertise</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#on-scan-end-trigger"><code class="docutils literal notranslate"><span class="pre">on_scan_end</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#esp32-ble-tracker-start-scan-action"><code class="docutils literal notranslate"><span class="pre">esp32_ble_tracker.start_scan</span></code> Action</a></li>
+<li><a class="reference internal" href="#esp32-ble-tracker-stop-scan-action"><code class="docutils literal notranslate"><span class="pre">esp32_ble_tracker.stop_scan</span></code> Action</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#use-on-single-core-chips">Use on single-core chips</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>ESP32 Bluetooth Low Energy Tracker Hub</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="esp32-bluetooth-low-energy-tracker-hub">
+<h1>ESP32 Bluetooth Low Energy Tracker Hub<a class="headerlink" href="#esp32-bluetooth-low-energy-tracker-hub" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">esp32_ble_tracker</span></code> component creates a global hub so that you can track bluetooth low energy devices
+using your ESP32 node.</p>
+<p>See <a class="reference internal" href="binary_sensor/ble_presence.html#esp32-ble-tracker-setting-up-devices"><span class="std std-ref">Setting up devices</span></a> for information on how you can determine
+the MAC address of a device and track it using ESPHome.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The BLE software stack on the ESP32 consumes a significant amount of RAM on the device.</p>
+<p><strong>Crashes are likely to occur</strong> if you include too many additional components in your device’s
+configuration. Memory-intensive components such as <a class="reference internal" href="voice_assistant.html"><span class="doc">Voice Assistant</span></a> and other
+audio components are most likely to cause issues.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_presence</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AC:37:43:77:5F:4C</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ESP32</span><span class="nv"> </span><span class="s">BLE</span><span class="nv"> </span><span class="s">Presence</span><span class="nv"> </span><span class="s">Google</span><span class="nv"> </span><span class="s">Home</span><span class="nv"> </span><span class="s">Mini&quot;</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_rssi</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AC:37:43:77:5F:4C</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BLE</span><span class="nv"> </span><span class="s">Google</span><span class="nv"> </span><span class="s">Home</span><span class="nv"> </span><span class="s">Mini</span><span class="nv"> </span><span class="s">RSSI</span><span class="nv"> </span><span class="s">value&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_hhccjcy01</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">94:2B:FF:5C:91:61</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xiaomi</span><span class="nv"> </span><span class="s">MiFlora</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">moisture</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xiaomi</span><span class="nv"> </span><span class="s">MiFlora</span><span class="nv"> </span><span class="s">Moisture&quot;</span>
+<span class="w">    </span><span class="nt">illuminance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xiaomi</span><span class="nv"> </span><span class="s">MiFlora</span><span class="nv"> </span><span class="s">Illuminance&quot;</span>
+<span class="w">    </span><span class="nt">conductivity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xiaomi</span><span class="nv"> </span><span class="s">MiFlora</span><span class="nv"> </span><span class="s">Soil</span><span class="nv"> </span><span class="s">Conductivity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xiaomi</span><span class="nv"> </span><span class="s">MiFlora</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xiaomi_lywsdcgq</span>
+<span class="w">    </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7A:80:8E:19:36:BA</span>
+<span class="w">    </span><span class="nt">temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xiaomi</span><span class="nv"> </span><span class="s">MiJia</span><span class="nv"> </span><span class="s">Temperature&quot;</span>
+<span class="w">    </span><span class="nt">humidity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xiaomi</span><span class="nv"> </span><span class="s">MiJia</span><span class="nv"> </span><span class="s">Humidity&quot;</span>
+<span class="w">    </span><span class="nt">battery_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xiaomi</span><span class="nv"> </span><span class="s">MiJia</span><span class="nv"> </span><span class="s">Battery</span><span class="nv"> </span><span class="s">Level&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The first time this component is enabled for an ESP32, the code partition needs to be
+resized. Please flash the ESP32 via USB when adding this to your configuration. After that,
+you can use OTA updates again.</p>
+</div>
+<section id="configuration-variables">
+<span id="config-esp32-ble-tracker"></span><h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>scan_parameters</strong> (<em>Optional</em>): Advanced parameters for configuring the scan behavior of the ESP32.
+See also <a class="reference external" href="https://dev.ti.com/tirex/explore/content/simplelink_academy_cc2640r2sdk_5_10_02_00/modules/blestack/ble_scan_adv_basic/ble_scan_adv_basic.html#scanning-basics">this guide by Texas Instruments</a>
+for reference.</p>
+<ul>
+<li><p><strong>interval</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval between each consecutive scan window.
+This is the time the ESP spends on each of the 3 BLE advertising channels.
+Defaults to <code class="docutils literal notranslate"><span class="pre">320ms</span></code>.</p></li>
+<li><p><strong>window</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The time the ESP is actively listening for packets
+on a channel during each scan interval. If this is close to the <code class="docutils literal notranslate"><span class="pre">interval</span></code> value, the ESP will
+spend more time listening to packets (but also consume more power). Defaults to <code class="docutils literal notranslate"><span class="pre">30ms</span></code></p></li>
+<li><p><strong>duration</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The duration of each complete scan. This has no real
+impact on the device but can be used to debug the BLE stack. Defaults to <code class="docutils literal notranslate"><span class="pre">5min</span></code>.</p></li>
+<li><p><strong>active</strong> (<em>Optional</em>, boolean): Whether to actively send scan requests to request more data
+after having received an advertising packet. With some devices this is necessary to receive all data,
+but also drains those devices’ power a bit more. Some devices don’t need this, in that case
+you can save power and RF pollution by setting it to <code class="docutils literal notranslate"><span class="pre">false</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><strong>continuous</strong> (<em>Optional</em>, boolean): Whether to scan continuously (forever) or to only scan when
+asked to start a scan (with start_scan action). Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID for this ESP32 BLE Hub.</p></li>
+</ul>
+<p>Automations:</p>
+<ul class="simple">
+<li><p><strong>on_ble_advertise</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform
+when a Bluetooth advertising is received. See <a class="reference internal" href="#esp32-ble-tracker-on-ble-advertise"><span class="std std-ref">on_ble_advertise Trigger</span></a>.</p></li>
+<li><p><strong>on_ble_manufacturer_data_advertise</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to
+perform when a Bluetooth advertising with manufacturer data is received. See
+<a class="reference internal" href="#esp32-ble-tracker-on-ble-manufacturer-data-advertise"><span class="std std-ref">on_ble_manufacturer_data_advertise Trigger</span></a>.</p></li>
+<li><p><strong>on_ble_service_data_advertise</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to
+perform when a Bluetooth advertising with service data is received. See
+<a class="reference internal" href="#esp32-ble-tracker-on-ble-service-data-advertise"><span class="std std-ref">on_ble_service_data_advertise Trigger</span></a>.</p></li>
+<li><p><strong>on_scan_end</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An automation to perform when
+a BLE scan has completed (the duration of the scan). This works with continuous set to true or false.</p></li>
+</ul>
+</section>
+<section id="esp32-bluetooth-low-energy-tracker-automation">
+<h2>ESP32 Bluetooth Low Energy Tracker Automation<a class="headerlink" href="#esp32-bluetooth-low-energy-tracker-automation" title="Permalink to this heading">¶</a></h2>
+<section id="on-ble-advertise-trigger">
+<span id="esp32-ble-tracker-on-ble-advertise"></span><h3><code class="docutils literal notranslate"><span class="pre">on_ble_advertise</span></code> Trigger<a class="headerlink" href="#on-ble-advertise-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when a Bluetooth advertising is received. A variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type
+<a class="reference external" href="/api/classesphome_1_1esp32__ble__tracker_1_1_e_s_p_b_t_device.html">esp32_ble_tracker::ESPBTDevice</a> is passed to the automation for use in lambdas.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_ble_advertise</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11:11:11:11:11:11</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22:22:22:22:22:22</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">            </span><span class="no">ESP_LOGD(&quot;ble_adv&quot;, &quot;New BLE device&quot;);</span>
+<span class="w">            </span><span class="no">ESP_LOGD(&quot;ble_adv&quot;, &quot;  address: %s&quot;, x.address_str().c_str());</span>
+<span class="w">            </span><span class="no">ESP_LOGD(&quot;ble_adv&quot;, &quot;  name: %s&quot;, x.get_name().c_str());</span>
+<span class="w">            </span><span class="no">ESP_LOGD(&quot;ble_adv&quot;, &quot;  Advertised service UUIDs:&quot;);</span>
+<span class="w">            </span><span class="no">for (auto uuid : x.get_service_uuids()) {</span>
+<span class="w">                </span><span class="no">ESP_LOGD(&quot;ble_adv&quot;, &quot;    - %s&quot;, uuid.to_string().c_str());</span>
+<span class="w">            </span><span class="no">}</span>
+<span class="w">            </span><span class="no">ESP_LOGD(&quot;ble_adv&quot;, &quot;  Advertised service data:&quot;);</span>
+<span class="w">            </span><span class="no">for (auto data : x.get_service_datas()) {</span>
+<span class="w">                </span><span class="no">ESP_LOGD(&quot;ble_adv&quot;, &quot;    - %s: (length %i)&quot;, data.uuid.to_string().c_str(), data.data.size());</span>
+<span class="w">            </span><span class="no">}</span>
+<span class="w">            </span><span class="no">ESP_LOGD(&quot;ble_adv&quot;, &quot;  Advertised manufacturer data:&quot;);</span>
+<span class="w">            </span><span class="no">for (auto data : x.get_manufacturer_datas()) {</span>
+<span class="w">                </span><span class="no">ESP_LOGD(&quot;ble_adv&quot;, &quot;    - %s: (length %i)&quot;, data.uuid.to_string().c_str(), data.data.size());</span>
+<span class="w">            </span><span class="no">}</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>mac_address</strong> (<em>Optional</em>, list of MAC Address): The MAC address to filter for this automation.</p></li>
+<li><p>See <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p></li>
+</ul>
+</section>
+<section id="on-ble-manufacturer-data-advertise-trigger">
+<span id="esp32-ble-tracker-on-ble-manufacturer-data-advertise"></span><h3><code class="docutils literal notranslate"><span class="pre">on_ble_manufacturer_data_advertise</span></code> Trigger<a class="headerlink" href="#on-ble-manufacturer-data-advertise-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when a Bluetooth advertising with manufacturer data is received. A
+variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <code class="docutils literal notranslate"><span class="pre">std::vector&lt;uint8_t&gt;</span></code> is passed to the automation for use in lambdas.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BLE</span><span class="nv"> </span><span class="s">Sensor&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_sensor</span>
+
+<span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_ble_manufacturer_data_advertise</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11:22:33:44:55:66</span>
+<span class="w">      </span><span class="nt">manufacturer_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0590</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">            </span><span class="no">if (x[0] != 0x7b || x[1] != 0x61) return;</span>
+<span class="w">            </span><span class="no">int value = x[2] + (x[3] &lt;&lt; 8);</span>
+<span class="w">            </span><span class="no">id(ble_sensor).publish_state(value);</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>mac_address</strong> (<em>Optional</em>, MAC Address): The MAC address to filter for this automation.</p></li>
+<li><p><strong>manufacturer_id</strong> (<strong>Required</strong>, string): 16 bit, 32 bit, or 128 bit BLE Manufacturer ID.</p></li>
+<li><p>See <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p></li>
+</ul>
+</section>
+<section id="on-ble-service-data-advertise-trigger">
+<span id="esp32-ble-tracker-on-ble-service-data-advertise"></span><h3><code class="docutils literal notranslate"><span class="pre">on_ble_service_data_advertise</span></code> Trigger<a class="headerlink" href="#on-ble-service-data-advertise-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when a Bluetooth advertising with service data is received. A
+variable <code class="docutils literal notranslate"><span class="pre">x</span></code> of type <code class="docutils literal notranslate"><span class="pre">std::vector&lt;uint8_t&gt;</span></code> is passed to the automation for use in lambdas.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">template</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;BLE</span><span class="nv"> </span><span class="s">Sensor&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_sensor</span>
+
+<span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_ble_service_data_advertise</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mac_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11:22:33:44:55:66</span>
+<span class="w">      </span><span class="nt">service_uuid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">181A</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;id(ble_sensor).publish_state(x[0]);&#39;</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>mac_address</strong> (<em>Optional</em>, MAC Address): The MAC address to filter for this automation.</p></li>
+<li><p><strong>service_uuid</strong> (<strong>Required</strong>, string): 16 bit, 32 bit, or 128 bit BLE Service UUID.</p></li>
+<li><p>See <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p></li>
+</ul>
+</section>
+<section id="on-scan-end-trigger">
+<h3><code class="docutils literal notranslate"><span class="pre">on_scan_end</span></code> Trigger<a class="headerlink" href="#on-scan-end-trigger" title="Permalink to this heading">¶</a></h3>
+<p>This automation will be triggered when a Bluetooth scanning sequence has completed. If running
+with continuous set to true, this will trigger every time the scan completes (the duration of
+a scan).</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_scan_end</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">             </span><span class="no">ESP_LOGD(&quot;ble_auto&quot;, &quot;The scan has ended!&quot;);</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p>None</p></li>
+<li><p>See <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>.</p></li>
+</ul>
+</section>
+<section id="esp32-ble-tracker-start-scan-action">
+<h3><code class="docutils literal notranslate"><span class="pre">esp32_ble_tracker.start_scan</span></code> Action<a class="headerlink" href="#esp32-ble-tracker-start-scan-action" title="Permalink to this heading">¶</a></h3>
+<p>Start a Bluetooth scan. If there is a scan already in progress, then the action is ignored.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">scan_parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">continuous</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">esp32_ble_tracker.start_scan</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Configuration variables:</p>
+<ul class="simple">
+<li><p><strong>continuous</strong> (<em>Optional</em>, boolean): Whether to start the scan in continuous mode. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This action can also be written in <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>:</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ble_tracker_id</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">id</span><span class="p">(</span><span class="n">ble_tracker_id</span><span class="p">).</span><span class="n">start_scan</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="esp32-ble-tracker-stop-scan-action">
+<h3><code class="docutils literal notranslate"><span class="pre">esp32_ble_tracker.stop_scan</span></code> Action<a class="headerlink" href="#esp32-ble-tracker-stop-scan-action" title="Permalink to this heading">¶</a></h3>
+<p>Stops the bluetooth scanning. It can be started again with the above start scan action.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+
+<span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">esp32_ble_tracker.stop_scan</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="use-on-single-core-chips">
+<h2>Use on single-core chips<a class="headerlink" href="#use-on-single-core-chips" title="Permalink to this heading">¶</a></h2>
+<p>On dual-core devices the WiFi component runs on core 1, while this component runs on core 0.
+When using this component on single core chips such as the ESP32-C3 both WiFi and <code class="docutils literal notranslate"><span class="pre">ble_tracker</span></code> must run on
+the same core, and this has been known to cause issues when connecting to WiFi. A work-around for this is to
+enable the tracker only while the native API is connected. The following config will achieve this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esp32_ble_tracker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">scan_parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">continuous</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">encryption</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="kt">!secret</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">encryption_key</span>
+<span class="w">  </span><span class="nt">on_client_connected</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">esp32_ble_tracker.start_scan</span><span class="p">:</span>
+<span class="w">       </span><span class="nt">continuous</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">on_client_disconnected</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">esp32_ble_tracker.stop_scan</span><span class="p">:</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="text_sensor/ble_scanner.html"><span class="doc">ESP32 Bluetooth Low Energy Scanner</span></a></p></li>
+<li><p><a class="reference internal" href="sensor/ble_rssi.html"><span class="doc">ESP32 Bluetooth Low Energy RSSI Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="sensor/b_parasite.html"><span class="doc">b-parasite</span></a></p></li>
+<li><p><a class="reference internal" href="sensor/xiaomi_ble.html"><span class="doc">Xiaomi Mijia BLE Sensors</span></a></p></li>
+<li><p><a class="reference internal" href="sensor/xiaomi_miscale.html"><span class="doc">Xiaomi Miscale Sensors</span></a></p></li>
+<li><p><a class="reference internal" href="sensor/inkbird_ibsth1_mini.html"><span class="doc">Inkbird IBS-TH1, IBS-TH1 Mini, and IBS-TH2 BLE Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="sensor/mopeka_pro_check.html"><span class="doc">Mopeka Pro Check BLE Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="sensor/ruuvitag.html"><span class="doc">RuuviTag Open Source BLE Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="ble_client.html"><span class="doc">BLE Client</span></a></p></li>
+<li><p><a class="reference internal" href="bluetooth_proxy.html"><span class="doc">Bluetooth Proxy</span></a></p></li>
+<li><p><a class="reference external" href="/api/esp32__ble__tracker_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/nkolban/ESP32_BLE_Arduino">ESP32 BLE for Arduino</a> by <a class="reference external" href="https://github.com/nkolban">Neil Kolban</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/esp32_ble_tracker.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

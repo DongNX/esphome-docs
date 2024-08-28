@@ -1,0 +1,361 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a Growatt inverter reading on modbus.">
+<meta name="keywords" content="Growatt, Ginverter">
+<meta itemprop="name" content="Growatt Solar">
+<meta itemprop="description" content="Instructions for setting up a Growatt inverter reading on modbus.">
+<meta itemprop="image" content="https://esphome.io/_images/growatt.jpg">
+<meta name="twitter:title" content="Growatt Solar">
+<meta name="twitter:image:src" content="https://esphome.io/_images/growatt.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a Growatt inverter reading on modbus.">
+<meta property="og:title" content="Growatt Solar">
+<meta property="og:image" content="https://esphome.io/_images/growatt.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a Growatt inverter reading on modbus.">
+
+    <title>Growatt Solar &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/growatt_solar.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Haier Climate Sensors" href="haier.html" />
+    <link rel="prev" title="Panasonic SN-GCJA5 Particulate Matter Sensor" href="gcja5.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Growatt Solar</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>Growatt Solar</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="growatt-solar">
+<h1>Growatt Solar<a class="headerlink" href="#growatt-solar" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">Growatt</span> <span class="pre">Inverter</span></code> sensor platform allows you to use growatt inverter data reading on modbus with ESPHome.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/growatt.jpg"><img alt="../../_images/growatt.jpg" src="../../_images/growatt.jpg" style="width: 50.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Growatt Logo</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The communication with this component is done over a <a class="reference internal" href="../uart.html#uart"><span class="std std-ref">UART bus</span></a> using <a class="reference internal" href="../modbus.html#modbus"><span class="std std-ref">Modbus</span></a>.
+You must therefore have a <code class="docutils literal notranslate"><span class="pre">uart:</span></code> and <code class="docutils literal notranslate"><span class="pre">modbus:</span></code> entry in your configuration with both the TX and RX pins set
+to some pins on your board and the baud rate set to 9600.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">growatt_solar</span>
+<span class="w">    </span><span class="nt">protocol_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RTU</span>
+
+<span class="w">    </span><span class="nt">inverter_status</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Status</span><span class="nv"> </span><span class="s">Code&quot;</span>
+
+<span class="w">    </span><span class="nt">phase_a</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Voltage</span><span class="nv"> </span><span class="s">Phase</span><span class="nv"> </span><span class="s">A&quot;</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Current</span><span class="nv"> </span><span class="s">Phase</span><span class="nv"> </span><span class="s">A&quot;</span>
+<span class="w">      </span><span class="nt">active_power</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">Phase</span><span class="nv"> </span><span class="s">A&quot;</span>
+<span class="w">    </span><span class="nt">phase_b</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Voltage</span><span class="nv"> </span><span class="s">Phase</span><span class="nv"> </span><span class="s">B&quot;</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Current</span><span class="nv"> </span><span class="s">Phase</span><span class="nv"> </span><span class="s">B&quot;</span>
+<span class="w">      </span><span class="nt">active_power</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">Phase</span><span class="nv"> </span><span class="s">B&quot;</span>
+<span class="w">    </span><span class="nt">phase_c</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Voltage</span><span class="nv"> </span><span class="s">Phase</span><span class="nv"> </span><span class="s">C&quot;</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Current</span><span class="nv"> </span><span class="s">Phase</span><span class="nv"> </span><span class="s">C&quot;</span>
+<span class="w">      </span><span class="nt">active_power</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">Phase</span><span class="nv"> </span><span class="s">C&quot;</span>
+
+<span class="w">    </span><span class="nt">pv1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">PV1</span><span class="nv"> </span><span class="s">Voltage&quot;</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">PV1</span><span class="nv"> </span><span class="s">Current&quot;</span>
+<span class="w">      </span><span class="nt">active_power</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">PV1</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Power&quot;</span>
+
+<span class="w">    </span><span class="nt">pv2</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">voltage</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">PV2</span><span class="nv"> </span><span class="s">Voltage&quot;</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">PV2</span><span class="nv"> </span><span class="s">Current&quot;</span>
+<span class="w">      </span><span class="nt">active_power</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">PV2</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Power&quot;</span>
+
+<span class="w">    </span><span class="nt">active_power</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Grid</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Power&quot;</span>
+
+<span class="w">    </span><span class="nt">pv_active_power</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">PV</span><span class="nv"> </span><span class="s">Active</span><span class="nv"> </span><span class="s">Power&quot;</span>
+
+<span class="w">    </span><span class="nt">frequency</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Frequency&quot;</span>
+
+<span class="w">    </span><span class="nt">energy_production_day</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Today&#39;s</span><span class="nv"> </span><span class="s">Generation&quot;</span>
+
+<span class="w">    </span><span class="nt">total_energy_production</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Total</span><span class="nv"> </span><span class="s">Energy</span><span class="nv"> </span><span class="s">Production&quot;</span>
+
+<span class="w">    </span><span class="nt">inverter_module_temp</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Growatt</span><span class="nv"> </span><span class="s">Inverter</span><span class="nv"> </span><span class="s">Module</span><span class="nv"> </span><span class="s">Temp&quot;</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>inverter_status</strong> (<em>Optional</em>): Status code of the inverter (0: waiting, 1: normal, 3:fault)</p></li>
+<li><p><strong>protocol_version</strong> (<em>Optional</em>): Version of the protocol used by your inverter.
+Old inverters use RTU (default). Newer ones use RTU2 (e.g. MIC, MIN, MAX series)</p></li>
+<li><p><strong>phase_a</strong> (<em>Optional</em>): The group of exposed sensors for Phase A/1.</p>
+<ul>
+<li><p><strong>current</strong> (<em>Optional</em>): Use the current value of the sensor in amperes. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>voltage</strong> (<em>Optional</em>): Use the voltage value of the sensor in volts.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>active_power</strong> (<em>Optional</em>): Use the (active) power value of the sensor in watts. All options
+from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>phase_b</strong> (<em>Optional</em>): The group of exposed sensors for Phase B/2 on applicable inverters.</p>
+<ul>
+<li><p>All options from <strong>phase_a</strong></p></li>
+</ul>
+</li>
+<li><p><strong>phase_c</strong> (<em>Optional</em>): The group of exposed sensors for Phase C/3 on applicable inverters.</p>
+<ul>
+<li><p>All options from <strong>phase_a</strong></p></li>
+</ul>
+</li>
+<li><p><strong>pv1</strong> (<em>Optional</em>): The group of exposed sensors for Photo Voltaic 1.</p>
+<ul>
+<li><p><strong>current</strong> (<em>Optional</em>): Use the current value of the sensor in amperes. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>voltage</strong> (<em>Optional</em>): Use the voltage value of the sensor in volts.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>active_power</strong> (<em>Optional</em>): Use the (active) power value of the sensor in watts. All options
+from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>pv2</strong> (<em>Optional</em>): The group of exposed sensors for Photo Voltaic 2.</p>
+<ul>
+<li><p>All options from <strong>pv1</strong></p></li>
+</ul>
+</li>
+<li><p><strong>active_power</strong> (<em>Optional</em>): Use the (active) power value for the Grid in watts. All options
+from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>pv_active_power</strong> (<em>Optional</em>): Use the (active) power value of PVs in total in watts. All options
+from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>frequency</strong> (<em>Optional</em>): Use the frequency value of the sensor in hertz.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>energy_production_day</strong> (<em>Optional</em>): Use the export active energy value for same day of the
+sensor in kilo watt hours. All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>total_energy_production</strong> (<em>Optional</em>): Use the total exported energy value of the sensor in
+kilo watt hours. All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>inverter_module_temp</strong> (<em>Optional</em>): Use the inverter module temperature value of the sensor in
+degree celsius. All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to check the
+sensor. Defaults to <code class="docutils literal notranslate"><span class="pre">10s</span></code>.</p></li>
+<li><p><strong>address</strong> (<em>Optional</em>, int): The address of the sensor if multiple sensors are attached to
+the same UART bus. You will need to set the address of each device manually. Defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/growatt_solar.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

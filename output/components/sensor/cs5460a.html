@@ -1,0 +1,362 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="CS5460A component configuration">
+<meta name="keywords" content="cs5460a">
+<meta itemprop="name" content="CS5460A Power Sensor">
+<meta itemprop="description" content="CS5460A component configuration">
+<meta itemprop="image" content="https://esphome.io/_images/cs5460a.png">
+<meta name="twitter:title" content="CS5460A Power Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/cs5460a.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="CS5460A component configuration">
+<meta property="og:title" content="CS5460A Power Sensor">
+<meta property="og:image" content="https://esphome.io/_images/cs5460a.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="CS5460A component configuration">
+
+    <title>CS5460A Power Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/cs5460a.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="CSE7761 Power Sensor" href="cse7761.html" />
+    <link rel="prev" title="Combine the state of several sensors" href="combination.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">CS5460A Power Sensor</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration:</a></li>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#cs5460a-restart-action"><code class="docutils literal notranslate"><span class="pre">cs5460a.restart</span></code> Action</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>CS5460A Power Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="cs5460a-power-sensor">
+<h1>CS5460A Power Sensor<a class="headerlink" href="#cs5460a-power-sensor" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">cs5460a</span></code> sensor platform allows you to use a CS5460A AC voltage, current and power meter
+chip (<a class="reference external" href="https://statics.cirrus.com/pubs/proDatasheet/CS5460A_F5.pdf">datasheet</a>) with ESPHome.
+The chip is usually sold on a breakout board with a 4.096 MHz crystal.  However it requires a few
+extra components, specifically a current sensing circuit and a voltage sensing circuit.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/cs5460a.png"><img alt="../../_images/cs5460a.png" src="../../_images/cs5460a.png" style="width: 30.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">CS5460A Single-Phase Power/Energy IC module</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not work near live mains connections and only modify existing electrical installations if
+you’re qualified.</p>
+</div>
+<section id="configuration">
+<h2>Configuration:<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
+<p>Your device communicates with the CS5460A over SPI so you need to have an <a class="reference internal" href="../spi.html#spi"><span class="std std-ref">SPI bus</span></a> in
+your configuration with the pin numbers set for the <code class="docutils literal notranslate"><span class="pre">MOSI</span></code>, <code class="docutils literal notranslate"><span class="pre">MISO</span></code> and <code class="docutils literal notranslate"><span class="pre">CLK</span></code> lines.  These
+connect to the <code class="docutils literal notranslate"><span class="pre">SDI</span></code>, <code class="docutils literal notranslate"><span class="pre">SDO</span></code> and <code class="docutils literal notranslate"><span class="pre">SCLK</span></code> pins on the CS5460A respectively.  The <code class="docutils literal notranslate"><span class="pre">CS</span></code>
+(chip-select) pin of the CS5460A can be driven by any GPIO you have available or wired to ground
+if the CS5460A is the only device connected to your device’s SPI bus.  The RESET pin can also be
+driven by a GPIO or wired to VCC.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cs5460a</span>
+<span class="w">    </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Kitchen</span><span class="nv"> </span><span class="s">current</span><span class="nv"> </span><span class="s">(RMS)&quot;</span>
+<span class="w">      </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">delta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">power</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Kitchen</span><span class="nv"> </span><span class="s">power&quot;</span>
+<span class="w">      </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">delta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Mains</span><span class="nv"> </span><span class="s">voltage</span><span class="nv"> </span><span class="s">(RMS)&quot;</span>
+<span class="w">      </span><span class="nt">filters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">delta</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1600</span>
+<span class="w">    </span><span class="nt">current_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
+<span class="w">    </span><span class="nt">voltage_gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.000573</span>
+<span class="w">    </span><span class="nt">pulse_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1 Wh</span>
+<span class="w">    </span><span class="nt">cs_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>current</strong> (<em>Optional</em>): The sensor subcomponent that will report RMS current values in Amperes.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.  See note below about throttling.</p></li>
+<li><p><strong>voltage</strong> (<em>Optional</em>): The sensor subcomponent that will report RMS voltage values in Volts.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.  See note below about throttling.</p></li>
+<li><p><strong>power</strong> (<em>Optional</em>): The sensor subcomponent that will report the power readings in Watts.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.  See note below about throttling.</p></li>
+<li><p><strong>samples</strong> (<em>Optional</em>): The number of samples that go into each reading – determines that
+update interval of the sensors and the accuracy of the readings.  This is the number N from the
+CS5460A datasheet, defined as the number of <em>conversion cycles</em> within a <em>computation cycle</em>.  The
+component reports data at the end of each <em>computation cycle</em>.  With the standard 4.096MHz clock
+rate, each <em>conversion</em> takes 0.25ms so setting this to 2000 means 0.5s update interval, 40000
+means 10s update interval and so on, similarly for other clock-rates.  It is recommended that
+the interval be an integer number of the mains AC cycles, so for the 50 Hz AC frequency countries
+the interval should be a multiple of 20ms, for the 60 Hz countries a multiple of 16.66 ms.
+Defaults to <code class="docutils literal notranslate"><span class="pre">4000</span></code> (1 second at 4.096MHz).  Admits values from 1 to 16777215.</p></li>
+<li><p><strong>pga_gain</strong> (<em>Optional</em>): If set to <code class="docutils literal notranslate"><span class="pre">10X</span></code> (default), the differential voltage at the current
+inputs must be between -250mV and +250mV.  If set to <code class="docutils literal notranslate"><span class="pre">50X</span></code> it must be within -100mV to +100mV.</p></li>
+<li><p><strong>current_gain</strong> (<em>Optional</em>): Set this to the ratio of the differential voltage at the current
+inputs (in Volts) vs. the actual line current to be calculated (in Amperes).  When using a shunt
+resistor as the current sensing element, this is going to simply equal the resistance since
+the differential voltage is the line current multiplied by the resistance.  When using a current
+transformer, the value is going to be the burden resistor’s value divided by the number of turns
+of the transformer winding.  For a 2000 turn current transformer clamp and a 2 Ohm burden
+resistor this works out to 0.001 (the default if <strong>current_gain</strong> is not specified).</p></li>
+<li><p><strong>voltage_gain</strong> (<em>Optional</em>): Set this to the ratio of the voltage at the voltage input pins
+of CS5460A to the line voltage.  When using a simple voltage divider, this is the divider’s ratio.
+When using a voltage transformer this is the secondary turns to primary turns ratio.  When using a
+current transformer (such as the ZMPT101B) this is equals
+<code class="docutils literal notranslate"><span class="pre">(secondary</span> <span class="pre">turns</span> <span class="pre">*</span> <span class="pre">burden</span> <span class="pre">resistor</span> <span class="pre">value)</span> <span class="pre">/</span> <span class="pre">(primary</span> <span class="pre">turns</span> <span class="pre">*</span> <span class="pre">limiting</span> <span class="pre">resistor</span> <span class="pre">value)</span></code>, and
+similarly for combinations of transfomers and voltage dividers.  Defaults to <code class="docutils literal notranslate"><span class="pre">0.001</span></code>.  Must be
+a positive number.</p></li>
+<li><p><strong>phase_offset</strong> (<em>Optional</em>): This can be used to account for a phase offset between the voltage
+sensing circuit and the current sensing circuit to improve power measurement accuracy.  Admits
+integer values between -64 to 63, which should be offset by 0.5 and multiplied by about 8.2
+CS5460A clock intervals to get the resulting time offset.  With the typical 4.096 MHz clocking
+this scales to a range of -128 μs to 128 μs, or -2.3º to 2.3º phase offset at 50Hz and a -2.8º to
+2.8º phase offset at 60Hz.  Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code> (i.e. time offset of 4.1 MCLK cycles).  An easy way
+to find the correct value is to plug in a resisitve load such as an incandescent light-bulb and
+find the <code class="docutils literal notranslate"><span class="pre">phase_offset</span></code> value that results in the highest power reported by the sensor.</p></li>
+<li><p><strong>pulse_energy</strong> (<em>Optional</em>): Sets the energy (in Watt-hours) per individual pulse on the
+CS5460A’s EOUT pin that can be used to driver external counters / meters or a LED.  The allowed
+range depends on the gain parameters, defaults to <code class="docutils literal notranslate"><span class="pre">10</span> <span class="pre">Wh</span></code>.</p></li>
+<li><p><strong>current_hpf</strong> (<em>Optional</em>): Enables and disables the High-pass Filter on the current processing
+path in the CS5460A.  Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code> (enabled).</p></li>
+<li><p><strong>voltage_hpf</strong> (<em>Optional</em>): Enables and disables the High-pass Filter on the voltage processing
+path in the CS5460A.  Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code> (enabled).</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Negative values</p>
+<p>Since the current and voltage values reported are the RMS values, they’re absolute numbers
+and are always positive.  However the power measurement is signed depending on the direction
+in which energy is being transmitted through the shunt resistor or the current transformer.
+In other words if the sensor is installed between two circuits (e.g. the power grid and a
+household) the sign informs which side is producing and which side is consuming energy in
+the last <em>computation cycle</em>.  If the power values are inverted compared to what you expect
+to see, set a negative <code class="docutils literal notranslate"><span class="pre">current_gain</span></code> value.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Throttling sensors</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">samples</span></code> is set to a low value, e.g. in the range of a few seconds per sample or
+shorter, consider <a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">filtering</span></a> the measurements if you have a Home
+Assistant instance to avoid filling the logs with too much data.  The <code class="docutils literal notranslate"><span class="pre">throttle</span></code> and
+<code class="docutils literal notranslate"><span class="pre">sliding_window_moving_average</span></code> filters are some options.  Additionally the <code class="docutils literal notranslate"><span class="pre">delta</span></code>
+filter is almost always a good idea for all numeric sensors regardless of Home Assistant.</p>
+</div>
+</section>
+<section id="cs5460a-restart-action">
+<span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">cs5460a.restart</span></code> Action<a class="headerlink" href="#cs5460a-restart-action" title="Permalink to this heading">¶</a></h2>
+<p>This action can be used in automations to interrupt the current <em>computation cycle</em> and start a
+new one.  This is useful if you’re measuring multiple current/power values using a single
+CS5460A chip and a signal multiplexer.  As an example you can measure the power usage on up to
+wall sockets in a house by using one voltage transformer and 16 current transformers, each on
+the cable leading to the corresponding wall socket.  One side of all the current transformers
+connects directly to your CS5460A current input terminal (plus any filtering and protection
+circuitry as recommended in the datasheet), while the other side each connects to one channel
+of a CD74HC4067 analog multiplexer.  The multiplexer’s single signal pin then connects to the
+CS5460A’s second current input terminal.  Every time the CS5460A sensor publishes a new power
+value, an automation can switch the multiplexer to the next channel but it needs to interrupt
+the <em>computation cycle</em> automatically started when the previous one ended, and start a new
+cycle that uses current samples only from the new CD74HC4067 multiplexer channel.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference external" href="/api/cs5460a_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/cs5460a.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

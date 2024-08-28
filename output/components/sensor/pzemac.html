@@ -1,0 +1,375 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up PZEM-004T power monitors.">
+<meta name="keywords" content="PZEM-004T V3">
+<meta itemprop="name" content="Peacefair PZEM-004T V3 Energy Monitor">
+<meta itemprop="description" content="Instructions for setting up PZEM-004T power monitors.">
+<meta itemprop="image" content="https://esphome.io/_images/pzem-ac.jpg">
+<meta name="twitter:title" content="Peacefair PZEM-004T V3 Energy Monitor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/pzem-ac.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up PZEM-004T power monitors.">
+<meta property="og:title" content="Peacefair PZEM-004T V3 Energy Monitor">
+<meta property="og:image" content="https://esphome.io/_images/pzem-ac.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up PZEM-004T power monitors.">
+
+    <title>Peacefair PZEM-004T V3 Energy Monitor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/pzemac.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Peacefair PZEM-00X DC Energy Monitor" href="pzemdc.html" />
+    <link rel="prev" title="Peacefair PZEM-004T Energy Monitor" href="pzem004t.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Peacefair PZEM-004T V3 Energy Monitor</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a><ul>
+<li><a class="reference internal" href="#pzemac-reset-energy-action"><code class="docutils literal notranslate"><span class="pre">pzemac.reset_energy</span></code> Action</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#changing-the-address-of-a-pzem-004t">Changing the address of a PZEM-004T:</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>Peacefair PZEM-004T V3 Energy Monitor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="peacefair-pzem-004t-v3-energy-monitor">
+<h1>Peacefair PZEM-004T V3 Energy Monitor<a class="headerlink" href="#peacefair-pzem-004t-v3-energy-monitor" title="Permalink to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This page is incomplete and could use some work. If you want to contribute, please read the
+<a class="reference internal" href="../../guides/contributing.html"><span class="doc">contributing guide</span></a>. This page is missing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Images/screenshots/example configs of this device being used in action.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">pzemac</span></code> sensor platform allows you to use PZEM-004T V3 energy monitors
+(<a class="reference external" href="https://innovatorsguru.com/pzem-004t-v3/">website</a>,
+<a class="reference external" href="https://innovatorsguru.com/wp-content/uploads/2019/06/PZEM-004T-V3.0-Datasheet-User-Manual.pdf">datasheet</a>)
+with ESPHome.</p>
+<p>The sensor can be connected in various configurations - please see the <a class="reference external" href="https://innovatorsguru.com/pzem-004t-v3/">manufacturer’s website</a>
+for more information.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please note that metering chip inside of PZEM module is powered from AC side and it has to be on during startup of ESPHome device, othervise measure results won’t be visible.</p>
+</div>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/pzem-ac.png"><img alt="../../_images/pzem-ac.png" src="../../_images/pzem-ac.png" style="width: 80.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">PZEM-004T Version 3.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This page refers to version V3 of the PZEM004T.
+For using the older V1 variant of this sensor please see <a class="reference internal" href="pzem004t.html"><span class="doc">pzem004t</span></a>.</p>
+</div>
+<p>The communication with this component is done via a <a class="reference internal" href="../uart.html#uart"><span class="std std-ref">UART</span></a> using <a class="reference internal" href="../modbus.html#modbus"><span class="std std-ref">Modbus</span></a>.
+You must therefore have a <code class="docutils literal notranslate"><span class="pre">uart:</span></code> entry in your configuration with both the TX and RX pins set
+to some pins on your board and the baud rate set to 9600.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">uart</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">rx_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D1</span>
+<span class="w">  </span><span class="nt">tx_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">D2</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9600</span>
+
+<span class="nt">modbus</span><span class="p">:</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pzemac</span>
+<span class="w">    </span><span class="nt">current</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PZEM-004T</span><span class="nv"> </span><span class="s">V3</span><span class="nv"> </span><span class="s">Current&quot;</span>
+<span class="w">    </span><span class="nt">voltage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PZEM-004T</span><span class="nv"> </span><span class="s">V3</span><span class="nv"> </span><span class="s">Voltage&quot;</span>
+<span class="w">    </span><span class="nt">energy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PZEM-004T</span><span class="nv"> </span><span class="s">V3</span><span class="nv"> </span><span class="s">Energy&quot;</span>
+<span class="w">    </span><span class="nt">power</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PZEM-004T</span><span class="nv"> </span><span class="s">V3</span><span class="nv"> </span><span class="s">Power&quot;</span>
+<span class="w">    </span><span class="nt">frequency</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PZEM-004T</span><span class="nv"> </span><span class="s">V3</span><span class="nv"> </span><span class="s">Frequency&quot;</span>
+<span class="w">    </span><span class="nt">power_factor</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PZEM-004T</span><span class="nv"> </span><span class="s">V3</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">Factor&quot;</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>current</strong> (<em>Optional</em>): Use the current value of the sensor in amperes. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>energy</strong> (<em>Optional</em>): Use the (active) energy value of the sensor in watt*hours. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>power</strong> (<em>Optional</em>): Use the (active) power value of the sensor in watts. All options from
+<a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>voltage</strong> (<em>Optional</em>): Use the voltage value of the sensor in volts.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>frequency</strong> (<em>Optional</em>): Use the frequency value of the sensor in hertz.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>power_factor</strong> (<em>Optional</em>): Use the power factor value of the sensor.
+All options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval to check the
+sensor. Defaults to <code class="docutils literal notranslate"><span class="pre">60s</span></code>.</p></li>
+<li><p><strong>address</strong> (<em>Optional</em>, int): The address of the sensor if multiple sensors are attached to
+the same UART bus. You will need to set the address of each device manually. Defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>modbus_id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the Modbus hub.</p></li>
+</ul>
+<section id="pzemac-reset-energy-action">
+<span id="id1"></span><h3><code class="docutils literal notranslate"><span class="pre">pzemac.reset_energy</span></code> Action<a class="headerlink" href="#pzemac-reset-energy-action" title="Permalink to this heading">¶</a></h3>
+<p>This action resets the total energy value of the pzemac device with the given ID when executed.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pzemac.reset_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pzemac_1</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="changing-the-address-of-a-pzem-004t">
+<h2>Changing the address of a PZEM-004T:<a class="headerlink" href="#changing-the-address-of-a-pzem-004t" title="Permalink to this heading">¶</a></h2>
+<p>You can use the following configuration to change the address of a sensor.
+You must set the <code class="docutils literal notranslate"><span class="pre">address</span></code> of the <code class="docutils literal notranslate"><span class="pre">modbus_controller</span></code> to the current address, and <code class="docutils literal notranslate"><span class="pre">new_address</span></code> of the <code class="docutils literal notranslate"><span class="pre">on_boot</span></code> lambda to the new one.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This should be used only once! After changing the address, this code should be removed from the ESP before using the actual sensor code.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">esphome</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">on_boot</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="c1">## configure controller settings at setup</span>
+<span class="w">    </span><span class="c1">## make sure priority is lower than setup_priority of modbus_controller</span>
+<span class="w">    </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-100</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lambda</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">          </span><span class="no">auto new_address = 0x03;</span>
+
+<span class="w">          </span><span class="no">if(new_address &lt; 0x01 || new_address &gt; 0xF7) // sanity check</span>
+<span class="w">          </span><span class="no">{</span>
+<span class="w">            </span><span class="no">ESP_LOGE(&quot;ModbusLambda&quot;, &quot;Address needs to be between 0x01 and 0xF7&quot;);</span>
+<span class="w">            </span><span class="no">return;</span>
+<span class="w">          </span><span class="no">}</span>
+
+<span class="w">          </span><span class="no">esphome::modbus_controller::ModbusController *controller = id(pzem);</span>
+<span class="w">          </span><span class="no">auto set_addr_cmd = esphome::modbus_controller::ModbusCommandItem::create_write_single_command(</span>
+<span class="w">            </span><span class="no">controller, 0x0002, new_address);</span>
+
+<span class="w">          </span><span class="no">delay(200) ;</span>
+<span class="w">          </span><span class="no">controller-&gt;queue_command(set_addr_cmd);</span>
+<span class="w">          </span><span class="no">ESP_LOGI(&quot;ModbusLambda&quot;, &quot;PZEM Addr set&quot;);</span>
+
+<span class="nt">modbus</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">send_wait_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200ms</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mod_bus_pzem</span>
+
+<span class="nt">modbus_controller</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pzem</span>
+<span class="w">    </span><span class="c1"># The current device address.</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x1</span>
+<span class="w">    </span><span class="c1"># The special address 0xF8 is a broadcast address accepted by any pzem device,</span>
+<span class="w">    </span><span class="c1"># so if you use this address, make sure there is only one pzem device connected</span>
+<span class="w">    </span><span class="c1"># to the uart bus.</span>
+<span class="w">    </span><span class="c1"># address: 0xF8</span>
+<span class="w">    </span><span class="nt">modbus_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mod_bus_pzem</span>
+<span class="w">    </span><span class="nt">command_throttle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0ms</span>
+<span class="w">    </span><span class="nt">setup_priority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-10</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference internal" href="pzem004t.html"><span class="doc">Peacefair PZEM-004T Energy Monitor</span></a></p></li>
+<li><p><a class="reference internal" href="pzemdc.html"><span class="doc">Peacefair PZEM-00X DC Energy Monitor</span></a></p></li>
+<li><p><a class="reference external" href="/api/pzemac_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/pzemac.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,730 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up LD2420 sensors.">
+<meta itemprop="name" content="LD2420 24Ghz mmWave Radar Sensor">
+<meta itemprop="description" content="Instructions for setting up LD2420 sensors.">
+<meta itemprop="image" content="https://esphome.io/_images/ld2420.jpg">
+<meta name="twitter:title" content="LD2420 24Ghz mmWave Radar Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/ld2420.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up LD2420 sensors.">
+<meta property="og:title" content="LD2420 24Ghz mmWave Radar Sensor">
+<meta property="og:image" content="https://esphome.io/_images/ld2420.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up LD2420 sensors.">
+
+    <title>LD2420 24Ghz mmWave Radar Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/ld2420.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="LTR390 UV and Ambient Light Sensor" href="ltr390.html" />
+    <link rel="prev" title="LD2410 Sensor" href="ld2410.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">LD2420 24Ghz mmWave Radar Sensor</a><ul>
+<li><a class="reference internal" href="#component">Component</a></li>
+<li><a class="reference internal" href="#module-pinouts">Module Pinouts</a></li>
+<li><a class="reference internal" href="#platform">Platform</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#select">Select</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#number">Number</a><ul>
+<li><a class="reference internal" href="#id2">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#button">Button</a><ul>
+<li><a class="reference internal" href="#id3">Configuration variables:</a></li>
+<li><a class="reference internal" href="#factory-reset-values">Factory Reset Values:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sensor">Sensor</a><ul>
+<li><a class="reference internal" href="#id4">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#binary-sensor">Binary Sensor</a><ul>
+<li><a class="reference internal" href="#id5">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#text-sensor">Text Sensor</a><ul>
+<li><a class="reference internal" href="#id6">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#important-information">Important Information</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>LD2420 24Ghz mmWave Radar Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="ld2420-24ghz-mmwave-radar-sensor">
+<h1>LD2420 24Ghz mmWave Radar Sensor<a class="headerlink" href="#ld2420-24ghz-mmwave-radar-sensor" title="Permalink to this heading">¶</a></h1>
+<section id="component">
+<h2>Component<a class="headerlink" href="#component" title="Permalink to this heading">¶</a></h2>
+<p id="ld2420-component">The <code class="docutils literal notranslate"><span class="pre">ld2420</span></code> sensor platform allows you to use the HLK-LD2420 motion and presence sensor.
+The <a class="reference internal" href="../uart.html#uart"><span class="std std-ref">UART</span></a> is required to be set up in your configuration for this sensor to work.</p>
+<p>Depending on the firmware you have serial baudrates will be 256000 for any module with less than
+firmware v1.5.3 and 115200 on newer versions. The tx_pin changed from ot2 to ot1 with firmware v1.5.3.
+Firmware v1.5.4 and up now features the ability to observe gate energy signal levels and with this
+release we can dynamically calibrate gate still and move thresholds.</p>
+<p>This component has dynamic configuration functionallity with a compact UI format.
+Select, number and button components provide configuration value inputs and control.</p>
+<figure class="align-center" id="id7">
+<a class="reference internal image-reference" href="../../_images/ld2420.jpg"><img alt="../../_images/ld2420.jpg" src="../../_images/ld2420.jpg" style="width: 50.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">HLK-LD2420 Low power motion and presence sensor.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="module-pinouts">
+<h2>Module Pinouts<a class="headerlink" href="#module-pinouts" title="Permalink to this heading">¶</a></h2>
+<table class="docutils align-default" id="id8">
+<caption><span class="caption-text">Firmware 1.5.2 and older</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Pin#</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Function</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>3v3</p></td>
+<td><p>VCC</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>GND</p></td>
+<td><p>GND</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>OT1</p></td>
+<td><p>Presence Signal Output</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>RX</p></td>
+<td><p>Serial Rx (to ESP Tx)</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>OT2</p></td>
+<td><p>Serial Tx (to ESP Rx)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default" id="id9">
+<caption><span class="caption-text">Firmware 1.5.3 and newer</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Pin#</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Function</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>3v3</p></td>
+<td><p>VCC</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>GND</p></td>
+<td><p>GND</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>OT1</p></td>
+<td><p>Serial Tx (to ESP Rx)</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>RX</p></td>
+<td><p>Serial Rx (to ESP Tx)</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>OT2</p></td>
+<td><p>Presence Signal Output</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">ld2420</span><span class="p">:</span>
+
+<span class="nt">text_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2420</span>
+<span class="w">    </span><span class="nt">fw_version</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LD2420 Firmware</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2420</span>
+<span class="w">    </span><span class="nt">moving_distance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Moving Distance</span>
+
+<span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2420</span>
+<span class="w">    </span><span class="nt">has_target</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Presence</span>
+
+<span class="nt">select</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2420</span>
+<span class="w">    </span><span class="nt">operating_mode</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Operating Mode</span>
+
+<span class="nt">number</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2420</span>
+<span class="w">    </span><span class="nt">presence_timeout</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Detection Presence Timeout</span>
+<span class="w">    </span><span class="nt">min_gate_distance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Detection Gate Minimum</span>
+<span class="w">    </span><span class="nt">max_gate_distance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Detection Gate Maximum</span>
+<span class="w">    </span><span class="c1"># See &quot;Number&quot; section below for detail</span>
+<span class="w">    </span><span class="nt">gate_select</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Select Gate to Set</span>
+<span class="w">    </span><span class="nt">still_threshold</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set Still Threshold Value</span>
+<span class="w">    </span><span class="nt">move_threshold</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set Move Threshold Value</span>
+
+<span class="nt">button</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2420</span>
+<span class="w">    </span><span class="nt">apply_config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Apply Config</span>
+<span class="w">    </span><span class="nt">factory_reset</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Factory Reset</span>
+<span class="w">    </span><span class="nt">restart_module</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Restart Module</span>
+<span class="w">    </span><span class="nt">revert_config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Undo Edits</span>
+</pre></div>
+</div>
+</section>
+<section id="platform">
+<h2>Platform<a class="headerlink" href="#platform" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ld2420</span><span class="p">:</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<p><strong>ld2420</strong> (<em>Required</em>): Component platform.</p>
+</section>
+</section>
+<section id="select">
+<h2>Select<a class="headerlink" href="#select" title="Permalink to this heading">¶</a></h2>
+<p><strong>Operating Modes:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">select</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2420</span>
+<span class="w">    </span><span class="nt">operating_mode</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Operating Mode</span>
+</pre></div>
+</div>
+<p>The dynamic UI provides three operational modes: <strong>Normal</strong>, <strong>Calibrate</strong> and <strong>Simple</strong>. The select component allows
+you to choose the active mode.</p>
+<ul>
+<li><p><strong>Normal</strong>: This is the default mode. It sets the ld2420 in energy reporting mode and is availble with firmware
+v1.5.4 or greater. When in this mode the module logs all gate energy levels continuouly in a local array making it
+available for dynamic calibration functions.</p></li>
+<li><p><strong>Calibrate</strong>: When calibration mode is selected the module will collect the average and peak energy levels,
+reporting them every five seconds. The report is provided in the log console for information only. In order to
+calibrate the gate configuration, no objects should be present in the target environment. The recording will
+establish the mmWave noise floor levels and undesirable reflections or signal distortions peaks. This should be
+collected for at least 30 seconds. Longer runs can catch more potential false signals when devices near the module
+are used such as microwave ovens and other sources of noise.</p>
+<p>When the <strong>apply_config</strong> button is pressed in calibration mode the LD2420 will be configured with calculated values
+based on its collected noise floor data and the module will return to Normal Mode. Selecting any other mode drops the
+session’s collected noise data and no changed settings are staged. Once the <strong>apply_config</strong> action is performed, the
+computed values will then persist. The gate values can be manually adjusted or calibrated again or you can use the
+factory reset button to restore the module’s default settings.</p>
+</li>
+<li><p><strong>Simple</strong>: Provides backward compatibility with firmware v1.5.3 and older and will be automatically set when the
+detected firmware version is v1.5.3 or older.</p></li>
+</ul>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>operating_mode</strong> (<em>Required</em>): Provisions the operating mode select component.
+May contain any options from <a class="reference internal" href="../select/index.html#config-select"><span class="std std-ref">Select</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="number">
+<h2>Number<a class="headerlink" href="#number" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">number</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2420</span>
+<span class="w">    </span><span class="nt">presence_timeout</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Detection Presence Timeout</span>
+<span class="w">    </span><span class="nt">min_gate_distance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Detection Gate Minimum</span>
+<span class="w">    </span><span class="nt">max_gate_distance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Detection Gate Maximum</span>
+
+<span class="w">    </span><span class="nt">gate_select</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Select Gate to Set</span>
+<span class="w">    </span><span class="nt">still_threshold</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set Still Threshold Value</span>
+<span class="w">    </span><span class="nt">move_threshold</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set Move Threshold Value</span>
+
+<span class="w">    </span><span class="nt">gate_move_sensitivity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Move Calibration Sensitivity Factor</span>
+<span class="w">    </span><span class="nt">gate_still_sensitivity</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Still Calibration Sensitivity Factor</span>
+
+<span class="w">    </span><span class="nt">gate_0</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Gate 0 Move Threshold</span>
+<span class="w">      </span><span class="nt">still_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Gate 0 Still Threshold</span>
+<span class="w">    </span><span class="nt">gate_1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">move_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Gate 1 Move Threshold</span>
+<span class="w">      </span><span class="nt">still_threshold</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Gate 1 Still Threshold</span>
+</pre></div>
+</div>
+<section id="id2">
+<h3>Configuration variables:<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><p><strong>presence_timeout</strong> (<em>Optional</em>): The time in seconds during which the occupied state (presence) will persist after
+presence is no longer detected. Any energy detection within the time window restarts the countdown from this value.
+Defaults to 120s. <strong>Required</strong> when <code class="docutils literal notranslate"><span class="pre">min_gate_distance</span></code> and <code class="docutils literal notranslate"><span class="pre">max_gate_distance</span></code> is specified. May contain any
+options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+<li><p><strong>min_gate_distance</strong> (<em>Optional</em>): Minimum distance for move or still energy detection. Value between 0 and
+<code class="docutils literal notranslate"><span class="pre">max_gate_distance</span></code> - 1. Each increment equals 70 cm. Defaults to 1. <strong>Required</strong> when <code class="docutils literal notranslate"><span class="pre">presence_timeout</span></code> and
+<code class="docutils literal notranslate"><span class="pre">max_gate_distance</span></code> is specified. May contain any options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+<li><p><strong>max_gate_distance</strong> (<em>Optional</em>): Maximum gate for movement detection. Value from 1 to 15. Each gate detects
+movement and still energy at 70 cm increments. At the maximum value, the sensor’s range equates to 16 * 70 cm
+resulting in an approximately 12-meter range; however, accuracy at this range may be diminished. The recommended
+maximum value is 12 * 70 cm which results in approximately 9 meters. <strong>Required</strong> when <code class="docutils literal notranslate"><span class="pre">presence_timeout</span></code> and
+<code class="docutils literal notranslate"><span class="pre">min_gate_distance</span></code> is specified. May contain any options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+<li><p><strong>gate_still_sensitivity</strong> (<em>Optional</em>): Gate still threshold calibration sensitivity factor. Defaults to 0.5 with a
+range of 0-1, 0 = high and 1 = low. May contain any options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+<li><p><strong>gate_move_sensitivity</strong> (<em>Optional</em>): Gate move threshold calibration sensitivity factor. Defaults to 0.5 with a
+range of 0-1, 0 = high and 1 = low. May contain any options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+<li><p><strong>gate_select</strong> (<em>Optional</em>): Selection of gate value to edit (gate # from 0 to 15). Gate thresholds
+are edited by selecting the gate number and then adjusting the move and still thresholds. <strong>Note that when this
+variable is defined, the component will run in compact UI mode and the following two configuration variables are then
+required:</strong> May contain any options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p>
+<ul class="simple">
+<li><p><strong>still_threshold</strong> (<em>Optional</em>): Gate still value threshold level for motion energy detection on a currently
+selected gate number. A value greater than that specified for the gate (distance) will trigger movement detection.
+May contain any options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+<li><p><strong>move_threshold</strong> (<em>Optional</em>): Gate move value threshold level for still energy detection on a currently selected
+gate number. A value less than that specified for the gate (distance) will trigger still detection. May contain any
+options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>gate_n</strong> (<em>Optional</em>): Provides individual gate threshold number inputs. Range is <code class="docutils literal notranslate"><span class="pre">gate_0</span></code> to <code class="docutils literal notranslate"><span class="pre">gate_15</span></code>.
+<strong>May not be used with</strong> <code class="docutils literal notranslate"><span class="pre">gate_select</span></code> (above). Each gate entry requires a <code class="docutils literal notranslate"><span class="pre">still_threshold</span></code> and <code class="docutils literal notranslate"><span class="pre">move_threshold</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>still_threshold</strong> (<em>Required for each gate_n entry</em>): Gate still value threshold level for motion energy
+detection on currently selected gate number. A value greater than that specified for the gate (distance) will
+trigger movement detection. May contain any options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+<li><p><strong>move_threshold</strong> (<em>Required for each gate_n entry</em>): Gate move value threshold level for still energy
+detection on currently selected gate number. A value less than that specified for the gate (distance) will
+trigger still detection. May contain any options from <a class="reference internal" href="../number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+</section>
+<section id="button">
+<h2>Button<a class="headerlink" href="#button" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">button</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2420</span>
+<span class="w">    </span><span class="nt">apply_config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Apply Config</span>
+<span class="w">    </span><span class="nt">factory_reset</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Factory Reset</span>
+<span class="w">    </span><span class="nt">restart_module</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Restart Module</span>
+<span class="w">    </span><span class="nt">revert_config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Undo Edits</span>
+</pre></div>
+</div>
+<p>Four button components are available enabling configuration controls for editing, saving, restarting and factory reseting the LD2420 module.</p>
+<section id="id3">
+<h3>Configuration variables:<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>apply_config</strong> (<em>Optional</em>): Saves both manual config tuning or the auto calibrate still and move threshold config
+settings. May contain any options from <a class="reference internal" href="../button/index.html#config-button"><span class="std std-ref">Button</span></a>.</p></li>
+<li><p><strong>restart_module</strong> (<em>Optional</em>): Reboots the LD2420 modules. May contain any options from <a class="reference internal" href="../button/index.html#config-button"><span class="std std-ref">Button</span></a>.</p></li>
+<li><p><strong>revert_config</strong> (<em>Optional</em>): Undoes in-progress edits prior to their application via the <code class="docutils literal notranslate"><span class="pre">apply_config</span></code> button.
+May contain any options from <a class="reference internal" href="../button/index.html#config-button"><span class="std std-ref">Button</span></a>.</p></li>
+<li><p><strong>factory_reset</strong> (<em>Optional</em>): Restores a base set of LD2420 configuration values. May contain any options from
+<a class="reference internal" href="../button/index.html#config-button"><span class="std std-ref">Button</span></a>.</p></li>
+</ul>
+</section>
+<section id="factory-reset-values">
+<h3>Factory Reset Values:<a class="headerlink" href="#factory-reset-values" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default" id="ld2420-default-values-for-gate-threshold">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting:</p></th>
+<th class="head"><p>Value:</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Timeout</p></td>
+<td><p>120s</p></td>
+</tr>
+<tr class="row-odd"><td><p>Min Gate Distance</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>Max Gate Distance</p></td>
+<td><p>12</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Gate Number:</p></th>
+<th class="head"><p>Move threshold</p></th>
+<th class="head"><p>Still threshold</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>60000</p></td>
+<td><p>40000</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>30000</p></td>
+<td><p>20000</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>400</p></td>
+<td><p>200</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>300</p></td>
+<td><p>250</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>250</p></td>
+<td><p>150</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>250</p></td>
+<td><p>150</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>250</p></td>
+<td><p>150</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>250</p></td>
+<td><p>150</p></td>
+</tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>300</p></td>
+<td><p>150</p></td>
+</tr>
+<tr class="row-odd"><td><p>9</p></td>
+<td><p>250</p></td>
+<td><p>150</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>250</p></td>
+<td><p>150</p></td>
+</tr>
+<tr class="row-odd"><td><p>11</p></td>
+<td><p>250</p></td>
+<td><p>150</p></td>
+</tr>
+<tr class="row-even"><td><p>12</p></td>
+<td><p>250</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-odd"><td><p>13</p></td>
+<td><p>200</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-even"><td><p>14</p></td>
+<td><p>200</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-odd"><td><p>15</p></td>
+<td><p>200</p></td>
+<td><p>100</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="sensor">
+<h2>Sensor<a class="headerlink" href="#sensor" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ld2420</span></code> sensor allows you to use your <a class="reference internal" href="#"><span class="doc">LD2420 24Ghz mmWave Radar Sensor</span></a> to approximate the distance
+between the sensor and an object moving within its field of detection.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2420</span>
+<span class="w">    </span><span class="nt">moving_distance</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Moving Distance</span>
+</pre></div>
+</div>
+<section id="id4">
+<h3>Configuration variables:<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>moving_distance</strong> (<em>Optional</em>): Distance between the sensor and the detected moving target. May contain any options
+from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="binary-sensor">
+<h2>Binary Sensor<a class="headerlink" href="#binary-sensor" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ld2420</span></code> binary sensor allows you to use your <a class="reference internal" href="#"><span class="doc">LD2420 24Ghz mmWave Radar Sensor</span></a> to sense presence.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binary_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2420</span>
+<span class="w">    </span><span class="nt">has_target</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Presence</span>
+</pre></div>
+</div>
+<section id="id5">
+<h3>Configuration variables:<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>has_target</strong> (<em>Optional</em>): If a target is detected with either still or in movement <strong>has_target</strong> will be set true
+for the duration of the <strong>presence_time_window</strong> setting. May contain any options from
+<a class="reference internal" href="../binary_sensor/index.html#config-binary-sensor"><span class="std std-ref">Binary Sensor</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="text-sensor">
+<h2>Text Sensor<a class="headerlink" href="#text-sensor" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ld2420</span></code> text sensor provides version information for the <a class="reference internal" href="#"><span class="doc">LD2420 24Ghz mmWave Radar Sensor</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">text_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ld2420</span>
+<span class="w">    </span><span class="nt">fw_version</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LD2420 Firmware</span>
+</pre></div>
+</div>
+<section id="id6">
+<h3>Configuration variables:<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>fw_version</strong> (<em>Optional</em>): Allows you to retrieve the <a class="reference internal" href="#"><span class="doc">LD2420 24Ghz mmWave Radar Sensor</span></a> firmware version. May contain any options from
+<a class="reference internal" href="../text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="important-information">
+<h2>Important Information<a class="headerlink" href="#important-information" title="Permalink to this heading">¶</a></h2>
+<p>Solid objects and noise outside the <code class="docutils literal notranslate"><span class="pre">detection_gate_max</span></code> and <code class="docutils literal notranslate"><span class="pre">detection_gate_min</span></code> may cause false
+detections or result in abnormal gate thresholds. For example, a wall within the gate max range can result
+in signal reflections. If your sensor reports unexpected detections, you should test it by placing it in a
+completely open room with no moving objects.</p>
+<p>Also, never place two or more sensors in a manner such that their detection fields overlap, as this will certainly
+result in false detections.</p>
+<p>Firmware update capability is available using the LD2420 tool provided by HLKTech.
+You will need to email them and request the bin file.
+At this time only firmware version v1.5.6 and up can be upgraded.
+<strong>DO NOT</strong> attempt to update to older firmware versions. It will brick the module.</p>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Official Datasheet/Manuals are still in development; for info email <cite>sales&#64;hlktech.com</cite>.</p></li>
+<li><p>Official web site <cite>https://www.hlktech.net/</cite></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/ld2420.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

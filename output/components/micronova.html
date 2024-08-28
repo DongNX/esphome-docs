@@ -1,0 +1,459 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up a MicroNova board based pellet stove in ESPHome.">
+<meta itemprop="name" content="MicroNova based pellet stove">
+<meta itemprop="description" content="Instructions for setting up a MicroNova board based pellet stove in ESPHome.">
+<meta name="twitter:title" content="MicroNova based pellet stove">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up a MicroNova board based pellet stove in ESPHome.">
+<meta property="og:title" content="MicroNova based pellet stove">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up a MicroNova board based pellet stove in ESPHome.">
+
+    <title>MicroNova based pellet stove &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/micronova.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Modbus Component" href="modbus.html" />
+    <link rel="prev" title="Micro Wake Word" href="micro_wake_word.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">MicroNova based pellet stove</a><ul>
+<li><a class="reference internal" href="#connecting-your-stove">Connecting your stove</a></li>
+<li><a class="reference internal" href="#component-hub">Component/Hub</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#text-sensors">Text Sensors</a><ul>
+<li><a class="reference internal" href="#id1">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sensors">Sensors</a><ul>
+<li><a class="reference internal" href="#id2">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#numbers">Numbers</a><ul>
+<li><a class="reference internal" href="#id3">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#buttons">Buttons</a><ul>
+<li><a class="reference internal" href="#id4">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#switches">Switches</a><ul>
+<li><a class="reference internal" href="#id5">Configuration variables:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>MicroNova based pellet stove</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="micronova-based-pellet-stove">
+<h1>MicroNova based pellet stove<a class="headerlink" href="#micronova-based-pellet-stove" title="Permalink to this heading">¶</a></h1>
+<p>The MicroNova component allows you to integrate a pellet stove with a MicroNova board in ESPHome.
+It uses <a class="reference internal" href="uart.html#uart"><span class="std std-ref">UART</span></a> for communication.</p>
+<p>The <a class="reference internal" href="uart.html#uart"><span class="std std-ref">UART</span></a> must be configured with a baud rate 1200, 8 data bits, 2 stop bits, no parity, no flow control.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>MicroNova bords come in various flavours. This code is only tested on an ExtraFlame Ketty Evo 2.0 stove. The protocol is not
+documented but has been reverse engineerd by others. See the links below for all the info that helped me.
+The different sensors, buttons and stove switch may require specific <strong>memory_location</strong> and <strong>memory_address</strong> parameters that
+match your MicroNova specific board.</p>
+<p>Also, switching your stove on or off can behave different on the various MicroNova flavours.</p>
+<p>Use this component at your own risk.</p>
+</div>
+<section id="connecting-your-stove">
+<h2>Connecting your stove<a class="headerlink" href="#connecting-your-stove" title="Permalink to this heading">¶</a></h2>
+<p>Most MicroNova based pellet stoves have a serial output. In most cases this output has 4 pins: GND, 5v, 20V and DATA.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/micronova_serial.png"><img alt="../_images/micronova_serial.png" src="../_images/micronova_serial.png" style="width: 50.0%;" /></a>
+</figure>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/micronova_serial_layout.png"><img alt="../_images/micronova_serial_layout.png" src="../_images/micronova_serial_layout.png" style="width: 50.0%;" /></a>
+</figure>
+<p>You will have to build a simple circuit to interface with your stove. It is based on optocouplers for galvanic separation and logic
+level shifting between 5v and 3V3.</p>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="../_images/micronova_optocouplers.png"><img alt="../_images/micronova_optocouplers.png" src="../_images/micronova_optocouplers.png" style="width: 100.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">Optocoupler interface circuit (credit: philibertc)</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>See the references below for all the details about te circuit.</p>
+<p>You can use the 5V output from the stove to power the ESP module, but you will have to put a voltage regulator in between to
+get 3v3.</p>
+</section>
+<section id="component-hub">
+<h2>Component/Hub<a class="headerlink" href="#component-hub" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">micronova</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enable_rx_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GPIOXX</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h3>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>enable_rx_pin</strong> (<strong>Required</strong>, <a class="reference internal" href="../guides/configuration-types.html#config-pin"><span class="std std-ref">Pin</span></a>): Output pin to be used to switch the line between RX and TX.</p></li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval that the sensors should be checked.
+Defaults to 60 seconds.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For all text sensors, sensors, numbers, buttons and switches hereafter most of the the default <strong>memory_location</strong> and <strong>memory_address</strong> parameters will work so you should
+not specify them. However your Micronova boad may require you to specify alternate values. So every text sensor, button,
+switch or number accepts these parameters:</p>
+<ul class="simple">
+<li><p><strong>memory_location</strong> (<em>Optional</em>): The memory location where the parameter must be read. For most stoves this is 0x00 for RAM
+or 0x20 for EPROM.</p></li>
+<li><p><strong>memory_address</strong> (<em>Optional</em>): The address where the parameter is stored.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="text-sensors">
+<h2>Text Sensors<a class="headerlink" href="#text-sensors" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">text_sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">micronova</span>
+<span class="w">    </span><span class="nt">stove_state</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Stove status</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Configuration variables:<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>stove_state</strong> (<em>Optional</em>): The current stove state.
+All options from <a class="reference internal" href="text_sensor/index.html#config-text-sensor"><span class="std std-ref">Text Sensor</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="sensors">
+<h2>Sensors<a class="headerlink" href="#sensors" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">micronova</span>
+<span class="w">    </span><span class="nt">room_temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Room temperature</span>
+<span class="w">    </span><span class="nt">fumes_temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fumes temperature</span>
+<span class="w">    </span><span class="nt">stove_power</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Stove power level</span>
+<span class="w">    </span><span class="nt">fan_speed</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">fan_rpm_offset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">240</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fan RPM</span>
+<span class="w">    </span><span class="nt">water_temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Water temperature</span>
+<span class="w">    </span><span class="nt">water_pressure</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Water pressure</span>
+<span class="w">    </span><span class="nt">memory_address_sensor</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">memory_location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x20</span>
+<span class="w">      </span><span class="nt">memory_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x7d</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Custom Address sensor</span>
+</pre></div>
+</div>
+<section id="id2">
+<h3>Configuration variables:<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>room_temperature</strong> (<em>Optional</em>): Sensor that reads the stoves ambient room temperature.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>fumes_temperature</strong> (<em>Optional</em>): Fumes temperature.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>stove_power</strong> (<em>Optional</em>): Current stove power.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>fan_speed</strong> (<em>Optional</em>): Current fan speed. The raw value from the stove is multiplied by 10 + <code class="docutils literal notranslate"><span class="pre">fan_rpm_offset</span></code>.</p>
+<ul>
+<li><p><strong>fan_rpm_offset</strong> (<em>Optional</em>, integer): Offset the reported RPM value. Must be between 0 and 255. Defaults to 0.</p></li>
+<li><p>All other options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>water_temperature</strong> (<em>Optional</em>): Internal boiler water termperature.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>water_pressure</strong> (<em>Optional</em>): Internal boiler water pressure.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+<li><p><strong>memory_address_sensor</strong> (<em>Optional</em>): Can be any <strong>memory_location</strong> / <strong>memory_address</strong> you want to track. Usefull
+when you don’t know where the parameter is for your stove is.
+All options from <a class="reference internal" href="sensor/index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="numbers">
+<h2>Numbers<a class="headerlink" href="#numbers" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">number</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">micronova</span>
+<span class="w">    </span><span class="nt">thermostat_temperature</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Thermostat temperature</span>
+<span class="w">      </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">    </span><span class="nt">power_level</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Thermostat temperature</span>
+</pre></div>
+</div>
+<section id="id3">
+<h3>Configuration variables:<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>thermostat_temperature</strong> (<em>Optional</em>): Number that holds the current stove thermostat value.</dt><dd><ul>
+<li><p><strong>step</strong> (<em>Optional</em>): Temperature step. This value is used to multiply/devide the raw value when setting/reading the <strong>thermostat_temperature</strong></p></li>
+<li><p>All other options from <a class="reference internal" href="number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><strong>power_level</strong> (<em>Optional</em>): Number that sets/reads the requested stove power.
+All options from <a class="reference internal" href="number/index.html#config-number"><span class="std std-ref">Number</span></a>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Besides <strong>memory_location</strong> and <strong>memory_address</strong> you can specify a specific <strong>memory_write_location</strong> parameter.
+This parameter is a hex value for the <strong>memory_location</strong> where the new thermostat value must be written.</p>
+<ul class="simple">
+<li><p><strong>memory_write_location</strong> (<em>Optional</em>): The <strong>memory_location</strong> where to write the new thermostat value.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="buttons">
+<h2>Buttons<a class="headerlink" href="#buttons" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">button</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">micronova</span>
+<span class="w">    </span><span class="nt">custom_button</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Custom button</span>
+<span class="w">      </span><span class="nt">memory_location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x20</span>
+<span class="w">      </span><span class="nt">memory_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x7d</span>
+<span class="w">      </span><span class="nt">memory_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x08</span>
+</pre></div>
+</div>
+<section id="id4">
+<h3>Configuration variables:<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>custom_button</strong> (<em>Optional</em>): Write the hex value <strong>memory_data</strong> to a <strong>memory_location</strong> and <strong>memory_address</strong>
+All options from <a class="reference internal" href="button/index.html#config-button"><span class="std std-ref">Button</span></a>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Besides <strong>memory_location</strong> and <strong>memory_address</strong> you must specify a specific <strong>memory_data</strong> parameter.</p>
+<ul class="simple">
+<li><p><strong>memory_data</strong> (<em>Required</em>): The hex value to be written to the <strong>memory_location</strong> and <strong>memory_address</strong>.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="switches">
+<h2>Switches<a class="headerlink" href="#switches" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">switch</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">micronova</span>
+<span class="w">    </span><span class="nt">stove</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Stove on/off switch</span>
+</pre></div>
+</div>
+<section id="id5">
+<h3>Configuration variables:<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>stove</strong> (<em>Optional</em>): Turn the stove on or off. This switch will also reflect the current stove state.
+If the <strong>stove_state</strong> is “Off” the switch will be off, in all other states, the switch wil be on.
+All options from <a class="reference internal" href="switch/index.html#config-switch"><span class="std std-ref">Switch</span></a>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Besides <strong>memory_location</strong> and <strong>memory_address</strong> you can specify specific <strong>memory_data_on</strong> and <strong>memory_data_off</strong> parameters.
+These parameters contain the hex value to be written to the <strong>memory_location</strong> and <strong>memory_address</strong> when the switch
+turns on or off.</p>
+<ul class="simple">
+<li><p><strong>memory_data_on</strong> (<em>Optional</em>): The data to write when turning the switch on.</p></li>
+<li><p><strong>memory_data_off</strong> (<em>Optional</em>): The data to write when turning the switch off.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.ridiculouslab.com/arguments/iot/stufa/micronova_en.php">ridiculouslab micronova</a></p></li>
+<li><p><a class="reference external" href="https://github.com/philibertc/micronova_controller/">philibertc / micronova_controller</a></p></li>
+<li><p><a class="reference external" href="https://github.com/eni23/micronova-controller">eni23 / micronova-controller</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/micronova.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

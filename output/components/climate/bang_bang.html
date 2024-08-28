@@ -1,0 +1,401 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up Bang Bang climate controllers with ESPHome.">
+<meta itemprop="name" content="Bang Bang Climate Controller">
+<meta itemprop="description" content="Instructions for setting up Bang Bang climate controllers with ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/air-conditioner.png">
+<meta name="twitter:title" content="Bang Bang Climate Controller">
+<meta name="twitter:image:src" content="https://esphome.io/_images/air-conditioner.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up Bang Bang climate controllers with ESPHome.">
+<meta property="og:title" content="Bang Bang Climate Controller">
+<meta property="og:image" content="https://esphome.io/_images/air-conditioner.png">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up Bang Bang climate controllers with ESPHome.">
+
+    <title>Bang Bang Climate Controller &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/climate/bang_bang.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="BedJet" href="bedjet.html" />
+    <link rel="prev" title="Anova Cooker" href="anova.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Bang Bang Climate Controller</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#bang-bang-vs-thermostat">Bang-bang vs. Thermostat</a><ul>
+<li><a class="reference internal" href="#the-problem-with-dual-function-systems">The Problem with Dual-Function Systems</a></li>
+<li><a class="reference internal" href="#user-interface">User Interface</a></li>
+<li><a class="reference internal" href="#which-is-right-for-me">Which is Right for Me?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Climate Component</a> ➔</li>
+      <li>Bang Bang Climate Controller</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="bang-bang-climate-controller">
+<h1>Bang Bang Climate Controller<a class="headerlink" href="#bang-bang-climate-controller" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">bang_bang</span></code> climate platform allows you to regulate a value with a
+<a class="reference external" href="https://en.wikipedia.org/wiki/Bang%E2%80%93bang_control">bang-bang controller</a> (also called hysteresis controller).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A number of people have asked about the behavior of the bang-bang controller. In version 1.15, a
+<a class="reference internal" href="thermostat.html"><span class="doc">thermostat</span></a> component was added which behaves more like a common thermostat; it is
+essentially two bang-bang controllers in one. Please see the <a class="reference internal" href="#bang-bang-vs-thermostat">Bang-bang vs. Thermostat</a> section below
+if you are not sure which is appropriate for your application.</p>
+</div>
+<p>The bang-bang controller’s principle of operation is quite simple. First, you specify an observable
+value (for example the temperature of a room). The controller will try to keep this observed value
+in a defined range. To do this, the controller can activate objects like a heating unit to change
+the observed value.</p>
+<p>The range that the controller will try to keep the observed value in can be controlled through the
+front-end with the <code class="docutils literal notranslate"><span class="pre">target_temperature_low</span></code> and <code class="docutils literal notranslate"><span class="pre">target_temperature_high</span></code> values (see screenshot below).
+As soon as the observed temperature dips below or above this range it will activate one of the
+defined actions <code class="docutils literal notranslate"><span class="pre">cool_action</span></code>, <code class="docutils literal notranslate"><span class="pre">heat_action</span></code> and <code class="docutils literal notranslate"><span class="pre">idle_action</span></code>.</p>
+<p>There are three types of bang bang controllers this platform can represent:</p>
+<ul class="simple">
+<li><p><strong>Heaters</strong>: For devices where the observed temperature can only be increased.</p>
+<ul>
+<li><p>As soon as the temperature goes below the lower target temperature, <code class="docutils literal notranslate"><span class="pre">heat_action</span></code> will be called.</p></li>
+<li><p>When the temperature goes above the higher temperature, <code class="docutils literal notranslate"><span class="pre">idle_action</span></code> will be called.</p></li>
+<li><p>If you change operating mode (manual mode). And it is between high and low temperature. It does not wait to get to low temperature, it starts working until it gets to high temperature.</p></li>
+</ul>
+</li>
+<li><p><strong>Coolers</strong>: For devices where the observed temperature can only be decreased.</p>
+<ul>
+<li><p>As soon as the temperature goes above the higher target temperature, <code class="docutils literal notranslate"><span class="pre">cool_action</span></code> will be called.</p></li>
+<li><p>When the temperature goes below the lower temperature, <code class="docutils literal notranslate"><span class="pre">idle_action</span></code> will be called.</p></li>
+<li><p>If you change operating mode (manual mode). And it is between high and low temperature. It does not wait to get to high temperature, it starts working until it gets to low temperature.</p></li>
+</ul>
+</li>
+<li><p><strong>Heater+Cooler</strong>: For devices where the temperature can both actively be increased and decreased.</p>
+<ul>
+<li><p>When the current temperature is below the lower target temperature, <code class="docutils literal notranslate"><span class="pre">heat_action</span></code> is called.</p></li>
+<li><p>When the current temperature is within the target temperature range, <code class="docutils literal notranslate"><span class="pre">idle_action</span></code> is called.</p></li>
+<li><p>When the current temperature is above the higher target temperature, <code class="docutils literal notranslate"><span class="pre">cool_action</span></code> is called.</p></li>
+</ul>
+</li>
+</ul>
+<p>Do note that the actions are only called when the current temperature leaves the target temperature range.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/climate-ui.png"><img alt="../../_images/climate-ui.png" src="../../_images/climate-ui.png" style="width: 60.0%;" /></a>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">climate</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bang_bang</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bang</span><span class="nv"> </span><span class="s">Bang</span><span class="nv"> </span><span class="s">Climate</span><span class="nv"> </span><span class="s">Controller&quot;</span>
+<span class="w">    </span><span class="nt">sensor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_temperature_sensor</span>
+<span class="w">    </span><span class="nt">default_target_temperature_low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20 °C</span>
+<span class="w">    </span><span class="nt">default_target_temperature_high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22 °C</span>
+
+<span class="w">    </span><span class="nt">heat_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">heater</span>
+<span class="w">    </span><span class="nt">idle_action</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">switch.turn_off</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">heater</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>sensor</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): The sensor that is used to measure the current temperature.</p></li>
+<li><p><strong>humidity_sensor</strong> (<strong>Optional</strong>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): If specified, this sensor is used to measure the current humidity.
+This is used for information only and does not influence temperature control.</p></li>
+<li><p><strong>default_target_temperature_low</strong> (<strong>Required</strong>, float): The default low target temperature for
+the control algorithm. This can be dynamically set in the frontend later.</p></li>
+<li><p><strong>default_target_temperature_high</strong> (<strong>Required</strong>, float): The default high target temperature for
+the control algorithm. This can be dynamically set in the frontend later.</p></li>
+<li><p><strong>idle_action</strong> (<strong>Required</strong>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device wants to enter idle mode.</p></li>
+<li><p><strong>heat_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device wants to heating mode and increase the current temperature. At least one
+of <code class="docutils literal notranslate"><span class="pre">heat_action</span></code> and <code class="docutils literal notranslate"><span class="pre">cool_action</span></code> need to be specified.</p></li>
+<li><p><strong>cool_action</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/automations.html#config-action"><span class="std std-ref">Action</span></a>): The action to call when
+the climate device wants to cooling mode and decrease the current temperature.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-climate"><span class="std std-ref">Climate</span></a>.</p></li>
+</ul>
+<p>Advanced options:</p>
+<ul class="simple">
+<li><p><strong>away_config</strong> (<em>Optional</em>): Additionally specify target temperature range settings for away mode.
+Away mode can be used to have a second set of target temperatures (for example while the user is
+away or during nighttime)</p>
+<ul>
+<li><p><strong>default_target_temperature_low</strong> (<strong>Required</strong>, float): The default low target temperature for
+the control algorithm during away mode.</p></li>
+<li><p><strong>default_target_temperature_high</strong> (<strong>Required</strong>, float): The default high target temperature for
+the control algorithm during away mode.</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While this platform uses the term temperature everywhere, it can also be used for other values.
+For example, controlling humidity is also possible with this platform.</p>
+</div>
+</section>
+<section id="bang-bang-vs-thermostat">
+<h2>Bang-bang vs. Thermostat<a class="headerlink" href="#bang-bang-vs-thermostat" title="Permalink to this heading">¶</a></h2>
+<p>The behavior of the bang-bang controller is a topic that has surfaced on the ESPHome Discord server
+countless times – many people have been confused by what it does. While they are similar, there are
+two key differences between the bang-bang component and the <a class="reference internal" href="thermostat.html"><span class="doc">thermostat</span></a> component:</p>
+<ul class="simple">
+<li><p>When actions are triggered</p></li>
+<li><p>How the set points are used by the controller</p></li>
+</ul>
+<p>Now is a good time to ensure you understand exactly how a bang-bang controller should behave; if you do not have
+a clear understanding of this, be sure to check out the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Bang%E2%80%93bang_control">Wikipedia article</a>.</p>
+<section id="the-problem-with-dual-function-systems">
+<h3>The Problem with Dual-Function Systems<a class="headerlink" href="#the-problem-with-dual-function-systems" title="Permalink to this heading">¶</a></h3>
+<p>If you are not attempting to operate a system that can both heat and cool, you’ll likely want to skip to the next
+section about user interface.</p>
+<p>As outlined above, in general:</p>
+<ul class="simple">
+<li><p>As soon as the temperature goes below the <em>lower</em> target temperature, <code class="docutils literal notranslate"><span class="pre">heat_action</span></code> is called to activate heating.</p></li>
+<li><p>Heating will continue until the temperature reaches the <em>upper</em> target temperature, at which point <code class="docutils literal notranslate"><span class="pre">idle_action</span></code> is called to stop heating.</p></li>
+<li><p>As soon as the temperature goes above the <em>upper</em> target temperature, <code class="docutils literal notranslate"><span class="pre">cool_action</span></code> is called to activate cooling.</p></li>
+<li><p>Cooling will continue until the temperature reaches the <em>lower</em> target temperature, at which point <code class="docutils literal notranslate"><span class="pre">idle_action</span></code> is called to stop cooling.</p></li>
+</ul>
+<p>A single bang-bang controller may work well for systems that only heat or only cool; however, it begins to break down
+when applied to systems that may both heat <em>and</em> cool. This is simply because both actions are tied to both set
+points – that is, the point at which heating stops <em>is also the point at which cooling begins</em>. The reverse is also
+true: the point at which cooling stops <em>is also the point at which heating begins</em>. Let’s look at an example:</p>
+<p>Consider a system that both heats and cools. The <code class="docutils literal notranslate"><span class="pre">target_temperature_low</span></code> set point is 20 °C while the
+<code class="docutils literal notranslate"><span class="pre">target_temperature_high</span></code> set point is 22 °C. The sensor reports that the temperature is 19.75 °C, so the controller
+calls <code class="docutils literal notranslate"><span class="pre">heat_action</span></code> to activate heating. Heating continues until the temperature reaches <code class="docutils literal notranslate"><span class="pre">target_temperature_high</span></code>
+(22 °C in this case). Once this temperature is achieved, <code class="docutils literal notranslate"><span class="pre">idle_action</span></code> is called to stop heating. <em>However</em>, should
+temperature drift even slightly above <code class="docutils literal notranslate"><span class="pre">target_temperature_high</span></code>–even just a fraction of a degree for a fraction of
+a second–the controller will call <code class="docutils literal notranslate"><span class="pre">cool_action</span></code> to begin cooling. Now, cooling will continue until
+<code class="docutils literal notranslate"><span class="pre">target_temperature_low</span></code> is reached again, but, as before, should the temperature drift even slightly below
+<code class="docutils literal notranslate"><span class="pre">target_temperature_low</span></code> for even a fraction of a second, <code class="docutils literal notranslate"><span class="pre">heat_action</span></code> will be invoked again, and the cycle will
+repeat. It will “ping-pong” between the two set points, potentially forever. Oscillation at the “edges” of the
+hysteresis window, or going past the set point in either direction, should be expected; consider, for example, a heater
+that is turned off after it reaches its set point. The heating element will remain hot (potentially for quite a while),
+and as such will continue to heat the air until the element fully cools down to match the ambient air/room temperature.</p>
+<p>The <a class="reference internal" href="thermostat.html"><span class="doc">thermostat</span></a> component differs in that there is hysteresis around <em>each</em> set point. For example,
+if the <code class="docutils literal notranslate"><span class="pre">target_temperature_low</span></code> set point is 20 °C, and the (default) hysteresis value of 0.5 °C is used,
+<code class="docutils literal notranslate"><span class="pre">heat_action</span></code> is called at a temperature of 19.5 °C and <code class="docutils literal notranslate"><span class="pre">idle_action</span></code> is called at 20.5 °C. If cooling, as defined
+by <code class="docutils literal notranslate"><span class="pre">target_temperature_high</span></code>, is set to 22 °C, <code class="docutils literal notranslate"><span class="pre">cool_action</span></code> would be called at 22.5 °C and <code class="docutils literal notranslate"><span class="pre">idle_action</span></code> called
+at 21.5 °C. Again, it is essentially two bang-bang controllers in one.</p>
+<p>Behavioral differences aside, there is another important difference between these two components: user interface.</p>
+</section>
+<section id="user-interface">
+<h3>User Interface<a class="headerlink" href="#user-interface" title="Permalink to this heading">¶</a></h3>
+<p>The interaction with this component via the Home Assistant user interface is also different than what is seen on most
+common residential thermostats. Generally speaking, most thermostats allow either one or two set points – one of them
+is associated with heating while the other with cooling, and this is exactly how the <a class="reference internal" href="thermostat.html"><span class="doc">thermostat</span></a>
+component uses them. If you set the “heat” set point to 20 °C, most people assume this means the heating system will
+keep the temperature as close to 20 °C as possible. The same is true for the upper set point, for cooling: if you set
+a temperature of 22 °C, most people assume the cooling system will keep the temperature as close to 22 °C as possible.</p>
+<p>The bang-bang controller does not use the set points this way. If you set the lower set point to 20 °C and set the
+upper set point to 22 °C, then <em>the temperature will be brought as high as 22 °C but go no lower than 20 °C.</em></p>
+<p>The behavior is not difficult to understand, but, as we’ve learned from many discussions on the Discord server, it
+departs from what most people seem to expect.</p>
+</section>
+<section id="which-is-right-for-me">
+<h3>Which is Right for Me?<a class="headerlink" href="#which-is-right-for-me" title="Permalink to this heading">¶</a></h3>
+<p>It comes down to two points:</p>
+<ul class="simple">
+<li><p>If you have a dual-function system (both heating and cooling), you’ll almost certainly want to use the
+<a class="reference internal" href="thermostat.html"><span class="doc">thermostat</span></a> component.</p></li>
+<li><p>If you have a single-function system <em>and</em> have a specific need or desire to manually control both the upper and
+lower bounds for hysteresis, use the bang-bang controller.</p></li>
+</ul>
+<p>In all other situations, the <a class="reference internal" href="thermostat.html"><span class="doc">thermostat</span></a> component is probably best.</p>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html"><span class="doc">Climate Component</span></a></p></li>
+<li><p><a class="reference external" href="/api/bang__bang__climate_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/climate/bang_bang.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

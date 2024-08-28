@@ -1,0 +1,569 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up the RF Bridge in ESPHome.">
+<meta name="keywords" content="RF Bridge">
+<meta itemprop="name" content="RF Bridge Component">
+<meta itemprop="description" content="Instructions for setting up the RF Bridge in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/rf_bridge.jpg">
+<meta name="twitter:title" content="RF Bridge Component">
+<meta name="twitter:image:src" content="https://esphome.io/_images/rf_bridge.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up the RF Bridge in ESPHome.">
+<meta property="og:title" content="RF Bridge Component">
+<meta property="og:image" content="https://esphome.io/_images/rf_bridge.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up the RF Bridge in ESPHome.">
+
+    <title>RF Bridge Component &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../_static/pygments_dark.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/rf_bridge.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RP2040 Platform" href="rp2040.html" />
+    <link rel="prev" title="Remote Transmitter" href="remote_transmitter.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">RF Bridge Component</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a></li>
+<li><a class="reference internal" href="#on-code-received-trigger"><code class="docutils literal notranslate"><span class="pre">on_code_received</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#rf-bridge-send-code-action"><code class="docutils literal notranslate"><span class="pre">rf_bridge.send_code</span></code> Action</a></li>
+<li><a class="reference internal" href="#rf-bridge-send-raw-action"><code class="docutils literal notranslate"><span class="pre">rf_bridge.send_raw</span></code> Action</a></li>
+<li><a class="reference internal" href="#rf-bridge-learn-action"><code class="docutils literal notranslate"><span class="pre">rf_bridge.learn</span></code> Action</a></li>
+<li><a class="reference internal" href="#portisch-firmware">Portisch firmware</a><ul>
+<li><a class="reference internal" href="#on-advanced-code-received-trigger"><code class="docutils literal notranslate"><span class="pre">on_advanced_code_received</span></code> Trigger</a></li>
+<li><a class="reference internal" href="#rf-bridge-send-advanced-code-action"><code class="docutils literal notranslate"><span class="pre">rf_bridge.send_advanced_code</span></code> Action</a></li>
+<li><a class="reference internal" href="#rf-bridge-start-advanced-sniffing-action"><code class="docutils literal notranslate"><span class="pre">rf_bridge.start_advanced_sniffing</span></code> Action</a></li>
+<li><a class="reference internal" href="#rf-bridge-stop-advanced-sniffing-action"><code class="docutils literal notranslate"><span class="pre">rf_bridge.stop_advanced_sniffing</span></code> Action</a></li>
+<li><a class="reference internal" href="#rf-bridge-start-bucket-sniffing-action"><code class="docutils literal notranslate"><span class="pre">rf_bridge.start_bucket_sniffing</span></code> Action</a></li>
+<li><a class="reference internal" href="#rf-bridge-beep-action"><code class="docutils literal notranslate"><span class="pre">rf_bridge.beep</span></code> Action</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getting-started-with-home-assistant">Getting started with Home Assistant</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="index.html">Components</a> ➔</li>
+      <li>RF Bridge Component</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="rf-bridge-component">
+<h1>RF Bridge Component<a class="headerlink" href="#rf-bridge-component" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">RF</span> <span class="pre">Bridge</span></code> Component provides the ability to send and receive 433MHz remote codes using the
+embedded EFM8BB1 microcontroller. This component implements the communication protocol
+that the original <code class="docutils literal notranslate"><span class="pre">efm8bb1</span></code> firmware implements. The device is connected via the
+<a class="reference internal" href="uart.html"><span class="doc">UART bus</span></a>. The uart bus must be configured at the same speed of the module
+which is 19200bps.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you are using the <a class="reference internal" href="logger.html"><span class="doc">Logger Component</span></a> make sure you disable the uart logging with the
+<code class="docutils literal notranslate"><span class="pre">baud_rate:</span> <span class="pre">0</span></code> option.</p>
+</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/rf_bridge-full.jpg"><img alt="../_images/rf_bridge-full.jpg" src="../_images/rf_bridge-full.jpg" style="width: 60.0%;" /></a>
+</figure>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">uart</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">19200</span>
+
+<span class="nt">rf_bridge</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_code_received</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.event</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.rf_code_received</span>
+<span class="w">        </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">sync</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.sync);&#39;</span>
+<span class="w">          </span><span class="nt">low</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.low);&#39;</span>
+<span class="w">          </span><span class="nt">high</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.high);&#39;</span>
+<span class="w">          </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.code);&#39;</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>uart_id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the UART hub.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>on_code_received</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/automations.html#automation"><span class="std std-ref">Automation</span></a>): An action to be
+performed when a code is received. See <a class="reference internal" href="#rf-bridge-on-code-received"><span class="std std-ref">on_code_received Trigger</span></a>.</p></li>
+</ul>
+</section>
+<section id="on-code-received-trigger">
+<span id="rf-bridge-on-code-received"></span><h2><code class="docutils literal notranslate"><span class="pre">on_code_received</span></code> Trigger<a class="headerlink" href="#on-code-received-trigger" title="Permalink to this heading">¶</a></h2>
+<p>With this configuration option you can write complex automations whenever a code is
+received. To use the code, use a <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a> template, the code
+and the corresponding protocol timings are available inside that lambda under the
+variables named <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">sync</span></code>, <code class="docutils literal notranslate"><span class="pre">high</span></code> and <code class="docutils literal notranslate"><span class="pre">low</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_code_received</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.event</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.rf_code_received</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sync</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.sync);&#39;</span>
+<span class="w">        </span><span class="nt">low</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.low);&#39;</span>
+<span class="w">        </span><span class="nt">high</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.high);&#39;</span>
+<span class="w">        </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.code);&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="rf-bridge-send-code-action">
+<span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">rf_bridge.send_code</span></code> Action<a class="headerlink" href="#rf-bridge-send-code-action" title="Permalink to this heading">¶</a></h2>
+<p>Send an RF code using this action in automations.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">rf_bridge.send_code</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sync</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x700</span>
+<span class="w">        </span><span class="nt">low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x800</span>
+<span class="w">        </span><span class="nt">high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x1000</span>
+<span class="w">        </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xABC123</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>sync</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): RF Sync timing</p></li>
+<li><p><strong>low</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): RF Low timing</p></li>
+<li><p><strong>high</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): RF high timing</p></li>
+<li><p><strong>code</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): RF code</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the RF Bridge if you have multiple components.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This action can also be written in <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">id</span><span class="p">(</span><span class="n">rf_bridge</span><span class="p">).</span><span class="n">send_code</span><span class="p">(</span><span class="mh">0x700</span><span class="p">,</span><span class="w"> </span><span class="mh">0x800</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1000</span><span class="p">,</span><span class="w"> </span><span class="mh">0xABC123</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="rf-bridge-send-raw-action">
+<span id="id2"></span><h2><code class="docutils literal notranslate"><span class="pre">rf_bridge.send_raw</span></code> Action<a class="headerlink" href="#rf-bridge-send-raw-action" title="Permalink to this heading">¶</a></h2>
+<p>Send a raw command to the onboard EFM8BB1 chip.
+You can see a list of available commands and format in the <a class="reference external" href="https://github.com/Portisch/RF-Bridge-EFM8BB1/wiki/Commands">Portisch Wiki</a></p>
+<p>This can be used to send raw RF codes in automation’s, mainly for protocols that are not supported.
+If you have <em>Portisch</em> firmware installed, these raw codes can be obtained with the help of <a class="reference internal" href="#rf-bridge-start-bucket-sniffing-action"><span class="std std-ref">rf_bridge.start_bucket_sniffing Action</span></a></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">rf_bridge.send_raw</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">raw</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AAA5070008001000ABC12355</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>raw</strong> (<strong>Required</strong>, string, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): RF raw string</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the RF Bridge if you have multiple components.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This action can also be written in <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">id</span><span class="p">(</span><span class="n">rf_bridge</span><span class="p">).</span><span class="n">send_raw</span><span class="p">(</span><span class="s">&quot;AAA5070008001000ABC12355&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="rf-bridge-learn-action">
+<span id="id3"></span><h2><code class="docutils literal notranslate"><span class="pre">rf_bridge.learn</span></code> Action<a class="headerlink" href="#rf-bridge-learn-action" title="Permalink to this heading">¶</a></h2>
+<p>Tell the RF Bridge to learn new protocol timings using this action in automations.
+A new code with timings will be returned to <a class="reference internal" href="#rf-bridge-on-code-received"><span class="std std-ref">on_code_received Trigger</span></a></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rf_bridge.learn</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the RF Bridge if you have multiple components.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This action can also be written in <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">id</span><span class="p">(</span><span class="n">rf_bridge</span><span class="p">).</span><span class="n">learn</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="portisch-firmware">
+<h2>Portisch firmware<a class="headerlink" href="#portisch-firmware" title="Permalink to this heading">¶</a></h2>
+<p>If you have flashed the secondary MCU with the <a class="reference external" href="https://github.com/Portisch/RF-Bridge-EFM8BB1">Portisch firmware</a>,
+ESPHome is able to receive the extra protocols that can be decoded as well as activate the other modes supported.</p>
+<section id="on-advanced-code-received-trigger">
+<span id="rf-bridge-on-advanced-code-received"></span><h3><code class="docutils literal notranslate"><span class="pre">on_advanced_code_received</span></code> Trigger<a class="headerlink" href="#on-advanced-code-received-trigger" title="Permalink to this heading">¶</a></h3>
+<p>Similar to <a class="reference internal" href="#rf-bridge-on-code-received"><span class="std std-ref">on_code_received Trigger</span></a>, this trigger receives the codes after advanced sniffing is started.
+To use the code, use a <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambda</span></a> template, the code and the corresponding protocol and length
+are available inside that lambda under the variables named <code class="docutils literal notranslate"><span class="pre">code</span></code>, <code class="docutils literal notranslate"><span class="pre">protocol</span></code> and <code class="docutils literal notranslate"><span class="pre">length</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_advanced_code_received</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.event</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.rf_advanced_code_received</span>
+<span class="w">      </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">length</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.length);&#39;</span>
+<span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.protocol);&#39;</span>
+<span class="w">        </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">data.code;&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="rf-bridge-send-advanced-code-action">
+<span id="id4"></span><h3><code class="docutils literal notranslate"><span class="pre">rf_bridge.send_advanced_code</span></code> Action<a class="headerlink" href="#rf-bridge-send-advanced-code-action" title="Permalink to this heading">¶</a></h3>
+<p>Send an  RF code using this action in automations.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">rf_bridge.send_advanced_code</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x04</span>
+<span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x01</span>
+<span class="w">        </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ABC123&quot;</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>length</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): Length of code plus protocol</p></li>
+<li><p><strong>protocol</strong> (<strong>Required</strong>, int, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): RF Protocol</p></li>
+<li><p><strong>code</strong> (<strong>Required</strong>, string, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): RF code</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the RF Bridge if you have multiple components.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This action can also be written in <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">id</span><span class="p">(</span><span class="n">rf_bridge</span><span class="p">).</span><span class="n">send_advanced_code</span><span class="p">(</span><span class="mh">0x04</span><span class="p">,</span><span class="w"> </span><span class="mh">0x01</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ABC123&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="rf-bridge-start-advanced-sniffing-action">
+<span id="id5"></span><h3><code class="docutils literal notranslate"><span class="pre">rf_bridge.start_advanced_sniffing</span></code> Action<a class="headerlink" href="#rf-bridge-start-advanced-sniffing-action" title="Permalink to this heading">¶</a></h3>
+<p>Tell the RF Bridge to listen for the advanced/extra protocols defined in the portisch firmware.
+The decoded codes with length and protocol will be returned to <a class="reference internal" href="#rf-bridge-on-advanced-code-received"><span class="std std-ref">on_advanced_code_received Trigger</span></a></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rf_bridge.start_advanced_sniffing</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the RF Bridge if you have multiple components.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This action can also be written in <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">id</span><span class="p">(</span><span class="n">rf_bridge</span><span class="p">).</span><span class="n">start_advanced_sniffing</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="rf-bridge-stop-advanced-sniffing-action">
+<span id="id6"></span><h3><code class="docutils literal notranslate"><span class="pre">rf_bridge.stop_advanced_sniffing</span></code> Action<a class="headerlink" href="#rf-bridge-stop-advanced-sniffing-action" title="Permalink to this heading">¶</a></h3>
+<p>Tell the RF Bridge to stop listening for the advanced/extra protocols defined in the portisch firmware.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rf_bridge.stop_advanced_sniffing</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the RF Bridge if you have multiple components.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This action can also be written in <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">id</span><span class="p">(</span><span class="n">rf_bridge</span><span class="p">).</span><span class="n">stop_advanced_sniffing</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="rf-bridge-start-bucket-sniffing-action">
+<span id="id7"></span><h3><code class="docutils literal notranslate"><span class="pre">rf_bridge.start_bucket_sniffing</span></code> Action<a class="headerlink" href="#rf-bridge-start-bucket-sniffing-action" title="Permalink to this heading">¶</a></h3>
+<p>Tell the RF Bridge to dump raw sniffing data. Useful for getting codes for unsupported protocols.
+The raw data will be available in the log and can later be used with <a class="reference internal" href="#rf-bridge-send-raw-action"><span class="std std-ref">rf_bridge.send_raw Action</span></a> action.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A conversion from <em>B1</em> (received) raw format to <em>B0</em> (send) raw command format should be applied.
+For this, you can use the tool <a class="reference external" href="https://bbconv.hrbl.pl/">BitBucket Converter</a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There seems to be an overflow problem in Portisch firmware and after a short while, the bucket sniffing stops.
+You should re-call the action to reset and start sniffing again.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rf_bridge.start_bucket_sniffing</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the RF Bridge if you have multiple components.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This action can also be written in <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">id</span><span class="p">(</span><span class="n">rf_bridge</span><span class="p">).</span><span class="n">start_bucket_sniffing</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="rf-bridge-beep-action">
+<span id="id8"></span><h3><code class="docutils literal notranslate"><span class="pre">rf_bridge.beep</span></code> Action<a class="headerlink" href="#rf-bridge-beep-action" title="Permalink to this heading">¶</a></h3>
+<p>Activate the internal buzzer to make a beep.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">on_...</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">rf_bridge.beep</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</pre></div>
+</div>
+<p>Configuration options:</p>
+<ul class="simple">
+<li><p><strong>duration</strong> (<strong>Required</strong>, string, <a class="reference internal" href="../guides/automations.html#config-templatable"><span class="std std-ref">templatable</span></a>): beep duration in milliseconds.</p></li>
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID of the RF Bridge if you have multiple components.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This action can also be written in <a class="reference internal" href="../guides/automations.html#config-lambda"><span class="std std-ref">lambdas</span></a>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">id</span><span class="p">(</span><span class="n">rf_bridge</span><span class="p">).</span><span class="n">beep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="getting-started-with-home-assistant">
+<h2>Getting started with Home Assistant<a class="headerlink" href="#getting-started-with-home-assistant" title="Permalink to this heading">¶</a></h2>
+<p>The following code will get you up and running with a configuration sending codes to
+Home Assistant as events and will also setup a service so you can send codes with your RF Bridge.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">services</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">send_rf_code</span>
+<span class="w">      </span><span class="nt">variables</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sync</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">        </span><span class="nt">low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">        </span><span class="nt">high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">        </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">rf_bridge.send_code</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">sync</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">sync;&#39;</span>
+<span class="w">            </span><span class="nt">low</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">low;&#39;</span>
+<span class="w">            </span><span class="nt">high</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">high;&#39;</span>
+<span class="w">            </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">code;&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">learn</span>
+<span class="w">      </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rf_bridge.learn</span>
+
+<span class="nt">uart</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tx_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">rx_pin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">19200</span>
+
+<span class="nt">logger</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+
+<span class="nt">rf_bridge</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">on_code_received</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">then</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">homeassistant.event</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.rf_code_received</span>
+<span class="w">          </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">sync</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.sync);&#39;</span>
+<span class="w">            </span><span class="nt">low</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.low);&#39;</span>
+<span class="w">            </span><span class="nt">high</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.high);&#39;</span>
+<span class="w">            </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="kt">!lambda</span><span class="w"> </span><span class="s">&#39;return</span><span class="nv"> </span><span class="s">format_hex(data.code);&#39;</span>
+</pre></div>
+</div>
+<p>Now your latest received code will be in an event.</p>
+<p>To trigger the automation from Home Assistant you can invoke the service with this code:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">automation</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="nt">action</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esphome.rf_bridge_send_rf_code</span>
+<span class="w">    </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">sync</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x700</span>
+<span class="w">      </span><span class="nt">low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x800</span>
+<span class="w">      </span><span class="nt">high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x1000</span>
+<span class="w">      </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xABC123</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/api/rf__bridge_8h.html">API Reference</a></p></li>
+<li><p><a class="reference internal" href="../cookbook/lambda_magic.html#lambda-magic-rf-queues"><span class="std std-ref">Delaying Remote Transmissions</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/Portisch/RF-Bridge-EFM8BB1">RF-Bridge-EFM8BB1</a> by <a class="reference external" href="https://github.com/Portisch">Portisch</a></p></li>
+<li><p><a class="reference internal" href="uart.html"><span class="doc">UART Bus</span></a></p></li>
+<li><p><a class="reference internal" href="remote_receiver.html"><span class="doc">Remote Receiver</span></a></p></li>
+<li><p><a class="reference internal" href="remote_transmitter.html"><span class="doc">Remote Transmitter</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/rf_bridge.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>

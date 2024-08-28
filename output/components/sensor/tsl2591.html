@@ -1,0 +1,430 @@
+
+  <!DOCTYPE html>
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta name="description" content="Instructions for setting up TSL2591 ambient light sensors in ESPHome.">
+<meta name="keywords" content="TSL2591">
+<meta itemprop="name" content="TSL2591 Ambient Light Sensor">
+<meta itemprop="description" content="Instructions for setting up TSL2591 ambient light sensors in ESPHome.">
+<meta itemprop="image" content="https://esphome.io/_images/tsl2591.jpg">
+<meta name="twitter:title" content="TSL2591 Ambient Light Sensor">
+<meta name="twitter:image:src" content="https://esphome.io/_images/tsl2591.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@OttoWinter_">
+<meta name="twitter:description" content="Instructions for setting up TSL2591 ambient light sensors in ESPHome.">
+<meta property="og:title" content="TSL2591 Ambient Light Sensor">
+<meta property="og:image" content="https://esphome.io/_images/tsl2591.jpg">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Instructions for setting up TSL2591 ambient light sensors in ESPHome.">
+
+    <title>TSL2591 Ambient Light Sensor &#8212; ESPHome</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="../../_static/pygments_dark.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="canonical" href="https://esphome.io/components/sensor/tsl2591.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Tuya Sensor" href="tuya.html" />
+    <link rel="prev" title="TSL2561 Ambient Light Sensor" href="tsl2561.html" />
+  <link href="/pagefind/pagefind-modular-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../_static/custom.css?hash=573f3103" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/_static/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/_static/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/_static/favicon-512x512.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/_static/favicon-256x256.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_static/favicon-192x192.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/_static/favicon-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_static/favicon-16x16.png">
+  <link rel="manifest" href="/_static/site.webmanifest">
+  <link rel="mask-icon" href="/_static/safari-pinned-tab.svg" color="#646464">
+  <link rel="me" href="https://fosstodon.org/@esphome">
+  <meta name="apple-mobile-web-app-title" content="ESPHome">
+  <meta name="application-name" content="ESPHome">
+  <meta name="msapplication-TileColor" content="#dfdfdf">
+  <meta name="msapplication-config" content="/_static/browserconfig.xml">
+  <meta name="theme-color" content="#dfdfdf">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta property="og:site_name" content="ESPHome">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo-text.svg" alt="Logo"/>
+            </a></p><script src="/pagefind/pagefind-modular-ui.js"></script>
+<div class="pagefind-ui__form" id="search"></div>
+<div class="search-results" id="mobile-search-results"></div>
+<script>
+    let callbackAdded = null;
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const std_target = document.getElementById("search-results");
+        const mobile_target = document.getElementById("mobile-search-results");
+        const inpel = document.getElementById("search");
+
+        function showTarget() {
+            var target = std_target;
+            if (window.innerWidth <= 875) {
+                target = mobile_target;
+                std_target.style.display = "none";
+            } else {
+                mobile_target.style.display = "none";
+            }
+            target.style.display = "block";
+            const rect = target.getBoundingClientRect();
+            const height = window.innerHeight;
+            target.style.width = "100%";
+            target.style.height = "fit-content";
+            target.style.maxHeight = (height - rect.top - 10) + "px";
+            if (!callbackAdded) {
+                callbackAdded = true;
+                document.addEventListener('click', clickCallback);
+            }
+        }
+
+        function hideTargets() {
+            std_target.style.display = "none";
+            mobile_target.style.display = "none";
+            std_target.style.height = "0";
+            mobile_target.style.height = "0";
+            if (callbackAdded) {
+                document.removeEventListener('click', clickCallback);
+                callbackAdded = false;
+            }
+        }
+
+
+        const instance = new PagefindModularUI.Instance({
+            showSubResults: true,
+            showImages: false,
+            ranking: {
+                pageLength: 0.0,
+                termSaturation: 1.6,
+                termFrequency: 0.4,
+                termSimilarity: 6.0
+            }
+        });
+
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#search-results"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#mobile-search-results"
+        }));
+
+        const clickCallback = (event) => {
+            const path = event.composedPath();
+            if (path.includes(std_target) || path.includes(mobile_target) || path.includes(inpel))
+                return;
+            hideTargets();
+        };
+        if (std_target && mobile_target) {
+            instance.on("results", (results) => {
+                if (results.results.length) {
+                    showTarget();
+                } else {
+                    hideTargets();
+                }
+            });
+        }
+    });
+</script>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">TSL2591 Ambient Light Sensor</a><ul>
+<li><a class="reference internal" href="#configuration-variables">Configuration variables:</a><ul>
+<li><a class="reference internal" href="#power-save-mode">Power save mode</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><hr />
+<ul>
+    <li><a href="https://discord.gg/KhAMKrd" target="_blank">Join the community</a></li>
+    <li><a href="https://twitter.com/esphome_" target="_blank">Follow us on Twitter</a></li>
+    <li><a href="https://github.com/esphome/esphome" target="_blank">Source Code</a></li>
+    <li><a href="mailto:esphome@nabucasa.com">Contact</a> (no support!)</li>
+</ul>
+ESPHome is an open source project by <a href="https://www.nabucasa.com" target="_blank">Nabu Casa</a>
+<ul>
+    <li><a href="https://www.netlify.com" target="_blank">This site is powered by Netlify</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+  <ul class="breadcrumbs">
+  
+      <li><a href="../index.html">Components</a> ➔</li>
+      <li><a href="index.html">Sensor Component</a> ➔</li>
+      <li>TSL2591 Ambient Light Sensor</li>
+
+  
+  </ul>
+  <div class="search-results" id="search-results"></div>
+
+
+          <div class="body" role="main">
+            
+  <section id="tsl2591-ambient-light-sensor">
+<h1>TSL2591 Ambient Light Sensor<a class="headerlink" href="#tsl2591-ambient-light-sensor" title="Permalink to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">tsl2591</span></code> sensor platform allows you to use the AMS TSL2591 ambient light sensor with ESPHome.
+Communication with the device is over <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C</span></a>, which must be present in your configuration.</p>
+<p>The TSL2591 device is available on breakout boards from a few vendors
+(for example, <a class="reference external" href="http://www.adafruit.com/products/1980">Adafruit</a>, <a class="reference external" href="https://www.cqrobot.com/index.php?route=product/product&amp;product_id=1112">CQRobot</a>, <a class="reference external" href="https://www.waveshare.net/shop/TSL25911-Light-Sensor.htm">Waveshare</a>).</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/tsl2591.jpg"><img alt="../../_images/tsl2591.jpg" src="../../_images/tsl2591.jpg" style="width: 50.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">TSL2591 Ambient Light Sensor on a breakout board.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../../_images/tsl2591-ui.jpg"><img alt="../../_images/tsl2591-ui.jpg" src="../../_images/tsl2591-ui.jpg" style="width: 100.0%;" /></a>
+<figcaption>
+<p><span class="caption-text">TSL2591 sensors in Home Assistant UI.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The sensor claims a dynamic range of 600 million to 1 with an effective maximum of 88000 lux.
+It achieves that large range by having a configurable <code class="docutils literal notranslate"><span class="pre">gain</span></code> value.
+For many applications, you can use AUTO gain to have the ESP select a suitable gain setting based on
+the previous measurement. If light levels change dramatically this may cause the next reading to saturate,
+after which the gain will adjust down and subsequent readings will be in range.
+Use a higher gain value when measuring less intense light sources.
+On the other hand, if you get ADC readings of 65,535 for either physical sensor,
+you may be saturating that sensor and need to reduce the gain.
+This Wikipedia <a class="reference external" href="https://en.wikipedia.org/wiki/Lux">article</a> has a table of some lux values for comparison.</p>
+<p>The implementation offers four sensors.
+Only one of them, <code class="docutils literal notranslate"><span class="pre">calculated_lux</span></code>, is a true <code class="docutils literal notranslate"><span class="pre">lux</span></code> value, and even that is a bit subjective.
+(For information about the difference between radiometric and photometric measurements, see the references.)
+The other sensors are unitless readings from the device’s on-board ADCs for the physical sensors.
+The two physical sensors measure “visible and infrared” (channel 0) and “infrared” (channel 1), respectively.
+However, the sensor readings here also provide the simple “visible” value separately.
+The visible value is obtained by subtracting the reading of the physical infrared sensor
+(channel 1) from the value of the physical sensor that combines visible and infrared (channel 0).
+Since those are two different physical infrared sensor readings, there is the possibility of a small inaccuracy.</p>
+<ul class="simple">
+<li><p><strong>full_spectrum</strong>: Raw 16 bit reading from the on-board ADC for the physical sensor for visible and infrared light (channel 0).</p></li>
+<li><p><strong>infrared</strong>: Raw 16 bit reading from the on-board ADC for the physical sensor for infrared light (channel 1).</p></li>
+<li><p><strong>visible</strong>: For convenience, a value calculated by taking the difference between the two physical sensors (channel 0 minus channel 1).</p></li>
+<li><p><strong>calculated_lux</strong>: This is a calculated value for lux based on the readings of the
+physical sensors, the configured gain, and the configured integration time.
+For details of the actual calculation, which can depend on additional physical properties,
+see method <code class="docutils literal notranslate"><span class="pre">get_calculated_lux()</span></code> in the API reference.
+There are configuration items for the device factor and the glass attenuation factor that go into the lux equation.
+If you are not happy with that built-in calculation, you have the raw data you need to do your own.
+The manufacturer, AMS, has a few application notes that discuss this topic.
+See the references.</p></li>
+<li><p><strong>actual_gain</strong>: The actual gain value being used for values reported. Updates whenever <code class="docutils literal notranslate"><span class="pre">gain</span></code> is changed,
+which is especially useful when the sensor is set to <code class="docutils literal notranslate"><span class="pre">gain:</span> <span class="pre">auto</span></code> to help denote relative brightness when
+extreme changes in brightness are encountered.</p></li>
+</ul>
+<p>Values reported are said to be in units of <code class="docutils literal notranslate"><span class="pre">lux</span></code>, but there are some things to understand about that.</p>
+<ul class="simple">
+<li><p>The gain multiplier values that can be configured are only approximations.
+The sensor will use something close to it, but the exact value can vary from device to device.
+There is no way to ask the device what precise gain value it is using.
+See the TSL2591 datasheet for the specific device characteristic ranges.</p></li>
+<li><p>The measurement of any lux value requires careful calibration for the light frequency
+or frequencies under measurement, conversion coefficients for the specific device, and other factors.
+In short, to really get a true lux value measurement, you should do a laboratory-grade calibration specific to your use case.
+If you are the sort of person who can do a laboratory-grade calibration, you probably knew all of that already.</p></li>
+<li><p>Even considering the above points, you can still get values that will be “in the ballpark” without calibration.
+This is especially true if you just want to distinguish among “no light”, “a little bit of light”,
+“a lot of light”, or something similar.</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example configuration entry</span>
+<span class="nt">i2c</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="nt">sensor</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tsl2591</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;This</span><span class="nv"> </span><span class="s">little</span><span class="nv"> </span><span class="s">light</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">mine&quot;</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my_tls2591&quot;</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x29</span>
+<span class="w">    </span><span class="nt">update_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+<span class="w">    </span><span class="nt">gain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
+<span class="w">    </span><span class="nt">device_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">53</span>
+<span class="w">    </span><span class="nt">glass_attenuation_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">14.4</span>
+<span class="w">    </span><span class="nt">visible</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TSL2591</span><span class="nv"> </span><span class="s">visible</span><span class="nv"> </span><span class="s">light&quot;</span>
+<span class="w">    </span><span class="nt">infrared</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TSL2591</span><span class="nv"> </span><span class="s">infrared</span><span class="nv"> </span><span class="s">light&quot;</span>
+<span class="w">    </span><span class="nt">full_spectrum</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TSL2591</span><span class="nv"> </span><span class="s">full</span><span class="nv"> </span><span class="s">spectrum</span><span class="nv"> </span><span class="s">light&quot;</span>
+<span class="w">    </span><span class="nt">calculated_lux</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">i_lux</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TSL2591</span><span class="nv"> </span><span class="s">Lux&quot;</span>
+<span class="w">    </span><span class="nt">actual_gain</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;actual_gain&quot;</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TSL2591</span><span class="nv"> </span><span class="s">actual</span><span class="nv"> </span><span class="s">gain&quot;</span>
+</pre></div>
+</div>
+<section id="configuration-variables">
+<h2>Configuration variables:<a class="headerlink" href="#configuration-variables" title="Permalink to this heading">¶</a></h2>
+<p>For the TSL2591 device:</p>
+<ul class="simple">
+<li><p><strong>id</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-id"><span class="std std-ref">ID</span></a>): Manually specify the ID used for code generation.</p></li>
+<li><p><strong>name</strong> (<em>Optional</em>, string): A user-friendly name for this TSL2591 device.</p></li>
+<li><p><strong>address</strong> (<em>Optional</em>, int): Manually specify the I²C address of the device.
+Defaults to <code class="docutils literal notranslate"><span class="pre">0x29</span></code>.
+It is not possible to change this for this device without additional hardware.
+It also automatically uses a secondary address of <code class="docutils literal notranslate"><span class="pre">0x28</span></code> (see the datasheet),
+making that address unavailable for other devices on the same I²C bus.</p></li>
+<li><p><strong>integration_time</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>):
+The time the device will use for each measurement. Longer means more accurate values.
+You cannot specify an arbitrary amount of time. It must be the equivalent of one of:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">100ms</span></code>   <em>(default)</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">200ms</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">300ms</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">400ms</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">500ms</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">600ms</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>gain</strong> (<em>Optional</em>, string): The gain the device will use. Higher values are better in low-light conditions.
+Multipliers here are approximate. Values below on the same line are aliases.
+You cannot specify an arbitrary gain multiplier. It must be one of:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">low</span></code>, <code class="docutils literal notranslate"><span class="pre">1x</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">medium</span></code>, <code class="docutils literal notranslate"><span class="pre">med</span></code>, <code class="docutils literal notranslate"><span class="pre">25x</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">high</span></code>, <code class="docutils literal notranslate"><span class="pre">400x</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">maximum</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">9500x</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auto</span></code> <em>(default)</em></p></li>
+</ul>
+</li>
+<li><p><strong>update_interval</strong> (<em>Optional</em>, <a class="reference internal" href="../../guides/configuration-types.html#config-time"><span class="std std-ref">Time</span></a>): The interval for checking the sensors.
+Defaults to <code class="docutils literal notranslate"><span class="pre">60s</span></code>.</p></li>
+<li><p><strong>power_save_mode</strong> (<em>Optional</em>, boolean): Should the device be powered down between update intervals?
+Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>device_factor</strong> (<em>Optional</em>, float): The default is <code class="docutils literal notranslate"><span class="pre">53.0</span></code>.
+The device factor to be used as part of the lux equation for <code class="docutils literal notranslate"><span class="pre">calculated_lux</span></code>.</p></li>
+<li><p><strong>glass_attenuation_factor</strong> (<em>Optional</em>, float): The default is <code class="docutils literal notranslate"><span class="pre">7.7</span></code>.
+The glass attenuation factor to be used as part of the lux equation for <code class="docutils literal notranslate"><span class="pre">calculated_lux</span></code>.</p></li>
+<li><p>All other options for I²C devices described at <a class="reference internal" href="../i2c.html#i2c"><span class="std std-ref">I²C Bus</span></a>.</p></li>
+</ul>
+<p>You can configure all or any subset of the sensors described earlier.
+Each configured sensor is reported separately on each <code class="docutils literal notranslate"><span class="pre">update_interval</span></code>.</p>
+<ul class="simple">
+<li><p><strong>full_spectrum</strong> (<em>Optional</em>): The reading for the full spectrum sensor.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the sensor.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>infrared</strong> (<em>Optional</em>): The reading for the infrared sensor.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the sensor.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>visible</strong> (<em>Optional</em>): The reading for visible light.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the sensor.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>calculated_lux</strong> (<em>Optional</em>): The value of the calculated lux.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the sensor.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+<li><p><strong>actual_gain</strong> (<em>Optional</em>): The value of gain used for reported values. Particularly useful when gain is set to “auto”.</p>
+<ul>
+<li><p><strong>name</strong> (<strong>Required</strong>, string): The name for the sensor.</p></li>
+<li><p>All other options from <a class="reference internal" href="index.html#config-sensor"><span class="std std-ref">Sensor</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+<section id="power-save-mode">
+<h3>Power save mode<a class="headerlink" href="#power-save-mode" title="Permalink to this heading">¶</a></h3>
+<p>Sensor readings are only taken when the device indicates that the ADC values are valid.
+If the device is powered down between readings,
+there is a delay for the ADC to go through an integration cycle before a reliable reading is available.
+The delay is appoximately the configured integration time.
+The implementation uses asynchronous delays to wait for the ADC readings to become available.
+This avoids slowing down the overall ESPHome update loop,
+but it means that the publishing of state updates for the TSL2591 might come slightly later.</p>
+<p>If you use the TSL2591 API to change the gain or integration time value,
+the device is internally disabled and re-enabled.
+Otherwise, the next set of ADC readings would be unreliable
+because the current ADC integration cycle will have been done with mixed gain values.
+(The ADCs are not automatically “aware” that the gain or integration time was changed.)
+Even if power save mode is not enabled, there can be the same sort of slight
+delay for the first sensor reading after the change if it happens to come at an unlucky time.</p>
+<p>Since the delays are only a fraction of a second (a maximum of 600-700 ms)
+and update intervals are typically many seconds,
+the delays are not generally very interesting.
+To see if delays are occurring, you can turn on debug logging.</p>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#sensor-filters"><span class="std std-ref">Sensor Filters</span></a></p></li>
+<li><p><a class="reference external" href="https://ams.com/tsl25911#tab/documents">AMS TSL2591 document library</a></p></li>
+<li><p><a class="reference external" href="https://ams.com/documents/20143/36005/TSL2591_DS000338_6-00.pdf">AMS TSL2591 datasheet</a></p></li>
+<li><p>AMS Application Note, <a class="reference external" href="https://ams.com/documents/20143/36005/AmbientLightSensors_AN000173_2-00.pdf">Developing a Custom Lux Equation</a></p></li>
+<li><p><a class="reference external" href="https://www.thorlabs.de/catalogPages/506.pdf">Radiometric vs. Photometric Units</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adafruit/Adafruit_TSL2591_Library">Adafruit TSL2591 Arduino Library</a> by <a class="reference external" href="https://adafruit.com/">Adafruit</a> <em>(for comparison only)</em></p></li>
+<li><p><a class="reference external" href="https://github.com/waveshare/TSL2591X-Light-Sensor">Waveshare TSL2591 Libraries</a> by <a class="reference external" href="https://www.waveshare.net/">Waveshare Electronics</a> <em>(for comparison only)</em></p></li>
+<li><p><a class="reference internal" href="tsl2561.html"><span class="doc">TSL2561 Ambient Light Sensor</span></a></p></li>
+<li><p><a class="reference internal" href="bh1750.html"><span class="doc">BH1750 Ambient Light Sensor</span></a></p></li>
+<li><p><a class="reference external" href="https://hackaday.io/project/176690-the-water-watcher">The Water Watcher (a DIY project using a TSL2591)</a></p></li>
+<li><p><a class="reference external" href="/api/tsl2591_8h.html">API Reference</a></p></li>
+<li><p><a class="reference external" href="https://github.com/esphome/esphome-docs/blob/current/components/sensor/tsl2591.rst">Edit this page on GitHub</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+  <div id="upgrade-footer">
+    A new version has been released since you last visited this page: 2024.5.4 🎉
+    <div class="footer-button-container">
+      <div role="button" id="upgrade-footer-dismiss" class="footer-button">Dismiss</div>
+      <a id="upgrade-footer-changelog" class="footer-button" href="/changelog/2024.5.0.html">View Changelog</a>
+    </div>
+  </div>
+  <script>
+    var old = window.localStorage.getItem("version");
+    if (old === null || window.location.pathname.lastIndexOf("/changelog/", 0) === 0) { window.localStorage.setItem("version", "2024.5");
+    } else if (old !== "2024.5") {
+      const footerEl = document.getElementById("upgrade-footer");
+      footerEl.classList.add("not-hidden");
+      footerEl.addEventListener('click', function () {
+        window.localStorage.setItem("version", "2024.5");
+        footerEl.classList.remove("not-hidden");
+      });
+    }
+  </script>
+
+  </body>
+</html>
